@@ -168,7 +168,8 @@ def download_assets(bucket, folder_name, asset_keys):
                 success = future.result()
                 if success:
                     # Store the relative path for template usage
-                    downloaded_assets[task['asset_type']] = f"assets/{task['filename']}"
+                    downloaded_assets[f"{task['asset_type']}_path"] = f"assets/{task['filename']}"
+                    # downloaded_assets[task['asset_type']] = f"assets/{task['filename']}"
                     logger.info(f"Downloaded {task['asset_type']} to {task['local_path']}")
             except Exception as e:
                 logger.error(f"Exception downloading {task['asset_key']}: {e}")
