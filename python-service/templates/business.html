@@ -5,33 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ headline }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <style>
+        /* Define theme colors from the dynamic color scheme */
+        :root {
+            --color-primary: {{ colors.primary }};
+            --color-secondary: {{ colors.secondary }};
+            --color-background: {{ colors.background }};
+            --color-text: {{ colors.text }};
+        }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .border-primary { border-color: var(--color-primary); }
+        .bg-secondary { background-color: var(--color-secondary); }
+        .text-secondary { color: var(--color-secondary); }
+    </style>
 </head>
 <body class="bg-gray-100">
     <header class="bg-white shadow">
         <div class="max-w-6xl mx-auto px-4 py-6">
-            <h1 class="text-3xl font-bold text-gray-900">{{ headline }}</h1>
-            <p class="mt-2 text-lg text-gray-600">{{ tagline }}</p>
+            <div class="flex items-center justify-between">
+                {% if logo_path %}
+                <div class="flex items-center">
+                    <img src="{{ logo_path }}" alt="{{ headline }} logo" class="h-16 mr-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">{{ headline }}</h1>
+                        <p class="mt-2 text-lg text-gray-600">{{ tagline }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">{{ headline }}</h1>
+                    <p class="mt-2 text-lg text-gray-600">{{ tagline }}</p>
+                </div>
+                {% endif %}
+            </div>
         </div>
     </header>
     
     <main class="max-w-6xl mx-auto px-4 py-8">
         <!-- Hero section -->
-        {% if banner %}
+        {% if banner_path %}
         <div class="mb-8 overflow-hidden rounded-lg shadow-lg">
-            <img src="{{ banner }}" alt="{{ headline }}" class="w-full">
+            <img src="{{ banner_path }}" alt="{{ headline }}" class="w-full">
         </div>
         {% endif %}
         
         <!-- About section -->
         <section class="bg-white shadow rounded-lg p-6 mb-8">
-            <h2 class="text-xl font-semibold mb-4">About Us</h2>
+            <h2 class="text-xl font-semibold mb-4 text-primary">About Us</h2>
             <p class="text-gray-700">{{ about }}</p>
         </section>
         
         <!-- Services section -->
         {% if services %}
         <section class="bg-white shadow rounded-lg p-6 mb-8">
-            <h2 class="text-xl font-semibold mb-4">Our Services</h2>
+            <h2 class="text-xl font-semibold mb-4 text-primary">Our Services</h2>
             <ul class="list-disc pl-5 space-y-2">
                 {% for service in services %}
                 <li class="text-gray-700">{{ service }}</li>
@@ -42,14 +70,20 @@
         
         <!-- Contact section -->
         <section class="bg-white shadow rounded-lg p-6">
-            <h2 class="text-xl font-semibold mb-4">Contact Us</h2>
+            <h2 class="text-xl font-semibold mb-4 text-primary">Contact Us</h2>
             <div class="space-y-2">
                 {% if email %}
-                <p class="text-gray-700">Email: {{ email }}</p>
+                <p class="text-gray-700">
+                    <span class="font-medium">Email:</span> 
+                    <a href="mailto:{{ email }}" class="text-primary hover:underline">{{ email }}</a>
+                </p>
                 {% endif %}
                 
                 {% if phone %}
-                <p class="text-gray-700">Phone: {{ phone }}</p>
+                <p class="text-gray-700">
+                    <span class="font-medium">Phone:</span> 
+                    <a href="tel:{{ phone }}" class="text-primary hover:underline">{{ phone }}</a>
+                </p>
                 {% endif %}
                 
                 {% if social %}
@@ -65,11 +99,27 @@
                         {% if social.instagram %}
                         <a href="https://instagram.com/{{ social.instagram }}" target="_blank" class="text-pink-600 hover:underline">Instagram</a>
                         {% endif %}
+                        {% if social.linkedin %}
+                        <a href="{{ social.linkedin }}" target="_blank" class="text-blue-700 hover:underline">LinkedIn</a>
+                        {% endif %}
                     </div>
                 </div>
                 {% endif %}
             </div>
         </section>
+        
+        {% if addOns and addOns|length > 0 %}
+        <section class="bg-white shadow rounded-lg p-6 mt-8">
+            <h2 class="text-xl font-semibold mb-4 text-primary">Premium Features</h2>
+            <div class="flex flex-wrap gap-4">
+                {% for addon in addOns %}
+                <div class="bg-gray-50 rounded-md px-4 py-2 border border-gray-200">
+                    {{ addon }}
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
     </main>
     
     <footer class="bg-gray-800 text-white mt-12">
