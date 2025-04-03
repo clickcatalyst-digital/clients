@@ -39,7 +39,7 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOMAIN_NAME: clickcatalyst.digital
+          # DOMAIN_NAME: clickcatalyst.digital
           GITHUB_PAGES_TARGET: clickcatalyst-digital.github.io
         run: |
           python -c "
@@ -106,31 +106,20 @@ jobs:
               }
               
               downloaded_assets = download_assets(bucket, folder_name, asset_keys)
-              
-              # Create a basic template if none exists
-              from jinja2 import Environment, FileSystemLoader, Template
-              default_template = '''<!DOCTYPE html>
-              <html>
-              <head>
-                  <title>{{ headline }}</title>
-                  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
-              </head>
-              <body class='bg-gray-100'>
-                  <header class='bg-white shadow'>
-                      <div class='max-w-6xl mx-auto px-4 py-6'>
-                          <h1 class='text-3xl font-bold'>{{ headline }}</h1>
-                          <p class='mt-2'>{{ tagline }}</p>
-                      </div>
-                  </header>
-                  <main class='max-w-6xl mx-auto p-4 mt-8'>
-                      <p>{{ about }}</p>
-                  </main>
-              </body>
-              </html>'''
-              
-              # Generate HTML
-              template = Template(default_template)
-              html_output = template.render(**content_data, **downloaded_assets)
+
+              # Copy template files to the appropriate directory
+              import shutil
+              import os
+
+              # Ensure templates directory exists
+              os.makedirs('templates', exist_ok=True)
+
+              # Copy the business.html template to the templates directory
+              shutil.copy('python-service/templates/business.html', 'templates/business.html')
+              shutil.copy('python-service/templates/default.html', 'templates/default.html') if os.path.exists('python-service/templates/default.html') else None
+
+              # Use your render_template function to properly render the HTML with the right template
+              html_output = render_template(content_data, downloaded_assets)
               
               # Save HTML
               with open(client_dir / 'index.html', 'w') as f:
