@@ -1,0 +1,148 @@
+name: Generate Website
+
+on:
+  repository_dispatch:
+    types: [website-generation]  # Match this with your route.js event type
+
+jobs:
+  generate-website:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install boto3 requests jinja2 python-dotenv xmltodict
+
+      - name: Create directories
+        run: |
+          mkdir -p clients
+          mkdir -p templates
+          mkdir -p python-service/templates
+
+      - name: Process website content
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.AWS_REGION }}
+          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOMAIN_NAME: clickcatalyst.digital
+          GITHUB_PAGES_TARGET: clickcatalyst-digital.github.io
+        run: |
+          python -c "
+          import json, sys, os
+          import logging
+          
+          # Configure logging
+          logging.basicConfig(level=logging.INFO)
+          logger = logging.getLogger(__name__)
+          
+          # Import process_content function from your webhook handler
+          sys.path.append('./python-service')
+          from webhook_handler import download_from_s3, extract_content_json, download_assets, render_template
+          
+          # Setup boto3
+          import boto3
+          s3_client = boto3.client(
+              's3',
+              aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
+              aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
+              region_name=os.environ.get('AWS_REGION')
+          )
+          
+          # Get the GitHub event data
+          with open(os.environ.get('GITHUB_EVENT_PATH', '')) as f:
+              event_data = json.load(f)
+          
+          # Extract data from payload
+          payload = event_data.get('client_payload', {})
+          bucket = payload.get('bucket')
+          folder_name = payload.get('folderName')
+          website_id = payload.get('websiteId')
+          website_type = payload.get('websiteType', 'business')
+          
+          logger.info(f'Processing website: {website_id} ({folder_name}) of type {website_type}')
+          
+          # Process content like in webhook_handler, but simplified
+          try:
+              # Download content.json
+              content_bytes = None
+              try:
+                  content_bytes = download_from_s3(bucket, f'{folder_name}/content.json')
+              except Exception:
+                  pass
+                  
+              if not content_bytes:
+                  content_bytes = download_from_s3(bucket, f'{folder_name}/content.json.gz')
+              
+              content_data = extract_content_json(content_bytes)
+              
+              # Create output directory
+              from pathlib import Path
+              client_dir = Path(f'clients/{folder_name}')
+              client_dir.mkdir(exist_ok=True, parents=True)
+              
+              # Save raw content.json
+              with open(client_dir / 'content.json', 'w') as f:
+                  json.dump(content_data, f, indent=2)
+              
+              # Download assets
+              asset_keys = {
+                  'logo': content_data.get('logo'),
+                  'banner': content_data.get('banner')
+              }
+              
+              downloaded_assets = download_assets(bucket, folder_name, asset_keys)
+              
+              # Create a basic template if none exists
+              from jinja2 import Environment, FileSystemLoader, Template
+              default_template = '''<!DOCTYPE html>
+              <html>
+              <head>
+                  <title>{{ headline }}</title>
+                  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
+              </head>
+              <body class='bg-gray-100'>
+                  <header class='bg-white shadow'>
+                      <div class='max-w-6xl mx-auto px-4 py-6'>
+                          <h1 class='text-3xl font-bold'>{{ headline }}</h1>
+                          <p class='mt-2'>{{ tagline }}</p>
+                      </div>
+                  </header>
+                  <main class='max-w-6xl mx-auto p-4 mt-8'>
+                      <p>{{ about }}</p>
+                  </main>
+              </body>
+              </html>'''
+              
+              # Generate HTML
+              template = Template(default_template)
+              html_output = template.render(**content_data, **downloaded_assets)
+              
+              # Save HTML
+              with open(client_dir / 'index.html', 'w') as f:
+                  f.write(html_output)
+                  
+              logger.info(f'Successfully generated website for {folder_name}')
+              print(f'Website generation successful for {folder_name}')
+          
+          except Exception as e:
+              logger.error(f'Error: {str(e)}')
+              print(f'Website generation failed: {str(e)}')
+              sys.exit(1)
+          "
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./clients
+          cname: clickcatalyst.digital
