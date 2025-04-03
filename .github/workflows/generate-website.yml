@@ -1,5 +1,10 @@
 name: Generate Website
 
+permissions:
+  contents: write    # Enables read/write access to repository contents
+  issues: write      # Grants permission to manage issues (if needed)
+  pull-requests: write # Allows you to update pull requests
+
 on:
   repository_dispatch:
     types: [website-generation]  # Match this with your route.js event type
