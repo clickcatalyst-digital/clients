@@ -839,7 +839,7 @@
 
                                 <div class="mb-3">
                                     {% for i in range(5) %}
-                                        {% if i < (testimonial.rating | default(5)) %}
+                                        {% if i < (testimonial.rating|default:"5"|int) %}
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 class="h-5 w-5 inline-block text-yellow-400"
