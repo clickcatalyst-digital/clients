@@ -191,6 +191,12 @@ def download_assets(bucket, folder_name, asset_keys):
 
 def render_template(content_data, assets):
     """Render the appropriate HTML template based on website type."""
+    # Validate essential fields and provide defaults
+    if "headline" not in content_data:
+        content_data["headline"] = content_data.get("site_url", "Website")
+    if "tagline" not in content_data:
+        content_data["tagline"] = ""
+        
     # Determine which template to use based on user_type
     website_type = content_data.get("user_type", "business")
     template_name = f"{website_type.lower()}.html"
@@ -202,7 +208,29 @@ def render_template(content_data, assets):
         logger.warning(f"Template for {website_type} not found, using default")
     
     # Load template
-    template = jinja_env.get_template(template_name)
+    try:
+        template = jinja_env.get_template(template_name)
+    except Exception as e:
+        logger.error(f"Failed to load template {template_name}: {e}")
+        # Fall back to an extremely simple template
+        return f"""<!DOCTYPE html>
+        <html>
+        <head>
+            <title>{content_data.get('headline', 'Website')}</title>
+            <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
+        </head>
+        <body class='bg-gray-100'>
+            <header class='bg-white shadow'>
+                <div class='max-w-6xl mx-auto px-4 py-6'>
+                    <h1 class='text-3xl font-bold'>{content_data.get('headline', 'Website')}</h1>
+                    <p class='mt-2'>{content_data.get('tagline', '')}</p>
+                </div>
+            </header>
+            <main class='max-w-6xl mx-auto p-4 mt-8'>
+                <p>{content_data.get('about', '')}</p>
+            </main>
+        </body>
+        </html>"""
     
     # Merge content data with asset paths
     template_data = {**content_data}
@@ -228,7 +256,33 @@ def render_template(content_data, assets):
     # Add more theme options as needed
     
     # Render the template with the data
-    return template.render(**template_data)
+    try:
+        return template.render(**template_data)
+    except Exception as e:
+        logger.error(f"Template rendering error: {e}")
+        # Fall back to a very simple template with debug info
+        return f"""<!DOCTYPE html>
+        <html>
+        <head>
+            <title>{content_data.get('headline', 'Website')}</title>
+            <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
+        </head>
+        <body class='bg-gray-100'>
+            <header class='bg-white shadow'>
+                <div class='max-w-6xl mx-auto px-4 py-6'>
+                    <h1 class='text-3xl font-bold'>{content_data.get('headline', 'Website')}</h1>
+                    <p class='mt-2'>{content_data.get('tagline', '')}</p>
+                </div>
+            </header>
+            <main class='max-w-6xl mx-auto p-4 mt-8'>
+                <p>{content_data.get('about', '')}</p>
+                <div class='mt-4 p-4 bg-red-100 border border-red-200 rounded'>
+                    <h2 class='font-bold'>Template Rendering Error</h2>
+                    <p>{str(e)}</p>
+                </div>
+            </main>
+        </body>
+        </html>"""
 
 def push_to_github(folder_name):
     """Push changes to GitHub repository to trigger GitHub Pages deployment."""
