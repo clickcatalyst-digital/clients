@@ -107,6 +107,19 @@ def download_from_s3(bucket, key):
         logger.error(f"Error downloading {key} from S3: {e}")
         return None
 
+
+def date_filter(value, format='%Y-%m-%d'):
+    if value == "now":
+        value = datetime.now()
+    return value.strftime(format)
+
+# Initialize Jinja2 environment
+jinja_env = Environment(
+    loader=FileSystemLoader('templates'),
+    autoescape=True
+)
+jinja_env.filters['date'] = date_filter
+
 def extract_content_json(content_bytes):
     """Decompress gzipped content.json and parse the JSON."""
     try:
