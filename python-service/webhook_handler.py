@@ -35,7 +35,7 @@ import concurrent.futures
 from io import BytesIO
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape, TemplateNotFound
 import logging
 from pathlib import Path
 import xml.etree.ElementTree as ET
@@ -207,11 +207,20 @@ def date_filter(value, format='%Y-%m-%d'):
         value = datetime.now()
     return value.strftime(format)
 
+
+# Get the directory where *this* script (webhook_handler.py) resides
+_THIS_DIR = Path(__file__).resolve().parent
+# Construct the absolute path to the templates directory next to this script
+_TEMPLATE_DIR = _THIS_DIR / 'templates'
+
+logger.info(f"Initializing Jinja Env with template path: {_TEMPLATE_DIR}")
+
 # Initialize Jinja2 environment
 jinja_env = Environment(
-    loader=FileSystemLoader('templates'),
-    autoescape=True
+    loader=FileSystemLoader(str(_TEMPLATE_DIR)), # Use the calculated absolute path
+    autoescape=select_autoescape(['html', 'xml']) # Recommended way for autoescape
 )
+# Add filters AFTER creating the environment
 jinja_env.filters['date'] = date_filter
 
 def extract_content_json(content_bytes):
@@ -377,70 +386,81 @@ def download_assets(bucket, folder_name, asset_keys):
 #         </body>
 #         </html>"""
 
-
 def render_template(content_data, assets):
     """Render the appropriate HTML template based on website type."""
-    # --- Validation and template selection ---
+    # --- Basic Data Validation ---
     if "headline" not in content_data:
         content_data["headline"] = content_data.get("site_url", "Website")
     if "tagline" not in content_data:
         content_data["tagline"] = ""
 
     website_type = content_data.get("user_type", "business")
-    template_name = f"{website_type.lower()}.html"
-    template_path = Path(f"templates/{template_name}")
-    if not template_path.exists():
-        template_name = "default.html" # Keep fallback logic
-        logger.warning(f"Template for {website_type} not found, using default")
+    primary_template_name = f"{website_type.lower()}.html"
+    fallback_template_name = "default.html"
 
+    # --- Load Template (with fallback) ---
+    template = None
+    template_to_render = ""
     try:
-        template = jinja_env.get_template(template_name)
-    except Exception as e:
-        logger.error(f"Failed to load template {template_name}: {e}")
-        # Simplified fallback template on load error
-        return f"<html><body><h1>Error loading template: {e}</h1></body></html>"
+        # jinja_env should be initialized globally using the absolute path method
+        template = jinja_env.get_template(primary_template_name)
+        template_to_render = primary_template_name
+        logger.info(f"Using primary template: {template_to_render}")
+    except TemplateNotFound: # Catch specific Jinja error
+        logger.warning(f"Primary template '{primary_template_name}' not found. Attempting fallback '{fallback_template_name}'.")
+        try:
+            template = jinja_env.get_template(fallback_template_name)
+            template_to_render = fallback_template_name
+            logger.info(f"Using fallback template: {template_to_render}")
+        except TemplateNotFound:
+            logger.error(f"CRITICAL: Fallback template '{fallback_template_name}' also not found in search path: {jinja_env.loader.searchpath}")
+            # Return a very basic error HTML as a last resort
+            return f"<html><body><h1>Internal Server Error</h1><p>Required template files ('{primary_template_name}' or '{fallback_template_name}') could not be loaded.</p></body></html>"
+        except Exception as e_load_fallback:
+            # Catch other potential errors loading the fallback
+            logger.error(f"Failed to load fallback template '{fallback_template_name}': {e_load_fallback}")
+            return f"<html><body><h1>Internal Server Error</h1><p>Error loading fallback template: {html.escape(str(e_load_fallback))}</p></body></html>"
+    except Exception as e_load_primary:
+        # Catch other potential errors loading the primary template
+        logger.error(f"Failed to load primary template '{primary_template_name}': {e_load_primary}")
+        return f"<html><body><h1>Internal Server Error</h1><p>Error loading primary template: {html.escape(str(e_load_primary))}</p></body></html>"
 
-    # --- Prepare Template Data (ALL INSIDE THE FUNCTION) ---
-    # Start with content data
+
+    # --- Prepare Template Data ---
     template_data = {**content_data}
-    # Add asset paths
     for asset_type, asset_path in assets.items():
         template_data[asset_type] = asset_path
 
-    # Get the selected color palette ID
     palette_id = content_data.get("color_palette", "default")
-    # Lookup the corresponding color scheme, ensure background/text exist
-    # Use .copy() to avoid modifying the original COLOR_SCHEMES dict
     selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
-    selected_colors.setdefault('background', '#FFFFFF') # Ensure defaults if missing
+    selected_colors.setdefault('background', '#FFFFFF')
     selected_colors.setdefault('text', '#333333')
 
-    # Calculate contrast colors and add them to the colors dict
-    light_contrast = selected_colors['background'] # Typically the light background color
-    dark_contrast = selected_colors['text']       # Typically the dark text color
+    light_contrast = selected_colors['background']
+    dark_contrast = selected_colors['text']
 
     selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
     selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
-    # For gradients, often best to use contrast against the primary or just default to light
     selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
-    # Contrast for text placed ON the 'dark' color background (e.g., footer)
     selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast)
 
-    template_data["colors"] = selected_colors # Pass the enriched colors dict to the template
+    template_data["colors"] = selected_colors
     logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
 
-    # --- Render the template (INSIDE THE FUNCTION) ---
+    # --- Render the loaded template ---
     try:
         return template.render(**template_data)
-    except Exception as e:
-        logger.error(f"Template rendering error: {e}")
+    except Exception as e_render:
+        logger.error(f"Template rendering error for '{template_to_render}': {e_render}")
         # Fallback template showing the render error and data
-        # Use repr(e) for potentially more detailed error info
-        # Make sure 'import html' is at the top of your file
         return f"""<!DOCTYPE html>
         <html><head><title>Render Error</title></head><body>
-        <h1>Template Rendering Error</h1><pre>{html.escape(repr(e))}</pre>
-        <h2>Data Passed:</h2><pre>{html.escape(json.dumps(template_data, indent=2, default=str))}</pre>
+        <h1>Template Rendering Error</h1>
+        <p><b>Template:</b> {template_to_render}</p>
+        <p><b>Error:</b></p>
+        <pre>{html.escape(repr(e_render))}</pre>
+        <h2>Data Passed:</h2>
+        <pre>{html.escape(json.dumps(template_data, indent=2, default=str))}</pre>
         </body></html>"""
 
 def push_to_github(folder_name):
