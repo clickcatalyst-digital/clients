@@ -376,6 +376,8 @@ def download_assets(bucket, folder_name, asset_keys):
 #             </main>
 #         </body>
 #         </html>"""
+
+
 def render_template(content_data, assets):
     """Render the appropriate HTML template based on website type."""
     # --- Validation and template selection ---
