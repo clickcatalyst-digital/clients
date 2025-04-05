@@ -42,7 +42,7 @@
         <!-- SVG Sprite Sheet - Optimized Icon System -->
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
             <!-- Add common icons as symbols -->
-            {% for icon in ["cog", "shopping-bag", "briefcase", "lightbulb", "chart", "document", "shield", "user", "heart", "star", "phone", "mail", "map", "globe", "pencil", "rocket", "device", "cube", "folder", "default"] %}
+            {% for icon in ["cog", "shopping-bag", "briefcase", "lightbulb", "chart", "document", "shield", "user", "heart", "star", "phone", "mail", "map", "globe", "pencil", "rocket", "device", "cube", "folder", "compass", "default"] %}
             <symbol id="icon-{{ icon }}" viewBox="0 0 24 24">
                 {% if icon == "default" %}
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -673,13 +673,18 @@
                             <div
                                 class="service-card bg-white rounded-lg shadow-md p-6 reveal"
                                 style="transition-delay: {{ loop.index0 * 0.1 }}s;">
-                                <div class="icon-circle">
+<!--                                 <div class="icon-circle">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         {% if service.icon %}
                                             <use href="#icon-{{ service.icon }}" onerror="this.href='#icon-default'" />
                                         {% else %}
                                             <use href="#icon-default" />
                                         {% endif %}
+                                    </svg>
+                                </div> -->
+                                <div class="icon-circle">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ iconPaths[service.icon] || iconPaths['default'] }}"></path>
                                     </svg>
                                 </div>
                                 <h3 class="text-xl font-semibold mb-3 text-center text-gray-900">
