@@ -25,22 +25,48 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install boto3 requests jinja2 python-dotenv xmltodict flask
+        shell: bash
 
-      - name: Create directories # Ensure directories needed by the script exist
+      # Combined step to prepare directories and copy necessary files for the Python script
+      - name: Prepare Templates and Directories for Action
         run: |
-          mkdir -p clients
-          mkdir -p python-service/templates # Create dir where webhook_handler expects templates
+          echo "Preparing directories and copying templates..."
+          # Ensure the root 'templates' directory exists FIRST
+          mkdir -p templates
+          echo "Ensured 'templates' directory exists."
 
-      - name: Copy templates for Action context # Make templates accessible to inline script
-        run: |
-          # Copy templates from the python-service dir to a place the inline script's
-          # default FileSystemLoader('.') can find them easily.
-          # If your webhook_handler.py's FileSystemLoader points elsewhere, adjust accordingly.
+          # Now copy the files INTO the existing directory
           cp python-service/templates/business.html templates/business.html
+          echo "Copied business.html."
+
           # Optional: Copy default template if it exists
-          if [ -f python-service/templates/default.html ]; then cp python-service/templates/default.html templates/default.html; fi
+          if [ -f python-service/templates/default.html ]; then
+            cp python-service/templates/default.html templates/default.html
+            echo "Copied default.html."
+          else
+            echo "Optional default.html not found in source, skipping copy."
+          fi
+
           # Optional: Copy styles.css if it's pre-built and stored here
-          if [ -f python-service/templates/styles.css ]; then cp python-service/templates/styles.css templates/styles.css; fi
+          # Check if the source CSS exists before attempting copy
+          if [ -f python-service/templates/styles.css ]; then
+            cp python-service/templates/styles.css templates/styles.css
+            echo "Copied styles.css from python-service/templates."
+          elif [ -f styles.css ]; then
+             # If styles.css is already at the root (e.g., committed), ensure it's copied to templates/ if needed by FileSystemLoader('.')
+             cp styles.css templates/styles.css
+             echo "Copied styles.css from root."
+          else
+             echo "Warning: Pre-built styles.css not found in python-service/templates/ or root. Site styling might be missing if Python script cannot find it."
+             # If CSS is absolutely mandatory, you might want to fail here:
+             # exit 1
+          fi
+
+          # Ensure the clients directory exists (needed for later Python script output)
+          mkdir -p clients
+          echo "Ensured 'clients' directory exists."
+          echo "Preparation complete."
+        shell: bash
 
 
       - name: Process website content
@@ -62,9 +88,11 @@ jobs:
           logger = logging.getLogger(__name__)
 
           # Append path and import necessary functions AFTER basic setup
+          # Ensure webhook_handler.py is correctly located relative to this path
           sys.path.append('./python-service')
           try:
               # Assuming these functions handle their own boto3/jinja setup or use global vars
+              # Make sure webhook_handler.py uses FileSystemLoader relative to ITSELF or '.' if running from action root
               from webhook_handler import download_from_s3, extract_content_json, download_assets, render_template
           except ImportError as import_err:
               logger.error(f'Failed to import from webhook_handler: {import_err}')
@@ -122,7 +150,7 @@ jobs:
 
               # --- Create output directory ---
               client_dir = Path(f'clients/{folder_name}')
-              client_dir.mkdir(exist_ok=True, parents=True)
+              client_dir.mkdir(exist_ok=True, parents=True) # Already created in earlier step, but good practice
 
               # --- Save raw content.json (for debugging) ---
               try:
@@ -147,6 +175,7 @@ jobs:
 
               # --- Render HTML ---
               # Assumes render_template uses the Jinja env from webhook_handler
+              # which should now find templates in './templates' thanks to the copy step
               html_output = render_template(content_data, downloaded_assets)
 
               # --- Save HTML ---
@@ -161,8 +190,8 @@ jobs:
 
               # --- Copy Pre-built CSS ---
               # This assumes styles.css was generated *before* this action runs
-              # and placed correctly (e.g., by the Copy templates step above)
-              prebuilt_css_path = Path('templates/styles.css') # Path relative to checkout root
+              # and placed correctly (e.g., by the 'Prepare Templates' step above into ./templates/)
+              prebuilt_css_path = Path('templates/styles.css') # Path relative to checkout root where it was copied
               target_css_path = client_dir / 'styles.css'
 
               if prebuilt_css_path.exists():
@@ -173,11 +202,11 @@ jobs:
                   except Exception as css_copy_error:
                       logger.error(f'Failed to copy styles.css: {css_copy_error}')
                       # Decide if this failure should stop the deployment
-                      # sys.exit(1)
+                      # sys.exit(1) # Uncomment to make missing CSS fatal
               else:
-                  logger.warning(f'Pre-built {str(prebuilt_css_path)} not found. Styling will be missing.')
+                  logger.warning(f'Pre-built {str(prebuilt_css_path)} not found in expected location. Styling will be missing.')
                   # Decide if this failure should stop the deployment
-                  # sys.exit(1)
+                  # sys.exit(1) # Uncomment to make missing CSS fatal
 
               print(f'Website content generation successful for {folder_name}')
 
@@ -193,11 +222,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./clients # Deploy the entire clients directory
-          # Optional: Specify destination directory in gh-pages branch
-          # destination_dir: '.' # Deploy to root of gh-pages
-          # Keep history or force push (force push is common for gh-pages)
-          force_orphan: true
-          # Optional: Add .nojekyll file if needed
-          # keep_files: true # Set to true if you have other files in publish_dir you want to keep
-          # publish_branch: gh-pages # Default is gh-pages
+          force_orphan: true # Recommended for gh-pages to keep history clean
+          # Optional: Specify destination directory in gh-pages branch if needed
+          # destination_dir: '.'
           # cname: your.custom.domain # Add CNAME if using custom domain via GH Pages settings
