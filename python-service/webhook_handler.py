@@ -25,6 +25,7 @@ import os
 import json
 import boto3
 import gzip
+import html
 import requests
 import shutil
 import xmltodict
@@ -377,7 +378,7 @@ def download_assets(bucket, folder_name, asset_keys):
 #         </html>"""
     def render_template(content_data, assets):
         """Render the appropriate HTML template based on website type."""
-        # --- Keep validation and template selection logic as is ---
+        # --- Validation and template selection ---
         if "headline" not in content_data:
             content_data["headline"] = content_data.get("site_url", "Website")
         if "tagline" not in content_data:
@@ -393,110 +394,110 @@ def download_assets(bucket, folder_name, asset_keys):
         try:
             template = jinja_env.get_template(template_name)
         except Exception as e:
-            # --- Keep simple fallback template rendering on load error ---
             logger.error(f"Failed to load template {template_name}: {e}")
-            # Example simplified fallback:
+            # Simplified fallback template on load error
             return f"<html><body><h1>Error loading template: {e}</h1></body></html>"
     
-        # --- START MODIFICATION ---
-        # Merge content data with asset paths
+        # --- Prepare Template Data ---
+        # Start with content data
         template_data = {**content_data}
+        # Add asset paths
         for asset_type, asset_path in assets.items():
             template_data[asset_type] = asset_path
     
         # Get the selected color palette ID
         palette_id = content_data.get("color_palette", "default")
         # Lookup the corresponding color scheme, ensure background/text exist
-        selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy() # Use .copy()
-        selected_colors.setdefault('background', '#FFFFFF') # Ensure defaults
+        # Use .copy() to avoid modifying the original COLOR_SCHEMES dict
+        selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
+        selected_colors.setdefault('background', '#FFFFFF') # Ensure defaults if missing
         selected_colors.setdefault('text', '#333333')
     
         # Calculate contrast colors and add them to the colors dict
-        light_contrast = selected_colors['background'] # Typically the background color
-        dark_contrast = selected_colors['text']       # Typically the text color
+        light_contrast = selected_colors['background'] # Typically the light background color
+        dark_contrast = selected_colors['text']       # Typically the dark text color
     
         selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
         selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
-        # For gradients, we often pick one of the colors (e.g., primary) or just default to light/white
-        selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast) # Or just hardcode to light_contrast if always light enough
-        # Contrast against the main background color (useful for footer etc.)
-        selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast) # Contrast for text *on* the dark color background
+        # For gradients, often best to use contrast against the primary or just default to light
+        selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
+        # Contrast for text placed ON the 'dark' color background (e.g., footer)
+        selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast)
     
-        template_data["colors"] = selected_colors # Pass the enriched colors dict
+        template_data["colors"] = selected_colors # Pass the enriched colors dict to the template
         logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
-        # --- END MODIFICATION ---
     
-        # Render the template with the data
+        # --- Render the template ---
         try:
             return template.render(**template_data)
         except Exception as e:
-            # --- Keep detailed fallback template rendering on render error ---
             logger.error(f"Template rendering error: {e}")
-            # Fallback template with error info:
+            # Fallback template showing the render error and data
+            # Use repr(e) for potentially more detailed error info
             return f"""<!DOCTYPE html>
             <html><head><title>Render Error</title></head><body>
-            <h1>Template Rendering Error</h1><pre>{str(e)}</pre>
-            <h2>Data Passed:</h2><pre>{json.dumps(template_data, indent=2, default=str)}</pre>
+            <h1>Template Rendering Error</h1><pre>{html.escape(repr(e))}</pre>
+            <h2>Data Passed:</h2><pre>{html.escape(json.dumps(template_data, indent=2, default=str))}</pre>
             </body></html>"""
+        
+    # # Merge content data with asset paths
+    # template_data = {**content_data}
+    # for asset_type, asset_path in assets.items():
+    #     template_data[asset_type] = asset_path
     
-    # Merge content data with asset paths
-    template_data = {**content_data}
-    for asset_type, asset_path in assets.items():
-        template_data[asset_type] = asset_path
-    
-    # Add color schemes based on user's chosen theme
-    # theme = content_data.get("theme", "light")
-    # if theme == "light":
-    #     template_data["colors"] = {
-    #         "primary": "#4A90E2",
-    #         "secondary": "#6FCF97",
-    #         "background": "#FFFFFF",
-    #         "text": "#333333"
-    #     }
-    # elif theme == "dark":
-    #     template_data["colors"] = {
-    #         "primary": "#BB86FC",
-    #         "secondary": "#03DAC6",
-    #         "background": "#121212",
-    #         "text": "#E1E1E1"
-    #     }
+    # # Add color schemes based on user's chosen theme
+    # # theme = content_data.get("theme", "light")
+    # # if theme == "light":
+    # #     template_data["colors"] = {
+    # #         "primary": "#4A90E2",
+    # #         "secondary": "#6FCF97",
+    # #         "background": "#FFFFFF",
+    # #         "text": "#333333"
+    # #     }
+    # # elif theme == "dark":
+    # #     template_data["colors"] = {
+    # #         "primary": "#BB86FC",
+    # #         "secondary": "#03DAC6",
+    # #         "background": "#121212",
+    # #         "text": "#E1E1E1"
+    # #     }
 
-    # Get the selected color palette ID from content_data
-    palette_id = content_data.get("color_palette", "default") # Use "default" if not specified
+    # # Get the selected color palette ID from content_data
+    # palette_id = content_data.get("color_palette", "default") # Use "default" if not specified
 
-    # Lookup the corresponding color scheme
-    selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]) # Fallback to default if ID is invalid
-    template_data["colors"] = selected_colors
-    logger.info(f"Applied color palette: {palette_id}")
+    # # Lookup the corresponding color scheme
+    # selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]) # Fallback to default if ID is invalid
+    # template_data["colors"] = selected_colors
+    # logger.info(f"Applied color palette: {palette_id}")
     
-    # Render the template with the data
-    try:
-        return template.render(**template_data)
-    except Exception as e:
-        logger.error(f"Template rendering error: {e}")
-        # Fall back to a very simple template with debug info
-        return f"""<!DOCTYPE html>
-        <html>
-        <head>
-            <title>{content_data.get('headline', 'Website')}</title>
-            <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
-        </head>
-        <body class='bg-gray-100'>
-            <header class='bg-white shadow'>
-                <div class='max-w-6xl mx-auto px-4 py-6'>
-                    <h1 class='text-3xl font-bold'>{content_data.get('headline', 'Website')}</h1>
-                    <p class='mt-2'>{content_data.get('tagline', '')}</p>
-                </div>
-            </header>
-            <main class='max-w-6xl mx-auto p-4 mt-8'>
-                <p>{content_data.get('about', '')}</p>
-                <div class='mt-4 p-4 bg-red-100 border border-red-200 rounded'>
-                    <h2 class='font-bold'>Template Rendering Error</h2>
-                    <p>{str(e)}</p>
-                </div>
-            </main>
-        </body>
-        </html>"""
+    # # Render the template with the data
+    # try:
+    #     return template.render(**template_data)
+    # except Exception as e:
+    #     logger.error(f"Template rendering error: {e}")
+    #     # Fall back to a very simple template with debug info
+    #     return f"""<!DOCTYPE html>
+    #     <html>
+    #     <head>
+    #         <title>{content_data.get('headline', 'Website')}</title>
+    #         <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
+    #     </head>
+    #     <body class='bg-gray-100'>
+    #         <header class='bg-white shadow'>
+    #             <div class='max-w-6xl mx-auto px-4 py-6'>
+    #                 <h1 class='text-3xl font-bold'>{content_data.get('headline', 'Website')}</h1>
+    #                 <p class='mt-2'>{content_data.get('tagline', '')}</p>
+    #             </div>
+    #         </header>
+    #         <main class='max-w-6xl mx-auto p-4 mt-8'>
+    #             <p>{content_data.get('about', '')}</p>
+    #             <div class='mt-4 p-4 bg-red-100 border border-red-200 rounded'>
+    #                 <h2 class='font-bold'>Template Rendering Error</h2>
+    #                 <p>{str(e)}</p>
+    #             </div>
+    #         </main>
+    #     </body>
+    #     </html>"""
 
 def push_to_github(folder_name):
     """Push changes to GitHub repository to trigger GitHub Pages deployment."""
