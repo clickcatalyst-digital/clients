@@ -26,7 +26,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '18' # Or your preferred LTS version
-          cache: 'npm' # Cache npm dependencies
+          # cache: 'npm' # Cache npm dependencies
 
       - name: Install Tailwind CSS Dependencies
         run: npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
