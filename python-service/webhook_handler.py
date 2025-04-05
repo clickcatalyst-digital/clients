@@ -744,6 +744,27 @@ def webhook_handler():
         # Save the HTML to index.html
         with open(client_dir / "index.html", "w") as f:
             f.write(html_output)
+        logger.info(f"Saved index.html to {client_dir}") # Added log
+        
+        # --- BEGIN ADDED CODE ---
+        # Copy the pre-built CSS file into the client directory
+        # Assumes your build step outputs styles.css into the 'templates' directory
+        prebuilt_css_path = Path("templates/styles.css")
+        target_css_path = client_dir / "styles.css"
+        
+        if prebuilt_css_path.exists():
+            try:
+                shutil.copy2(prebuilt_css_path, target_css_path)
+                logger.info(f"Copied styles.css to {target_css_path}")
+            except Exception as css_copy_error:
+                logger.error(f"Failed to copy styles.css: {css_copy_error}")
+                # Decide if this should be a fatal error or just a warning
+                # return jsonify({'success': False, 'message': 'Failed to copy required CSS file'}), 500
+        else:
+            logger.warning(f"Pre-built styles.css not found at {prebuilt_css_path}. Site styling will be missing.")
+            # Potentially return an error or proceed with missing styles warning
+            # return jsonify({'success': False, 'message': 'Required styles.css not found'}), 500
+        # --- END ADDED CODE ---
         
         # Create a CNAME record for the subdomain
         subdomain = folder_name
