@@ -3,45 +3,32 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- SEO: Title and Description are crucial -->
         <title>{{ headline }} - {{ tagline }}</title>
         <meta name="description" content="{{ tagline }}">
-
         <meta name="author" content="{{ headline }}">
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="website">
         <meta property="og:title" content="{{ headline }}">
         <meta property="og:description" content="{{ tagline }}">
-        {% if banner_path %}
-            <meta property="og:image" content="{{ banner_path }}">
-            <!-- SEO: Consider adding og:image:width and og:image:height if possible -->
-        {% endif %}
-        <!-- SEO: Add og:url (likely the final website URL) if available -->
-        <!-- <meta property="og:url" content="https://your-final-domain.com"> -->
+        {% if banner_path %}<meta property="og:image" content="{{ banner_path }}">{% endif %}
+        {# Consider adding <meta property="og:url" content="..."> #}
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image">
         <meta property="twitter:title" content="{{ headline }}">
         <meta property="twitter:description" content="{{ tagline }}">
-        {% if banner_path %}
-            <meta property="twitter:image" content="{{ banner_path }}">
-            <!-- SEO: Consider adding twitter:image:alt -->
-            <!-- <meta property="twitter:image:alt" content="Banner for {{ headline }}"> -->
-        {% endif %}
-        <!-- SEO: Add twitter:site (e.g., @YourTwitterHandle) if available -->
-        <!-- <meta property="twitter:site" content="@YourTwitterHandle"> -->
+        {% if banner_path %}<meta property="twitter:image" content="{{ banner_path }}">{% endif %}
+        {# Consider adding <meta property="twitter:site" content="@YourHandle"> #}
+        {# Consider adding <meta property="twitter:image:alt" content="..."> #}
 
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="styles.css">
+        {# Consider <link rel="preload" href="styles.css" as="style"> #}
 
-        <!-- Stylesheets -->
-        <link rel="stylesheet" href="styles.css"> <!-- Link to compiled Tailwind CSS -->
-        <!-- SEO: Consider adding preload/prefetch for critical CSS if optimizing heavily -->
-        <!-- <link rel="preload" href="styles.css" as="style"> -->
-
-
-        <!-- Self-Contained SVG Sprite Sheet -->
-        <!-- (Keep the SVG sprite definition as previously corrected) -->
+        <!-- SVG Sprite Sheet -->
         <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            {# Ensure ALL icons potentially used in services, about, contact, etc. are defined here #}
             <symbol id="icon-phone" viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></symbol>
             <symbol id="icon-mail" viewBox="0 0 20 20" fill="currentColor"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/></symbol>
             <symbol id="icon-location" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></symbol>
@@ -59,8 +46,8 @@
             <symbol id="icon-briefcase" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 013-3h4a3 3 0 013 3v1h-4v-1a1 1 0 10-2 0v1H5V4zm7 2v1h3V6h2a2 2 0 012 2v10a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h2v1h3V6h2zm-3 5a1 1 0 100 2h.01a1 1 0 100-2H9zm-2 1a1 1 0 11-2 0 1 1 0 012 0zm4 0a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd"/></symbol>
             <symbol id="icon-lightbulb" viewBox="0 0 20 20" fill="currentColor"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"/></symbol>
             <symbol id="icon-chart" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></symbol>
-            <symbol id="icon-globe" viewBox="0 0 20 20" fill="currentColor"> <!-- Added globe icon --> <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd" /></symbol>
-            <symbol id="icon-trophy" viewBox="0 0 20 20" fill="currentColor"> <!-- Added trophy icon --> <path d="M11 3a1 1 0 100 2h1.586l-4.293 4.293a1 1 0 101.414 1.414L14 6.414V8a1 1 0 102 0V4a1 1 0 00-1-1h-4zm-7 8a1 1 0 011-1h2a1 1 0 110 2H5a1 1 0 01-1-1zm4 0a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1zM3 12a1 1 0 100 2h.01a1 1 0 100-2H3zm5.293 1.293a1 1 0 011.414 0L12 15.586l2.293-2.293a1 1 0 011.414 1.414L13.414 17l2.293 2.293a1 1 0 01-1.414 1.414L12 18.414l-2.293 2.293a1 1 0 01-1.414-1.414L10.586 17l-2.293-2.293a1 1 0 010-1.414z" /> </symbol>
+            <symbol id="icon-globe" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd"/></symbol>
+            <symbol id="icon-trophy" viewBox="0 0 20 20" fill="currentColor"><path d="M11 3a1 1 0 100 2h1.586l-4.293 4.293a1 1 0 101.414 1.414L14 6.414V8a1 1 0 102 0V4a1 1 0 00-1-1h-4zm-7 8a1 1 0 011-1h2a1 1 0 110 2H5a1 1 0 01-1-1zm4 0a1 1 0 011-1h2a1 1 0 110 2h-2a1 1 0 01-1-1zM3 12a1 1 0 100 2h.01a1 1 0 100-2H3zm5.293 1.293a1 1 0 011.414 0L12 15.586l2.293-2.293a1 1 0 011.414 1.414L13.414 17l2.293 2.293a1 1 0 01-1.414 1.414L12 18.414l-2.293 2.293a1 1 0 01-1.414-1.414L10.586 17l-2.293-2.293a1 1 0 010-1.414z"/></symbol>
             <symbol id="icon-default" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"/></symbol>
             <symbol id="icon-star" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></symbol>
             <symbol id="icon-plus-circle" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clip-rule="evenodd"/></symbol>
@@ -85,14 +72,14 @@
 
             /* Apply base background and text colors */
             body {
-                background-color: var(--color-background);
+                background-color: var(--color-background); /* Use the light background from palette */
                 color: var(--color-text);
                 /* Define base font, e.g., using Tailwind's sans-serif stack */
                 /* font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
             }
 
             /* Standard Tailwind Backgrounds */
-            .bg-default { background-color: var(--color-background); }
+            .bg-default { background-color: var(--color-background); } /* Use palette bg as default section */
             .bg-section-light { background-color: #FFFFFF; } /* White for cards/sections */
             .bg-section-neutral { background-color: #F9FAFB; } /* Tailwind gray-50 */
             .bg-section-dark { background-color: #111827; } /* Tailwind gray-900 */
@@ -118,6 +105,10 @@
             .hero-gradient {
                 background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
             }
+            /* Subtle text shadow for hero text to improve contrast on gradient */
+            .hero-text-shadow {
+                 text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+            }
 
             /* Hover effects */
             .hover-lift { transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; }
@@ -130,27 +121,39 @@
             .hero-section { position: relative; overflow: hidden; }
             .hero-section::before { /* Optional subtle pattern/overlay */ content: ''; position: absolute; top: -50%; left: -20%; width: 70%; height: 150%; background: rgba(255,255,255,0.05); transform: rotate(20deg); pointer-events: none; opacity: 0.5; }
 
-            /* Animations (keep or replace with Tailwind/IntersectionObserver) */
-            .fade-in { animation: fadeIn 0.8s ease-out; }
-            .slide-in-left { animation: slideInLeft 0.6s ease-out; }
-            .slide-in-right { animation: slideInRight 0.6s ease-out; }
-            @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-            @keyframes slideInLeft { from { transform: translateX(-30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-            @keyframes slideInRight { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+            /* Mobile menu */
+            .mobile-menu { transition: transform var(--transition-speed) ease; transform: translateX(-100%); }
+            .mobile-menu.show { transform: translateX(0); }
 
             /* Reveal on Scroll (Placeholder - Use IntersectionObserver JS) */
             .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
             .reveal.active { opacity: 1; transform: translateY(0); }
 
-            /* Service Card */
+             /* Service Card */
             .service-card { transition: all var(--transition-speed) ease; border-top: 3px solid transparent; }
             .service-card:hover { border-top-color: var(--color-primary); transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,0,0,0.07); }
             .icon-circle { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; background-color: {{ colors.primary | default('#4A90E2') }}1A; /* Primary with ~10% opacity */ color: var(--color-primary); transition: all var(--transition-speed) ease; }
             .service-card:hover .icon-circle { background-color: var(--color-primary); color: var(--color-text-on-primary); transform: scale(1.1); /* Simple scale instead of rotate */ }
 
-            /* Contact Form Input */
-            .form-input { transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: 1px solid #D1D5DB; /* gray-300 */ }
-            .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px {{ colors.primary | default('#4A90E2') }}4D; /* Primary with ~30% opacity */ outline: none; }
+            /* Contact Quick Connect Buttons */
+            .quick-connect-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.75rem 1rem; /* py-3 px-4 */
+                border-radius: 0.375rem; /* rounded-lg */
+                font-weight: 500; /* font-medium */
+                transition-property: background-color, opacity, box-shadow, transform;
+                transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration: 150ms;
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* shadow */
+            }
+             .quick-connect-button:hover {
+                opacity: 0.9;
+                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+                /* transform: translateY(-2px); */ /* Optional subtle lift */
+            }
+
 
             /* Skip Link */
             .skip-to-content { position: absolute; top: -50px; left: 0; background: var(--color-primary); color: var(--color-text-on-primary); padding: 8px 12px; z-index: 1000; transition: top 0.3s ease; border-bottom-right-radius: 4px; }
@@ -189,16 +192,16 @@
             {% if social.twitter %}"https://twitter.com/{{ social.twitter }}",{% endif %}
             {% if social.instagram %}"https://instagram.com/{{ social.instagram }}",{% endif %}
             {% if social.linkedin %}"{{ social.linkedin }}"{% endif %}
-          ]
+          ].filter(Boolean) {# Ensure trailing comma doesn't cause issues if last item is missing #}
         }
         </script>
 
     </head>
 
-    <body class="text-base antialiased"> <!-- Added antialiased for smoother fonts -->
+    <body class="text-base antialiased bg-default"> <!-- Apply default background -->
         <a href="#main-content" class="skip-to-content">Skip to content</a>
 
-        <header class="bg-white shadow sticky top-0 z-50">
+        <header class="bg-section-light shadow sticky top-0 z-50"> {/* Use white background */}
             <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between h-16 md:h-20"> {/* Slightly smaller nav height */}
                     <div class="flex items-center">
@@ -259,14 +262,15 @@
                  <div class="max-w-7xl mx-auto">
                     <div class="lg:flex lg:items-center lg:justify-between gap-12">
                         <div class="lg:w-1/2 slide-in-left text-center lg:text-left">
-                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">{{ headline }}</h1>
-                            <p class="text-lg sm:text-xl max-w-xl mx-auto lg:mx-0 opacity-90 mb-8">{{ tagline }}</p>
+                             <!-- Added hero-text-shadow for better contrast -->
+                            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold sm:font-extrabold tracking-tight mb-4 hero-text-shadow">{{ headline }}</h1>
+                            <p class="text-lg sm:text-xl max-w-xl mx-auto lg:mx-0 opacity-90 mb-8 hero-text-shadow">{{ tagline }}</p>
                             <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4">
                                 <a href="#about" class="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all hover-lift">
                                     <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-information-circle" /></svg>
                                     Learn More
                                 </a>
-                                {% if email %}
+                                {% if email or phone %} {# Show if either exists #}
                                     <a href="#contact" class="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-secondary transition-all hover-lift">
                                        <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-mail" /></svg>
                                         Get In Touch
@@ -294,7 +298,7 @@
 
             <!-- Stats Section: White Background -->
             {% if business_stats and business_stats | length > 0 %}
-                 <section class="py-12 md:py-16 bg-section-light">
+                 <section class="py-12 md:py-16 bg-section-light"> {/* White background */}
                      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                          <div class="grid grid-cols-2 md:grid-cols-{{ business_stats|length if business_stats|length <= 4 else 4 }} gap-8 text-center">
                              {% for stat in business_stats %}
@@ -309,7 +313,7 @@
             {% endif %}
 
             <!-- About Section: Neutral (gray-50) Background -->
-            <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral">
+            <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral"> {/* Light gray background */}
                 <div class="max-w-7xl mx-auto">
                      <div class="text-center mb-12 reveal">
                         <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">About Us</h2>
@@ -359,7 +363,7 @@
 
             <!-- Services Section: White Background -->
             {% if services and services | length > 0 %}
-                 <section id="services" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+                 <section id="services" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light"> {/* White background */}
                      <div class="max-w-7xl mx-auto">
                          <div class="text-center mb-12 reveal">
                              <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Our Services</h2>
@@ -384,11 +388,12 @@
             {% endif %}
 
             <!-- CTA Banner: Solid Primary Background -->
-            <section class="bg-primary py-16 px-4 sm:px-6 lg:px-8 text-contrast-primary">
+            <section class="bg-primary py-16 px-4 sm:px-6 lg:px-8 text-contrast-primary"> {/* Solid primary bg */}
                 <div class="max-w-5xl mx-auto text-center">
                      <h2 class="text-3xl sm:text-4xl font-bold mb-4 reveal">Ready to Elevate Your Business?</h2>
                      <p class="text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-90 reveal">Let's discuss how our services can help you achieve your goals. Get in touch today!</p>
                      <div class="reveal">
+                         <!-- Button uses white bg and primary text for contrast -->
                         <a href="#contact" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all hover-lift">
                             <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-mail" /></svg>
                             Request a Consultation
@@ -399,7 +404,7 @@
 
             <!-- Testimonials Section: Neutral (gray-50) Background -->
             {% if testimonials and testimonials | length > 0 %}
-                 <section id="testimonials" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral">
+                 <section id="testimonials" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral"> {/* Light gray background */}
                      <div class="max-w-7xl mx-auto">
                         <div class="text-center mb-12 reveal">
                              <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">What Our Clients Say</h2>
@@ -443,15 +448,16 @@
             {% endif %}
 
             <!-- Contact Section: White Background, Two Columns -->
-            <section id="contact" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+            <section id="contact" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light"> {/* White background */}
                  <div class="max-w-7xl mx-auto">
                      <div class="text-center mb-12 reveal">
                         <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Contact Us</h2>
                          <div class="section-divider"></div>
-                         <p class="mt-4 max-w-2xl mx-auto text-lg text-muted">We'd love to hear from you! Send us a message or reach out through one of the methods below.</p>
+                         <p class="mt-4 max-w-2xl mx-auto text-lg text-muted">We'd love to hear from you! Reach out through one of the methods below.</p>
                      </div>
+                     <!-- Two Column Layout -->
                     <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden reveal">
-                         <div class="grid md:grid-cols-5"> {/* Adjusted grid for potential visual balance */}
+                         <div class="grid md:grid-cols-5 gap-px"> {/* Use gap-px for subtle line if needed, or remove gap */}
                             <!-- Left Panel: Solid Primary Background -->
                             <div class="md:col-span-2 bg-primary p-8 text-contrast-primary">
                                  <h3 class="text-xl sm:text-2xl font-bold mb-6">Get In Touch</h3>
@@ -477,7 +483,7 @@
                                              </div>
                                          </div>
                                     {% endif %}
-                                    {% if phone %}
+                                    {% if phone %} {# Show WhatsApp only if phone exists #}
                                          <div class="flex items-start">
                                              <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-0.5"><use href="#icon-whatsapp" /></svg>
                                              <div><h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5">WhatsApp</h4><a href="https://wa.me/{{ phone | replace(' ', '') | replace('-', '') | replace('(', '') | replace(')', '') }}?text=Inquiry about {{headline}}" target="_blank" class="hover:underline">Message Us</a></div>
@@ -496,34 +502,33 @@
                                      </div>
                                 {% endif %}
                              </div>
-                             <!-- Right Panel: White Background with Form -->
+                             <!-- Right Panel: White Background with Connect Buttons -->
                              <div class="md:col-span-3 p-8 bg-white">
-                                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Send a Message</h3>
-                                 <form action="#" method="POST"> <!-- Replace # with your form endpoint -->
-                                    <div class="grid grid-cols-1 gap-y-5">
-                                        <div>
-                                            <label for="name" class="sr-only">Full name</label>
-                                            <input type="text" name="name" id="name" autocomplete="name" class="form-input block w-full shadow-sm py-2.5 px-4 placeholder-gray-500 rounded-md text-sm" placeholder="Full name" required>
-                                        </div>
-                                        <div>
-                                            <label for="email" class="sr-only">Email</label>
-                                            <input id="email" name="email" type="email" autocomplete="email" class="form-input block w-full shadow-sm py-2.5 px-4 placeholder-gray-500 rounded-md text-sm" placeholder="Email address" required>
-                                        </div>
-                                         <div>
-                                            <label for="phone" class="sr-only">Phone</label>
-                                            <input type="tel" name="phone" id="phone" autocomplete="tel" class="form-input block w-full shadow-sm py-2.5 px-4 placeholder-gray-500 rounded-md text-sm" placeholder="Phone number (Optional)">
-                                        </div>
-                                        <div>
-                                            <label for="message" class="sr-only">Message</label>
-                                            <textarea id="message" name="message" rows="4" class="form-input block w-full shadow-sm py-2.5 px-4 placeholder-gray-500 rounded-md text-sm" placeholder="Your message" required></textarea>
-                                        </div>
-                                        <div>
-                                            <button type="submit" class="w-full inline-flex justify-center py-2.5 px-6 border border-transparent shadow-sm text-sm font-medium rounded-md text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 ring-primary transition-opacity">
-                                                Send Message
-                                            </button>
-                                        </div>
+                                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Connect With Us</h3>
+                                 <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                                     <p class="text-gray-700 mb-6">We're just a message away! Reach out using WhatsApp or Email for a quick response.</p>
+                                    <!-- Replaced form with quick connect buttons -->
+                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-1"> {# Adjust grid for buttons #}
+                                        {% if phone %}
+                                            <a href="https://wa.me/{{ phone | replace(' ', '') | replace('-', '') | replace('(', '') | replace(')', '') }}?text=Inquiry about {{headline}}" target="_blank" class="quick-connect-button bg-green-500 text-white hover:bg-green-600">
+                                                <svg class="h-5 w-5 mr-2"><use href="#icon-whatsapp" /></svg>
+                                                <span>WhatsApp Us</span>
+                                            </a>
+                                        {% endif %}
+                                        {% if email %}
+                                            <a href="mailto:{{ email }}?subject=Inquiry about {{headline}}" target="_blank" class="quick-connect-button bg-primary text-contrast-primary hover:opacity-90">
+                                                <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
+                                                <span>Email Us</span>
+                                            </a>
+                                        {% endif %}
+                                        {% if phone %}
+                                            <a href="tel:{{ phone }}" class="quick-connect-button bg-secondary text-contrast-secondary hover:opacity-90">
+                                                <svg class="h-5 w-5 mr-2"><use href="#icon-phone" /></svg>
+                                                <span>Call Us Directly</span>
+                                            </a>
+                                        {% endif %}
                                     </div>
-                                 </form>
+                                </div>
                             </div>
                          </div>
                     </div>
@@ -569,8 +574,9 @@
                          {% endif %}
                      </div>
                  </div>
-                <div class="border-t border-gray-700 pt-6 mt-8 text-center text-xs text-gray-500">
-                     <p>© {{ "now"|date("Y") }} {{ headline }}. All rights reserved.</p>
+                 <!-- UPDATED: Use current_year variable and consistent text color -->
+                <div class="border-t border-gray-700 pt-6 mt-8 text-center text-xs text-gray-400">
+                     <p>© {{ current_year }} {{ headline }}. All rights reserved.</p>
                  </div>
              </div>
         </footer>
@@ -581,12 +587,12 @@
             <svg class="h-5 w-5 sm:h-6 sm:w-6"><use href="#icon-arrow-up" /></svg>
         </button>
 
-        <!-- JavaScript -->
+        <!-- JavaScript (Using IntersectionObserver for reveals) -->
         <script>
-            // Mobile menu toggle
+            // Mobile menu toggle (with basic focus trapping)
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            let isMenuOpen = false; // Track menu state
+            let isMenuOpen = false;
 
             if (mobileMenuButton && mobileMenu) {
                 const focusableElements = mobileMenu.querySelectorAll('a[href], button:not([disabled])');
@@ -597,119 +603,60 @@
                     isMenuOpen = !isMenuOpen;
                     mobileMenu.classList.toggle('hidden');
                     mobileMenuButton.setAttribute('aria-expanded', isMenuOpen);
-                    if (isMenuOpen) {
-                         firstFocusableElement?.focus();
-                    } else {
-                        // Optional: Return focus to the button after closing
-                        // mobileMenuButton.focus();
-                    }
+                    if (isMenuOpen) { firstFocusableElement?.focus(); }
                 }
 
                 mobileMenuButton.addEventListener('click', toggleMenu);
 
-                // Basic focus trapping (can be more robust)
                 mobileMenu.addEventListener('keydown', (e) => {
                     if (!isMenuOpen) return;
-                    if (e.key === 'Tab' || e.keyCode === 9) {
-                        if (e.shiftKey) { // Shift + Tab
-                            if (document.activeElement === firstFocusableElement) {
-                                lastFocusableElement.focus();
-                                e.preventDefault();
-                            }
-                        } else { // Tab
-                            if (document.activeElement === lastFocusableElement) {
-                                firstFocusableElement.focus();
-                                e.preventDefault();
-                            }
-                        }
-                    } else if (e.key === 'Escape' || e.keyCode === 27) {
-                         toggleMenu();
-                         mobileMenuButton.focus();
+                    const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+                    if (!isTabPressed) {
+                         if (e.key === 'Escape' || e.keyCode === 27) { toggleMenu(); mobileMenuButton.focus(); }
+                         return;
+                    }
+                    if (e.shiftKey) { /* Shift + Tab */
+                        if (document.activeElement === firstFocusableElement) { lastFocusableElement.focus(); e.preventDefault(); }
+                    } else { /* Tab */
+                        if (document.activeElement === lastFocusableElement) { firstFocusableElement.focus(); e.preventDefault(); }
                     }
                 });
             }
 
-            // Scroll to top functionality
+            // Scroll to top functionality (debounced)
             const scrollToTopButton = document.getElementById('scrollToTop');
             if (scrollToTopButton) {
-                 let lastScrollY = window.scrollY;
                  let ticking = false;
-
                  function updateScrollButtonVisibility() {
-                    if (window.scrollY > 300) {
-                        scrollToTopButton.classList.remove('opacity-0', 'pointer-events-none');
-                        scrollToTopButton.classList.add('opacity-100', 'pointer-events-auto');
-                    } else {
-                        scrollToTopButton.classList.remove('opacity-100', 'pointer-events-auto');
-                        scrollToTopButton.classList.add('opacity-0', 'pointer-events-none');
-                    }
+                    if (window.scrollY > 300) { scrollToTopButton.classList.add('opacity-100', 'pointer-events-auto'); scrollToTopButton.classList.remove('opacity-0', 'pointer-events-none'); }
+                    else { scrollToTopButton.classList.add('opacity-0', 'pointer-events-none'); scrollToTopButton.classList.remove('opacity-100', 'pointer-events-auto'); }
                     ticking = false;
                  }
-
                  window.addEventListener('scroll', () => {
-                     lastScrollY = window.scrollY;
-                     if (!ticking) {
-                         window.requestAnimationFrame(() => {
-                             updateScrollButtonVisibility();
-                         });
-                         ticking = true;
-                     }
+                     if (!ticking) { window.requestAnimationFrame(updateScrollButtonVisibility); ticking = true; }
                  }, { passive: true });
-
-                scrollToTopButton.addEventListener('click', () => {
-                    window.scrollTo({top: 0, behavior: 'smooth'});
-                });
-                // Initial check in case page loads scrolled down
-                 updateScrollButtonVisibility();
+                 scrollToTopButton.addEventListener('click', () => { window.scrollTo({top: 0, behavior: 'smooth'}); });
+                 updateScrollButtonVisibility(); // Initial check
             }
 
             // Reveal animations on scroll (IntersectionObserver Implementation)
             document.addEventListener('DOMContentLoaded', () => {
                 const revealElements = document.querySelectorAll('.reveal');
-
                 if ('IntersectionObserver' in window) {
                     const observer = new IntersectionObserver((entries, observerInstance) => {
                         entries.forEach(entry => {
-                            if (entry.isIntersecting) {
-                                entry.target.classList.add('active');
-                                // Optional: Stop observing the element once it's revealed
-                                // observerInstance.unobserve(entry.target);
-                            }
+                            if (entry.isIntersecting) { entry.target.classList.add('active'); /* observerInstance.unobserve(entry.target); */ }
                         });
-                    }, {
-                        threshold: 0.1 // Trigger when 10% of the element is visible
-                    });
-
-                    revealElements.forEach(el => {
-                         // Add a small delay based on element order if desired
-                         // const delay = (parseInt(el.getAttribute('data-reveal-delay') || 0)) * 100; // Example: data-reveal-delay="1", "2" etc
-                         // el.style.transitionDelay = `${delay}ms`;
-                        observer.observe(el);
-                    });
-                } else {
-                    // Fallback for older browsers (run simple check)
-                    const checkRevealFallback = () => {
-                         const windowHeight = window.innerHeight;
-                         revealElements.forEach(element => {
-                            const revealTop = element.getBoundingClientRect().top;
-                            if (revealTop < windowHeight - 50) { // Smaller offset for fallback
-                                element.classList.add('active');
-                            }
-                         });
-                    };
-                     window.addEventListener('scroll', checkRevealFallback, { passive: true });
-                     checkRevealFallback(); // Initial check
+                    }, { threshold: 0.1 });
+                    revealElements.forEach(el => observer.observe(el));
+                } else { // Fallback for older browsers
+                    const checkRevealFallback = () => { revealElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 50) { el.classList.add('active'); } }); };
+                    window.addEventListener('scroll', checkRevealFallback, { passive: true }); checkRevealFallback();
                 }
 
                 // Icon Fallback Check (Optional, can be removed if sprite is reliable)
                 document.querySelectorAll('svg use').forEach(use => {
-                    try {
-                        const symbolId = use.getAttribute('href');
-                        if (symbolId && !document.querySelector(symbolId)) {
-                            console.warn(`SVG symbol ${symbolId} not found, falling back to #icon-default.`);
-                            use.setAttribute('href', '#icon-default');
-                         }
-                    } catch (e) { console.error('Error checking SVG use element:', e); }
+                    try { const id = use.getAttribute('href'); if (id && !document.querySelector(id)) { use.setAttribute('href', '#icon-default'); } } catch (e) {}
                 });
             });
         </script>
