@@ -1,13 +1,13 @@
 name: Generate Website
 
 permissions:
-  contents: write    # Enables read/write access to repository contents
-  issues: write      # Grants permission to manage issues (if needed)
-  pull-requests: write # Allows you to update pull requests
+  contents: write    # For checkout and potentially committing back if needed
+  pages: write       # Required for peaceiris/actions-gh-pages to deploy
+  id-token: write    # Sometimes needed for interactions with cloud services
 
 on:
   repository_dispatch:
-    types: [website-generation]  # Match this with your route.js event type
+    types: [website-generation]
 
 jobs:
   generate-website:
@@ -19,57 +19,74 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9' # Ensure this matches version used by webhook_handler if relevant
+          python-version: '3.9'
 
-      - name: Install dependencies
+      # --- NEW: Node.js & Tailwind Setup ---
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Or your preferred LTS version
+          cache: 'npm' # Cache npm dependencies
+
+      - name: Install Tailwind CSS Dependencies
+        run: npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
+        # Assumes package.json doesn't exist; directly installs globally in the runner context for this job
+
+      - name: Create Tailwind Config (if not in repo)
+        # If you haven't committed tailwind.config.js, create a basic one
+        # IMPORTANT: Adjust the 'content' paths to correctly point to your templates
+        run: |
+          echo "/** @type {import('tailwindcss').Config} */
+          module.exports = {
+            content: [
+              './python-service/templates/**/*.html', 
+              './templates/**/*.html' 
+            ],
+            theme: {
+              extend: {},
+            },
+            plugins: [],
+          }" > tailwind.config.js
+        # Only run this if tailwind.config.js doesn't exist in your repo
+
+      - name: Create Input CSS File (if not in repo)
+        # If you haven't committed an input CSS file
+        run: |
+          mkdir -p src
+          echo "@tailwind base;" >> src/input.css
+          echo "@tailwind components;" >> src/input.css
+          echo "@tailwind utilities;" >> src/input.css
+        # Only run this if src/input.css doesn't exist in your repo
+
+      - name: Compile Tailwind CSS
+        # Builds the CSS and places it where the Python script/copy step expects it
+        # Output to the './templates/' directory created later or adjust path
+        run: npx tailwindcss -i ./src/input.css -o ./templates/styles.css --minify
+      # --- END: Node.js & Tailwind Setup ---
+
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install boto3 requests jinja2 python-dotenv xmltodict flask
         shell: bash
 
-      # Combined step to prepare directories and copy necessary files for the Python script
-      - name: Prepare Templates and Directories for Action
+      # This step now primarily ensures the output 'clients' dir exists
+      # and copies the *source* templates if needed by Python's loader setup
+      - name: Prepare Directories and Copy Source Templates
         run: |
-          echo "Preparing directories and copying templates..."
-          # Ensure the root 'templates' directory exists FIRST
-          mkdir -p templates
-          echo "Ensured 'templates' directory exists."
+          echo "Preparing directories and copying source templates..."
+          mkdir -p templates # Ensure root templates dir exists (for CSS output and maybe Python)
+          mkdir -p clients # Ensure clients dir exists for Python output
 
-          # Now copy the files INTO the existing directory
+          # Copy source HTML templates if Jinja looks in './templates'
           cp python-service/templates/business.html templates/business.html
-          echo "Copied business.html."
-
-          # Optional: Copy default template if it exists
           if [ -f python-service/templates/default.html ]; then
             cp python-service/templates/default.html templates/default.html
-            echo "Copied default.html."
-          else
-            echo "Optional default.html not found in source, skipping copy."
           fi
-
-          # Optional: Copy styles.css if it's pre-built and stored here
-          # Check if the source CSS exists before attempting copy
-          if [ -f python-service/templates/styles.css ]; then
-            cp python-service/templates/styles.css templates/styles.css
-            echo "Copied styles.css from python-service/templates."
-          elif [ -f styles.css ]; then
-             # If styles.css is already at the root (e.g., committed), ensure it's copied to templates/ if needed by FileSystemLoader('.')
-             cp styles.css templates/styles.css
-             echo "Copied styles.css from root."
-          else
-             echo "Warning: Pre-built styles.css not found in python-service/templates/ or root. Site styling might be missing if Python script cannot find it."
-             # If CSS is absolutely mandatory, you might want to fail here:
-             # exit 1
-          fi
-
-          # Ensure the clients directory exists (needed for later Python script output)
-          mkdir -p clients
-          echo "Ensured 'clients' directory exists."
           echo "Preparation complete."
         shell: bash
 
-
-      - name: Process website content
+      - name: Process website content (Generates HTML, Copies Assets & Compiled CSS)
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -79,6 +96,9 @@ jobs:
           GITHUB_PAGES_TARGET: clickcatalyst-digital.github.io # Default or from env
         run: |
           python -c "
+          # --- Your inline Python script remains the same ---
+          # It will now find and copy the ./templates/styles.css file
+          # that was generated by the 'Compile Tailwind CSS' step above.
           import json, sys, os, shutil
           import logging
           from pathlib import Path # Moved import to top
@@ -188,10 +208,8 @@ jobs:
                   sys.exit(1)
 
 
-              # --- Copy Pre-built CSS ---
-              # This assumes styles.css was generated *before* this action runs
-              # and placed correctly (e.g., by the 'Prepare Templates' step above into ./templates/)
-              prebuilt_css_path = Path('templates/styles.css') # Path relative to checkout root where it was copied
+              # --- Copy Pre-built CSS (Generated in earlier Action step) ---
+              prebuilt_css_path = Path('templates/styles.css') # Path relative to checkout root where build step outputted
               target_css_path = client_dir / 'styles.css'
 
               if prebuilt_css_path.exists():
@@ -204,7 +222,7 @@ jobs:
                       # Decide if this failure should stop the deployment
                       # sys.exit(1) # Uncomment to make missing CSS fatal
               else:
-                  logger.warning(f'Pre-built {str(prebuilt_css_path)} not found in expected location. Styling will be missing.')
+                  logger.warning(f'Compiled {str(prebuilt_css_path)} not found. Styling will be missing.')
                   # Decide if this failure should stop the deployment
                   # sys.exit(1) # Uncomment to make missing CSS fatal
 
@@ -216,6 +234,7 @@ jobs:
               print(f'Website generation failed: {str(e)}')
               sys.exit(1)
           "
+        shell: bash
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
