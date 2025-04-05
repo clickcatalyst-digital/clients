@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ headline }} - {{ tagline }}</title> {# SEO: Org Name & Tagline #}
+        <meta name="description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> {# SEO: Use mission statement if available #}
+        <meta name="author" content="{{ headline }}">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="profile"> {# Can use profile or organization #}
+        <meta property="og:site_name" content="{{ headline }}">
+        <meta property="og:title" content="{{ headline }} - {{ tagline }}">
+        <meta property="og:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}">
+        {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %}
+        {# Consider adding <meta property="og:url" content="..."> #}
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary"> {# Summary card often better for orgs #}
+        <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
+        <meta property="twitter:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}">
+        {% if logo_path %}<meta property="twitter:image" content="{{ logo_path }}">{% endif %}
+        {# Consider adding <meta property="twitter:image:alt" content="Logo for {{ headline }}"> #}
+        {# Consider adding <meta property="twitter:site" content="@YourTwitterHandle"> #}
+
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="styles.css">
+
+        <!-- SVG Sprite Sheet -->
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            {# Include icons relevant to charities: heart, users, globe, mail, phone, location, link, donate (gift/currency?), volunteer (hand?), impact (chart?), menu, arrow-up, social icons #}
+            <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102A1.125 1.125 0 006.09 2.25H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></symbol>
+            <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></symbol>
+            <symbol id="icon-location" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></symbol>
+            <symbol id="icon-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" /></symbol>
+            <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L1.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /></symbol>
+            <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor" stroke-width="1.5"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354l-4.52 2.872c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" /></symbol>
+            <symbol id="icon-gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21 11.25v8.25a2.25 2.25 0 01-2.25 2.25H5.25a2.25 2.25 0 01-2.25-2.25v-8.25M12 4.875A3.375 3.375 0 006.375 8.25H17.625A3.375 3.375 0 0012 4.875c0 1.932-.872 3.63-2.188 4.875M12 11.25a2.25 2.25 0 01-2.25-2.25m2.25 2.25a2.25 2.25 0 00-2.25-2.25M12 11.25a2.25 2.25 0 012.25-2.25m2.25 2.25a2.25 2.25 0 002.25-2.25M12 11.25V7.5m0 3.75A3 3 0 0112 15m0 0a3 3 0 011.5 5.25m-3 0a3 3 0 011.5-5.25m0 5.25a3 3 0 001.5 5.25m-3 0a3 3 0 001.5-5.25M6 18.75a3 3 0 001.5 5.25m0 0a3 3 0 001.5-5.25m-3 0a3 3 0 011.5 5.25m0 0V15m-3 3.75a3 3 0 011.5-5.25m0 0a3 3 0 011.5 5.25m0 0a3 3 0 001.5-5.25m-3 0a3 3 0 001.5 5.25m-1.5-5.25v-.375c0-1.036.84-1.875 1.875-1.875h.375M6 18.75v-.375c0-1.036.84-1.875 1.875-1.875h.375m-3.375 0V15m3 3.75V15m6.75 3.75a3 3 0 001.5-5.25m0 0a3 3 0 001.5 5.25m0 0a3 3 0 011.5-5.25m-3 0a3 3 0 011.5 5.25m0 0V15m3 3.75a3 3 0 011.5-5.25m0 0a3 3 0 011.5 5.25M18 18.75v-.375c0-1.036.84-1.875 1.875-1.875h.375m-3.375 0V15m3 3.75V15" /></symbol>
+            <symbol id="icon-hand-raised" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zm-7.518-.267A8.25 8.25 0 1120.25 10.5M8.288 14.212A5.25 5.25 0 1117.25 10.5" /></symbol>
+            <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></symbol>
+            <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" /></symbol>
+            <symbol id="icon-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#icon-heart" /></symbol>
+        </svg>
+
+        <style>
+            /* :root colors defined dynamically */
+            :root { --color-primary: {{ colors.primary | default('#7d3cff') }}; --color-secondary: {{ colors.secondary | default('#f2d53c') }}; --color-background: {{ colors.background | default('#F9FAFB') }}; --color-text: {{ colors.text | default('#12343b') }}; --color-text-muted: {{ colors.text | default('#12343b') }}B3; --color-text-on-primary: {{ colors.text_on_primary | default('#FFFFFF') }}; --color-text-on-secondary: {{ colors.text_on_secondary | default('#12343b') }}; --color-text-on-gradient: {{ colors.text_on_gradient | default('#FFFFFF') }}; --color-text-on-dark: {{ colors.text_on_dark | default('#FFFFFF') }}; --transition-speed: 0.3s; }
+            body { background-color: var(--color-background); color: var(--color-text); }
+            /* Backgrounds */
+            .bg-default { background-color: var(--color-background); }
+            .bg-section-light { background-color: #FFFFFF; }
+            .bg-section-neutral { background-color: #F9FAFB; }
+            .bg-section-dark { background-color: #1f2937; }
+            /* Colors */
+            .bg-primary { background-color: var(--color-primary); }
+            .text-primary { color: var(--color-primary); }
+            .border-primary { border-color: var(--color-primary); }
+            .ring-primary:focus { --tw-ring-color: var(--color-primary); }
+            .bg-secondary { background-color: var(--color-secondary); }
+            .text-secondary { color: var(--color-secondary); }
+            .text-contrast-primary { color: var(--color-text-on-primary); }
+            .text-contrast-secondary { color: var(--color-text-on-secondary); }
+            .text-contrast-gradient { color: var(--color-text-on-gradient); }
+            .text-contrast-dark { color: var(--color-text-on-dark); }
+            .text-muted { color: var(--color-text-muted); }
+            /* Hero */
+            .hero-gradient { background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); }
+            .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); }
+            /* Effects & Layout */
+            .hover-lift { transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; }
+            .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+            .section-divider { height: 4px; width: 60px; background-color: var(--color-primary); margin: 0 auto 1.5rem; border-radius: 2px; }
+            .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+            .reveal.active { opacity: 1; transform: translateY(0); }
+            /* Skip Link */
+            .skip-to-content { position: absolute; top: -50px; left: 0; background: var(--color-primary); color: var(--color-text-on-primary); padding: 8px 12px; z-index: 1000; transition: top 0.3s ease; border-bottom-right-radius: 4px; }
+            .skip-to-content:focus { top: 0; }
+            /* Reduced Motion */
+            @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+        </style>
+        {# Schema.org for NGO/Charity #}
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "NGO", // Or Organization
+          "name": "{{ headline }}",
+          "url": "{{ 'https://' + folder_name + '.' + DOMAIN_NAME if folder_name and DOMAIN_NAME else '#' }}",
+          {% if logo_path %}"logo": "{{ logo_path }}",{% endif %}
+          "description": "{{ tagline }}",
+          {% if charityMission.mission %}"description": "{{ charityMission.mission }}",{% endif %}
+          {% if charityMission.foundingStory %}"foundingStory": "{{ charityMission.foundingStory }}",{% endif %}
+          {% if charityMission.foundedYear %}"foundingDate": "{{ charityMission.foundedYear }}",{% endif %}
+          {% if email %}"email": "{{ email }}",{% endif %}
+          {% if phone %}"telephone": "{{ phone }}",{% endif %}
+          {% if location and location.address %}
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "{{ location.address | escape }}",
+            "addressLocality": "{{ location.city | escape }}",
+            "addressRegion": "{{ location.state | escape }}",
+            "postalCode": "{{ location.zip | escape }}",
+            "addressCountry": "{{ location.country | escape }}"
+          },
+          {% endif %}
+          "sameAs": [
+            {% if social.facebook %}"https://facebook.com/{{ social.facebook }}",{% endif %}
+            {% if social.twitter %}"https://twitter.com/{{ social.twitter }}",{% endif %}
+            {% if social.instagram %}"https://instagram.com/{{ social.instagram }}",{% endif %}
+            {% if social.linkedin %}"{{ social.linkedin }}"{% endif %}
+          ].filter(Boolean)
+        }
+        </script>
+    </head>
+    <body class="text-base antialiased bg-default">
+        <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+        <header class="bg-section-light shadow sticky top-0 z-50">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                     <div class="flex items-center">
+                        {% if logo_path %}
+                            <a href="#" aria-label="{{ headline }} homepage">
+                                <img class="h-10 w-auto" src="{{ logo_path }}" alt="{{ headline }} logo" loading="lazy">
+                            </a>
+                        {% endif %}
+                        <div class="ml-3">
+                            <a href="#" class="text-lg font-bold text-gray-900 hover:text-primary transition-colors">{{ headline }}</a>
+                        </div>
+                    </div>
+                     <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-6">
+                        <a href="#mission" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Mission</a>
+                        <a href="#impact" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Impact</a>
+                        <a href="#get-involved" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Get Involved</a>
+                        <a href="#contact" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Contact</a>
+                         {# Main CTA: Donate #}
+                        <a href="#donate" class="bg-primary text-contrast-primary px-4 py-2 rounded-md text-sm font-medium hover:opacity-90 transition-opacity flex items-center shadow-sm">
+                           <svg class="h-5 w-5 mr-1.5"><use href="#icon-heart" /></svg>
+                            Donate
+                        </a>
+                    </div>
+                     <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="text-gray-700 focus:outline-none p-2 -mr-2">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24"><use href="#icon-menu" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 hidden">
+                 <div class="px-2 pt-2 pb-4 space-y-1">
+                    <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Mission</a>
+                    <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Impact</a>
+                    <a href="#get-involved" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Get Involved</a>
+                    <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                    <a href="#donate" class="flex items-center w-full px-3 py-3 rounded-md text-base font-medium bg-primary text-contrast-primary mt-2">
+                        <svg class="h-5 w-5 mr-2"><use href="#icon-heart" /></svg> Donate Now
+                    </a>
+                 </div>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <!-- Hero Section: Gradient, Org Focused -->
+             <section class="hero-section hero-gradient py-20 md:py-28 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in relative">
+                 {% if banner_path %}
+                 <div class="absolute inset-0">
+                     <img src="{{ banner_path }}" alt="" class="w-full h-full object-cover opacity-20">
+                     <div class="absolute inset-0 hero-gradient opacity-80"></div>
+                 </div>
+                 {% endif %}
+                 <div class="max-w-4xl mx-auto text-center relative z-10">
+                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-3 hero-text-shadow">{{ headline }}</h1>
+                     <p class="text-xl sm:text-2xl max-w-3xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline }}</p>
+                     <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                         <a href="#donate" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary focus:ring-white transition-all hover-lift">
+                             <svg class="h-5 w-5 mr-2"><use href="#icon-heart" /></svg>
+                             Support Our Cause
+                         </a>
+                         <a href="#mission" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary focus:ring-white transition-all hover-lift">
+                            Learn More
+                         </a>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- Mission/About Section: Neutral Background -->
+            <section id="mission" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral">
+                <div class="max-w-4xl mx-auto reveal text-center">
+                    <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Our Mission</h2>
+                    <div class="section-divider"></div>
+                     {% if charityMission.mission %}
+                    <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">{{ charityMission.mission }}</p>
+                    {% elif about %}
+                     <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">{{ about }}</p> {# Fallback to general about #}
+                    {% endif %}
+                    {% if charityMission.vision %}
+                     <p class="text-md text-muted italic">Our Vision: {{ charityMission.vision }}</p>
+                     {% endif %}
+
+                     {% if charityMission.values and charityMission.values | length > 0 %}
+                     <div class="mt-8">
+                         <h3 class="text-lg font-semibold text-primary mb-3">Our Values</h3>
+                         <div class="flex flex-wrap justify-center gap-3">
+                             {% for value in charityMission.values %}
+                                 <span class="inline-block bg-primary bg-opacity-10 text-primary text-sm font-medium px-3 py-1 rounded-full">{{ value }}</span>
+                             {% endfor %}
+                         </div>
+                     </div>
+                     {% endif %}
+                 </div>
+            </section>
+
+             <!-- Impact Section: White Background -->
+            {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
+                <section id="impact" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="text-center mb-12 reveal">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Our Impact</h2>
+                            <div class="section-divider"></div>
+                        </div>
+                        {# Impact Stats (if available) #}
+                         {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
+                             <div class="grid grid-cols-1 sm:grid-cols-{{ charityImpact.impactStats|length if charityImpact.impactStats|length <= 3 else 3 }} gap-8 text-center mb-12 reveal">
+                                 {% for stat in charityImpact.impactStats %}
+                                     <div>
+                                         <div class="text-4xl sm:text-5xl font-bold text-primary">{{ stat.value }}</div>
+                                         <div class="text-muted mt-1 md:mt-2 text-base font-medium">{{ stat.label }}</div>
+                                         {% if stat.description %}<p class="text-sm text-gray-600 mt-1">{{ stat.description }}</p>{% endif %}
+                                     </div>
+                                 {% endfor %}
+                             </div>
+                              {% if charityImpact.successStories and charityImpact.successStories | length > 0 %}<hr class="my-12 border-gray-200 reveal">{% endif %}
+                         {% endif %}
+
+                         {# Success Stories (if available) #}
+                         {% if charityImpact.successStories and charityImpact.successStories | length > 0 %}
+                             <div class="space-y-10 reveal">
+                                 <h3 class="text-2xl font-semibold text-center text-gray-800 mb-6">Success Stories</h3>
+                                 {% for story in charityImpact.successStories %}
+                                 <div class="bg-section-neutral rounded-lg shadow p-6 reveal">
+                                     <h4 class="text-lg font-medium text-secondary mb-1">{{ story.title }}</h4>
+                                     {% if story.date or story.location %}
+                                     <p class="text-sm text-muted mb-2">
+                                         {% if story.date %}{{ story.date }}{% endif %}
+                                         {% if story.date and story.location %} | {% endif %}
+                                         {% if story.location %}{{ story.location }}{% endif %}
+                                     </p>
+                                     {% endif %}
+                                     <p class="text-gray-700 leading-relaxed">{{ story.content }}</p>
+                                 </div>
+                                 {% endfor %}
+                             </div>
+                         {% endif %}
+                    </div>
+                </section>
+            {% endif %}
+
+             <!-- Get Involved Section: Neutral Background -->
+             <section id="get-involved" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral">
+                 <div class="max-w-4xl mx-auto text-center">
+                      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 reveal">Get Involved</h2>
+                     <div class="section-divider reveal"></div>
+                     <p class="mt-4 max-w-2xl mx-auto text-lg text-muted reveal mb-8">Join us in making a difference. Here's how you can contribute to our cause.</p>
+                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                         {# Donate Card #}
+                         <div class="bg-white rounded-lg shadow-lg p-8 reveal hover-lift">
+                              <svg class="h-12 w-12 text-primary mx-auto mb-4"><use href="#icon-gift" /></svg>
+                              <h3 class="text-xl font-semibold text-gray-900 mb-3">Donate</h3>
+                              <p class="text-muted text-sm mb-5">Your contribution, big or small, helps us continue our work and reach more people in need.</p>
+                              <a href="#donate" class="inline-block px-6 py-2.5 bg-primary text-contrast-primary text-sm font-medium rounded-md hover:opacity-90 transition-opacity shadow">
+                                 Make a Donation
+                              </a>
+                         </div>
+                          {# Volunteer Card #}
+                         <div class="bg-white rounded-lg shadow-lg p-8 reveal hover-lift">
+                              <svg class="h-12 w-12 text-secondary mx-auto mb-4"><use href="#icon-hand-raised" /></svg>
+                              <h3 class="text-xl font-semibold text-gray-900 mb-3">Volunteer</h3>
+                              <p class="text-muted text-sm mb-5">Lend your time and skills! We have various opportunities where your help can make a real impact.</p>
+                              <a href="#contact" class="inline-block px-6 py-2.5 bg-secondary text-contrast-secondary text-sm font-medium rounded-md hover:opacity-90 transition-opacity shadow">
+                                 Contact Us to Help
+                              </a>
+                         </div>
+                     </div>
+                 </div>
+             </section>
+
+            <!-- Contact Section (Simplified for Charity): White Background -->
+            <section id="contact" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+                 <div class="max-w-5xl mx-auto">
+                     <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Contact Information</h2>
+                         <div class="section-divider"></div>
+                     </div>
+                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center reveal">
+                         {% if email %}
+                         <div>
+                             <svg class="h-10 w-10 mx-auto mb-3 text-primary"><use href="#icon-mail" /></svg>
+                             <h4 class="font-semibold text-gray-800 mb-1">Email Us</h4>
+                             <a href="mailto:{{ email }}?subject=Inquiry about {{headline}}" class="text-primary hover:underline break-all">{{ email }}</a>
+                         </div>
+                         {% endif %}
+                         {% if phone %}
+                         <div>
+                              <svg class="h-10 w-10 mx-auto mb-3 text-primary"><use href="#icon-phone" /></svg>
+                             <h4 class="font-semibold text-gray-800 mb-1">Call Us</h4>
+                             <a href="tel:{{ phone }}" class="text-primary hover:underline">{{ phone }}</a>
+                         </div>
+                         {% endif %}
+                          {% if location %}
+                         <div>
+                              <svg class="h-10 w-10 mx-auto mb-3 text-primary"><use href="#icon-location" /></svg>
+                             <h4 class="font-semibold text-gray-800 mb-1">Location</h4>
+                              <p class="text-muted text-sm"> {% if location.address %}{{ location.address }},{% endif %} {% if location.city %}{{ location.city }}{% endif %}{% if location.state %}, {{ location.state }}{% endif %}</p>
+                         </div>
+                         {% endif %}
+                     </div>
+                      {# Social Links Centered #}
+                     {% if social %}
+                        <div class="mt-12 text-center reveal">
+                            <h4 class="text-md font-semibold text-gray-700 mb-4">Follow Our Journey</h4>
+                             <div class="flex justify-center space-x-6">
+                                 {% if social.facebook %}<a href="https://facebook.com/{{ social.facebook }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-primary transition-colors"><span class="sr-only">Facebook</span><svg class="h-7 w-7"><use href="#icon-facebook" /></svg></a>{% endif %}
+                                 {% if social.twitter %}<a href="https://twitter.com/{{ social.twitter }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-primary transition-colors"><span class="sr-only">Twitter</span><svg class="h-7 w-7"><use href="#icon-twitter" /></svg></a>{% endif %}
+                                 {% if social.instagram %}<a href="https://instagram.com/{{ social.instagram }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-primary transition-colors"><span class="sr-only">Instagram</span><svg class="h-7 w-7"><use href="#icon-instagram" /></svg></a>{% endif %}
+                                 {% if social.linkedin %}<a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-primary transition-colors"><span class="sr-only">LinkedIn</span><svg class="h-7 w-7"><use href="#icon-linkedin" /></svg></a>{% endif %}
+                             </div>
+                         </div>
+                    {% endif %}
+                 </div>
+            </section>
+        </main>
+
+        <!-- Footer: Dark Background -->
+        <footer class="bg-section-dark text-gray-400 py-10 px-4 sm:px-6 lg:px-8">
+             <div class="max-w-7xl mx-auto text-center text-sm">
+                <p>© {{ current_year }} {{ headline }}. All rights reserved.</p>
+             </div>
+        </footer>
+
+        <!-- Scroll to top button -->
+        <button id="scrollToTop" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary text-contrast-primary flex items-center justify-center shadow-lg z-40 opacity-0 pointer-events-none transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 ring-primary">
+            <span class="sr-only">Scroll to top</span>
+            <svg class="h-5 w-5 sm:h-6 sm:w-6"><use href="#icon-arrow-up" /></svg>
+        </button>
+
+        <!-- JavaScript -->
+        <script>
+             // Mobile menu toggle, Scroll to top, Reveal animations (keep the same JS)
+             const mobileMenuButton=document.getElementById("mobile-menu-button"),mobileMenu=document.getElementById("mobile-menu");let isMenuOpen=!1;if(mobileMenuButton&&mobileMenu){const e=mobileMenu.querySelectorAll('a[href], button:not([disabled])'),t=e[0],o=e[e.length-1];function n(){isMenuOpen=!isMenuOpen,mobileMenu.classList.toggle("hidden"),mobileMenuButton.setAttribute("aria-expanded",isMenuOpen),isMenuOpen&&t?.focus()}mobileMenuButton.addEventListener("click",n),mobileMenu.addEventListener("keydown",e=>{if(!isMenuOpen)return;const a=e.key==="Tab"||9===e.keyCode;if(!a){if("Escape"===e.key||27===e.keyCode)return n(),void mobileMenuButton.focus();return}e.shiftKey?document.activeElement===t&&(o?.focus(),e.preventDefault()):document.activeElement===o&&(t?.focus(),e.preventDefault())})}const scrollToTopButton=document.getElementById("scrollToTop");if(scrollToTopButton){let e=!1;function t(){window.scrollY>300?(scrollToTopButton.classList.add("opacity-100","pointer-events-auto"),scrollToTopButton.classList.remove("opacity-0","pointer-events-none")):(scrollToTopButton.classList.add("opacity-0","pointer-events-none"),scrollToTopButton.classList.remove("opacity-100","pointer-events-auto")),e=!1}window.addEventListener("scroll",()=>{e||(window.requestAnimationFrame(t),e=!0)},{passive:!0}),scrollToTopButton.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}),t()}document.addEventListener("DOMContentLoaded",()=>{const e=document.querySelectorAll(".reveal");if("IntersectionObserver"in window){const t=new IntersectionObserver((e,t)=>{e.forEach(e=>{e.isIntersecting&&(e.target.classList.add("active"))})},{threshold:.1});e.forEach(e=>t.observe(e))}else{const t=()=>{e.forEach(e=>{el.getBoundingClientRect().top<window.innerHeight-50&&el.classList.add("active")})};window.addEventListener("scroll",t,{passive:!0}),t()}document.querySelectorAll("svg use").forEach(e=>{try{const t=e.getAttribute("href");t&&!document.querySelector(t)&&e.setAttribute("href","#icon-default")}catch(e){}})});
+        </script>
+    </body>
+</html>
