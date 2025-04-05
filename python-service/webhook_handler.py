@@ -91,6 +91,62 @@ jinja_env = Environment(
 # Ensure the clients directory exists
 Path("clients").mkdir(exist_ok=True)
 
+
+# Define Color Schemes (Map palette IDs to color values)
+# Ensure these IDs match the 'id' field in your React colorPalettes constant
+COLOR_SCHEMES = {
+    'modern-minimalist': {
+        'primary': '#368cbf',   # From values.primary
+        'secondary': '#7ebc59', # From values.secondary
+        'background': '#eaeaea', # From values.neutral (or use #FFFFFF if preferred)
+        'text': '#33363b'       # From values.dark
+    },
+    'luxurious-chic': {
+        'primary': '#1c77ac',
+        'secondary': '#c7af6b',
+        'background': '#e4decd',
+        'text': '#33363b'
+    },
+    'nature-inspired': {
+        'primary': '#5cbdb9',
+        'secondary': '#ebf6f5', # Note: Very light secondary, ensure text contrast works
+        'background': '#fceed1',
+        'text': '#2d545e'
+    },
+    'retro-pop': {
+        'primary': '#7d3cff',
+        'secondary': '#f2d53c',
+        'background': '#e1b382', # Consider maybe a lighter neutral like #fdf5e6 if this is too dark
+        'text': '#12343b'
+    },
+    'futuristic-tech': {
+        'primary': '#1400c6',
+        'secondary': '#7ebc59',
+        'background': '#eaeaea',
+        'text': '#33363b'
+    },
+    'dreamy-sunset': {
+        'primary': '#6B7A8F',
+        'secondary': '#F7882F',
+        'background': '#DCC7AA', # Consider maybe a lighter neutral like #fef9f3
+        'text': '#2d545e'
+    },
+    # --- Add the 'minimal' palette from the example content.json ---
+    'minimal': { # Assuming 'minimal' might be similar to 'modern-minimalist' or a simple scheme
+        'primary': '#4A90E2',   # A standard blue
+        'secondary': '#50E3C2', # A teal/turquoise
+        'background': '#FFFFFF', # White background
+        'text': '#333333'       # Dark grey text
+    },
+    # --- Default fallback scheme ---
+    'default': {
+        'primary': '#4A90E2',   # Default Blue
+        'secondary': '#6FCF97', # Default Green
+        'background': '#FFFFFF', # White
+        'text': '#333333'       # Dark Grey
+    }
+}
+
 def validate_api_key():
     """Validate the API key provided in the request headers."""
     auth_header = request.headers.get('x-api-key')
@@ -138,55 +194,106 @@ def download_single_asset(bucket, asset_key, local_path):
         logger.error(f"Error downloading asset {asset_key}: {e}")
         return False
 
+# def download_assets(bucket, folder_name, asset_keys):
+#     """
+#     Download assets (images) from S3 and save to local directory.
+#     Optimized with ThreadPoolExecutor for parallel downloads.
+#     """
+#     assets_dir = Path(f"clients/{folder_name}/assets")
+#     assets_dir.mkdir(exist_ok=True, parents=True)
+    
+#     downloaded_assets = {}
+#     download_tasks = []
+    
+#     # Prepare download tasks
+#     for asset_type, asset_key in asset_keys.items():
+#         if not asset_key:
+#             continue
+            
+#         # Extract filename from the S3 key
+#         filename = asset_key.split('/')[-1]
+#         local_path = assets_dir / filename
+        
+#         # Add to task list
+#         download_tasks.append({
+#             'asset_type': asset_type,
+#             'asset_key': asset_key,
+#             'local_path': local_path,
+#             'filename': filename
+#         })
+    
+#     # Use ThreadPoolExecutor to download assets in parallel
+#     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_CONCURRENT_DOWNLOADS) as executor:
+#         # Submit download tasks
+#         future_to_task = {
+#             executor.submit(download_single_asset, bucket, task['asset_key'], task['local_path']): task
+#             for task in download_tasks
+#         }
+        
+#         # Process completed downloads
+#         for future in concurrent.futures.as_completed(future_to_task):
+#             task = future_to_task[future]
+#             try:
+#                 success = future.result()
+#                 if success:
+#                     # Store the relative path for template usage
+#                     downloaded_assets[f"{task['asset_type']}_path"] = f"assets/{task['filename']}"
+#                     # downloaded_assets[task['asset_type']] = f"assets/{task['filename']}"
+#                     logger.info(f"Downloaded {task['asset_type']} to {task['local_path']}")
+#             except Exception as e:
+#                 logger.error(f"Exception downloading {task['asset_key']}: {e}")
+    
+#     return downloaded_assets
+
 def download_assets(bucket, folder_name, asset_keys):
     """
     Download assets (images) from S3 and save to local directory.
     Optimized with ThreadPoolExecutor for parallel downloads.
+    Returns keys like 'logo_path', 'banner_path', 'about_image', 'gallery_0', etc.
     """
     assets_dir = Path(f"clients/{folder_name}/assets")
     assets_dir.mkdir(exist_ok=True, parents=True)
-    
+
     downloaded_assets = {}
     download_tasks = []
-    
-    # Prepare download tasks
+
     for asset_type, asset_key in asset_keys.items():
         if not asset_key:
             continue
-            
-        # Extract filename from the S3 key
+
         filename = asset_key.split('/')[-1]
         local_path = assets_dir / filename
-        
-        # Add to task list
+
         download_tasks.append({
-            'asset_type': asset_type,
+            'asset_type': asset_type, # e.g., 'logo', 'banner', 'about_image', 'gallery_0'
             'asset_key': asset_key,
             'local_path': local_path,
             'filename': filename
         })
-    
-    # Use ThreadPoolExecutor to download assets in parallel
+
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_CONCURRENT_DOWNLOADS) as executor:
-        # Submit download tasks
         future_to_task = {
             executor.submit(download_single_asset, bucket, task['asset_key'], task['local_path']): task
             for task in download_tasks
         }
-        
-        # Process completed downloads
+
         for future in concurrent.futures.as_completed(future_to_task):
             task = future_to_task[future]
             try:
                 success = future.result()
                 if success:
-                    # Store the relative path for template usage
-                    downloaded_assets[f"{task['asset_type']}_path"] = f"assets/{task['filename']}"
-                    # downloaded_assets[task['asset_type']] = f"assets/{task['filename']}"
+                    # Determine the key for the template data
+                    template_key = task['asset_type']
+                    # Add _path suffix only for standard keys like logo and banner if template uses that
+                    if task['asset_type'] in ['logo', 'banner']:
+                         template_key = f"{task['asset_type']}_path"
+
+                    # Store the relative path
+                    downloaded_assets[template_key] = f"assets/{task['filename']}"
                     logger.info(f"Downloaded {task['asset_type']} to {task['local_path']}")
             except Exception as e:
                 logger.error(f"Exception downloading {task['asset_key']}: {e}")
-    
+
     return downloaded_assets
 
 def render_template(content_data, assets):
@@ -238,22 +345,29 @@ def render_template(content_data, assets):
         template_data[asset_type] = asset_path
     
     # Add color schemes based on user's chosen theme
-    theme = content_data.get("theme", "light")
-    if theme == "light":
-        template_data["colors"] = {
-            "primary": "#4A90E2",
-            "secondary": "#6FCF97",
-            "background": "#FFFFFF",
-            "text": "#333333"
-        }
-    elif theme == "dark":
-        template_data["colors"] = {
-            "primary": "#BB86FC",
-            "secondary": "#03DAC6",
-            "background": "#121212",
-            "text": "#E1E1E1"
-        }
-    # Add more theme options as needed
+    # theme = content_data.get("theme", "light")
+    # if theme == "light":
+    #     template_data["colors"] = {
+    #         "primary": "#4A90E2",
+    #         "secondary": "#6FCF97",
+    #         "background": "#FFFFFF",
+    #         "text": "#333333"
+    #     }
+    # elif theme == "dark":
+    #     template_data["colors"] = {
+    #         "primary": "#BB86FC",
+    #         "secondary": "#03DAC6",
+    #         "background": "#121212",
+    #         "text": "#E1E1E1"
+    #     }
+
+    # Get the selected color palette ID from content_data
+    palette_id = content_data.get("color_palette", "default") # Use "default" if not specified
+
+    # Lookup the corresponding color scheme
+    selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]) # Fallback to default if ID is invalid
+    template_data["colors"] = selected_colors
+    logger.info(f"Applied color palette: {palette_id}")
     
     # Render the template with the data
     try:
@@ -563,7 +677,8 @@ def webhook_handler():
         start_time = datetime.now()
         asset_keys = {
             'logo': content_data.get('logo'),
-            'banner': content_data.get('banner')
+            'banner': content_data.get('banner'),
+            'about_image': content_data.get('about_image')
         }
         
         # Add additional assets if present in the content
