@@ -147,6 +147,43 @@ COLOR_SCHEMES = {
     }
 }
 
+def get_contrast_color(hex_color, light_color, dark_color):
+    """
+    Determines if light or dark text provides better contrast against a given hex background color.
+
+    Args:
+        hex_color (str): The background hex color string (e.g., '#RRGGBB').
+        light_color (str): The hex color to use for light text.
+        dark_color (str): The hex color to use for dark text.
+
+    Returns:
+        str: Either the light_color or dark_color hex string.
+    """
+    if not hex_color or not hex_color.startswith('#') or len(hex_color) != 7:
+        logger.warning(f"Invalid hex color format '{hex_color}' for contrast check, returning dark.")
+        return dark_color # Default to dark color on invalid input
+
+    try:
+        # Convert hex to RGB
+        hex_color = hex_color.lstrip('#')
+        rgb = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
+        r, g, b = rgb
+
+        # Calculate luminance (per WCAG 1.4.3 formula simplified)
+        # Note: This is a simplified luma calculation, sufficient for basic dark/light decisions
+        # More accurate WCAG contrast ratios involve relative luminance.
+        luma = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
+
+        # Determine contrast color
+        # Threshold can be adjusted (0.5 is a common midpoint)
+        # Lower threshold means dark text is used more often on lighter backgrounds
+        threshold = 0.5
+        return dark_color if luma > threshold else light_color
+
+    except Exception as e:
+        logger.error(f"Error calculating contrast for {hex_color}: {e}")
+        return dark_color # Default to dark color on error
+
 def validate_api_key():
     """Validate the API key provided in the request headers."""
     auth_header = request.headers.get('x-api-key')
@@ -296,48 +333,111 @@ def download_assets(bucket, folder_name, asset_keys):
 
     return downloaded_assets
 
-def render_template(content_data, assets):
-    """Render the appropriate HTML template based on website type."""
-    # Validate essential fields and provide defaults
-    if "headline" not in content_data:
-        content_data["headline"] = content_data.get("site_url", "Website")
-    if "tagline" not in content_data:
-        content_data["tagline"] = ""
+# def render_template(content_data, assets):
+#     """Render the appropriate HTML template based on website type."""
+#     # Validate essential fields and provide defaults
+#     if "headline" not in content_data:
+#         content_data["headline"] = content_data.get("site_url", "Website")
+#     if "tagline" not in content_data:
+#         content_data["tagline"] = ""
         
-    # Determine which template to use based on user_type
-    website_type = content_data.get("user_type", "business")
-    template_name = f"{website_type.lower()}.html"
+#     # Determine which template to use based on user_type
+#     website_type = content_data.get("user_type", "business")
+#     template_name = f"{website_type.lower()}.html"
     
-    # Check if template exists, otherwise use default
-    template_path = Path(f"templates/{template_name}")
-    if not template_path.exists():
-        template_name = "default.html"
-        logger.warning(f"Template for {website_type} not found, using default")
+#     # Check if template exists, otherwise use default
+#     template_path = Path(f"templates/{template_name}")
+#     if not template_path.exists():
+#         template_name = "default.html"
+#         logger.warning(f"Template for {website_type} not found, using default")
     
-    # Load template
-    try:
-        template = jinja_env.get_template(template_name)
-    except Exception as e:
-        logger.error(f"Failed to load template {template_name}: {e}")
-        # Fall back to an extremely simple template
-        return f"""<!DOCTYPE html>
-        <html>
-        <head>
-            <title>{content_data.get('headline', 'Website')}</title>
-            <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
-        </head>
-        <body class='bg-gray-100'>
-            <header class='bg-white shadow'>
-                <div class='max-w-6xl mx-auto px-4 py-6'>
-                    <h1 class='text-3xl font-bold'>{content_data.get('headline', 'Website')}</h1>
-                    <p class='mt-2'>{content_data.get('tagline', '')}</p>
-                </div>
-            </header>
-            <main class='max-w-6xl mx-auto p-4 mt-8'>
-                <p>{content_data.get('about', '')}</p>
-            </main>
-        </body>
-        </html>"""
+#     # Load template
+#     try:
+#         template = jinja_env.get_template(template_name)
+#     except Exception as e:
+#         logger.error(f"Failed to load template {template_name}: {e}")
+#         # Fall back to an extremely simple template
+#         return f"""<!DOCTYPE html>
+#         <html>
+#         <head>
+#             <title>{content_data.get('headline', 'Website')}</title>
+#             <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
+#         </head>
+#         <body class='bg-gray-100'>
+#             <header class='bg-white shadow'>
+#                 <div class='max-w-6xl mx-auto px-4 py-6'>
+#                     <h1 class='text-3xl font-bold'>{content_data.get('headline', 'Website')}</h1>
+#                     <p class='mt-2'>{content_data.get('tagline', '')}</p>
+#                 </div>
+#             </header>
+#             <main class='max-w-6xl mx-auto p-4 mt-8'>
+#                 <p>{content_data.get('about', '')}</p>
+#             </main>
+#         </body>
+#         </html>"""
+    def render_template(content_data, assets):
+        """Render the appropriate HTML template based on website type."""
+        # --- Keep validation and template selection logic as is ---
+        if "headline" not in content_data:
+            content_data["headline"] = content_data.get("site_url", "Website")
+        if "tagline" not in content_data:
+            content_data["tagline"] = ""
+    
+        website_type = content_data.get("user_type", "business")
+        template_name = f"{website_type.lower()}.html"
+        template_path = Path(f"templates/{template_name}")
+        if not template_path.exists():
+            template_name = "default.html" # Keep fallback logic
+            logger.warning(f"Template for {website_type} not found, using default")
+    
+        try:
+            template = jinja_env.get_template(template_name)
+        except Exception as e:
+            # --- Keep simple fallback template rendering on load error ---
+            logger.error(f"Failed to load template {template_name}: {e}")
+            # Example simplified fallback:
+            return f"<html><body><h1>Error loading template: {e}</h1></body></html>"
+    
+        # --- START MODIFICATION ---
+        # Merge content data with asset paths
+        template_data = {**content_data}
+        for asset_type, asset_path in assets.items():
+            template_data[asset_type] = asset_path
+    
+        # Get the selected color palette ID
+        palette_id = content_data.get("color_palette", "default")
+        # Lookup the corresponding color scheme, ensure background/text exist
+        selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy() # Use .copy()
+        selected_colors.setdefault('background', '#FFFFFF') # Ensure defaults
+        selected_colors.setdefault('text', '#333333')
+    
+        # Calculate contrast colors and add them to the colors dict
+        light_contrast = selected_colors['background'] # Typically the background color
+        dark_contrast = selected_colors['text']       # Typically the text color
+    
+        selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
+        selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
+        # For gradients, we often pick one of the colors (e.g., primary) or just default to light/white
+        selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast) # Or just hardcode to light_contrast if always light enough
+        # Contrast against the main background color (useful for footer etc.)
+        selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast) # Contrast for text *on* the dark color background
+    
+        template_data["colors"] = selected_colors # Pass the enriched colors dict
+        logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
+        # --- END MODIFICATION ---
+    
+        # Render the template with the data
+        try:
+            return template.render(**template_data)
+        except Exception as e:
+            # --- Keep detailed fallback template rendering on render error ---
+            logger.error(f"Template rendering error: {e}")
+            # Fallback template with error info:
+            return f"""<!DOCTYPE html>
+            <html><head><title>Render Error</title></head><body>
+            <h1>Template Rendering Error</h1><pre>{str(e)}</pre>
+            <h2>Data Passed:</h2><pre>{json.dumps(template_data, indent=2, default=str)}</pre>
+            </body></html>"""
     
     # Merge content data with asset paths
     template_data = {**content_data}
