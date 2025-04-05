@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{ headline }} - {{ tagline }}</title> {# SEO: Good title format #}
+        <meta name="description" content="{{ tagline + '. ' + about[:120] + '...' if about else tagline }}"> {# SEO: Description #}
+        <meta name="author" content="{{ headline }}">
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="profile"> {# Use profile or website #}
+        <meta property="og:title" content="{{ headline }} - {{ tagline }}">
+        <meta property="og:description" content="{{ about[:120] + '...' if about else tagline }}">
+        {% if banner_path %}<meta property="og:image" content="{{ banner_path }}">{% endif %} {# Use banner as main image #}
+        {# Consider adding <meta property="og:url" content="..."> #}
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image">
+        <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
+        <meta property="twitter:description" content="{{ about[:120] + '...' if about else tagline }}">
+        {% if banner_path %}<meta property="twitter:image" content="{{ banner_path }}">{% endif %}
+        {# Consider adding <meta property="twitter:image:alt" content="Portfolio banner for {{ headline }}"> #}
+        {# Consider adding <meta property="twitter:site" content="@YourTwitterHandle"> #}
+
+        <!-- Stylesheet -->
+        <link rel="stylesheet" href="styles.css">
+
+        <!-- SVG Sprite Sheet -->
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            {# Include icons relevant to portfolio: mail, phone, location, briefcase, lightbulb, pencil, code-bracket?, paint-brush?, link?, arrow-up, menu, social icons etc. Using Heroicons v2 Outline #}
+            <symbol id="icon-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102A1.125 1.125 0 006.09 2.25H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></symbol>
+            <symbol id="icon-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></symbol>
+            <symbol id="icon-location" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" /></symbol>
+            <symbol id="icon-whatsapp" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.33 3.4 16.81L2.1 21.9L7.42 20.61C8.84 21.32 10.39 21.72 12.04 21.72C17.5 21.72 21.95 17.27 21.95 11.81C21.95 6.35 17.5 2 12.04 2M12.04 19.93C10.54 19.93 9.1 19.5 7.85 18.73L7.55 18.54L5.32 19.18L5.97 17L5.77 16.69C4.91 15.32 4.42 13.67 4.42 11.91C4.42 7.7 7.83 4.29 12.04 4.29C16.25 4.29 19.66 7.7 19.66 11.91C19.66 16.12 16.25 19.93 12.04 19.93M17.41 14.6C17.16 14.48 15.89 13.84 15.65 13.75C15.42 13.66 15.25 13.61 15.09 13.85C14.93 14.09 14.43 14.71 14.28 14.87C14.14 15.03 14 15.05 13.75 14.93C13.51 14.81 12.52 14.45 11.37 13.43C10.46 12.63 9.89 11.64 9.73 11.39C9.57 11.15 9.7 11.04 9.82 10.92C9.93 10.8 10.09 10.59 10.23 10.43C10.37 10.27 10.42 10.15 10.53 9.96C10.64 9.77 10.59 9.6 10.5 9.46C10.41 9.32 9.77 7.71 9.53 7.14C9.3 6.57 9.06 6.62 8.89 6.61H8.4C8.16 6.61 7.93 6.66 7.74 6.89C7.55 7.12 6.93 7.7 6.93 8.89C6.93 10.08 7.77 11.2 7.91 11.36C8.05 11.52 9.76 14.14 12.37 15.3C14.98 16.46 14.98 15.98 15.3 15.93C15.62 15.88 16.89 15.18 17.14 14.93C17.39 14.68 17.39 14.5 17.41 14.41C17.41 14.32 17.26 14.27 17.41 14.6Z"/></symbol>
+            <symbol id="icon-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3A2 2 0 0 1 21 5V19A2 2 0 0 1 19 21H5A2 2 0 0 1 3 19V5A2 2 0 0 1 5 3H19M18.5 18.5V13.2A3.26 3.26 0 0 0 15.24 9.94C14.39 9.94 13.4 10.46 13 11.1V10.28H10.13V18.5H13V13.07C13 11.93 13.32 10.89 14.91 10.89C16.5 10.89 16.5 12.12 16.5 13.1V18.5H18.5M6.88 8.56A1.68 1.68 0 0 0 8.56 6.88C8.56 5.95 7.81 5.19 6.88 5.19C5.95 5.19 5.19 5.95 5.19 6.88A1.68 1.68 0 0 0 6.88 8.56M8.27 18.5V10.28H5.5V18.5H8.27Z"/></symbol>
+            <symbol id="icon-twitter" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6C21.71 6.3 20.91 6.5 20.06 6.6C20.91 6.1 21.56 5.3 21.88 4.3C21.08 4.8 20.23 5.1 19.34 5.3C18.6 4.5 17.55 4 16.4 4C14.2 4 12.39 5.8 12.39 8C12.39 8.3 12.42 8.6 12.48 8.9C8.7 8.7 5.4 6.9 3.1 4.1C2.7 4.7 2.5 5.4 2.5 6.2C2.5 7.5 3.2 8.7 4.2 9.4C3.6 9.4 3 9.2 2.4 9C2.4 11.1 3.9 12.9 5.9 13.3C5.5 13.4 5.2 13.5 4.8 13.5C4.5 13.5 4.2 13.5 3.9 13.4C4.5 15.1 6 16.3 7.7 16.3C6.3 17.4 4.6 18.1 2.8 18.1C2.5 18.1 2.2 18.1 1.9 18C3.6 19.2 5.6 20 7.8 20C16.4 20 20.8 12.9 20.8 6.5C20.8 6.3 20.8 6.1 20.7 5.9C21.5 5.4 22.1 4.7 22.46 3.8L22.46 6Z"/></symbol>
+            <symbol id="icon-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"> <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /> </symbol>
+            <symbol id="icon-briefcase" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.05a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25v-4.05m19.5 0a2.25 2.25 0 00-2.25-2.25h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0l-7.5-4.615A2.25 2.25 0 013.75 14.393V14.15m19.5 0a2.25 2.25 0 00-2.25-2.25h-15a2.25 2.25 0 00-2.25 2.25m15-1.5l-3-3m0 0l-3 3m3-3V11.25m6 2.25h.008v.008H18v-.008zm0 2.25h.008v.008H18v-.008zm-4.5 2.25h.008v.008h-.008v-.008zm0 2.25h.008v.008h-.008V18.75z" /></symbol>
+            <symbol id="icon-academic-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" /></symbol>
+            <symbol id="icon-star" viewBox="0 0 24 24" fill="currentColor" stroke-width="1.5"><path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354l-4.52 2.872c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" /></symbol>
+            <symbol id="icon-lightbulb" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3 .379V18m-3 0h3m-3 0h-1.5m1.5 0H12m6.75 0h1.5c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H18.75m-1.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-1.5m1.5 0H12m4.125 0v.375c0 .621-.504 1.125-1.125 1.125h-1.5c-.621 0-1.125-.504-1.125-1.125V15m1.5 0v-.375c0-.621.504-1.125 1.125-1.125h1.5c.621 0 1.125.504 1.125 1.125V15m-1.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM4.5 15h1.5c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125H4.5c-.621 0-1.125-.504-1.125-1.125v-1.5c0-.621.504-1.125 1.125-1.125zM6 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3 .379V18m-3 0h3m-3 0h-1.5m1.5 0H6m4.125 0v.375c0 .621-.504 1.125-1.125 1.125h-1.5c-.621 0-1.125-.504-1.125-1.125V15m1.5 0v-.375c0-.621.504-1.125 1.125-1.125h1.5c.621 0 1.125.504 1.125 1.125V15m-1.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></symbol>
+            <symbol id="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19.5v-15m0 0l-6.75 6.75M12 4.5l6.75 6.75" /></symbol>
+            <symbol id="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></symbol>
+            <symbol id="icon-folder" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.75V12A2.25 2.25 0 014.5 9.75h15A2.25 2.25 0 0121.75 12v.75m-8.69-6.44l-2.12-2.12a1.5 1.5 0 00-1.061-.44H4.5A2.25 2.25 0 002.25 6v12a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9a2.25 2.25 0 00-2.25-2.25h-5.379a1.5 1.5 0 01-1.06-.44z" /></symbol>
+            <symbol id="icon-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></symbol>
+            <symbol id="icon-sparkles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"> <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L1.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" /> </symbol>
+            <symbol id="icon-default" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><use href="#icon-sparkles" /></symbol>
+        </svg>
+
+        <style>
+            /* :root colors defined dynamically */
+            :root { --color-primary: {{ colors.primary | default('#5cbdb9') }}; --color-secondary: {{ colors.secondary | default('#ebf6f5') }}; --color-background: {{ colors.background | default('#F9FAFB') }}; --color-text: {{ colors.text | default('#2d545e') }}; --color-text-muted: {{ colors.text | default('#2d545e') }}B3; --color-text-on-primary: {{ colors.text_on_primary | default('#2d545e') }}; --color-text-on-secondary: {{ colors.text_on_secondary | default('#2d545e') }}; --color-text-on-gradient: {{ colors.text_on_gradient | default('#2d545e') }}; --color-text-on-dark: {{ colors.text_on_dark | default('#FFFFFF') }}; --transition-speed: 0.3s; }
+            body { background-color: var(--color-background); color: var(--color-text); }
+            /* Backgrounds */
+            .bg-default { background-color: var(--color-background); }
+            .bg-section-light { background-color: #FFFFFF; }
+            .bg-section-neutral { background-color: #F9FAFB; } /* Tailwind gray-50 */
+            .bg-section-dark { background-color: #1f2937; } /* Tailwind gray-800 or palette dark */
+            /* Colors */
+            .bg-primary { background-color: var(--color-primary); }
+            .text-primary { color: var(--color-primary); }
+            .border-primary { border-color: var(--color-primary); }
+            .ring-primary:focus { --tw-ring-color: var(--color-primary); }
+            .bg-secondary { background-color: var(--color-secondary); }
+            .text-secondary { color: var(--color-secondary); }
+            .text-contrast-primary { color: var(--color-text-on-primary); }
+            .text-contrast-secondary { color: var(--color-text-on-secondary); }
+            .text-contrast-gradient { color: var(--color-text-on-gradient); }
+            .text-contrast-dark { color: var(--color-text-on-dark); }
+            .text-muted { color: var(--color-text-muted); }
+            /* Hero */
+            .hero-gradient { background: linear-gradient(135deg, var(--color-primary), var(--color-secondary)); }
+            .hero-text-shadow { text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15); }
+            /* Effects & Layout */
+            .hover-lift { transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease; }
+            .hover-lift:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+            .section-divider { height: 4px; width: 60px; background-color: var(--color-primary); margin: 0 auto 1.5rem; border-radius: 2px; }
+            .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+            .reveal.active { opacity: 1; transform: translateY(0); }
+            /* Skip Link */
+            .skip-to-content { position: absolute; top: -50px; left: 0; background: var(--color-primary); color: var(--color-text-on-primary); padding: 8px 12px; z-index: 1000; transition: top 0.3s ease; border-bottom-right-radius: 4px; }
+            .skip-to-content:focus { top: 0; }
+            /* Portfolio Card */
+            .portfolio-card { transition: all var(--transition-speed) ease; background-color: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -2px rgba(0,0,0,.07); }
+            .portfolio-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); }
+            .portfolio-image-placeholder { aspect-ratio: 16 / 10; background-color: var(--color-secondary); display: flex; align-items: center; justify-content: center; color: var(--color-text-on-secondary); font-size: 0.875rem; opacity: 0.8; }
+            /* Reduced Motion */
+            @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+        </style>
+    </head>
+    <body class="text-base antialiased bg-default">
+        <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+        <header class="bg-section-light shadow sticky top-0 z-50">
+            <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between h-16 items-center">
+                    <div class="flex items-center">
+                        {% if logo_path %}
+                            <a href="#" aria-label="{{ headline }} homepage">
+                                <img class="h-10 w-10 rounded-full object-cover" src="{{ logo_path }}" alt="Profile picture of {{ headline }}" loading="lazy">
+                            </a>
+                        {% endif %}
+                        <div class="ml-3">
+                            <a href="#" class="text-lg font-bold text-gray-900 hover:text-primary transition-colors">{{ headline }}</a>
+                            {% if tagline %}<p class="text-sm text-muted">{{ tagline }}</p>{% endif %}
+                        </div>
+                    </div>
+                    <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-6">
+                        <a href="#about" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">About</a>
+                        <a href="#portfolio" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Portfolio</a>
+                        {% if skills %} <a href="#skills" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Skills</a> {% endif %}
+                        {% if workExperience %} <a href="#experience" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Experience</a> {% endif %}
+                        <a href="#contact" class="text-gray-700 hover:text-primary transition-colors font-medium text-sm">Contact</a>
+                    </div>
+                     <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="text-gray-700 focus:outline-none p-2 -mr-2">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24"><use href="#icon-menu" /></svg>
+                        </button>
+                    </div>
+                </div>
+            </nav>
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-200 hidden">
+                 <div class="px-2 pt-2 pb-4 space-y-1">
+                    <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
+                    <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Portfolio</a>
+                    {% if skills %} <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Skills</a> {% endif %}
+                    {% if workExperience %} <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Experience</a> {% endif %}
+                    <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                 </div>
+            </div>
+        </header>
+
+        <main id="main-content">
+            <!-- Hero Section: Gradient, Profile Focused -->
+            <section class="hero-section hero-gradient py-20 md:py-28 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in">
+                 <div class="max-w-4xl mx-auto text-center">
+                     {% if logo_path %}
+                         <img class="h-28 w-28 sm:h-32 sm:w-32 rounded-full object-cover mx-auto mb-4 shadow-lg border-4 border-white border-opacity-50" src="{{ logo_path }}" alt="Profile picture of {{ headline }}" loading="lazy">
+                     {% endif %}
+                     <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2 hero-text-shadow">{{ headline }}</h1>
+                     <p class="text-xl sm:text-2xl max-w-2xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline }}</p>
+                     <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                         <a href="#portfolio" class="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all hover-lift">
+                             <svg class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg> {# Photo Icon #}
+                             View Work
+                         </a>
+                         <a href="#contact" class="inline-flex items-center px-5 py-2.5 sm:px-6 sm:py-3 border border-transparent text-sm sm:text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-secondary transition-all hover-lift">
+                            <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-mail" /></svg>
+                             Contact Me
+                         </a>
+                     </div>
+                 </div>
+            </section>
+
+            <!-- About Section: Neutral Background -->
+            <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral">
+                <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-8 items-center">
+                    <div class="md:col-span-1 reveal">
+                        {% if about_image %}
+                         <img class="rounded-lg shadow-lg w-full h-auto object-cover aspect-square" src="{{ about_image }}" alt="About {{ headline }}" loading="lazy">
+                         {% else %}
+                          <div class="rounded-lg shadow-lg aspect-square bg-white flex items-center justify-center text-gray-400"><span>About Image</span></div>
+                         {% endif %}
+                    </div>
+                    <div class="md:col-span-2 reveal">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">About Me</h2>
+                        <div class="section-divider !mx-0 !mb-4"></div>
+                        <p class="text-base md:text-lg text-gray-700 leading-relaxed">{{ about }}</p>
+                    </div>
+                 </div>
+            </section>
+
+             <!-- Portfolio/Featured Work Section: White Background -->
+            {% if services and services | length > 0 %}
+                <section id="portfolio" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+                    <div class="max-w-7xl mx-auto">
+                        <div class="text-center mb-12 reveal">
+                            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Featured Work</h2>
+                            <div class="section-divider"></div>
+                            <p class="mt-4 max-w-2xl mx-auto text-lg text-muted">Here are some examples of projects I've worked on.</p> {# Adjust text #}
+                        </div>
+                        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {% for project in services %} {# Renamed loop variable #}
+                                <div class="portfolio-card reveal flex flex-col"> {# Use new card style #}
+                                    {# Placeholder for Project Image - use banner_path if only one service? Or loop through 'gallery'? Needs data source. #}
+                                    <div class="portfolio-image-placeholder">
+                                         <span>[Project Image]</span> {# Or <img src="{{ project.imageUrl }}"...> if available #}
+                                    </div>
+                                    <div class="p-5 flex-grow flex flex-col">
+                                        <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">{{ project.name | default("Project Title") }}</h3>
+                                        {% if project.description %}
+                                            <p class="text-muted text-sm flex-grow mb-4">{{ project.description }}</p>
+                                        {% endif %}
+                                        {# Optional: Link to project details or live site #}
+                                        {# <a href="{{ project.url | default('#') }}" target="_blank" class="mt-auto inline-flex items-center text-sm font-medium text-primary hover:opacity-80 transition-opacity">
+                                            View Project <span aria-hidden="true">→</span>
+                                        </a> #}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+
+            <!-- Skills Section: Neutral Background -->
+             {% if skills and skills | length > 0 %}
+                 <section id="skills" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral">
+                     <div class="max-w-4xl mx-auto">
+                         <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 reveal">Skills</h2>
+                         <div class="section-divider reveal"></div>
+                         <div class="text-center reveal">
+                             <div class="flex flex-wrap justify-center gap-2 sm:gap-3">
+                                 {% for skill in skills %}
+                                     <span class="inline-block bg-primary bg-opacity-10 text-primary text-sm sm:text-base font-medium px-4 py-1.5 rounded-full">{{ skill }}</span>
+                                 {% endfor %}
+                             </div>
+                         </div>
+                     </div>
+                 </section>
+             {% endif %}
+
+            <!-- Combined Experience & Education: White Background -->
+            {% if workExperience or education %}
+            <section id="experience" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+                 <div class="max-w-4xl mx-auto">
+                     <div class="grid md:grid-cols-2 gap-12">
+                         {% if workExperience and workExperience | length > 0 %}
+                            <div class="reveal">
+                                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Experience</h2>
+                                <div class="section-divider !mx-0 !mb-6"></div>
+                                <div class="space-y-8">
+                                    {% for job in workExperience %}
+                                    <div>
+                                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-1">
+                                            <h3 class="text-md sm:text-lg font-semibold text-primary">{{ job.title }}</h3>
+                                            <p class="text-xs text-muted mt-1 sm:mt-0 flex-shrink-0">{{ job.startDate }} - {{ job.endDate if not job.isCurrent else 'Present' }}</p>
+                                        </div>
+                                        <p class="text-sm font-medium text-gray-800">{{ job.company }} {% if job.location %}<span class="text-gray-500 font-normal">- {{ job.location }}</span>{% endif %}</p>
+                                        {% if job.description %}<p class="mt-2 text-sm text-gray-700 leading-relaxed">{{ job.description }}</p>{% endif %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                         {% endif %}
+
+                         {% if education and education | length > 0 %}
+                            <div class="reveal">
+                                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">Education</h2>
+                                <div class="section-divider !mx-0 !mb-6"></div>
+                                 <div class="space-y-8">
+                                    {% for edu in education %}
+                                    <div>
+                                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-1">
+                                            <h3 class="text-md sm:text-lg font-semibold text-secondary">{{ edu.degree }}</h3>
+                                            <p class="text-xs text-muted mt-1 sm:mt-0 flex-shrink-0">{{ edu.startYear }} - {{ edu.endYear if not edu.inProgress else 'Present' }}</p>
+                                        </div>
+                                        <p class="text-sm font-medium text-gray-800">{{ edu.institution }} {% if edu.location %}<span class="text-gray-500 font-normal">- {{ edu.location }}</span>{% endif %}</p>
+                                        {% if edu.grade %}<p class="mt-1 text-xs text-gray-600">Grade: {{ edu.grade }}</p>{% endif %}
+                                        {% if edu.activities %}<p class="mt-1 text-xs text-gray-600">Activities: {{ edu.activities }}</p>{% endif %}
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </section>
+            {% endif %}
+
+
+            <!-- Contact Section: Two Columns -->
+            <section id="contact" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+                 <div class="max-w-7xl mx-auto">
+                     <div class="text-center mb-12 reveal">
+                        <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Contact</h2>
+                         <div class="section-divider"></div>
+                         <p class="mt-4 max-w-2xl mx-auto text-lg text-muted">Let's connect! Reach out via email or find me online.</p>
+                     </div>
+                    <div class="bg-gray-50 rounded-lg shadow-lg overflow-hidden reveal">
+                         <div class="grid md:grid-cols-5 gap-px">
+                            <!-- Left Panel: Solid Primary Background -->
+                            <div class="md:col-span-2 bg-primary p-8 text-contrast-primary">
+                                 <h3 class="text-xl sm:text-2xl font-bold mb-6">Contact Details</h3>
+                                <div class="space-y-4 sm:space-y-5">
+                                     {% if email %}
+                                        <div class="flex items-start">
+                                            <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-0.5"><use href="#icon-mail" /></svg>
+                                            <div><h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5">Email</h4><a href="mailto:{{ email }}" class="hover:underline break-all">{{ email }}</a></div>
+                                        </div>
+                                    {% endif %}
+                                    {% if phone %}
+                                        <div class="flex items-start">
+                                            <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-0.5"><use href="#icon-phone" /></svg>
+                                            <div><h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5">Phone</h4><a href="tel:{{ phone }}" class="hover:underline">{{ phone }}</a></div>
+                                        </div>
+                                    {% endif %}
+                                     {% if location %}
+                                         <div class="flex items-start">
+                                             <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-0.5"><use href="#icon-location" /></svg>
+                                             <div><h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5">Location</h4>
+                                                 <p class="text-sm">{% if location.city %}{{ location.city }}{% endif %}{% if location.state %}, {{ location.state }}{% endif %}{% if location.country %}, {{ location.country }}{% endif %}</p>
+                                             </div>
+                                         </div>
+                                    {% endif %}
+                                 </div>
+                                 {% if social and (social.linkedin or social.twitter or social.github or portfolio_url) %} {# Check for relevant profile links #}
+                                    <div class="mt-8">
+                                        <h4 class="text-sm font-semibold uppercase tracking-wider mb-3">Online</h4>
+                                         <div class="flex space-x-4">
+                                             {% if social.linkedin %}<a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" class="opacity-80 hover:opacity-100 transition-opacity"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg></a>{% endif %}
+                                             {% if social.twitter %}<a href="https://twitter.com/{{ social.twitter }}" target="_blank" rel="noopener noreferrer" class="opacity-80 hover:opacity-100 transition-opacity"><span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg></a>{% endif %}
+                                             {# {% if social.github %}<a href="https://github.com/{{ social.github }}" ...><svg><use href="#icon-github" /></svg></a>{% endif %} #}
+                                             {# {% if portfolio_url %}<a href="{{ portfolio_url }}" ...><svg><use href="#icon-globe" /></svg></a>{% endif %} #}
+                                         </div>
+                                     </div>
+                                {% endif %}
+                             </div>
+                             <!-- Right Panel: White Background with Connect Buttons -->
+                             <div class="md:col-span-3 p-8 bg-white">
+                                 <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Quick Contact</h3>
+                                 <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
+                                     <p class="text-gray-700 mb-6 text-sm sm:text-base">Use the buttons below to quickly get in touch.</p>
+                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-1">
+                                        {% if email %}
+                                            <a href="mailto:{{ email }}?subject=Portfolio Inquiry: {{ headline }}" target="_blank" class="quick-connect-button bg-primary text-contrast-primary hover:opacity-90">
+                                                <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
+                                                <span>Email Me</span>
+                                            </a>
+                                        {% endif %}
+                                        {% if social.linkedin %}
+                                             <a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" class="quick-connect-button bg-[#0A66C2] text-white hover:opacity-90"> {# LinkedIn Blue #}
+                                                <svg class="h-5 w-5 mr-2"><use href="#icon-linkedin" /></svg>
+                                                <span>Connect on LinkedIn</span>
+                                            </a>
+                                        {% endif %}
+                                        {% if phone %}
+                                            <a href="tel:{{ phone }}" class="quick-connect-button bg-secondary text-contrast-secondary hover:opacity-90">
+                                                <svg class="h-5 w-5 mr-2"><use href="#icon-phone" /></svg>
+                                                <span>Call Me</span>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                         </div>
+                    </div>
+                 </div>
+            </section>
+        </main>
+
+        <!-- Footer: Dark Background -->
+        <footer class="bg-section-dark text-gray-400 py-10 px-4 sm:px-6 lg:px-8">
+             <div class="max-w-7xl mx-auto text-center text-sm">
+                 <div class="mb-4 flex justify-center space-x-6">
+                     {% if social.linkedin %}<a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg></a>{% endif %}
+                     {% if social.twitter %}<a href="https://twitter.com/{{ social.twitter }}" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg></a>{% endif %}
+                      {% if email %}<a href="mailto:{{ email }}" class="hover:text-white transition-colors"><span class="sr-only">Email</span><svg class="h-6 w-6"><use href="#icon-mail" /></svg></a>{% endif %}
+                 </div>
+                <p>© {{ current_year }} {{ headline }}.</p>
+             </div>
+        </footer>
+
+        <!-- Scroll to top button -->
+        <button id="scrollToTop" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary text-contrast-primary flex items-center justify-center shadow-lg z-40 opacity-0 pointer-events-none transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 ring-primary">
+            <span class="sr-only">Scroll to top</span>
+            <svg class="h-5 w-5 sm:h-6 sm:w-6"><use href="#icon-arrow-up" /></svg>
+        </button>
+
+        <!-- JavaScript (Keep the improved JS) -->
+        <script>
+            // Mobile menu toggle (with basic focus trapping)
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            let isMenuOpen = false;
+
+            if (mobileMenuButton && mobileMenu) {
+                const focusableElements = mobileMenu.querySelectorAll('a[href], button:not([disabled])');
+                const firstFocusableElement = focusableElements[0];
+                const lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+                function toggleMenu() {
+                    isMenuOpen = !isMenuOpen;
+                    mobileMenu.classList.toggle('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', isMenuOpen);
+                    if (isMenuOpen) { firstFocusableElement?.focus(); }
+                }
+                mobileMenuButton.addEventListener('click', toggleMenu);
+                mobileMenu.addEventListener('keydown', (e) => {
+                    if (!isMenuOpen) return;
+                    const isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+                    if (!isTabPressed) { if (e.key === 'Escape' || e.keyCode === 27) { toggleMenu(); mobileMenuButton.focus(); } return; }
+                    if (e.shiftKey) { if (document.activeElement === firstFocusableElement) { lastFocusableElement?.focus(); e.preventDefault(); } }
+                    else { if (document.activeElement === lastFocusableElement) { firstFocusableElement?.focus(); e.preventDefault(); } }
+                });
+            }
+            // Scroll to top functionality (debounced)
+            const scrollToTopButton = document.getElementById('scrollToTop');
+            if (scrollToTopButton) {
+                 let ticking = false;
+                 function updateScrollButtonVisibility() { if (window.scrollY > 300) { scrollToTopButton.classList.add('opacity-100', 'pointer-events-auto'); scrollToTopButton.classList.remove('opacity-0', 'pointer-events-none'); } else { scrollToTopButton.classList.add('opacity-0', 'pointer-events-none'); scrollToTopButton.classList.remove('opacity-100', 'pointer-events-auto'); } ticking = false; }
+                 window.addEventListener('scroll', () => { if (!ticking) { window.requestAnimationFrame(updateScrollButtonVisibility); ticking = true; } }, { passive: true });
+                 scrollToTopButton.addEventListener('click', () => { window.scrollTo({top: 0, behavior: 'smooth'}); });
+                 updateScrollButtonVisibility();
+            }
+            // Reveal animations on scroll (IntersectionObserver Implementation)
+            document.addEventListener('DOMContentLoaded', () => {
+                const revealElements = document.querySelectorAll('.reveal');
+                if ('IntersectionObserver' in window) {
+                    const observer = new IntersectionObserver((entries, observerInstance) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('active'); /* observerInstance.unobserve(entry.target); */ } }); }, { threshold: 0.1 });
+                    revealElements.forEach(el => observer.observe(el));
+                } else { const checkRevealFallback = () => { revealElements.forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 50) { el.classList.add('active'); } }); }; window.addEventListener('scroll', checkRevealFallback, { passive: true }); checkRevealFallback(); }
+                // Icon Fallback Check
+                document.querySelectorAll('svg use').forEach(use => { try { const id = use.getAttribute('href'); if (id && !document.querySelector(id)) { use.setAttribute('href', '#icon-default'); } } catch (e) {} });
+            });
+        </script>
+    </body>
+</html>
