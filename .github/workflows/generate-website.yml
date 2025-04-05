@@ -21,47 +21,64 @@ jobs:
         with:
           python-version: '3.9'
 
-      # --- NEW: Node.js & Tailwind Setup ---
+      # --- Node.js Setup ---
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Or your preferred LTS version
-          # cache: 'npm' # Cache npm dependencies
+          node-version: '18'
+          cache: 'npm' # Enable caching now that package.json exists
 
-      - name: Install Tailwind CSS Dependencies
-        run: npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
-        # Assumes package.json doesn't exist; directly installs globally in the runner context for this job
+      - name: Install Node.js Dependencies (inc. Tailwind)
+        # Reads package.json, installs into node_modules, creates package-lock.json
+        run: npm install
+        shell: bash
+
+      # Remove the direct install step:
+      # - name: Install Tailwind CSS Dependencies
+      #   run: npm install -D tailwindcss@latest postcss@latest autoprefixer@latest
 
       - name: Create Tailwind Config (if not in repo)
-        # If you haven't committed tailwind.config.js, create a basic one
-        # IMPORTANT: Adjust the 'content' paths to correctly point to your templates
+        # Keep this step if you don't commit tailwind.config.js
         run: |
-          echo "/** @type {import('tailwindcss').Config} */
-          module.exports = {
-            content: [
-              './python-service/templates/**/*.html', 
-              './templates/**/*.html' 
-            ],
-            theme: {
-              extend: {},
-            },
-            plugins: [],
-          }" > tailwind.config.js
-        # Only run this if tailwind.config.js doesn't exist in your repo
+          if [ ! -f tailwind.config.js ]; then
+            echo "Creating default tailwind.config.js"
+            echo "/** @type {import('tailwindcss').Config} */
+            module.exports = {
+              content: [
+                './python-service/templates/**/*.html',
+                './templates/**/*.html'
+              ],
+              theme: {
+                extend: {},
+              },
+              plugins: [],
+            }" > tailwind.config.js
+          else
+            echo "tailwind.config.js already exists."
+          fi
+        shell: bash
 
       - name: Create Input CSS File (if not in repo)
-        # If you haven't committed an input CSS file
+        # Keep this step if you don't commit src/input.css
         run: |
-          mkdir -p src
-          echo "@tailwind base;" >> src/input.css
-          echo "@tailwind components;" >> src/input.css
-          echo "@tailwind utilities;" >> src/input.css
-        # Only run this if src/input.css doesn't exist in your repo
+          if [ ! -f src/input.css ]; then
+            echo "Creating default src/input.css"
+            mkdir -p src
+            echo "@tailwind base;" >> src/input.css
+            echo "@tailwind components;" >> src/input.css
+            echo "@tailwind utilities;" >> src/input.css
+          else
+            echo "src/input.css already exists."
+          fi
+        shell: bash
 
       - name: Compile Tailwind CSS
-        # Builds the CSS and places it where the Python script/copy step expects it
-        # Output to the './templates/' directory created later or adjust path
-        run: npx tailwindcss -i ./src/input.css -o ./templates/styles.css --minify
+        # npx now finds tailwindcss in ./node_modules/.bin
+        # Ensure the output directory ./templates exists before running
+        run: |
+          mkdir -p ./templates # Ensure output directory exists
+          npx tailwindcss -i ./src/input.css -o ./templates/styles.css --minify
+        shell: bash
       # --- END: Node.js & Tailwind Setup ---
 
       - name: Install Python dependencies
@@ -70,15 +87,16 @@ jobs:
           pip install boto3 requests jinja2 python-dotenv xmltodict flask
         shell: bash
 
-      # This step now primarily ensures the output 'clients' dir exists
-      # and copies the *source* templates if needed by Python's loader setup
+      # This step primarily copies SOURCE templates if needed by Python's loader setup
+      # It no longer needs to create ./templates as the Tailwind step does that.
       - name: Prepare Directories and Copy Source Templates
         run: |
           echo "Preparing directories and copying source templates..."
-          mkdir -p templates # Ensure root templates dir exists (for CSS output and maybe Python)
           mkdir -p clients # Ensure clients dir exists for Python output
 
-          # Copy source HTML templates if Jinja looks in './templates'
+          # Copy source HTML templates IF Jinja needs them copied to ./templates
+          # Check if your webhook_handler.py FileSystemLoader points to './templates' or 'python-service/templates'
+          # If it points to 'python-service/templates', these copies might be redundant.
           cp python-service/templates/business.html templates/business.html
           if [ -f python-service/templates/default.html ]; then
             cp python-service/templates/default.html templates/default.html
@@ -88,31 +106,21 @@ jobs:
 
       - name: Process website content (Generates HTML, Copies Assets & Compiled CSS)
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_PAGES_TARGET: clickcatalyst-digital.github.io # Default or from env
+          # ... (your env vars) ...
         run: |
           python -c "
-          # --- Your inline Python script remains the same ---
-          # It will now find and copy the ./templates/styles.css file
-          # that was generated by the 'Compile Tailwind CSS' step above.
-          import json, sys, os, shutil
+          # --- Your inline Python script ---
+          # This should work as before, finding the compiled
+          # './templates/styles.css' to copy into the client dir.
+          import json, sys, os, shutil, html # Ensure html is imported
           import logging
-          from pathlib import Path # Moved import to top
+          from pathlib import Path
 
-          # Configure logging
           logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(name)s - %(message)s')
           logger = logging.getLogger(__name__)
 
-          # Append path and import necessary functions AFTER basic setup
-          # Ensure webhook_handler.py is correctly located relative to this path
           sys.path.append('./python-service')
           try:
-              # Assuming these functions handle their own boto3/jinja setup or use global vars
-              # Make sure webhook_handler.py uses FileSystemLoader relative to ITSELF or '.' if running from action root
               from webhook_handler import download_from_s3, extract_content_json, download_assets, render_template
           except ImportError as import_err:
               logger.error(f'Failed to import from webhook_handler: {import_err}')
@@ -121,116 +129,65 @@ jobs:
               logger.error(f'Error during setup/import from webhook_handler: {setup_err}')
               sys.exit(1)
 
-
-          # Get the GitHub event data
           event_path = os.environ.get('GITHUB_EVENT_PATH')
-          if not event_path or not os.path.exists(event_path):
-              logger.error('GITHUB_EVENT_PATH not found or invalid.')
-              sys.exit(1)
+          # ... (rest of event data loading and validation) ...
+          if not event_path or not os.path.exists(event_path): logger.error('GITHUB_EVENT_PATH invalid.'); sys.exit(1)
           try:
-              with open(event_path) as f:
-                  event_data = json.load(f)
-          except Exception as json_err:
-              logger.error(f'Failed to load GITHUB_EVENT_PATH JSON: {json_err}')
-              sys.exit(1)
+              with open(event_path) as f: event_data = json.load(f)
+          except Exception as json_err: logger.error(f'Failed to load GITHUB_EVENT_PATH JSON: {json_err}'); sys.exit(1)
 
-          # Extract data from payload
           payload = event_data.get('client_payload', {})
-          bucket = payload.get('bucket')
-          folder_name = payload.get('folderName')
-          website_id = payload.get('websiteId')
-          website_type = payload.get('websiteType', 'business') # Default to business
-
-          if not all([bucket, folder_name, website_id]):
-              logger.error('Missing bucket, folderName, or websiteId in payload')
-              sys.exit(1)
-
+          bucket = payload.get('bucket'); folder_name = payload.get('folderName'); website_id = payload.get('websiteId')
+          website_type = payload.get('websiteType', 'business')
+          if not all([bucket, folder_name, website_id]): logger.error('Missing payload keys.'); sys.exit(1)
           logger.info(f'Processing website: {website_id} ({folder_name}) of type {website_type}')
 
-          # Main processing block
           try:
-              # --- Download content.json (with improved error handling) ---
-              content_bytes = None
-              content_key_plain = f'{folder_name}/content.json'
-              content_key_gz = f'{folder_name}/content.json.gz'
-
+              # --- Download content ---
+              content_bytes = None; content_key_plain = f'{folder_name}/content.json'; content_key_gz = f'{folder_name}/content.json.gz'
               content_bytes = download_from_s3(bucket, content_key_plain)
-              if not content_bytes:
-                  logger.info(f'{content_key_plain} not found, trying {content_key_gz}')
-                  content_bytes = download_from_s3(bucket, content_key_gz)
-
-              if not content_bytes:
-                  logger.error(f'Failed to download content file ({content_key_plain} or {content_key_gz})')
-                  sys.exit(1)
-
+              if not content_bytes: content_bytes = download_from_s3(bucket, content_key_gz)
+              if not content_bytes: logger.error(f'Failed to download content file.'); sys.exit(1)
               content_data = extract_content_json(content_bytes)
-              if not content_data:
-                  logger.error('Failed to extract content.json data')
-                  sys.exit(1)
+              if not content_data: logger.error('Failed to extract content.json data'); sys.exit(1)
 
-              # --- Create output directory ---
-              client_dir = Path(f'clients/{folder_name}')
-              client_dir.mkdir(exist_ok=True, parents=True) # Already created in earlier step, but good practice
-
-              # --- Save raw content.json (for debugging) ---
+              # --- Dirs & Debug ---
+              client_dir = Path(f'clients/{folder_name}'); client_dir.mkdir(exist_ok=True, parents=True)
               try:
-                  with open(client_dir / 'content.json', 'w') as f:
-                      json.dump(content_data, f, indent=2)
-              except Exception as dump_err:
-                  logger.warning(f'Could not save raw content.json: {dump_err}')
-
+                  with open(client_dir / 'content.json', 'w') as f: json.dump(content_data, f, indent=2)
+              except Exception as dump_err: logger.warning(f'Could not save raw content.json: {dump_err}')
 
               # --- Download assets ---
-              asset_keys = {
-                  'logo': content_data.get('logo'),
-                  'banner': content_data.get('banner'),
-                  'about_image': content_data.get('about_image')
-                  # Add other potential assets if needed by templates
-              }
-              # Add gallery images dynamically if used by template
-              # for i, image_path in enumerate(content_data.get('gallery', [])):
-              #     if image_path: asset_keys[f'gallery_{i}'] = image_path
-
-              downloaded_assets = download_assets(bucket, folder_name, asset_keys) # Assumes this uses the imported s3_client
+              asset_keys = { 'logo': content_data.get('logo'), 'banner': content_data.get('banner'), 'about_image': content_data.get('about_image') }
+              downloaded_assets = download_assets(bucket, folder_name, asset_keys)
 
               # --- Render HTML ---
-              # Assumes render_template uses the Jinja env from webhook_handler
-              # which should now find templates in './templates' thanks to the copy step
               html_output = render_template(content_data, downloaded_assets)
 
               # --- Save HTML ---
               try:
-                  with open(client_dir / 'index.html', 'w', encoding='utf-8') as f:
-                      f.write(html_output)
+                  with open(client_dir / 'index.html', 'w', encoding='utf-8') as f: f.write(html_output)
                   logger.info(f'Successfully generated index.html for {folder_name}')
-              except Exception as write_err:
-                  logger.error(f'Failed to write index.html: {write_err}')
-                  sys.exit(1)
+              except Exception as write_err: logger.error(f'Failed to write index.html: {write_err}'); sys.exit(1)
 
-
-              # --- Copy Pre-built CSS (Generated in earlier Action step) ---
-              prebuilt_css_path = Path('templates/styles.css') # Path relative to checkout root where build step outputted
+              # --- Copy Compiled CSS ---
+              prebuilt_css_path = Path('templates/styles.css') # Relative to root where Tailwind built it
               target_css_path = client_dir / 'styles.css'
-
               if prebuilt_css_path.exists():
                   try:
                       shutil.copy2(prebuilt_css_path, target_css_path)
-                      # Use str() for Path object in f-string just to be safe
                       logger.info(f'Copied {str(prebuilt_css_path)} to {str(target_css_path)}')
                   except Exception as css_copy_error:
                       logger.error(f'Failed to copy styles.css: {css_copy_error}')
-                      # Decide if this failure should stop the deployment
-                      # sys.exit(1) # Uncomment to make missing CSS fatal
+                      # sys.exit(1) # Optional: Fail action if CSS missing
               else:
                   logger.warning(f'Compiled {str(prebuilt_css_path)} not found. Styling will be missing.')
-                  # Decide if this failure should stop the deployment
-                  # sys.exit(1) # Uncomment to make missing CSS fatal
+                  # sys.exit(1) # Optional: Fail action if CSS missing
 
               print(f'Website content generation successful for {folder_name}')
 
-          # --- Overall Error Handling ---
           except Exception as e:
-              logger.exception(f'Error during website content processing: {e}') # Use logger.exception for traceback
+              logger.exception(f'Error during website content processing: {e}')
               print(f'Website generation failed: {str(e)}')
               sys.exit(1)
           "
@@ -240,8 +197,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./clients # Deploy the entire clients directory
-          force_orphan: true # Recommended for gh-pages to keep history clean
-          # Optional: Specify destination directory in gh-pages branch if needed
-          # destination_dir: '.'
-          # cname: your.custom.domain # Add CNAME if using custom domain via GH Pages settings
+          publish_dir: ./clients
+          force_orphan: true
+          # cname: your.custom.domain
