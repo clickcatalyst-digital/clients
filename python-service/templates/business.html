@@ -145,9 +145,9 @@
 
             /* Ensure text on colored backgrounds has good contrast */
             /* You might need helper classes or adjust Tailwind config for this */
-            .text-on-primary { color: {{ get_text_color(colors.primary) | default('#FFFFFF') }}; } /* Example: Needs Jinja helper or CSS logic */
-            .text-on-secondary { color: {{ get_text_color(colors.secondary) | default('#333333') }}; }
-            .text-on-gradient { color: {{ get_text_color(colors.primary) | default('#FFFFFF') }}; } /* Heuristic: Use primary's contrast */
+            .text-on-primary { color: {{ colors.text_on_primary | default('#FFFFFF') }}; } /* Example: Needs Jinja helper or CSS logic */
+            .text-on-secondary { color: {{ colors.text_on_secondary | default('#333333') }}; }
+            .text-on-gradient { color: {{ colors.text_on_gradient | default('#FFFFFF') }}; } /* Heuristic: Use primary's contrast */
 
 
             /* Animation classes (Keep or replace with Tailwind) */
