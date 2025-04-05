@@ -39,6 +39,18 @@
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
+        <!-- SVG Sprite Sheet - Optimized Icon System -->
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <!-- Add common icons as symbols -->
+            {% for icon in ["cog", "shopping-bag", "briefcase", "lightbulb", "chart", "document", "shield", "user", "heart", "star", "phone", "mail", "map", "globe", "pencil", "rocket", "device", "cube", "folder", "default"] %}
+            <symbol id="icon-{{ icon }}" viewBox="0 0 24 24">
+                {% if icon == "default" %}
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                {% endif %}
+            </symbol>
+            {% endfor %}
+        </svg>
+
         <style>
             /* Define theme colors from the dynamic color scheme */
             :root {
@@ -662,98 +674,13 @@
                                 class="service-card bg-white rounded-lg shadow-md p-6 reveal"
                                 style="transition-delay: {{ loop.index0 * 0.1 }}s;">
                                 <div class="icon-circle">
-                                    {% if service.icon == "briefcase" %}
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                                        </svg>
-                                    {% elif service.icon == "lightbulb" %}
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                                        </svg>
-                                    {% elif service.icon == "chart" %}
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
-                                        </svg>
-                                    {% elif service.icon == "people" %}
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                                        </svg>
-                                    {% elif service.icon == "shield" %}
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                                        </svg>
-                                    {% elif service.icon == "document" %}
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
-                                        </svg>
-                                    {% else %}
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            class="h-8 w-8"
-                                            fill="none"
-                                            viewBox="0 0 24 24"
-                                            stroke="currentColor">
-                                            <path
-                                                stroke-linecap="round"
-                                                stroke-linejoin="round"
-                                                stroke-width="2"
-                                                d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                                        </svg>
-                                    {% endif %}
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        {% if service.icon %}
+                                            <use href="#icon-{{ service.icon }}" onerror="this.href='#icon-default'" />
+                                        {% else %}
+                                            <use href="#icon-default" />
+                                        {% endif %}
+                                    </svg>
                                 </div>
                                 <h3 class="text-xl font-semibold mb-3 text-center text-gray-900">
                                     {% if service.name %}{{ service.name }}
@@ -1361,6 +1288,48 @@
 
             window.addEventListener('scroll', checkReveal);
             window.addEventListener('load', checkReveal);
+
+            // Icon system - dynamic loading
+            document.addEventListener('DOMContentLoaded', function() {
+                // Define paths for all supported icons
+                const iconPaths = {
+                    "user": 'M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z',
+                    "cog": 'M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z',
+                    "shopping-bag": 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
+                    "briefcase": 'M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
+                    // Add more icon paths here from your list
+                    // ...
+                    
+                    // Always include a default path
+                    "default": 'M13 10V3L4 14h7v7l9-11h-7z'
+                };
+                
+                // Get all symbol elements
+                const symbols = document.querySelectorAll('symbol[id^="icon-"]');
+                
+                // Add paths to symbols
+                symbols.forEach(symbol => {
+                    const iconName = symbol.id.replace('icon-', '');
+                    
+                    // If symbol is empty and we have a path for it
+                    if (!symbol.querySelector('path') && iconPaths[iconName]) {
+                        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        path.setAttribute('stroke-linecap', 'round');
+                        path.setAttribute('stroke-linejoin', 'round');
+                        path.setAttribute('stroke-width', '2');
+                        path.setAttribute('d', iconPaths[iconName]);
+                        symbol.appendChild(path);
+                    }
+                });
+                
+                // Add fallback for <use> elements that reference non-existent symbols
+                document.querySelectorAll('svg use').forEach(use => {
+                    const iconId = use.getAttribute('href');
+                    if (!document.querySelector(iconId)) {
+                        use.setAttribute('href', '#icon-default');
+                    }
+                });
+            });
         </script>
     </body>
 </html>
