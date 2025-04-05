@@ -4,9 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="{{ tagline }}">
-        <meta
-            name="keywords"
-            content="{{ headline }}, {{ services|join(', ') if services }}">
+        <meta name="keywords" content="{{ headline }}, {{ services|join(', ') if services else '' }}">
+
         <meta name="author" content="{{ headline }}">
 
         <!-- Open Graph / Facebook -->
@@ -812,8 +811,7 @@
 
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {% for testimonial in testimonials %}
-                            <div
-                                class="bg-white rounded-lg shadow-md p-6 hover-lift reveal"
+                            <div class="bg-white rounded-lg shadow-md p-6 hover-lift reveal" 
                                 style="transition-delay: {{ loop.index0 * 0.1 }}s;">
                                 <div class="flex items-center mb-4">
                                     <div class="flex-shrink-0">
@@ -839,7 +837,7 @@
 
                                 <div class="mb-3">
                                     {% for i in range(5) %}
-                                        {% if i < (testimonial.rating|default:"5"|int) %}
+                                        {% if i < (testimonial.rating|default("5")|int) %}
                                             <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 class="h-5 w-5 inline-block text-yellow-400"
