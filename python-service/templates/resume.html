@@ -10,19 +10,19 @@
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content="profile"> {# Changed type to 'profile' #}
         <meta property="profile:first_name" content="{{ headline.split(' ')[0] if ' ' in headline else headline }}"> {# Basic name splitting #}
-        {% if ' ' in headline %}<meta property="profile:last_name" content="{{ headline.split(' ')[-1 }}">{% endif %}
+        {% if ' ' in headline %}<meta property="profile:last_name" content="{{ headline.split(' ')[-1] }}">{% endif %}
         <meta property="og:title" content="{{ headline }} - {{ tagline }}">
         <meta property="og:description" content="{{ about[:120] + '...' if about else tagline }}">
         {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %} {# Use logo as profile pic #}
         {# Consider adding <meta property="og:url" content="..."> #}
 
         <!-- Twitter -->
-        <meta property="twitter:card" content="summary"> {# summary might be better for profiles #}
-        <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
-        <meta property="twitter:description" content="{{ about[:120] + '...' if about else tagline }}">
-        {% if logo_path %}<meta property="twitter:image" content="{{ logo_path }}">{% endif %}
-        {# Consider adding <meta property="twitter:image:alt" content="Profile picture of {{ headline }}"> #}
-        {# Consider adding <meta property="twitter:site" content="@YourTwitterHandle"> #}
+        <meta name="twitter:card" content="summary"> {# summary might be better for profiles #}
+        <meta name="twitter:title" content="{{ headline }} - {{ tagline }}">
+        <meta name="twitter:description" content="{{ about[:120] + '...' if about else tagline }}">
+        {% if logo_path %}<meta name="twitter:image" content="{{ logo_path }}">{% endif %}
+        {# Consider adding <meta name="twitter:image:alt" content="Profile picture of {{ headline }}"> #}
+        {# Consider adding <meta name="twitter:site" content="@YourTwitterHandle"> #}
 
         <!-- Stylesheet -->
         <link rel="stylesheet" href="styles.css">
@@ -56,7 +56,7 @@
                 --color-secondary: {{ colors.secondary | default('#F7882F') }};
                 --color-background: {{ colors.background | default('#F9FAFB') }}; /* Use gray-50 as default BG */
                 --color-text: {{ colors.text | default('#111827') }}; /* Use gray-900 as default text */
-                --color-text-muted: {{ colors.text | default('#111827') }}B3; /* ~gray-600 opacity */
+                --color-text-muted: {{ colors.text | default('#111827') }}{{ 'B3' }}; /* ~gray-600 opacity */
                 --color-text-on-primary: {{ colors.text_on_primary | default('#FFFFFF') }};
                 --color-text-on-secondary: {{ colors.text_on_secondary | default('#FFFFFF') }};
                 --color-text-on-gradient: {{ colors.text_on_gradient | default('#FFFFFF') }};
@@ -107,11 +107,11 @@
           "@type": "Person",
           "name": "{{ headline }}",
           "url": "{{ 'https://' + folder_name + '.' + DOMAIN_NAME if folder_name and DOMAIN_NAME else '#' }}",
-          "description": "{{ tagline }}",
-          {% if logo_path %}"image": "{{ logo_path }}",{% endif %}
-          {% if email %}"email": "{{ email }}",{% endif %}
-          {% if phone %}"telephone": "{{ phone }}",{% endif %}
-          {% if social.linkedin %}"sameAs": "{{ social.linkedin }}",{% endif %}
+          "description": "{{ tagline }}"
+          {% if logo_path %},"image": "{{ logo_path }}"{% endif %}
+          {% if email %},"email": "{{ email }}"{% endif %}
+          {% if phone %},"telephone": "{{ phone }}"{% endif %}
+          {% if social.linkedin %},"sameAs": "{{ social.linkedin }}"{% endif %}
           {# You could potentially add knowsAbout for skills #}
           {# "knowsAbout": [{% for skill in skills %}"{{ skill }}"{% if not loop.last %},{% endif %}{% endfor %}] #}
         }
@@ -381,7 +381,7 @@
         <!-- Scroll to top button -->
         <button id="scrollToTop" class="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-primary text-contrast-primary flex items-center justify-center shadow-lg z-40 opacity-0 pointer-events-none transition-all hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 ring-primary">
             <span class="sr-only">Scroll to top</span>
-            <svg class="h-5 w-5 sm:h-6 sm-w-6"><use href="#icon-arrow-up" /></svg>
+            <svg class="h-5 w-5 sm:h-6 sm:w-6"><use href="#icon-arrow-up" /></svg>
         </button>
 
         <!-- JavaScript (Keep the improved JS from previous business.html) -->
