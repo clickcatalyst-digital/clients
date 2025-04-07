@@ -1,0 +1,27 @@
+{
+  "user_type": "event",
+  "color_palette": "luxurious-chic",
+  "headline": "event-test",
+  "tagline": "",
+  "about": "event",
+  "services": [],
+  "eventDetails": {},
+  "eventSchedule": [],
+  "productFeatures": [],
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [],
+  "site_url": "event-test",
+  "websiteId": "web-fidfovksm96ycqbl",
+  "createdAt": "2025-04-07T10:52:29.121Z",
+  "lastUpdated": "2025-04-07T10:52:29.121Z",
+  "status": "live"
+}
