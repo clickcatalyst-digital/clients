@@ -1,0 +1,59 @@
+{
+  "user_type": "resume",
+  "color_palette": "futuristic-tech",
+  "headline": "resume-test",
+  "tagline": "",
+  "about": "test bio / prof summary (500)",
+  "services": [
+    {
+      "name": "Frontend dev",
+      "icon": "chart",
+      "description": "visualizations etc"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "Principal BI",
+      "company": "ABC Fitness Solutions",
+      "startDate": "June 2018",
+      "endDate": "Present",
+      "location": "",
+      "description": "",
+      "isCurrent": false
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of California",
+      "degree": "BE in CS",
+      "startYear": "2016",
+      "endYear": "",
+      "location": "Berkley, CA",
+      "grade": "3.9",
+      "activities": "Dean's List",
+      "inProgress": true
+    }
+  ],
+  "skills": [
+    "SQL",
+    "Python"
+  ],
+  "certifications": [],
+  "logo": "resume-test/assets/image-1744002839451-jjwmixux.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [],
+  "site_url": "resume-test",
+  "websiteId": "web-udlqffknm96m9fa3",
+  "createdAt": "2025-04-07T05:13:59.451Z",
+  "lastUpdated": "2025-04-07T05:13:59.451Z",
+  "status": "live"
+}
