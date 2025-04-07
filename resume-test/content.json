@@ -1,12 +1,14 @@
 {
-  "user_type": "business",
-  "color_palette": "luxurious-chic",
+  "user_type": "resume",
+  "color_palette": "nature-inspired",
   "headline": "resume-test",
-  "tagline": "dadca",
-  "about": "dssvsd",
+  "tagline": "",
+  "about": "gfjhgjhg",
   "services": [],
-  "testimonials": [],
-  "business_stats": [],
+  "workExperience": [],
+  "education": [],
+  "skills": [],
+  "certifications": [],
   "email": "motiwalapujan@gmail.com",
   "phone": "7323065127",
   "social": {
@@ -19,8 +21,8 @@
   },
   "addOns": [],
   "site_url": "resume-test",
-  "websiteId": "web-6vwq9ag1m96xxg0v",
-  "createdAt": "2025-04-07T10:40:35.935Z",
-  "lastUpdated": "2025-04-07T10:40:35.935Z",
+  "websiteId": "web-x617y7hmm96ygb9u",
+  "createdAt": "2025-04-07T10:55:16.242Z",
+  "lastUpdated": "2025-04-07T10:55:16.242Z",
   "status": "live"
 }
