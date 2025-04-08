@@ -1,0 +1,193 @@
+{
+  "user_type": "resume",
+  "color_palette": "dreamy-sunset",
+  "headline": "resume-test01",
+  "tagline": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01res",
+  "about": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume",
+  "services": [
+    {
+      "name": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-te",
+      "icon": "briefcase",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01res"
+    },
+    {
+      "name": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-te",
+      "icon": "briefcase",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01res"
+    },
+    {
+      "name": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-te",
+      "icon": "briefcase",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01res"
+    },
+    {
+      "name": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-te",
+      "icon": "briefcase",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01res"
+    },
+    {
+      "name": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-te",
+      "icon": "briefcase",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01res"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "Job Title 1",
+      "company": "Company 1",
+      "startDate": "Month YEAR",
+      "endDate": "",
+      "location": "Location",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume",
+      "isCurrent": true
+    },
+    {
+      "title": "Job Title 2",
+      "company": "Company 2",
+      "startDate": "Month YEAR",
+      "endDate": "Month YEAR",
+      "location": "Location",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume",
+      "isCurrent": false
+    },
+    {
+      "title": "Job Title 3",
+      "company": "Company 3",
+      "startDate": "Month YEAR",
+      "endDate": "Month YEAR",
+      "location": "Location",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume",
+      "isCurrent": false
+    },
+    {
+      "title": "Job Title 4",
+      "company": "Company 4",
+      "startDate": "Month YEAR",
+      "endDate": "Month YEAR",
+      "location": "Location",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume",
+      "isCurrent": false
+    },
+    {
+      "title": "Job Title 5",
+      "company": "Company 5",
+      "startDate": "Month YEAR",
+      "endDate": "Month YEAR",
+      "location": "Location",
+      "description": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume",
+      "isCurrent": false
+    }
+  ],
+  "education": [
+    {
+      "institution": "University 1",
+      "degree": "Bachelor of Science in Computer Science",
+      "startYear": "YEAR",
+      "endYear": "",
+      "location": "Location",
+      "grade": "3.9/4",
+      "activities": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01r",
+      "inProgress": true
+    },
+    {
+      "institution": "University 2",
+      "degree": "Bachelor of Science in Computer Science",
+      "startYear": "YEAR",
+      "endYear": "YEAR",
+      "location": "Location",
+      "grade": "3.9/4",
+      "activities": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01r",
+      "inProgress": false
+    },
+    {
+      "institution": "University 3",
+      "degree": "Bachelor of Science in Computer Science",
+      "startYear": "YEAR",
+      "endYear": "YEAR",
+      "location": "Location",
+      "grade": "3.9/4",
+      "activities": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01r",
+      "inProgress": false
+    },
+    {
+      "institution": "University 4",
+      "degree": "Bachelor of Science in Computer Science",
+      "startYear": "YEAR",
+      "endYear": "YEAR",
+      "location": "Location",
+      "grade": "3.9/4",
+      "activities": "resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01resume-test01r",
+      "inProgress": false
+    }
+  ],
+  "skills": [
+    "S",
+    "fs",
+    "sfwr",
+    "frwvr",
+    "vfese",
+    "evrwergtt",
+    "sac",
+    "csd",
+    "cdcdscdscds",
+    "cdssdcerv",
+    "nurt",
+    "rbegrfd",
+    "fd d ddd df",
+    "vfsvdtg",
+    "42423343",
+    "35555",
+    "@$@$$@%%%#",
+    "!#$%^",
+    "gdbgbsbdsdfz",
+    "jhghahjjhjdjdhj"
+  ],
+  "certifications": [
+    {
+      "name": "CertificationCertificationCertificationCertificationCertificationCertificationCertification",
+      "issuer": "ORG 1",
+      "date": "MONTH YEAR",
+      "expiration": "MONTH YEAR"
+    },
+    {
+      "name": "CertificationCertificationCertificationCertificationCertificationCertificationCertification",
+      "issuer": "ORG 2",
+      "date": "MONTH YEAR",
+      "expiration": "MONTH YEAR"
+    },
+    {
+      "name": "CertificationCertificationCertificationCertificationCertificationCertificationCertification",
+      "issuer": "ORG 3",
+      "date": "MONTH YEAR",
+      "expiration": "MONTH YEAR"
+    },
+    {
+      "name": "CertificationCertificationCertificationCertificationCertificationCertificationCertification",
+      "issuer": "ORG 4",
+      "date": "MONTH YEAR",
+      "expiration": "MONTH YEAR"
+    },
+    {
+      "name": "CertificationCertificationCertificationCertificationCertificationCertificationCertification",
+      "issuer": "ORG 5",
+      "date": "MONTH YEAR",
+      "expiration": "MONTH YEAR"
+    }
+  ],
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [],
+  "site_url": "resume-test01",
+  "websiteId": "web-ywrhim38m98hbpj9",
+  "createdAt": "2025-04-08T12:31:20.325Z",
+  "lastUpdated": "2025-04-08T12:31:20.325Z",
+  "status": "pending_deployment"
+}
