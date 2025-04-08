@@ -244,16 +244,7 @@
     {% include "_contact_section.html" %}
 
     {# --- Footer Block --- #}
-    {% block footer %}
-        {# Default simple footer #}
-        <footer class="bg-section-dark text-gray-400 py-8 px-4 sm:px-6 lg:px-8">
-             <div class="max-w-7xl mx-auto text-center text-sm">
-                 {% block footer_content %}
-                 <p>© {{ "now"|date("Y") }} {{ headline | default("Your Company") }}. All rights reserved.</p>
-                 {% endblock footer_content %}
-             </div>
-        </footer>
-    {% endblock footer %}
+    {% include "_footer_section.html" %}
 
     {# --- Persistent Social Sidebar --- #}
     <div id="social-sidebar" class="fixed bottom-20 right-4 sm:right-6 z-40"> {# z-40 to be below potential popups/modals #}
