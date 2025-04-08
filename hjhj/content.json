@@ -1,0 +1,75 @@
+{
+  "user_type": "business",
+  "color_palette": "futuristic-tech",
+  "headline": "hjhj",
+  "tagline": "cdssdcsdcsd",
+  "about": "sdcvsfvsvr",
+  "services": [
+    {
+      "name": "svvrddvffdv",
+      "icon": "briefcase",
+      "description": "svvffvvffvfv"
+    },
+    {
+      "name": "sfvsvfsvfsvf",
+      "icon": "briefcase",
+      "description": "sfvfsvsfvfsvfs"
+    },
+    {
+      "name": "sfsfvsvffvssv",
+      "icon": "briefcase",
+      "description": "svfvsfsvfvsfsf"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "sfvsvfvfsvfs",
+      "title": "sfvsfvvfsvf",
+      "company": "sfvfsvsvfvsf",
+      "rating": "3",
+      "quote": " sfsfvfsvvvsfvf"
+    }
+  ],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "aboutMetadata": {
+    "originalSize": 37511,
+    "compressedSize": 29376,
+    "savings": 8135,
+    "savingsPercent": 22,
+    "width": 540,
+    "height": 360
+  },
+  "email": "d@s.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "cdsssvfvsf",
+    "telegram": "sfvsfvsvfvfs",
+    "facebook": "svfsvfsfv",
+    "instagram": "svfsvfsvfsvf",
+    "twitter": "svfvfvsfvsf",
+    "linkedin": "sfvvsfsvf"
+  },
+  "addOns": [],
+  "site_url": "hjhj",
+  "websiteId": "web-x7m88vrdm98mf9jm",
+  "createdAt": "2025-04-08T14:54:04.306Z",
+  "lastUpdated": "2025-04-08T14:54:04.306Z",
+  "status": "pending_deployment"
+}
