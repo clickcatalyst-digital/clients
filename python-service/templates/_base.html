@@ -135,6 +135,40 @@
 
         /* Template-specific overrides can go in their own style blocks or files */
         {% block page_styles %}{% endblock page_styles %}
+
+        /* --- Persistent Social Sidebar Styles --- */
+        #social-sidebar {
+            /* Position is already set by Tailwind classes: fixed bottom-20 right-4/6 z-50 */
+            /* Flex layout is set by Tailwind classes: flex flex-col gap-3 */
+        }
+        
+        .social-sidebar-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;  /* Good touch target size */
+            height: 44px; /* Good touch target size */
+            border-radius: 50%;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease-out;
+            text-decoration: none; /* Remove underline from links */
+        }
+        
+        .social-sidebar-button:hover {
+            transform: scale(1.1); /* Slight zoom on hover */
+            /* Hover background colors are set inline or via specific classes above */
+        }
+        
+        .social-sidebar-button svg {
+            /* Size is controlled by Tailwind classes h-5/6 w-5/6 */
+        }
+        
+        /* Adjust scroll-to-top position slightly if needed */
+        #scrollToTop {
+            /* Already positioned bottom-6, which is below bottom-20, so should be fine */
+             /* If overlap occurs, you might change #social-sidebar bottom or #scrollToTop bottom */
+             /* e.g., bottom: 6rem; /* for scroll-to-top if sidebar is at bottom-20 */
+        }
     </style>
 
     {# --- Schema.org Block --- #}
