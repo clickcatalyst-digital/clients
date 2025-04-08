@@ -3,6 +3,7 @@
 {% block title %}{{ headline }} - {{ tagline }}{% endblock title %}
 
 {% block meta_tags %}
+    {# Meta tags remain the same as previous version #}
     <meta name="description" content="{{ tagline }}">
     <meta name="author" content="{{ headline }}">
     <!-- Open Graph / Facebook -->
@@ -17,55 +18,204 @@
     {% if banner_path %}<meta property="twitter:image" content="{{ banner_path }}">{% endif %}
 {% endblock meta_tags %}
 
-{# No svg_icons block needed here anymore #}
-
 {% block page_styles %}
-    {# Specific styles for service cards, etc. #}
     <style>
-        .service-card { transition: all var(--transition-speed) ease; border-top: 4px solid transparent; }
-        .service-card:hover { border-top-color: var(--color-primary); transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
-        .icon-circle { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; background-color: {{ colors.primary | default('#4A90E2') }}1A; /* Primary with opacity */ color: var(--color-primary); transition: all var(--transition-speed) ease; }
-        .service-card:hover .icon-circle { background-color: var(--color-primary); color: var(--color-text-on-primary); transform: rotateY(180deg); }
+        /* --- Service Card Styles (Refined) --- */
+        .service-card {
+            background-color: #fff; /* Ensure white background */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); /* Softer shadow */
+            transition: all var(--transition-speed) ease;
+            border: 1px solid #e5e7eb; /* Subtle border */
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Ensure cards in a row have same height */
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); /* Enhanced shadow on hover */
+            border-color: var(--color-primary);
+        }
+        .service-card-content {
+            padding: 1.5rem; /* p-6 */
+            text-align: center;
+            flex-grow: 1; /* Allow content to push footer down */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .icon-circle {
+            width: 60px; height: 60px; border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center; /* Use inline-flex */
+            margin-bottom: 1rem; /* mb-4 */
+            background-color: var(--color-secondary); /* Use secondary color for BG */
+            color: var(--color-text-on-secondary); /* Use contrast text */
+            transition: all var(--transition-speed) ease;
+        }
+        .service-card:hover .icon-circle {
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            transform: scale(1.1) rotate(15deg); /* Add subtle rotation */
+        }
+        .service-card h3 { /* Target service title specifically */
+             margin-bottom: 0.75rem; /* mb-3 */
+             font-weight: 600; /* semibold */
+             font-size: 1.125rem; /* text-lg */
+             color: #111827; /* Ensure dark text */
+             flex-grow: 1; /* Allow title to take space if needed */
+        }
+         .service-card-divider {
+             width: 40px; /* w-10 */
+             height: 2px; /* h-0.5 */
+             background-color: var(--color-primary);
+             margin: 0 auto 1rem; /* mx-auto mb-4 */
+             border-radius: 1px;
+         }
+        .service-card p {
+            color: #4b5563; /* text-gray-600 */
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.6; /* Slightly more line height */
+        }
 
-        /* Add other specific business styles if needed */
-        .hero-section::before { /* Subtle overlay/pattern if desired for business */ content: ''; position: absolute; top: -50%; right: -50%; width: 100%; height: 100%; background: rgba(255,255,255,0.05); transform: rotate(30deg); pointer-events: none; opacity: 0.7; }
+        /* --- Hero Styling Refinements --- */
+        .hero-section::before { display: none; } /* Removed simple diagonal pattern */
+        .hero-section {
+            /* Optional: Add subtle noise/texture background */
+            /* background-image: linear-gradient(135deg, var(--color-primary), var(--color-secondary)), url('data:image/svg+xml,...'); */
+            /* background-blend-mode: multiply; */
+            /* Or keep simple gradient */
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+        }
+        .hero-section h1 {
+             color: var(--color-text-on-gradient);
+             text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Slightly stronger shadow */
+        }
+         .hero-section p {
+             color: var(--color-text-on-gradient);
+             opacity: 0.9;
+             text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+         }
+
+        /* --- About Section Refinements --- */
+        .about-feature-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem; /* p-3 */
+            background-color: #fff;
+            border-radius: 0.375rem; /* rounded-md */
+            box-shadow: 0 1px 3px rgba(0,0,0,.05);
+            border: 1px solid #e5e7eb; /* border-gray-200 */
+            transition: all var(--transition-speed) ease;
+        }
+        .about-feature-item:hover {
+             transform: scale(1.03);
+             box-shadow: 0 4px 10px rgba(0,0,0,.08);
+             border-color: var(--color-secondary);
+        }
+        .about-feature-icon-bg {
+            flex-shrink: 0;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: inline-flex; align-items: center; justify-content: center;
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            margin-right: 0.75rem; /* mr-3 */
+        }
+
+        /* --- Testimonial Card Refinements --- */
+        .testimonial-card {
+            background-color: #fff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05);
+            border: 1px solid #e5e7eb;
+            padding: 1.75rem; /* p-7 */
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            transition: all var(--transition-speed) ease;
+        }
+         .testimonial-card:hover {
+             transform: translateY(-5px);
+             box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.08);
+         }
+        .testimonial-card blockquote {
+            font-style: normal; /* Remove default italic */
+            color: #374151; /* text-gray-700 */
+            margin-bottom: 1rem; /* mb-4 */
+            flex-grow: 1; /* Allow quote to take space */
+            line-height: 1.6;
+            position: relative;
+            padding-left: 1.5rem; /* Space for quote mark */
+            overflow: hidden; /* Prevent overflow */
+            /* Add quote marks */
+        }
+         .testimonial-card blockquote::before {
+             content: '“';
+             position: absolute;
+             left: -0.25rem;
+             top: -0.5rem;
+             font-size: 3rem; /* text-5xl */
+             color: var(--color-primary);
+             opacity: 0.3;
+             line-height: 1;
+             font-family: serif; /* Use a serif font for quotes */
+         }
+         .testimonial-author-info {
+             display: flex;
+             align-items: center;
+             margin-top: auto; /* Push to bottom */
+             padding-top: 1rem; /* pt-4 */
+             border-top: 1px solid #f3f4f6; /* border-gray-100 */
+         }
+        .testimonial-stars { margin-bottom: 0.75rem; } /* mb-3 */
+
+        /* --- General Refinements --- */
+         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; } /* Consider adding a nice sans-serif like Inter */
+         h1, h2, h3, h4 { font-weight: 700; /* bolder headings */ color: #111827; } /* Tailwind gray-900 for headings */
+         .section-divider { width: 60px; margin-bottom: 1.5rem; } /* Slightly smaller divider */
 
     </style>
+    {# Consider adding a font link here if using Google Fonts etc. #}
+    {# <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> #}
 {% endblock page_styles %}
 
 {% block header %}
     <!-- Navigation -->
-    <header class="bg-section-light shadow sticky top-0 z-50">
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200"> {# Softer shadow, added border #}
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20"> {# Adjusted height for business nav #}
+            <div class="flex justify-between h-20">
                 <div class="flex items-center">
                     {% if logo_path %}
-                        <img class="h-12 w-auto" src="{{ logo_path }}" alt="{{ headline }} logo" loading="lazy">
+                        <a href="#" aria-label="{{ headline }} Home">
+                             <img class="h-10 sm:h-12 w-auto" src="{{ logo_path }}" alt="{{ headline }} logo" loading="lazy"> {# Slightly smaller logo #}
+                        </a>
                     {% endif %}
-                    <div class="ml-4">
-                        <a href="#" class="text-2xl font-bold text-gray-900 hover:text-primary transition-colors">{{ headline }}</a>
-                        <p class="text-sm text-gray-600">{{ tagline }}</p>
+                    <div class="ml-3"> {# Reduced margin #}
+                        <a href="#" class="text-xl sm:text-2xl font-bold text-gray-800 hover:text-primary transition-colors">{{ headline }}</a>
+                        {% if tagline %}<p class="text-xs sm:text-sm text-gray-500 mt-0.5">{{ tagline }}</p>{% endif %} {# Smaller tagline #}
                     </div>
                 </div>
 
                 <!-- Desktop navigation -->
-                <div class="hidden md:flex md:items-center md:space-x-6">
-                    <a href="#about" class="text-gray-700 hover:text-primary transition-colors">About</a>
+                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7"> {# Slightly more space #}
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
                     {% if services %}
-                        <a href="#services" class="text-gray-700 hover:text-primary transition-colors">Services</a>
+                        <a href="#services" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Services</a>
                     {% endif %}
-                    <a href="#contact" class="text-gray-700 hover:text-primary transition-colors">Contact</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
                     {% if phone %}
-                        <a href="tel:{{ phone }}" class="bg-primary text-contrast-primary px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors flex items-center">
-                            <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-phone" /></svg>
-                            <span>Call Us</span>
+                        <a href="tel:{{ phone }}" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                            <svg class="h-4 w-4 mr-2 -ml-1" fill="currentColor"><use href="#icon-phone" /></svg>
+                            Call Us
                         </a>
                     {% endif %}
                 </div>
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="text-gray-700 focus:outline-none">
+                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
                          <span class="sr-only">Open main menu</span>
                         <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
                     </button>
@@ -74,7 +224,7 @@
         </nav>
 
         <!-- Mobile menu Container (JS toggles 'hidden') -->
-        <div id="mobile-menu" class="mobile-menu hidden md:hidden bg-white border-t border-gray-200">
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30"> {# Improved positioning/styling #}
              <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
                 {% if services %}
@@ -82,9 +232,9 @@
                 {% endif %}
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
                 {% if phone %}
-                    <a href="tel:{{ phone }}" class="flex items-center px-3 py-2 rounded-md text-base font-medium text-primary">
+                    <a href="tel:{{ phone }}" class="mt-2 flex items-center justify-center px-4 py-2 border border-primary text-base font-medium rounded-md text-primary bg-white hover:bg-primary hover:text-contrast-primary transition-colors">
                        <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-phone" /></svg>
-                        <span>{{ phone }}</span>
+                        <span>Call {{ phone }}</span>
                     </a>
                 {% endif %}
             </div>
@@ -94,34 +244,35 @@
 
 {% block content %}
     <!-- Hero Section -->
-    <section class="hero-section bg-gradient-primary py-20 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
+    <section class="hero-section py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content"> {# Increased Padding #}
          <div class="max-w-7xl mx-auto">
-            <div class="lg:flex lg:items-center lg:justify-between">
-                <div class="lg:w-1/2 slide-in-left">
-                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">{{ headline }}</h1>
-                    <p class="text-xl max-w-xl opacity-90 mb-8">{{ tagline }}</p>
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#contact" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-white transition-all hover-lift">
-                            <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-information-circle" /></svg>
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+                <div class="lg:col-span-6 xl:col-span-7 slide-in-left text-center lg:text-left">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4">{{ headline }}</h1>
+                    <p class="text-lg sm:text-xl md:text-2xl max-w-xl lg:max-w-none mx-auto lg:mx-0 opacity-90 mb-8">{{ tagline }}</p>
+                    <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
+                        <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                            <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
                             Learn More
                         </a>
                         {% if email %}
-                            <a href="mailto:{{ email }}?subject=Inquiry" target="_blank" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg shadow-sm text-contrast-secondary bg-secondary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all hover-lift">
-                               <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-mail" /></svg>
+                            <a href="mailto:{{ email }}?subject=Inquiry" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-secondary transition-all transform hover:scale-105">
+                               <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
                                 Contact Us
                             </a>
                         {% endif %}
                     </div>
                 </div>
-                 <div class="lg:w-1/2 mt-10 lg:mt-0 slide-in-right">
-                    <div class="rounded-lg overflow-hidden shadow-2xl h-80 md:h-96">
+                 <div class="lg:col-span-6 xl:col-span-5 mt-10 lg:mt-0 slide-in-right">
+                    <div class="rounded-lg overflow-hidden shadow-2xl aspect-video lg:aspect-auto lg:h-[450px]"> {# Adjusted aspect ratio/height #}
                          {% if banner_path %}
                             <img src="{{ banner_path }}" alt="{{ headline }} banner" class="w-full h-full object-cover" loading="lazy">
                         {% else %}
-                            <div class="w-full h-full bg-gradient-primary flex items-center justify-center">
-                                 <div class="text-center p-8 text-contrast-gradient">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 10l-3.5-3.5a1 1 0 00-1.414 0L5 16m10-4l-2 2m0 0l-2-2m2 2V7" /> </svg>
+                            <div class="w-full h-full bg-gradient-to-br from-primary to-secondary opacity-80 flex items-center justify-center p-8 text-contrast-gradient">
+                                 <div class="text-center">
+                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 10l-3.5-3.5a1 1 0 00-1.414 0L5 16m10-4l-2 2m0 0l-2-2m2 2V7" /> </svg>
                                      <h3 class="text-xl font-bold">{{ headline }}</h3>
+                                     <p class="text-sm mt-1">{{ tagline }}</p>
                                  </div>
                              </div>
                         {% endif %}
@@ -133,13 +284,13 @@
 
     <!-- Stats Section -->
     {% if business_stats and business_stats | length > 0 %}
-         <section class="py-12 bg-section-light"> {# Changed to light section bg #}
+         <section class="py-16 bg-white"> {# Increased padding #}
              <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                  <div class="grid grid-cols-2 md:grid-cols-{{ business_stats|length if business_stats|length <= 4 else 4 }} gap-8 text-center">
                      {% for stat in business_stats %}
-                         <div class="reveal">
-                             <div class="text-3xl sm:text-4xl font-bold text-primary">{{ stat.value }}</div>
-                             <div class="text-muted mt-2">{{ stat.label }}</div> {# Use text-muted #}
+                         <div class="reveal transition-transform duration-500 ease-out transform hover:scale-105">
+                             <div class="text-4xl sm:text-5xl font-bold text-primary mb-1">{{ stat.value }}</div>
+                             <div class="text-sm sm:text-base text-gray-600 uppercase tracking-wider">{{ stat.label }}</div> {# Uppercase tracking for distinction #}
                          </div>
                      {% endfor %}
                  </div>
@@ -148,42 +299,45 @@
     {% endif %}
 
     <!-- About Section -->
-    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8 bg-section-neutral"> {# Changed to neutral section bg #}
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 overflow-hidden"> {# Increased padding, overflow hidden for decorative elements #}
         <div class="max-w-7xl mx-auto">
-             <div class="text-center mb-12 reveal">
+             <div class="text-center mb-16 reveal"> {# Increased margin #}
                 <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">About Us</h2>
                  <div class="section-divider"></div>
              </div>
-             <div class="grid md:grid-cols-2 gap-12 items-center">
-                 <div class="reveal">
-                     <div class="relative">
-                         {% if about_image %}
-                             <div class="bg-white shadow-xl rounded-lg p-2 relative z-10">
-                                 <img src="{{ about_image }}" alt="About {{ headline }}" class="w-full h-auto object-cover rounded" loading="lazy">
-                             </div>
-                             <div class="absolute -bottom-4 -right-4 w-16 h-16 rounded-lg bg-primary opacity-10 z-0"></div>
-                             <div class="absolute -top-4 -left-4 w-16 h-16 rounded-lg bg-secondary opacity-10 z-0"></div>
-                          {% else %}
-                             <div class="bg-gradient-primary text-contrast-gradient rounded-lg shadow-xl p-8 text-center aspect-square flex flex-col justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.24a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /> </svg>
-                                 <h3 class="text-xl font-bold">{{ headline }}</h3>
-                             </div>
-                         {% endif %}
-                     </div>
+             <div class="relative lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                 {# Image Column - Consider placing first on large screens #}
+                 <div class="relative reveal mb-10 lg:mb-0">
+                     {% if about_image %}
+                         {# Removed the extra padding div for cleaner look #}
+                         <img src="{{ about_image }}" alt="About {{ headline }}" class="w-full h-auto object-cover rounded-lg shadow-xl relative z-10" loading="lazy">
+                         {# More subtle decorative elements #}
+                         <div class="hidden lg:block absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-secondary opacity-20 z-0 transform rotate-12"></div>
+                         <div class="hidden lg:block absolute -top-6 -right-6 w-20 h-20 rounded-lg bg-primary opacity-10 z-0 transform -rotate-6"></div>
+                      {% else %}
+                         <div class="aspect-w-4 aspect-h-3 bg-gradient-primary text-contrast-gradient rounded-lg shadow-xl p-8 text-center flex flex-col justify-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.24a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /> </svg>
+                             <h3 class="text-xl font-bold">{{ headline }}</h3>
+                         </div>
+                     {% endif %}
                  </div>
-                 <div class="reveal">
-                     <p class="text-lg text-gray-700 mb-6">{{ about }}</p>
-                     <div class="grid grid-cols-2 gap-4 mb-6">
+                 {# Text and Features Column #}
+                 <div class="relative reveal">
+                     <h3 class="text-2xl font-semibold text-gray-900 tracking-tight mb-4">Who We Are</h3>
+                     <p class="text-lg text-gray-600 mb-8 leading-relaxed">{{ about }}</p>
+                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                         {% for feature in [("Professional Service", "shield-check"), ("Fast Delivery", "lightning-bolt"), ("Expert Team", "users"), ("Best Value", "currency-dollar")] %}
-                        <div class="bg-white rounded-lg p-4 shadow-sm hover-lift flex items-center">
-                            <svg class="h-6 w-6 mr-3 text-primary" fill="currentColor"><use href="#icon-{{ feature[1] }}" /></svg>
-                            <span class="font-medium text-gray-800">{{ feature[0] }}</span>
+                        <div class="about-feature-item">
+                            <div class="about-feature-icon-bg">
+                               <svg class="h-5 w-5"><use href="#icon-{{ feature[1] }}" /></svg>
+                            </div>
+                            <span class="font-medium text-gray-800 text-sm">{{ feature[0] }}</span>
                         </div>
                         {% endfor %}
                      </div>
-                     <a href="#contact" class="inline-flex items-center px-5 py-3 bg-primary text-contrast-primary rounded-lg hover:bg-opacity-90 transition-colors hover-lift">
-                       <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-plus-circle" /></svg>
-                        <span>Get Started</span>
+                     <a href="#contact" class="inline-flex items-center px-6 py-3 bg-primary text-contrast-primary rounded-md shadow hover:opacity-90 transition-all hover:shadow-lg transform hover:-translate-y-1">
+                       <svg class="h-5 w-5 mr-2"><use href="#icon-plus-circle" /></svg>
+                        <span>Get Started Today</span>
                     </a>
                 </div>
              </div>
@@ -192,23 +346,25 @@
 
     <!-- Services Section -->
     {% if services and services | length > 0 %}
-         <section id="services" class="py-16 px-4 sm:px-6 lg:px-8 bg-section-light"> {# Light BG #}
+         <section id="services" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Increased padding #}
              <div class="max-w-7xl mx-auto">
-                 <div class="text-center mb-12 reveal">
+                 <div class="text-center mb-16 reveal"> {# Increased margin #}
                      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Our Services</h2>
                      <div class="section-divider"></div>
                  </div>
-                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10"> {# Increased gap #}
                      {% for service in services %}
-                         <div class="service-card bg-white rounded-lg shadow-md p-6 text-center reveal">
-                            <div class="icon-circle">
-                                <svg class="h-8 w-8" fill="currentColor"><use href="#icon-{{ service.icon | default('default') }}" /></svg>
+                         <div class="service-card reveal">
+                            <div class="service-card-content">
+                                <div class="icon-circle">
+                                    <svg class="h-7 w-7" fill="currentColor"><use href="#icon-{{ service.icon | default('default') }}" /></svg>
+                                </div>
+                                <h3> {{ service.name | default(service) }} </h3>
+                                 <div class="service-card-divider"></div>
+                                 {% if service.description %}
+                                     <p>{{ service.description }}</p>
+                                 {% endif %}
                              </div>
-                            <h3 class="text-xl font-semibold mb-2 text-gray-900"> {{ service.name | default(service) }} </h3>
-                             <div class="w-16 h-0.5 bg-primary mx-auto mb-4 rounded"></div>
-                             {% if service.description %}
-                                 <p class="text-muted">{{ service.description }}</p> {# Use text-muted #}
-                             {% endif %}
                          </div>
                      {% endfor %}
                  </div>
@@ -217,14 +373,14 @@
     {% endif %}
 
     <!-- CTA Banner -->
-    <section class="bg-gradient-primary py-16 px-4 sm:px-6 lg:px-8 text-contrast-gradient">
-        <div class="max-w-7xl mx-auto text-center">
-             <h2 class="text-3xl sm:text-4xl font-bold mb-6 reveal hero-text-shadow">Ready to Get Started?</h2>
-             <p class="text-xl max-w-2xl mx-auto mb-8 opacity-90 reveal hero-text-shadow">Take the first step towards transforming your business today.</p>
+    <section class="bg-gradient-primary py-20 px-4 sm:px-6 lg:px-8 text-contrast-gradient"> {# Increased padding #}
+        <div class="max-w-4xl mx-auto text-center"> {# Constrained width #}
+             <h2 class="text-3xl sm:text-4xl font-bold mb-6 reveal hero-text-shadow">Ready to Elevate Your Business?</h2>
+             <p class="text-lg sm:text-xl max-w-2xl mx-auto mb-10 opacity-90 reveal hero-text-shadow">Let's discuss how we can help you achieve your goals. Contact us today for a free consultation.</p>
              <div class="reveal">
-                <a href="#contact" class="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-lg text-white hover:bg-white hover:text-primary transition-all hover-lift">
-                   <svg class="h-5 w-5 mr-2" fill="currentColor"><use href="#icon-information-circle" /></svg>
-                    Get in Touch
+                <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                   <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
+                    Request Consultation
                 </a>
             </div>
          </div>
@@ -232,46 +388,51 @@
 
     <!-- Testimonials Section -->
     {% if testimonials and testimonials | length > 0 %}
-         <section class="py-16 px-4 sm:px-6 lg:px-8 bg-section-neutral"> {# Neutral BG #}
+         <section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Increased padding #}
              <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-12 reveal">
+                <div class="text-center mb-16 reveal"> {# Increased margin #}
                      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">What Our Clients Say</h2>
                      <div class="section-divider"></div>
                  </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                 {# Consider a slider/carousel for many testimonials, using a 2-col grid for fewer #}
+                <div class="grid md:grid-cols-1 lg:grid-cols-2 gap-10 xl:gap-12"> {# Changed to 1/2 col layout #}
                     {% for testimonial in testimonials %}
-                         <div class="bg-white rounded-lg shadow-md p-6 flex flex-col hover-lift reveal">
-                             <div class="flex items-center mb-4">
-                                 <div class="flex-shrink-0">
-                                     {% if testimonial.avatar %}
-                                         <img class="h-12 w-12 rounded-full object-cover" src="{{ testimonial.avatar }}" alt="{{ testimonial.name }} avatar" loading="lazy">
-                                     {% else %}
-                                          <div class="h-12 w-12 rounded-full bg-secondary text-contrast-secondary flex items-center justify-center">
-                                             <span class="text-lg font-bold">{{ testimonial.name|first|upper }}</span>
-                                         </div>
-                                     {% endif %}
-                                 </div>
-                                 <div class="ml-4">
-                                     <h4 class="text-lg font-semibold text-gray-900">{{ testimonial.name }}</h4>
-                                     {% if testimonial.title %}
-                                         <p class="text-sm text-muted">{{ testimonial.title }}</p> {# Use text-muted #}
-                                     {% endif %}
-                                 </div>
-                             </div>
-                            <div class="mb-3">
+                         <div class="testimonial-card reveal">
+                             <div class="testimonial-stars">
                                 {% set rating = testimonial.rating|default(5)|int %}
                                 {% for i in range(5) %}
                                     <svg class="h-5 w-5 inline-block {{ 'text-yellow-400' if i < rating else 'text-gray-300' }}" fill="currentColor"><use href="#icon-star" /></svg>
                                 {% endfor %}
                              </div>
-                            <blockquote class="italic text-gray-700 mb-4 flex-grow">"{{ testimonial.quote }}"</blockquote>
-                             {% if testimonial.company %}
-                                 <p class="text-muted text-sm mt-auto">{{ testimonial.company }}</p> {# Use text-muted #}
-                             {% endif %}
+                             <blockquote class="text-lg"> {# Slightly larger quote text #}
+                                 "{{ testimonial.quote }}"
+                             </blockquote>
+                             <div class="testimonial-author-info">
+                                 <div class="flex-shrink-0">
+                                     {% if testimonial.avatar %}
+                                         <img class="h-12 w-12 rounded-full object-cover shadow-sm" src="{{ testimonial.avatar }}" alt="{{ testimonial.name }} avatar" loading="lazy">
+                                     {% else %}
+                                          <div class="h-12 w-12 rounded-full bg-secondary text-contrast-secondary flex items-center justify-center font-bold text-lg">
+                                             <span>{{ testimonial.name|first|upper }}</span>
+                                         </div>
+                                     {% endif %}
+                                 </div>
+                                 <div class="ml-4">
+                                     <h4 class="text-base font-semibold text-gray-900">{{ testimonial.name }}</h4>
+                                     {% if testimonial.title or testimonial.company %}
+                                         <p class="text-sm text-gray-500">
+                                             {{ testimonial.title if testimonial.title }}
+                                             {% if testimonial.title and testimonial.company %} at {% endif %}
+                                             {{ testimonial.company if testimonial.company }}
+                                         </p>
+                                     {% endif %}
+                                 </div>
+                             </div>
                         </div>
                     {% endfor %}
                  </div>
              </div>
         </section>
     {% endif %}
+
 {% endblock content %}
