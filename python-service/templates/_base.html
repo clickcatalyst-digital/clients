@@ -133,53 +133,56 @@
           }
         }
 
-        /* Template-specific overrides can go in their own style blocks or files */
-        {% block page_styles %}{% endblock page_styles %}
         
-        /* --- Persistent Social Sidebar Styles --- */
+        /* --- Premium Social Sidebar Styles with Root Colors --- */
         #social-sidebar {
-            /* Position/Z-index set via Tailwind */
+            animation: fadeInSidebar 0.8s ease-out;
         }
         
-        /* Styles for the VISIBLE container holding the buttons */
+        @keyframes fadeInSidebar {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
         .social-sidebar-container {
-            /* Layout, padding, bg, rounded, shadow, border set via Tailwind */
+            backdrop-filter: blur(8px);
+            background-color: var(--color-background); /* light frosted look */
+            border: 1px solid var(--color-primary);
             transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
-            /* Optional: Add a subtle hover effect to the whole container */
-            /*
-            &:hover {
-                transform: scale(1.02);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            }
-            */
+            padding: 0.75rem; /* Tailwind equivalent: p-3 */
+            border-radius: 0.5rem; /* Tailwind: rounded-md */
+        }
+        .social-sidebar-container:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
         
-        /* Styles for the individual buttons INSIDE the container */
         .social-sidebar-button-inner {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;  /* Adjust size as needed */
-            height: 36px; /* Adjust size as needed */
-            border-radius: 50%; /* Fully rounded */
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease-out, opacity 0.2s ease-out;
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
             text-decoration: none;
-            /* Remove individual shadows, container has one */
+            margin: 0.25rem; /* Tailwind: m-1 for spacing between buttons */
         }
-        
         .social-sidebar-button-inner:hover {
-            transform: scale(1.1); /* Keep slight zoom on button hover */
-            /* Hover background colors set via Tailwind hover:bg-* classes */
+            transform: scale(1.15);
+            opacity: 0.95;
+            background-color: var(--color-secondary);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
         }
         
         .social-sidebar-button-inner svg {
-             /* Size set via Tailwind h-5 w-5 */
+            /* Tailwind classes (h-5 w-5) should handle size */
         }
-        
-        /* Ensure scroll-to-top button (z-50) appears above sidebar container (z-40) */
-        #scrollToTop {
-           /* Position & Z-index set via Tailwind */
-        }
+        /* Template-specific overrides can go in their own style blocks or files */
+        {% block page_styles %}{% endblock page_styles %}
+
     </style>
 
     {# --- Schema.org Block --- #}
