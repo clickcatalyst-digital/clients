@@ -135,39 +135,50 @@
 
         /* Template-specific overrides can go in their own style blocks or files */
         {% block page_styles %}{% endblock page_styles %}
-
+        
         /* --- Persistent Social Sidebar Styles --- */
         #social-sidebar {
-            /* Position is already set by Tailwind classes: fixed bottom-20 right-4/6 z-50 */
-            /* Flex layout is set by Tailwind classes: flex flex-col gap-3 */
+            /* Position/Z-index set via Tailwind */
         }
         
-        .social-sidebar-button {
+        /* Styles for the VISIBLE container holding the buttons */
+        .social-sidebar-container {
+            /* Layout, padding, bg, rounded, shadow, border set via Tailwind */
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+            /* Optional: Add a subtle hover effect to the whole container */
+            /*
+            &:hover {
+                transform: scale(1.02);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            }
+            */
+        }
+        
+        /* Styles for the individual buttons INSIDE the container */
+        .social-sidebar-button-inner {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;  /* Good touch target size */
-            height: 44px; /* Good touch target size */
-            border-radius: 50%;
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease-out;
-            text-decoration: none; /* Remove underline from links */
+            width: 36px;  /* Adjust size as needed */
+            height: 36px; /* Adjust size as needed */
+            border-radius: 50%; /* Fully rounded */
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s ease-out, opacity 0.2s ease-out;
+            text-decoration: none;
+            /* Remove individual shadows, container has one */
         }
         
-        .social-sidebar-button:hover {
-            transform: scale(1.1); /* Slight zoom on hover */
-            /* Hover background colors are set inline or via specific classes above */
+        .social-sidebar-button-inner:hover {
+            transform: scale(1.1); /* Keep slight zoom on button hover */
+            /* Hover background colors set via Tailwind hover:bg-* classes */
         }
         
-        .social-sidebar-button svg {
-            /* Size is controlled by Tailwind classes h-5/6 w-5/6 */
+        .social-sidebar-button-inner svg {
+             /* Size set via Tailwind h-5 w-5 */
         }
         
-        /* Adjust scroll-to-top position slightly if needed */
+        /* Ensure scroll-to-top button (z-50) appears above sidebar container (z-40) */
         #scrollToTop {
-            /* Already positioned bottom-6, which is below bottom-20, so should be fine */
-             /* If overlap occurs, you might change #social-sidebar bottom or #scrollToTop bottom */
-             /* e.g., bottom: 6rem; /* for scroll-to-top if sidebar is at bottom-20 */
+           /* Position & Z-index set via Tailwind */
         }
     </style>
 
