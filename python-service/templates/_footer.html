@@ -1,0 +1,106 @@
+{# templates/_footer.html #}
+{# Expects context: headline, tagline, logo_path, email, phone, location, social, about #}
+{# Optionally expects: services (for links), portfolio_url, creator_credit_name, creator_credit_url #}
+
+<footer class="bg-section-dark text-gray-400 pt-16 pb-8 px-4 sm:px-6 lg:px-8"> {# Increased top padding #}
+     <div class="max-w-7xl mx-auto">
+         {# Main Footer Content Grid #}
+         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12"> {# Added lg:grid-cols-4 #}
+
+             {# Column 1: Branding & About #}
+             <div class="lg:col-span-1"> {# Allow this column to potentially span more on smaller screens if needed #}
+                 <div class="flex items-center mb-4">
+                     {% if logo_path %}
+                        <a href="#" aria-label="{{ headline | default('Homepage') }}">
+                            <img src="{{ logo_path }}" alt="{{ headline | default('Logo') }}" class="h-10 mr-3" loading="lazy">
+                        </a>
+                     {% endif %}
+                     <h3 class="text-xl font-bold text-white">{{ headline | default("Website") }}</h3>
+                 </div>
+                 <p class="text-sm leading-relaxed">
+                     {{ tagline | default(about[:100] + '...' if about else 'Providing excellent services.') }} {# Use tagline or snippet of about #}
+                 </p>
+             </div>
+
+             {# Column 2: Quick Links #}
+             <div class="lg:col-span-1">
+                 <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h4>
+                 <ul class="space-y-2 text-sm">
+                     <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
+                     <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
+                     {# Add conditional links based on template type if needed, or keep common ones #}
+                     {% if services %}<li><a href="#services" class="hover:text-white transition-colors">Services</a></li>{% endif %}
+                     {% if portfolioProjects %}<li><a href="#portfolio" class="hover:text-white transition-colors">Portfolio</a></li>{% endif %}
+                     <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+                 </ul>
+             </div>
+
+             {# Column 3: Contact Info #}
+             <div class="lg:col-span-1">
+                 <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Contact Us</h4>
+                 <ul class="space-y-3 text-sm">
+                     {% if email %}
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-gray-500 flex-shrink-0 mt-0.5"><use href="#icon-mail" /></svg>
+                            <a href="mailto:{{ email }}" class="hover:text-white transition-colors break-all">{{ email }}</a>
+                        </li>
+                     {% endif %}
+                     {% if phone %}
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-gray-500 flex-shrink-0 mt-0.5"><use href="#icon-phone" /></svg>
+                            <a href="tel:{{ phone }}" class="hover:text-white transition-colors">{{ phone }}</a>
+                        </li>
+                     {% endif %}
+                     {% if location %}
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-gray-500 flex-shrink-0 mt-0.5"><use href="#icon-location" /></svg>
+                            <span>
+                                {% if location.city %}{{ location.city }}{% endif %}
+                                {% if location.city and location.state %}, {% endif %}
+                                {% if location.state %}{{ location.state }}{% endif %}
+                                {% if location.country and (location.city or location.state) %}, {% endif %}
+                                {% if location.country %}{{ location.country }}{% endif %}
+                             </span>
+                        </li>
+                     {% endif %}
+                     {% if phone %} {# WhatsApp Link #}
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"><use href="#icon-whatsapp" /></svg>
+                            <a href="https://wa.me/{{ phone | replace(' ', '') | replace('-', '') | replace('(', '') | replace(')', '') }}?text=Inquiry" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Message on WhatsApp</a>
+                        </li>
+                     {% endif %}
+                 </ul>
+             </div>
+
+              {# Column 4: Social Media (moved to its own column for balance) #}
+             <div class="lg:col-span-1">
+                 <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Follow Us</h4>
+                 {% if social %}
+                    <div class="flex flex-wrap gap-4"> {# Use flex-wrap for responsiveness #}
+                        {% if social.facebook %}<a href="https://facebook.com/{{ social.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Facebook</span><svg class="h-6 w-6"><use href="#icon-facebook" /></svg></a>{% endif %}
+                        {% if social.twitter %}<a href="https://twitter.com/{{ social.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg></a>{% endif %}
+                        {% if social.instagram %}<a href="https://instagram.com/{{ social.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Instagram</span><svg class="h-6 w-6"><use href="#icon-instagram" /></svg></a>{% endif %}
+                        {% if social.linkedin %}<a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg></a>{% endif %}
+                        {# Add other relevant icons like GitHub, YouTube, etc. #}
+                    </div>
+                 {% else %}
+                    <p class="text-sm">Follow us for updates.</p> {# Fallback message #}
+                 {% endif %}
+             </div>
+
+         </div>
+
+         {# Sub-Footer: Copyright and Credits #}
+        <div class="border-t border-gray-700 pt-8 mt-8 text-center text-sm">
+             <p class="mb-2">© {{ "now"|date("Y") }} {{ headline | default("Your Company Name") }}. All rights reserved.</p>
+             {# Optional Creator Credit - Use variables passed from backend if desired #}
+             {% set creator_name = creator_credit_name | default("Click Catalyst Digital") %}
+             {% set creator_url = creator_credit_url | default("https://www.clickcatalyst.digital") %}
+             {% if creator_name and creator_url %}
+             <p class="text-xs text-gray-500">
+                 Website by <a href="{{ creator_url }}" target="_blank" rel="noopener noreferrer" class="hover:text-gray-300 underline">{{ creator_name }}</a>
+             </p>
+             {% endif %}
+         </div>
+     </div>
+</footer>
