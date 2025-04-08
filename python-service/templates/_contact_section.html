@@ -1,0 +1,125 @@
+{# templates/_contact_section.html #}
+{# This partial expects email, phone, location, social context variables #}
+<section id="contact" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral"> {# Use neutral background for the section container #}
+     <div class="max-w-7xl mx-auto">
+         <div class="text-center mb-12 reveal">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Get In Touch</h2>
+             <div class="section-divider"></div>
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-muted">Let's connect! Reach out using the details below or click an action button.</p>
+         </div>
+        {# Main two-column container #}
+        <div class="bg-section-light rounded-lg shadow-xl overflow-hidden reveal"> {# Use light background (white) for the card itself #}
+             <div class="grid md:grid-cols-5 gap-px"> {# Using 5 cols for 2/3 split #}
+
+                <!-- Left Column: Contact Details -->
+                <div class="md:col-span-2 bg-primary p-8 text-contrast-primary">
+                     <h3 class="text-xl sm:text-2xl font-bold mb-6">Contact Information</h3>
+                    <div class="space-y-5">
+                         {# Email #}
+                         {% if email %}
+                            <div class="flex items-start">
+                                <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-1"><use href="#icon-mail" /></svg>
+                                <div>
+                                    <h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5 opacity-80">Email</h4>
+                                    <a href="mailto:{{ email }}" class="hover:underline break-all">{{ email }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {# Phone #}
+                        {% if phone %}
+                            <div class="flex items-start">
+                                <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-1"><use href="#icon-phone" /></svg>
+                                <div>
+                                    <h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5 opacity-80">Phone</h4>
+                                    <a href="tel:{{ phone }}" class="hover:underline">{{ phone }}</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                         {# Location #}
+                         {% if location %}
+                             <div class="flex items-start">
+                                 <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-1"><use href="#icon-location" /></svg>
+                                 <div>
+                                     <h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5 opacity-80">Location</h4>
+                                     <p class="text-sm">
+                                         {% if location.city %}{{ location.city }}{% endif %}
+                                         {% if location.city and (location.state or location.country) %}, {% endif %}
+                                         {% if location.state %}{{ location.state }}{% endif %}
+                                         {% if (location.city or location.state) and location.country %}, {% endif %}
+                                         {% if location.country %}{{ location.country }}{% endif %}
+                                         {# Add address line above if needed and available #}
+                                     </p>
+                                 </div>
+                             </div>
+                        {% endif %}
+                     </div>
+
+                     {# Social Links Section within Left Column #}
+                     {% if social and (social.linkedin or social.twitter) %} {# Add other relevant ones #}
+                        <div class="mt-8 pt-6 border-t border-white/20">
+                            <h4 class="text-sm font-semibold uppercase tracking-wider mb-3 opacity-80">Connect Online</h4>
+                             <div class="flex space-x-4">
+                                 {% if social.linkedin %}
+                                     <a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="opacity-80 hover:opacity-100 transition-opacity">
+                                        <span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg>
+                                     </a>
+                                 {% endif %}
+                                 {% if social.twitter %}
+                                     <a href="https://twitter.com/{{ social.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="opacity-80 hover:opacity-100 transition-opacity">
+                                         <span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg>
+                                     </a>
+                                 {% endif %}
+                                 {# Add GitHub, Portfolio Link, etc. here if needed #}
+                                 {# {% if portfolio_url %} <a href...><svg><use href="#icon-globe"/></svg></a>{% endif %} #}
+                             </div>
+                         </div>
+                    {% endif %}
+                 </div>
+
+                 <!-- Right Column: Quick Actions -->
+                 <div class="md:col-span-3 p-8 bg-white"> {# White background #}
+                     <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Quick Actions</h3>
+                     {# Inner container for visual grouping #}
+                     <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-600">
+                         <p class="text-gray-700 dark:text-gray-300 mb-6 text-sm sm:text-base">Click a button below to get in touch directly.</p>
+                        <div class="grid grid-cols-1 gap-4">
+                            {# Email Button #}
+                            {% if email %}
+                                <a href="mailto:{{ email }}?subject=Inquiry from Website: {{ headline|default('') }}" target="_blank"
+                                   class="quick-connect-button bg-primary text-contrast-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                                    <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
+                                    <span>Email Me</span>
+                                </a>
+                            {% endif %}
+                            {# LinkedIn Button #}
+                            {% if social.linkedin %}
+                                 <a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer"
+                                    class="quick-connect-button bg-[#0A66C2] text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A66C2]">
+                                    <svg class="h-5 w-5 mr-2"><use href="#icon-linkedin" /></svg>
+                                    <span>Connect on LinkedIn</span>
+                                </a>
+                            {% endif %}
+                            {# Phone Button #}
+                            {% if phone %}
+                                <a href="tel:{{ phone }}"
+                                   class="quick-connect-button bg-secondary text-contrast-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+                                    <svg class="h-5 w-5 mr-2"><use href="#icon-phone" /></svg>
+                                    <span>Call Me</span>
+                                </a>
+                            {% endif %}
+                             {# WhatsApp Button #}
+                            {% if phone %}
+                               <a href="https://wa.me/{{ phone | replace(' ', '') | replace('-', '') | replace('(', '') | replace(')', '') }}?text=Inquiry from Website" target="_blank" rel="noopener noreferrer"
+                                  class="quick-connect-button bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400">
+                                   <svg class="h-5 w-5 mr-2"><use href="#icon-whatsapp" /></svg>
+                                   <span>Message on WhatsApp</span>
+                               </a>
+                           {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+             </div>
+        </div>
+     </div>
+</section>
