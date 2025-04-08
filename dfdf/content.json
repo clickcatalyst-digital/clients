@@ -1,0 +1,75 @@
+{
+  "user_type": "business",
+  "color_palette": "dreamy-sunset",
+  "headline": "dfdf",
+  "tagline": "dvsssvsvdvdssvdvddvssdvs",
+  "about": "sdvsdvsdvvdssvdsddsv",
+  "services": [
+    {
+      "name": "svddvssdvdsvsd",
+      "icon": "briefcase",
+      "description": "svdvdsvsdsdv"
+    },
+    {
+      "name": "dsvvdssvsvssvd",
+      "icon": "shopping-bag",
+      "description": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd"
+    },
+    {
+      "name": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+      "icon": "clipboard-list",
+      "description": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsdvsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+      "title": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+      "company": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+      "rating": "3",
+      "quote": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsdvsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsdvsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsdvsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsdvsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsdvsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd"
+    }
+  ],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "aboutMetadata": {
+    "originalSize": 235960,
+    "compressedSize": 50397,
+    "savings": 185563,
+    "savingsPercent": 79,
+    "width": 1200,
+    "height": 1200
+  },
+  "email": "fff@ff.com",
+  "phone": "6328763428234",
+  "social": {
+    "whatsapp": "7979833432",
+    "telegram": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+    "facebook": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+    "instagram": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+    "twitter": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd",
+    "linkedin": "vsdsvdvdssvsdvsvdsvdvsdsdvvsvdsvvdssvssvvvdsvdsdvsvdsvdvsdsvdvsd"
+  },
+  "addOns": [],
+  "site_url": "dfdf",
+  "websiteId": "web-6rcyetpbm98oif6m",
+  "createdAt": "2025-04-08T15:52:30.814Z",
+  "lastUpdated": "2025-04-08T15:52:30.814Z",
+  "status": "pending_deployment"
+}
