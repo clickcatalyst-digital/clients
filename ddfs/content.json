@@ -1,0 +1,46 @@
+{
+  "user_type": "business",
+  "color_palette": "nature-inspired",
+  "headline": "ddfs",
+  "tagline": "",
+  "about": "sdsd",
+  "services": [],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "logo": "ddfs/assets/image-1744188147409-09gmxa.jpg",
+  "banner": "ddfs/assets/image-1744188149029-ser03l.png",
+  "about_image": "ddfs/assets/image-1744188149985-oz0i0c.png",
+  "email": "ssdd@cdccd.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "dscdc",
+    "telegram": "cdscds",
+    "facebook": "cdscds",
+    "instagram": "cdsdcs",
+    "twitter": "cddcs",
+    "linkedin": "csdcds"
+  },
+  "addOns": [],
+  "site_url": "ddfs",
+  "websiteId": "web-d7dmaxcsm99ol7td",
+  "createdAt": "2025-04-09T08:42:27.409Z",
+  "lastUpdated": "2025-04-09T08:42:27.409Z",
+  "status": "pending_deployment"
+}
