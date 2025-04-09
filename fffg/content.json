@@ -1,0 +1,34 @@
+{
+  "user_type": "business",
+  "color_palette": "dreamy-sunset",
+  "headline": "fffg",
+  "tagline": "hjhj",
+  "about": "hjvjhv",
+  "services": [],
+  "testimonials": [],
+  "business_stats": [],
+  "aboutMetadata": {
+    "originalSize": 37511,
+    "compressedSize": 29376,
+    "savings": 8135,
+    "savingsPercent": 22,
+    "width": 540,
+    "height": 360
+  },
+  "email": "gg@ff.com",
+  "phone": "576575757",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [],
+  "site_url": "fffg",
+  "websiteId": "web-gnpb6e2jm99nrdrr",
+  "createdAt": "2025-04-09T08:19:15.447Z",
+  "lastUpdated": "2025-04-09T08:19:15.447Z",
+  "status": "pending_deployment"
+}
