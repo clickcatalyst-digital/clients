@@ -1,0 +1,73 @@
+{
+  "user_type": "business",
+  "color_palette": "retro-pop",
+  "headline": "gggh",
+  "tagline": "m.m,.,.,mhjhjkhk",
+  "about": "ghkghjgjg",
+  "services": [
+    {
+      "name": "hjkhkjhkjh",
+      "icon": "briefcase",
+      "description": "jhgvjvjvj"
+    },
+    {
+      "name": "ygyg",
+      "icon": "chart",
+      "description": "jnjjj,n,"
+    },
+    {
+      "name": "uhuhuk",
+      "icon": "chart-pie",
+      "description": "gyuguyuy"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "igkgkgkgk",
+      "title": "hgkhkjkjh",
+      "company": "hjkhjkhkkj",
+      "rating": "3",
+      "quote": "khkjhkjhkjhj"
+    }
+  ],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "logo": "gggh/assets/image-1744189131314-ze31gq.png",
+  "banner": "gggh/assets/image-1744189133084-wohnua.png",
+  "about_image": "gggh/assets/image-1744189134109-a09gh0.png",
+  "email": "d@d.co",
+  "phone": "2443233",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [
+    "domain",
+    "admin"
+  ],
+  "site_url": "gggh",
+  "websiteId": "web-qckmt4bfm99p6b01",
+  "createdAt": "2025-04-09T08:58:51.313Z",
+  "lastUpdated": "2025-04-09T08:58:51.313Z",
+  "status": "pending_deployment"
+}
