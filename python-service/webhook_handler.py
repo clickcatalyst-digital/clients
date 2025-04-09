@@ -3,11 +3,9 @@ S3 Website Generator and Namecheap DNS Integration
 --------------------------------------------------
 This script:
 1. Validates API requests via API key
-2. Downloads and decompresses content.json.gz from S3
-3. Downloads assets (images) from S3 (OPTIMIZED with ThreadPoolExecutor)
-4. Renders the appropriate template based on website type
-5. Saves output to clients/{folder}/index.html
-6. Configures a CNAME record on Namecheap for custom domain
+2. Uses shared website_generator module to generate websites
+3. Configures a CNAME record on Namecheap for custom domain
+4. Sends notifications and callbacks
 
 Environment Variables Required:
 - AWS_ACCESS_KEY_ID
@@ -23,23 +21,19 @@ Environment Variables Required:
 
 import os
 import json
-import boto3
-import gzip
-import html
 import requests
-import shutil
 import xmltodict
 import subprocess
 import tempfile
-import concurrent.futures
-from io import BytesIO
+import shutil
 from flask import Flask, request, jsonify
 from dotenv import load_dotenv
-from jinja2 import Environment, FileSystemLoader, select_autoescape, TemplateNotFound
 import logging
 from pathlib import Path
-import xml.etree.ElementTree as ET
 from datetime import datetime
+
+# Import shared module for website generation
+from website_generator import initialize_s3_client, generate_website
 
 # Load environment variables from .env file
 load_dotenv()
@@ -72,118 +66,17 @@ GITHUB_EMAIL = os.getenv("GITHUB_EMAIL")
 CALLBACK_URL = os.getenv("CALLBACK_URL")  # Optional webhook callback URL
 SLACK_WEBHOOK_URL = os.getenv("SLACK_WEBHOOK_URL")  # Optional Slack notification
 
-# Maximum number of concurrent S3 downloads
-MAX_CONCURRENT_DOWNLOADS = int(os.getenv("MAX_CONCURRENT_DOWNLOADS", "5"))
-
-# Initialize AWS S3 client
-s3_client = boto3.client(
-    's3',
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    region_name=AWS_REGION
-)
-
-# Initialize Jinja2 environment
-jinja_env = Environment(
-    loader=FileSystemLoader('templates'),
-    autoescape=True
-)
+# Initialize S3 client
+s3_client = None
+if AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY and AWS_REGION:
+    s3_client = initialize_s3_client(
+        aws_access_key_id=AWS_ACCESS_KEY_ID,
+        aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+        region_name=AWS_REGION
+    )
 
 # Ensure the clients directory exists
 Path("clients").mkdir(exist_ok=True)
-
-
-# Define Color Schemes (Map palette IDs to color values)
-# Ensure these IDs match the 'id' field in your React colorPalettes constant
-COLOR_SCHEMES = {
-    'modern-minimalist': {
-        'primary': '#368cbf',   # From values.primary
-        'secondary': '#7ebc59', # From values.secondary
-        'background': '#eaeaea', # From values.neutral (or use #FFFFFF if preferred)
-        'text': '#33363b'       # From values.dark
-    },
-    'luxurious-chic': {
-        'primary': '#1c77ac',
-        'secondary': '#c7af6b',
-        'background': '#e4decd',
-        'text': '#33363b'
-    },
-    'nature-inspired': {
-        'primary': '#5cbdb9',
-        'secondary': '#ebf6f5', # Note: Very light secondary, ensure text contrast works
-        'background': '#fceed1',
-        'text': '#2d545e'
-    },
-    'retro-pop': {
-        'primary': '#7d3cff',
-        'secondary': '#f2d53c',
-        'background': '#e1b382', # Consider maybe a lighter neutral like #fdf5e6 if this is too dark
-        'text': '#12343b'
-    },
-    'futuristic-tech': {
-        'primary': '#1400c6',
-        'secondary': '#7ebc59',
-        'background': '#eaeaea',
-        'text': '#33363b'
-    },
-    'dreamy-sunset': {
-        'primary': '#6B7A8F',
-        'secondary': '#F7882F',
-        'background': '#DCC7AA', # Consider maybe a lighter neutral like #fef9f3
-        'text': '#2d545e'
-    },
-    # --- Add the 'minimal' palette from the example content.json ---
-    'minimal': { # Assuming 'minimal' might be similar to 'modern-minimalist' or a simple scheme
-        'primary': '#4A90E2',   # A standard blue
-        'secondary': '#50E3C2', # A teal/turquoise
-        'background': '#FFFFFF', # White background
-        'text': '#333333'       # Dark grey text
-    },
-    # --- Default fallback scheme ---
-    'default': {
-        'primary': '#4A90E2',   # Default Blue
-        'secondary': '#6FCF97', # Default Green
-        'background': '#FFFFFF', # White
-        'text': '#333333'       # Dark Grey
-    }
-}
-
-def get_contrast_color(hex_color, light_color, dark_color):
-    """
-    Determines if light or dark text provides better contrast against a given hex background color.
-
-    Args:
-        hex_color (str): The background hex color string (e.g., '#RRGGBB').
-        light_color (str): The hex color to use for light text.
-        dark_color (str): The hex color to use for dark text.
-
-    Returns:
-        str: Either the light_color or dark_color hex string.
-    """
-    if not hex_color or not hex_color.startswith('#') or len(hex_color) != 7:
-        logger.warning(f"Invalid hex color format '{hex_color}' for contrast check, returning dark.")
-        return dark_color # Default to dark color on invalid input
-
-    try:
-        # Convert hex to RGB
-        hex_color = hex_color.lstrip('#')
-        rgb = tuple(int(hex_color[i:i+2], 16) for i in (0, 2, 4))
-        r, g, b = rgb
-
-        # Calculate luminance (per WCAG 1.4.3 formula simplified)
-        # Note: This is a simplified luma calculation, sufficient for basic dark/light decisions
-        # More accurate WCAG contrast ratios involve relative luminance.
-        luma = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255
-
-        # Determine contrast color
-        # Threshold can be adjusted (0.5 is a common midpoint)
-        # Lower threshold means dark text is used more often on lighter backgrounds
-        threshold = 0.5
-        return dark_color if luma > threshold else light_color
-
-    except Exception as e:
-        logger.error(f"Error calculating contrast for {hex_color}: {e}")
-        return dark_color # Default to dark color on error
 
 def validate_api_key():
     """Validate the API key provided in the request headers."""
@@ -191,277 +84,6 @@ def validate_api_key():
     if not auth_header or auth_header != API_KEY:
         return False
     return True
-
-def download_from_s3(bucket, key):
-    """Download a file from S3 and return its content."""
-    try:
-        response = s3_client.get_object(Bucket=bucket, Key=key)
-        return response['Body'].read()
-    except Exception as e:
-        logger.error(f"Error downloading {key} from S3: {e}")
-        return None
-
-
-def date_filter(value, format='%Y-%m-%d'):
-    if value == "now":
-        value = datetime.now()
-    return value.strftime(format)
-
-
-# Get the directory where *this* script (webhook_handler.py) resides
-_THIS_DIR = Path(__file__).resolve().parent
-# Construct the absolute path to the templates directory next to this script
-_TEMPLATE_DIR = _THIS_DIR / 'templates'
-
-logger.info(f"Initializing Jinja Env with template path: {_TEMPLATE_DIR}")
-
-# Initialize Jinja2 environment
-jinja_env = Environment(
-    loader=FileSystemLoader(str(_TEMPLATE_DIR)), # Use the calculated absolute path
-    autoescape=select_autoescape(['html', 'xml']) # Recommended way for autoescape
-)
-# Add filters AFTER creating the environment
-jinja_env.filters['date'] = date_filter
-
-def extract_content_json(content_bytes):
-    """Decompress gzipped content.json and parse the JSON."""
-    try:
-        decompressed_data = gzip.decompress(content_bytes)
-        return json.loads(decompressed_data.decode('utf-8'))
-    except Exception as e:
-        logger.error(f"Error decompressing or parsing content.json: {e}")
-        return None
-
-def download_single_asset(bucket, asset_key, local_path):
-    """Download a single asset from S3 and save to local path."""
-    try:
-        s3_client.download_file(bucket, asset_key, str(local_path))
-        return True
-    except Exception as e:
-        logger.error(f"Error downloading asset {asset_key}: {e}")
-        return False
-
-# def download_assets(bucket, folder_name, asset_keys):
-#     """
-#     Download assets (images) from S3 and save to local directory.
-#     Optimized with ThreadPoolExecutor for parallel downloads.
-#     """
-#     assets_dir = Path(f"clients/{folder_name}/assets")
-#     assets_dir.mkdir(exist_ok=True, parents=True)
-    
-#     downloaded_assets = {}
-#     download_tasks = []
-    
-#     # Prepare download tasks
-#     for asset_type, asset_key in asset_keys.items():
-#         if not asset_key:
-#             continue
-            
-#         # Extract filename from the S3 key
-#         filename = asset_key.split('/')[-1]
-#         local_path = assets_dir / filename
-        
-#         # Add to task list
-#         download_tasks.append({
-#             'asset_type': asset_type,
-#             'asset_key': asset_key,
-#             'local_path': local_path,
-#             'filename': filename
-#         })
-    
-#     # Use ThreadPoolExecutor to download assets in parallel
-#     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_CONCURRENT_DOWNLOADS) as executor:
-#         # Submit download tasks
-#         future_to_task = {
-#             executor.submit(download_single_asset, bucket, task['asset_key'], task['local_path']): task
-#             for task in download_tasks
-#         }
-        
-#         # Process completed downloads
-#         for future in concurrent.futures.as_completed(future_to_task):
-#             task = future_to_task[future]
-#             try:
-#                 success = future.result()
-#                 if success:
-#                     # Store the relative path for template usage
-#                     downloaded_assets[f"{task['asset_type']}_path"] = f"assets/{task['filename']}"
-#                     # downloaded_assets[task['asset_type']] = f"assets/{task['filename']}"
-#                     logger.info(f"Downloaded {task['asset_type']} to {task['local_path']}")
-#             except Exception as e:
-#                 logger.error(f"Exception downloading {task['asset_key']}: {e}")
-    
-#     return downloaded_assets
-
-def download_assets(bucket, folder_name, asset_keys):
-    """
-    Download assets (images) from S3 and save to local directory.
-    Optimized with ThreadPoolExecutor for parallel downloads.
-    Returns keys like 'logo_path', 'banner_path', 'about_image', 'gallery_0', etc.
-    """
-    assets_dir = Path(f"clients/{folder_name}/assets")
-    assets_dir.mkdir(exist_ok=True, parents=True)
-
-    downloaded_assets = {}
-    download_tasks = []
-
-    for asset_type, asset_key in asset_keys.items():
-        if not asset_key:
-            continue
-
-        filename = asset_key.split('/')[-1]
-        local_path = assets_dir / filename
-
-        download_tasks.append({
-            'asset_type': asset_type, # e.g., 'logo', 'banner', 'about_image', 'gallery_0'
-            'asset_key': asset_key,
-            'local_path': local_path,
-            'filename': filename
-        })
-
-    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_CONCURRENT_DOWNLOADS) as executor:
-        future_to_task = {
-            executor.submit(download_single_asset, bucket, task['asset_key'], task['local_path']): task
-            for task in download_tasks
-        }
-
-        for future in concurrent.futures.as_completed(future_to_task):
-            task = future_to_task[future]
-            try:
-                success = future.result()
-                if success:
-                    # Determine the key for the template data
-                    template_key = task['asset_type']
-                    # Add _path suffix only for standard keys like logo and banner if template uses that
-                    if task['asset_type'] in ['logo', 'banner']:
-                         template_key = f"{task['asset_type']}_path"
-
-                    # Store the relative path
-                    downloaded_assets[template_key] = f"assets/{task['filename']}"
-                    logger.info(f"Downloaded {task['asset_type']} to {task['local_path']}")
-            except Exception as e:
-                logger.error(f"Exception downloading {task['asset_key']}: {e}")
-
-    return downloaded_assets
-
-# def render_template(content_data, assets):
-#     """Render the appropriate HTML template based on website type."""
-#     # Validate essential fields and provide defaults
-#     if "headline" not in content_data:
-#         content_data["headline"] = content_data.get("site_url", "Website")
-#     if "tagline" not in content_data:
-#         content_data["tagline"] = ""
-        
-#     # Determine which template to use based on user_type
-#     website_type = content_data.get("user_type", "business")
-#     template_name = f"{website_type.lower()}.html"
-    
-#     # Check if template exists, otherwise use default
-#     template_path = Path(f"templates/{template_name}")
-#     if not template_path.exists():
-#         template_name = "default.html"
-#         logger.warning(f"Template for {website_type} not found, using default")
-    
-#     # Load template
-#     try:
-#         template = jinja_env.get_template(template_name)
-#     except Exception as e:
-#         logger.error(f"Failed to load template {template_name}: {e}")
-#         # Fall back to an extremely simple template
-#         return f"""<!DOCTYPE html>
-#         <html>
-#         <head>
-#             <title>{content_data.get('headline', 'Website')}</title>
-#             <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css'>
-#         </head>
-#         <body class='bg-gray-100'>
-#             <header class='bg-white shadow'>
-#                 <div class='max-w-6xl mx-auto px-4 py-6'>
-#                     <h1 class='text-3xl font-bold'>{content_data.get('headline', 'Website')}</h1>
-#                     <p class='mt-2'>{content_data.get('tagline', '')}</p>
-#                 </div>
-#             </header>
-#             <main class='max-w-6xl mx-auto p-4 mt-8'>
-#                 <p>{content_data.get('about', '')}</p>
-#             </main>
-#         </body>
-#         </html>"""
-
-def render_template(content_data, assets):
-    """Render the appropriate HTML template based on website type."""
-    # --- Basic Data Validation ---
-    if "headline" not in content_data:
-        content_data["headline"] = content_data.get("site_url", "Website")
-    if "tagline" not in content_data:
-        content_data["tagline"] = ""
-
-    website_type = content_data.get("user_type", "business")
-    primary_template_name = f"{website_type.lower()}.html"
-    fallback_template_name = "default.html"
-
-    # --- Load Template (with fallback) ---
-    template = None
-    template_to_render = ""
-    try:
-        # jinja_env should be initialized globally using the absolute path method
-        template = jinja_env.get_template(primary_template_name)
-        template_to_render = primary_template_name
-        logger.info(f"Using primary template: {template_to_render}")
-    except TemplateNotFound: # Catch specific Jinja error
-        logger.warning(f"Primary template '{primary_template_name}' not found. Attempting fallback '{fallback_template_name}'.")
-        try:
-            template = jinja_env.get_template(fallback_template_name)
-            template_to_render = fallback_template_name
-            logger.info(f"Using fallback template: {template_to_render}")
-        except TemplateNotFound:
-            logger.error(f"CRITICAL: Fallback template '{fallback_template_name}' also not found in search path: {jinja_env.loader.searchpath}")
-            # Return a very basic error HTML as a last resort
-            return f"<html><body><h1>Internal Server Error</h1><p>Required template files ('{primary_template_name}' or '{fallback_template_name}') could not be loaded.</p></body></html>"
-        except Exception as e_load_fallback:
-            # Catch other potential errors loading the fallback
-            logger.error(f"Failed to load fallback template '{fallback_template_name}': {e_load_fallback}")
-            return f"<html><body><h1>Internal Server Error</h1><p>Error loading fallback template: {html.escape(str(e_load_fallback))}</p></body></html>"
-    except Exception as e_load_primary:
-        # Catch other potential errors loading the primary template
-        logger.error(f"Failed to load primary template '{primary_template_name}': {e_load_primary}")
-        return f"<html><body><h1>Internal Server Error</h1><p>Error loading primary template: {html.escape(str(e_load_primary))}</p></body></html>"
-
-
-    # --- Prepare Template Data ---
-    template_data = {**content_data}
-    for asset_type, asset_path in assets.items():
-        template_data[asset_type] = asset_path
-
-    palette_id = content_data.get("color_palette", "default")
-    selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
-    selected_colors.setdefault('background', '#FFFFFF')
-    selected_colors.setdefault('text', '#333333')
-
-    light_contrast = selected_colors['background']
-    dark_contrast = selected_colors['text']
-
-    selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
-    selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
-    selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
-    selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast)
-
-    template_data["colors"] = selected_colors
-    logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
-
-    # --- Render the loaded template ---
-    try:
-        return template.render(**template_data)
-    except Exception as e_render:
-        logger.error(f"Template rendering error for '{template_to_render}': {e_render}")
-        # Fallback template showing the render error and data
-        return f"""<!DOCTYPE html>
-        <html><head><title>Render Error</title></head><body>
-        <h1>Template Rendering Error</h1>
-        <p><b>Template:</b> {template_to_render}</p>
-        <p><b>Error:</b></p>
-        <pre>{html.escape(repr(e_render))}</pre>
-        <h2>Data Passed:</h2>
-        <pre>{html.escape(json.dumps(template_data, indent=2, default=str))}</pre>
-        </body></html>"""
 
 def push_to_github(folder_name):
     """Push changes to GitHub repository to trigger GitHub Pages deployment."""
@@ -577,6 +199,10 @@ def send_slack_notification(message, website_url=None):
 
 def create_namecheap_cname(subdomain, target):
     """Create a CNAME record on Namecheap for the subdomain."""
+    if not all([NAMECHEAP_API_KEY, NAMECHEAP_USERNAME, NAMECHEAP_API_IP, DOMAIN_NAME]):
+        logger.warning("Namecheap API credentials not configured, skipping DNS setup")
+        return False
+        
     try:
         # Namecheap API endpoint
         base_url = "https://api.namecheap.com/xml.response"
@@ -681,10 +307,10 @@ def webhook_handler():
     # Parse request data
     try:
         data = request.json
-        bucket = data.get('bucket')
+        bucket = data.get('bucket') or S3_BUCKET_NAME
         folder_name = data.get('folderName')
         website_id = data.get('websiteId')
-        website_type = data.get('websiteType')
+        website_type = data.get('websiteType', 'business')
         
         logger.info(f"Processing website: {website_id} ({folder_name}) of type {website_type}")
         
@@ -702,93 +328,29 @@ def webhook_handler():
         }), 400
     
     try:
-        # Download and extract content.json.gz
-        content_key = f"{folder_name}/content.json"  # Note: Next.js uploads as content.json with gzip encoding
-        try:
-            content_bytes = download_from_s3(bucket, content_key)
-            if not content_bytes:
-                # Try alternative filename with .gz extension
-                content_key = f"{folder_name}/content.json.gz"
-                content_bytes = download_from_s3(bucket, content_key)
-                
-            if not content_bytes:
-                return jsonify({
-                    'success': False,
-                    'message': f'Failed to download content.json or content.json.gz from S3'
-                }), 500
-        except Exception as e:
-            logger.error(f"Error downloading content file: {e}")
+        # Get the absolute path to the templates directory
+        templates_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
+        
+        # Use the shared function to generate the website
+        result = generate_website(
+            aws_access_key_id=AWS_ACCESS_KEY_ID,
+            aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
+            aws_region=AWS_REGION,
+            bucket=bucket,
+            folder_name=folder_name,
+            website_id=website_id,
+            templates_dir=templates_dir
+        )
+        
+        if not result['success']:
             return jsonify({
                 'success': False,
-                'message': f'Failed to download content file: {str(e)}'
+                'message': result['message']
             }), 500
-            
-        content_data = extract_content_json(content_bytes)
-        if not content_data:
-            return jsonify({
-                'success': False,
-                'message': 'Failed to parse content data'
-            }), 500
-        
-        # Create client directory
-        client_dir = Path(f"clients/{folder_name}")
-        client_dir.mkdir(exist_ok=True, parents=True)
-        
-        # Save the raw content.json for reference
-        with open(client_dir / "content.json", "w") as f:
-            json.dump(content_data, f, indent=2)
-        
-        # Download assets (logo and banner) in parallel
-        start_time = datetime.now()
-        asset_keys = {
-            'logo': content_data.get('logo'),
-            'banner': content_data.get('banner'),
-            'about_image': content_data.get('about_image')
-        }
-        
-        # Add additional assets if present in the content
-        if content_data.get('gallery'):
-            for i, image in enumerate(content_data.get('gallery', [])):
-                asset_keys[f'gallery_{i}'] = image
-                
-        if content_data.get('team_photos'):
-            for i, image in enumerate(content_data.get('team_photos', [])):
-                asset_keys[f'team_{i}'] = image
-        
-        downloaded_assets = download_assets(bucket, folder_name, asset_keys)
-        logger.info(f"Downloaded {len(downloaded_assets)} assets in {(datetime.now() - start_time).total_seconds():.2f} seconds")
-        
-        # Render the HTML with the appropriate template
-        html_output = render_template(content_data, downloaded_assets)
-        
-        # Save the HTML to index.html
-        with open(client_dir / "index.html", "w") as f:
-            f.write(html_output)
-        logger.info(f"Saved index.html to {client_dir}") # Added log
-        
-        # --- BEGIN ADDED CODE ---
-        # Copy the pre-built CSS file into the client directory
-        # Assumes your build step outputs styles.css into the 'templates' directory
-        prebuilt_css_path = Path("templates/styles.css")
-        target_css_path = client_dir / "styles.css"
-        
-        if prebuilt_css_path.exists():
-            try:
-                shutil.copy2(prebuilt_css_path, target_css_path)
-                logger.info(f"Copied styles.css to {target_css_path}")
-            except Exception as css_copy_error:
-                logger.error(f"Failed to copy styles.css: {css_copy_error}")
-                # Decide if this should be a fatal error or just a warning
-                # return jsonify({'success': False, 'message': 'Failed to copy required CSS file'}), 500
-        else:
-            logger.warning(f"Pre-built styles.css not found at {prebuilt_css_path}. Site styling will be missing.")
-            # Potentially return an error or proceed with missing styles warning
-            # return jsonify({'success': False, 'message': 'Required styles.css not found'}), 500
-        # --- END ADDED CODE ---
         
         # Create a CNAME record for the subdomain
         subdomain = folder_name
-        cname_target = f"{GITHUB_PAGES_TARGET}"
+        cname_target = GITHUB_PAGES_TARGET
         dns_success = create_namecheap_cname(subdomain, cname_target)
         
         # Push to GitHub to trigger Pages deployment
@@ -811,7 +373,17 @@ def webhook_handler():
         # Send notifications
         send_callback_notification(response_data)
         
-        slack_message = f"🎉 New website deployed: *{content_data.get('business_name', folder_name)}*\nType: {website_type}\nFolder: {folder_name}"
+        # Get business name from content.json if it exists
+        client_dir = Path(f"clients/{folder_name}")
+        business_name = folder_name
+        try:
+            with open(client_dir / "content.json", "r") as f:
+                content = json.load(f)
+                business_name = content.get('business_name', folder_name)
+        except:
+            pass
+        
+        slack_message = f"🎉 New website deployed: *{business_name}*\nType: {website_type}\nFolder: {folder_name}"
         send_slack_notification(slack_message, website_url)
         
         # Return success response
