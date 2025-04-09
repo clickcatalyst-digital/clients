@@ -71,10 +71,10 @@ jobs:
               from website_generator import generate_website
               logger.info('Successfully imported website_generator module.')
           except ImportError as import_err:
-              logger.error(f'Failed to import: {import_err}')
+              logger.error(f"Failed to import: {import_err}")
               sys.exit(1)
           except Exception as setup_err:
-              logger.error(f'Error during setup/import: {setup_err}')
+              logger.error(f"Error during setup/import: {setup_err}")
               sys.exit(1)
           
           # Get event data from GitHub Actions
@@ -87,7 +87,7 @@ jobs:
               with open(event_path) as f:
                   event_data = json.load(f)
           except Exception as json_err:
-              logger.error(f'Failed JSON load: {json_err}')
+              logger.error(f"Failed JSON load: {json_err}")
               sys.exit(1)
           
           # Extract payload data
@@ -100,7 +100,7 @@ jobs:
               logger.error('Missing payload keys.')
               sys.exit(1)
           
-          logger.info(f'Processing website: {website_id} ({folder_name})')
+          logger.info(f"Processing website: {website_id} ({folder_name})")
           
           # Get AWS credentials from environment
           aws_access_key_id = os.environ.get('AWS_ACCESS_KEY_ID')
@@ -126,7 +126,7 @@ jobs:
           if result['success']:
               logger.info(result['message'])
           else:
-              logger.error(f'Generation failed: {result['message']}')
+              logger.error(f"Generation failed: {result['message']}")
               sys.exit(1)
           "
         shell: bash
