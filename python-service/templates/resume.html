@@ -1,0 +1,389 @@
+{% extends "_base.html" %}
+
+{# --- Page Title --- #}
+{% block title %}{{ headline }} - {{ tagline }}{% endblock title %}
+
+{# --- Meta Tags specific to Resume/Profile --- #}
+{% block meta_tags %}
+    <meta name="description" content="{{ tagline + '. ' + about[:120] + '...' if about else tagline }}">
+    <meta name="author" content="{{ headline }}">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile">
+    <meta property="profile:first_name" content="{{ headline.split(' ')[0] if ' ' in headline else headline }}">
+    {% if ' ' in headline %}<meta property="profile:last_name" content="{{ headline.split(' ')[-1] }}">{% endif %}
+    <meta property="og:title" content="{{ headline }} - {{ tagline }}">
+    <meta property="og:description" content="{{ about[:120] + '...' if about else tagline }}">
+    {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %}
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ headline }} - {{ tagline }}">
+    <meta name="twitter:description" content="{{ about[:120] + '...' if about else tagline }}">
+    {% if logo_path %}<meta name="twitter:image" content="{{ logo_path }}">{% endif %}
+{% endblock meta_tags %}
+
+{# --- Schema.org --- #}
+{% block schema_org %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "{{ headline }}",
+      "url": "{{ 'https://' + folder_name + '.' + DOMAIN_NAME if folder_name and DOMAIN_NAME else '#' }}",
+      "description": "{{ tagline }}",
+      {% if logo_path %}"image": "{{ logo_path }}",{% endif %}
+      {% if email %}"email": "{{ email }}",{% endif %}
+      {% if phone %}"telephone": "{{ phone }}",{% endif %}
+      "jobTitle": "{{ tagline | default('') }}",
+      {% set sameAsLinks = [] %}
+      {% if social.linkedin %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
+      {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
+      {# Add other relevant profile URLs here #}
+      {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
+      {# Optionally add skills, alumniOf etc. #}
+    }
+    </script>
+{% endblock schema_org %}
+
+{# --- Page Specific Styles --- #}
+{% block page_styles %}
+    <style>
+        /* Refined styles for resume sections */
+        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; } /* Bolder headings */
+        .section-divider { width: 60px; margin-bottom: 1.5rem; } /* Smaller divider */
+
+        .experience-item, .education-item {
+            padding-bottom: 1.5rem; /* pb-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+        }
+        .experience-item:last-child, .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .skills-list span {
+            transition: all 0.2s ease-in-out;
+        }
+        .skills-list span:hover {
+            transform: scale(1.05);
+            background-color: var(--color-primary);
+            color: var(--color-text-on-primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .certification-item {
+             padding: 0.75rem 0;
+             border-bottom: 1px dashed #d1d5db; /* Dashed border */
+        }
+         .certification-item:last-child {
+             border-bottom: none;
+         }
+
+         /* Hero styling */
+        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+    </style>
+     {# <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> #}
+{% endblock page_styles %}
+
+{# --- Header --- #}
+{% block header %}
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    {% if logo_path %}
+                        <a href="#" aria-label="{{ headline }} homepage">
+                            <img class="h-10 w-10 rounded-full object-cover" src="{{ logo_path }}" alt="Profile picture of {{ headline }}" loading="lazy">
+                        </a>
+                    {% endif %}
+                    <div class="ml-3">
+                        <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">{{ headline }}</a>
+                        {% if tagline %}<p class="text-sm text-gray-500">{{ tagline }}</p>{% endif %}
+                    </div>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
+                    {% if workExperience %} <a href="#experience" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Experience</a> {% endif %}
+                    {% if education %} <a href="#education" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Education</a> {% endif %}
+                    {% if skills or certifications %} <a href="#skills" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Skills</a> {% endif %}
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                    {# Optional Download Button #}
+                    {# <a href="/path/to/resume.pdf" target="_blank" rel="noopener" class="ml-4 inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                       <svg class="h-4 w-4 mr-1.5 -ml-1"><use href="#icon-document-arrow-down" /></svg> Resume
+                    </a> #}
+                </div>
+                 <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+         <!-- Mobile menu Container -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
+             <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
+                {% if workExperience %} <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Experience</a> {% endif %}
+                {% if education %} <a href="#education" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Education</a> {% endif %}
+                {% if skills or certifications %} <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Skills</a> {% endif %}
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                {# Optional Mobile Download Button #}
+                {# <a href="/path/to/resume.pdf" target="_blank" rel="noopener" class="mt-2 flex items-center justify-center px-4 py-2 border border-primary text-base font-medium rounded-md text-primary bg-white hover:bg-primary hover:text-contrast-primary transition-colors">
+                   <svg class="h-5 w-5 mr-2"><use href="#icon-document-arrow-down" /></svg> Download Resume
+                </a> #}
+             </div>
+        </div>
+    </header>
+{% endblock header %}
+
+{# --- Main Page Content --- #}
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section bg-gradient-primary py-20 md:py-28 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
+         <div class="max-w-4xl mx-auto text-center">
+              {% if logo_path %}
+                 <img class="h-32 w-32 rounded-full object-cover mx-auto mb-4 shadow-lg border-4 border-white border-opacity-50" src="{{ logo_path }}" alt="Profile picture of {{ headline }}" loading="lazy">
+              {% endif %}
+             <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2 hero-text-shadow">{{ headline }}</h1>
+             <p class="text-xl sm:text-2xl max-w-2xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline }}</p>
+             <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                 <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                     <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
+                     Contact Me
+                 </a>
+                 {# Optional Download Button #}
+                 {# <a href="/path/to/resume.pdf" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-secondary transition-all transform hover:scale-105">
+                    <svg class="h-5 w-5 mr-2"><use href="#icon-document-arrow-down" /></svg> Download Resume
+                 </a> #}
+             </div>
+         </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Correct BG #}
+        <div class="max-w-4xl mx-auto reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3">About Me</h2>
+            <div class="section-divider"></div>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed text-center">{{ about }}</p>
+         </div>
+    </section>
+
+    <!-- Work Experience Section -->
+    {% if workExperience and workExperience | length > 0 %}
+        <section id="experience" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Correct BG #}
+             <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 reveal">Work Experience</h2>
+                <div class="section-divider reveal"></div>
+                <div class="space-y-6"> {# Reduced space between items #}
+                    {% for job in workExperience %}
+                    <div class="reveal experience-item">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1"> {# Use baseline align #}
+                            <h3 class="text-lg sm:text-xl font-semibold text-primary">{{ job.title }}</h3>
+                            <p class="text-sm text-gray-500 mt-1 sm:mt-0 flex-shrink-0">{{ job.startDate }} - {{ job.endDate if not job.isCurrent else 'Present' }}</p>
+                        </div>
+                        <p class="text-md font-medium text-gray-800">{{ job.company }} {% if job.location %}<span class="text-gray-500 font-normal text-sm">- {{ job.location }}</span>{% endif %}</p>
+                        {% if job.description %}
+                        <p class="mt-2 text-base text-gray-600 leading-relaxed">{{ job.description }}</p> {# Use gray-600 for description #}
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- Education Section -->
+    {% if education and education | length > 0 %}
+        <section id="education" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Correct BG #}
+             <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 reveal">Education</h2>
+                <div class="section-divider reveal"></div>
+                 <div class="space-y-6"> {# Reduced space #}
+                    {% for edu in education %}
+                    <div class="reveal education-item">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1">
+                            <h3 class="text-lg sm:text-xl font-semibold text-secondary">{{ edu.degree }}</h3>
+                            <p class="text-sm text-gray-500 mt-1 sm:mt-0 flex-shrink-0">{{ edu.startYear }} - {{ edu.endYear if not edu.inProgress else 'Present' }}</p>
+                        </div>
+                        <p class="text-md font-medium text-gray-800">{{ edu.institution }} {% if edu.location %}<span class="text-gray-500 font-normal text-sm">- {{ edu.location }}</span>{% endif %}</p>
+                        {% if edu.grade %}<p class="mt-1 text-sm text-gray-600">Grade/GPA: {{ edu.grade }}</p>{% endif %}
+                        {% if edu.activities %}<p class="mt-1 text-sm text-gray-600">Activities/Honors: {{ edu.activities }}</p>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- Skills & Certifications Section -->
+    {% if skills or certifications %}
+        <section id="skills" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Correct BG #}
+             <div class="max-w-4xl mx-auto">
+                 <div class="grid md:grid-cols-{{ 2 if skills and certifications else 1 }} gap-12"> {# Adjust grid based on content #}
+                    {% if skills and skills | length > 0 %}
+                        <div class="reveal">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Skills</h2>
+                            {# <div class="section-divider !mx-0 !mb-6"></div> #} {# Divider might be too much here #}
+                            <div class="flex flex-wrap gap-2 skills-list">
+                                {% for skill in skills %}
+                                    <span class="inline-block bg-primary bg-opacity-10 text-primary text-sm font-medium px-3 py-1 rounded-full">{{ skill }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    {% if certifications and certifications | length > 0 %}
+                         <div class="reveal">
+                            <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Certifications</h2>
+                            {# <div class="section-divider !mx-0 !mb-6"></div> #}
+                            <ul class="space-y-1"> {# Reduced space #}
+                                 {% for cert in certifications %}
+                                     <li class="text-base text-gray-700 certification-item">
+                                         <strong class="text-gray-800">{{ cert.name }}</strong> - {{ cert.issuer }}
+                                         <span class="block text-xs text-gray-500 mt-0.5">
+                                             Issued: {{ cert.date }} {% if cert.expiration %}| Expires: {{ cert.expiration }}{% endif %}
+                                             {% if cert.credentialId %} | ID: {{ cert.credentialId }} {% endif %}
+                                         </span>
+                                     </li>
+                                 {% endfor %}
+                             </ul>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock content %}
+
+{# --- Feedback Popup (If using from original resume) --- #}
+{% block page_scripts %}
+    <!-- Feedback Pop-up Container (Initially Hidden) -->
+    <div id="feedback-popup" class="hidden fixed bottom-4 right-4 sm:bottom-6 sm:right-6 w-full max-w-sm bg-white rounded-lg shadow-lg p-6 border border-gray-200 z-50" style="transform: translateY(100%); opacity: 0; transition: transform 0.5s ease-out, opacity 0.5s ease-out;">
+        <button id="feedback-close-btn" type="button" class="absolute top-2 right-2 text-gray-400 hover:text-gray-600 focus:outline-none" aria-label="Close feedback form">
+            <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <h4 class="text-lg font-semibold text-gray-800 mb-3 text-center">Feedback</h4>
+        <p class="text-sm text-gray-600 mb-4 text-center">Found this profile helpful? Have suggestions?</p>
+
+        <form id="feedback-form" class="space-y-3">
+            <div>
+              <label for="feedback-type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+              <select id="feedback-type" name="feedbackType" class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary">
+                <option value="Suggestion">Suggestion</option>
+                <option value="Correction">Correction</option>
+                <option value="Praise">Praise</option>
+                <option value="Opportunity">Opportunity</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label for="feedback-message" class="block text-sm font-medium text-gray-700 mb-1">Message <span class="text-red-500">*</span></label>
+              <textarea id="feedback-message" name="message" rows="3" required class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="Your feedback..."></textarea>
+            </div>
+             {# Optional Email #}
+            <div>
+              <label for="feedback-email" class="block text-sm font-medium text-gray-700 mb-1">Your Email (Optional)</label>
+              <input type="email" id="feedback-email" name="email" class="w-full px-3 py-1.5 border border-gray-300 rounded-md shadow-sm text-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary" placeholder="your@email.com">
+            </div>
+            {# Removed rating for resume context #}
+
+            <div class="pt-2">
+              <button type="submit" id="feedback-submit-btn" class="w-full px-4 py-2 bg-primary text-contrast-primary text-sm font-medium rounded-md hover:opacity-90 transition-opacity shadow-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                Send Feedback
+              </button>
+            </div>
+            <div id="feedback-status" class="text-center text-sm mt-3"></div>
+        </form>
+    </div>
+
+    {# Specific JS for the feedback popup #}
+    <script>
+      document.addEventListener('DOMContentLoaded', () => { // Ensure base DOM is ready
+        const popup = document.getElementById('feedback-popup');
+        const form = document.getElementById('feedback-form');
+        const closeBtn = document.getElementById('feedback-close-btn');
+        const submitBtn = document.getElementById('feedback-submit-btn');
+        const statusDiv = document.getElementById('feedback-status');
+        // Rating elements removed as they are not in the form
+        let popupTimer;
+
+        function showPopup() {
+          if (popup) {
+            popup.classList.remove('hidden');
+            void popup.offsetWidth; // Trigger reflow
+            popup.style.transform = 'translateY(0)';
+            popup.style.opacity = '1';
+          }
+        }
+
+        function hidePopup() {
+          if (popup) {
+             popup.style.transform = 'translateY(100%)';
+             popup.style.opacity = '0';
+             setTimeout(() => popup.classList.add('hidden'), 500); // Match CSS transition
+          }
+          clearTimeout(popupTimer);
+        }
+
+        popupTimer = setTimeout(showPopup, 20000); // Show after 20 seconds for resume
+
+        if (closeBtn) {
+          closeBtn.addEventListener('click', hidePopup);
+        }
+
+        // Rating interaction removed
+
+        if (form) {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            statusDiv.textContent = '';
+            statusDiv.className = 'text-center text-sm mt-3';
+
+            const formData = new FormData(form);
+            const data = {
+              feedbackType: formData.get('feedbackType'),
+              message: formData.get('message'),
+              email: formData.get('email'),
+              // rating: undefined, // No rating
+              source: 'Live Website Popup - {{ folder_name | default("Resume") }}' // Identifier
+            };
+
+            try {
+              const apiEndpoint = '/api/submit-feedback'; // Adjust if needed
+              const response = await fetch(apiEndpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+              });
+              const result = await response.json();
+
+              if (!response.ok) { throw new Error(result.message || 'Submission failed'); }
+
+              statusDiv.textContent = 'Thank you for your feedback!';
+              statusDiv.classList.add('text-green-600');
+              form.reset();
+              // setRating(0); // No rating to reset
+              setTimeout(hidePopup, 2500);
+
+            } catch (error) {
+              console.error('Feedback submission error:', error);
+              statusDiv.textContent = `Error: ${error.message}`;
+              statusDiv.classList.add('text-red-600');
+            } finally {
+                if (statusDiv.textContent.startsWith('Error')) {
+                     submitBtn.disabled = false;
+                     submitBtn.textContent = 'Send Feedback';
+                }
+            }
+          });
+        }
+      });
+    </script>
+{% endblock page_scripts %}
