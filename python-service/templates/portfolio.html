@@ -90,7 +90,11 @@
          .portfolio-overlay-link svg { width: 1rem; height: 1rem; margin-right: 0.5rem; }
 
          /* Skills pills hover */
-         .skills-list span:hover { transform: scale(1.05); background-color: var(--color-primary); color: var(--color-text-on-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+         .skills-list span:hover { transform: scale(1.05); 
+                                  background-color: var(--color-primary); 
+/*                                   color: var(--color-text-on-primary); */
+                                  color: color-mix(in srgb, var(--color-primary) 70%, black);
+                                  box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     </style>
      {# <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
