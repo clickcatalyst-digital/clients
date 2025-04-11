@@ -1,0 +1,323 @@
+{% extends "_base.html" %}
+
+{# --- Page Title --- #}
+{% block title %}{{ headline }} - {{ tagline }}{% endblock title %}
+
+{# --- Meta Tags specific to Event --- #}
+{% block meta_tags %}
+    <meta name="description" content="{{ tagline + '. ' + about[:120] + '...' if about else tagline }}">
+    <meta name="author" content="{{ headline }} Organizer">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="event">
+    <meta property="og:title" content="{{ headline }} - {{ tagline }}">
+    <meta property="og:description" content="{{ about[:120] + '...' if about else tagline }}">
+    {% if banner_path %}<meta property="og:image" content="{{ banner_path }}">{% endif %}
+    {% if eventDetails.date %}<meta property="event:start_time" content="{{ eventDetails.date }}">{% endif %}
+    {# Consider adding event:end_time, event:location properties #}
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
+    <meta property="twitter:description" content="{{ about[:120] + '...' if about else tagline }}">
+    {% if banner_path %}<meta property="twitter:image" content="{{ banner_path }}">{% endif %}
+{% endblock meta_tags %}
+
+{# --- Schema.org --- #}
+{% block schema_org %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Event",
+      "name": "{{ headline }}",
+      "description": "{{ tagline + '. ' + about if about else tagline }}",
+      {% if eventDetails.date %}"startDate": "{{ eventDetails.date }}",{% endif %} {# Combine date/time later if possible #}
+      {# "endDate": "", #}
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode", {# Default, change if virtual/hybrid #}
+      {% if banner_path %}"image": [ "{{ banner_path }}" ],{% endif %}
+      {% if eventDetails.location %}
+      "location": {
+        "@type": "Place",
+        "name": "{{ eventDetails.location }}",
+        "address": "{{ eventDetails.location }}" {# Basic address, enhance if more fields available #}
+      },
+      {% endif %}
+      "organizer": {
+        "@type": "Organization", {# Or Person #}
+        "name": "{{ organizer_name | default(headline + ' Organizer') }}", {# Use specific organizer name if available #}
+        {% if email %}"email": "{{ email }}",{% endif %}
+        {% if phone %}"telephone": "{{ phone }}"{% endif %}
+      }
+      {# Add offers if price/ticketInfo exists #}
+      {% if eventDetails.price or eventDetails.ticketInfo %}
+      ,"offers": {
+        "@type": "Offer",
+        "price": "{{ eventDetails.price | replace('$', '') | replace('Free', '0') if eventDetails.price else '0' }}",
+        "priceCurrency": "USD", {# Assuming USD, parameterize if needed #}
+        "url": "{{ registration_url | default('#details') }}", {# Link to registration/ticket section/URL #}
+        "availability": "https://schema.org/InStock" {# Change if sold out #}
+      }
+      {% endif %}
+    }
+    </script>
+{% endblock schema_org %}
+
+{# --- Page Specific Styles --- #}
+{% block page_styles %}
+    <style>
+        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; }
+        .section-divider { width: 60px; margin-bottom: 1.5rem; }
+
+        /* Hero adjustments */
+        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+
+        /* Highlight Card Style */
+        .highlight-card {
+            background-color: #fff; border-radius: 0.5rem; padding: 1.5rem; text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,.05); border: 1px solid #e5e7eb;
+            transition: all var(--transition-speed) ease;
+        }
+        .highlight-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0,0,0,.08); }
+        .highlight-icon-bg {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 64px; height: 64px; /* w-16 h-16 */
+            border-radius: 50%; background-color: var(--color-primary);
+            color: var(--color-text-on-primary); margin-bottom: 1rem; /* mb-4 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .highlight-card h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+
+        /* Event Details Styling */
+        #details dl > div { padding: 0.5rem 0; border-bottom: 1px dashed #d1d5db; }
+        #details dl > div:last-child { border-bottom: none; }
+        #details dt svg { color: var(--color-primary); } /* Ensure icon color */
+
+        /* Schedule List */
+        .schedule-item {
+            position: relative; padding-left: 2rem; /* Increased padding */ padding-bottom: 1.5rem; /* pb-6 */
+            margin-bottom: 1.5rem; /* mb-6 */ border-left: 3px solid var(--color-primary);
+        }
+         .schedule-item:last-child { margin-bottom: 0; padding-bottom: 0; }
+        .schedule-item::before {
+             content: ''; position: absolute; left: -11px; /* Adjusted for thicker border */ top: 6px;
+             width: 20px; height: 20px; background-color: var(--color-background); /* Match section BG */
+             border: 3px solid var(--color-primary); border-radius: 50%;
+         }
+         .schedule-item-time { color: var(--color-primary); font-weight: 600; font-size: 0.875rem; margin-bottom: 0.25rem; }
+         .schedule-item-title { font-size: 1.125rem; font-weight: 600; color: #1f2937; margin-bottom: 0.25rem;}
+         .schedule-item-meta { display: flex; flex-wrap: wrap; gap-x-4; gap-y-1; font-size: 0.875rem; color: #6b7280; } /* text-sm text-gray-500 */
+         .schedule-item-meta span { display: inline-flex; align-items: center; }
+         .schedule-item-meta svg { width: 1rem; height: 1rem; margin-right: 0.375rem; }
+         .schedule-item-desc { margin-top: 0.5rem; color: #4b5563; line-height: 1.6; }
+
+    </style>
+     {# <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> #}
+{% endblock page_styles %}
+
+{# --- Header --- #}
+{% block header %}
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    {% if logo_path %}
+                        <a href="#" aria-label="{{ headline }} homepage">
+                            <img class="h-10 w-auto" src="{{ logo_path }}" alt="{{ headline }} logo" loading="lazy">
+                        </a>
+                    {% endif %}
+                    <div class="ml-3">
+                        <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">{{ headline }}</a>
+                    </div>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
+                    {% if services %} <a href="#highlights" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Highlights</a> {% endif %}
+                    {% if eventDetails %} <a href="#details" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Details</a> {% endif %}
+                    {% if eventSchedule %} <a href="#schedule" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Schedule</a> {% endif %}
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                     {# Optional Register Button #}
+                    {% if registration_url %}
+                    <a href="{{ registration_url }}" target="_blank" rel="noopener noreferrer" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                       <svg class="h-5 w-5 mr-1.5 -ml-1"><use href="#icon-ticket" /></svg> Register Now
+                    </a>
+                    {% endif %}
+                </div>
+                 <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+         <!-- Mobile menu Container -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
+             <div class="px-2 pt-2 pb-4 space-y-1">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
+                {% if services %} <a href="#highlights" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Highlights</a> {% endif %}
+                {% if eventDetails %} <a href="#details" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Details</a> {% endif %}
+                {% if eventSchedule %} <a href="#schedule" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Schedule</a> {% endif %}
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                {% if registration_url %}
+                <a href="{{ registration_url }}" target="_blank" rel="noopener noreferrer" class="mt-2 flex items-center justify-center px-4 py-2 border border-primary text-base font-medium rounded-md text-primary bg-white hover:bg-primary hover:text-contrast-primary transition-colors">
+                    <svg class="h-5 w-5 mr-2"><use href="#icon-ticket" /></svg> Register Now
+                </a>
+                {% endif %}
+             </div>
+        </div>
+    </header>
+{% endblock header %}
+
+{# --- Main Page Content --- #}
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section hero-gradient py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in relative" id="main-content">
+        {% if banner_path %}
+        <div class="absolute inset-0">
+            <img src="{{ banner_path }}" alt="Event background image" class="w-full h-full object-cover opacity-20">
+            <div class="absolute inset-0 bg-gradient-to-br from-primary to-secondary opacity-60 mix-blend-multiply"></div> {# Darker overlay #}
+        </div>
+        {% endif %}
+         <div class="max-w-4xl mx-auto text-center relative z-10">
+             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 hero-text-shadow">{{ headline }}</h1>
+             <p class="text-xl sm:text-2xl max-w-3xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline }}</p>
+             {# Key Event Info #}
+             <div class="flex flex-wrap justify-center items-center gap-x-6 gap-y-3 text-lg mb-10 font-medium hero-text-shadow"> {# Increased bottom margin #}
+                 {% if eventDetails.date %}
+                 <span class="inline-flex items-center bg-white/20 text-contrast-gradient px-3 py-1 rounded-full text-sm sm:text-base">
+                     <svg class="h-5 w-5 mr-2 opacity-80"><use href="#icon-calendar-days"/></svg>
+                     {{ eventDetails.date }}
+                 </span>
+                 {% endif %}
+                  {% if eventDetails.location %}
+                 <span class="inline-flex items-center bg-white/20 text-contrast-gradient px-3 py-1 rounded-full text-sm sm:text-base">
+                      <svg class="h-5 w-5 mr-2 opacity-80"><use href="#icon-location"/></svg>
+                     {{ eventDetails.location }}
+                 </span>
+                 {% endif %}
+             </div>
+             <div class="flex flex-wrap justify-center gap-4 sm:gap-5">
+                 <a href="{{ registration_url | default('#details') }}" target="{{ '_blank' if registration_url else '_self' }}" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                     <svg class="h-5 w-5 mr-2"><use href="#icon-ticket" /></svg>
+                     {{ 'Register / Tickets' if eventDetails.ticketInfo or eventDetails.price or registration_url else 'View Details' }}
+                 </a>
+                 {# Optional second button #}
+                 {# <a href="#about" class="inline-flex items-center px-8 py-3 border border-white text-base font-medium rounded-md text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-colors">
+                     Learn More
+                 </a> #}
+             </div>
+         </div>
+    </section>
+
+     <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Changed background #}
+        <div class="max-w-4xl mx-auto reveal text-center">
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">About The Event</h2>
+            <div class="section-divider"></div>
+             {% if about_image %}
+                 <img class="rounded-lg shadow-lg w-full max-w-2xl h-auto object-cover mx-auto mb-8" src="{{ about_image }}" alt="Image related to {{ headline }}" loading="lazy">
+             {% endif %}
+            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed text-left md:text-center"> {# Use prose for better text formatting #}
+                {{ about }} {# Assuming 'about' might have basic markdown/paragraphs #}
+            </div>
+         </div>
+    </section>
+
+    <!-- Highlights Section -->
+    {% if services and services | length > 0 %}
+        <section id="highlights" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Changed background #}
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">What to Expect</h2>
+                    <div class="section-divider"></div>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for item in services %}
+                        <div class="highlight-card reveal">
+                            <div class="highlight-icon-bg">
+                                <svg class="h-8 w-8"><use href="#icon-{{ item.icon | default('default') }}" /></svg>
+                            </div>
+                            <h3>{{ item.name | default("Highlight") }}</h3>
+                            {% if item.description %}<p class="text-gray-600 text-sm">{{ item.description }}</p>{% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+     <!-- Event Details Section -->
+     {% if eventDetails %}
+     <section id="details" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Changed background #}
+         <div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg border border-gray-200"> {# Add card style #}
+             <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3 reveal">Event Details</h2>
+             <div class="section-divider reveal"></div>
+             <dl class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-base text-gray-700 reveal"> {# Reduced gap-y #}
+                 {% if eventDetails.date %}
+                 <div class="flex items-start"><dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-calendar-days"/></svg></dt><dd><strong>Date:</strong> {{ eventDetails.date }}</dd></div>
+                 {% endif %}
+                 {% if eventDetails.startTime or eventDetails.endTime %}
+                 <div class="flex items-start"><dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-clock"/></svg></dt><dd><strong>Time:</strong> {{ eventDetails.startTime if eventDetails.startTime else '' }}{% if eventDetails.startTime and eventDetails.endTime %} - {% endif %}{{ eventDetails.endTime if eventDetails.endTime else '' }}</dd></div>
+                 {% endif %}
+                 {% if eventDetails.location %}
+                 <div class="flex items-start"><dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-location"/></svg></dt><dd><strong>Location:</strong> {{ eventDetails.location }}</dd></div>
+                 {% endif %}
+                 {% if eventDetails.virtualLink and eventDetails.virtualLink not in ['none', '', ' '] %}
+                  <div class="flex items-start"><dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-link"/></svg></dt><dd><strong>Virtual Access:</strong> <a href="{{ eventDetails.virtualLink }}" target="_blank" rel="noopener noreferrer" class="text-primary hover:underline font-medium">Join Online</a></dd></div>
+                 {% endif %}
+                 {% if eventDetails.price %}
+                  <div class="flex items-start"><dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-tag"/></svg></dt><dd><strong>Price:</strong> {{ eventDetails.price }}</dd></div>
+                 {% endif %}
+                  {% if eventDetails.ticketInfo %}
+                  <div class="flex items-start"><dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-ticket"/></svg></dt><dd><strong>Tickets:</strong> {{ eventDetails.ticketInfo }}</dd></div>
+                 {% endif %}
+                 {% if eventDetails.limitedSeats %}
+                    <div class="flex items-start">
+                        <dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-users"/></svg></dt>
+                        <dd><strong>Capacity:</strong> Limited Seats {% if eventDetails.maxAttendees %}(Max {{ eventDetails.maxAttendees }}){% endif %}</dd>
+                    </div>
+                 {% endif %}
+                  {# Registration Link moved here #}
+                 {% if registration_url %}
+                  <div class="flex items-start md:col-span-2 mt-4 pt-4 border-t border-gray-200">
+                     <dt class="w-6 flex-shrink-0 mr-3 pt-0.5 text-primary"><svg class="h-5 w-5"><use href="#icon-ticket"/></svg></dt>
+                     <dd><a href="{{ registration_url }}" target="_blank" rel="noopener noreferrer" class="font-semibold text-primary hover:underline">Register Now / Get Tickets →</a></dd>
+                  </div>
+                 {% endif %}
+             </dl>
+         </div>
+     </section>
+     {% endif %}
+
+     <!-- Schedule Section -->
+     {% if eventSchedule and eventSchedule | length > 0 %}
+     <section id="schedule" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Changed background #}
+         <div class="max-w-4xl mx-auto">
+             <h2 class="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-4 reveal">Schedule</h2>
+             <div class="section-divider reveal"></div>
+             <div class="reveal mt-10">
+                 {% for item in eventSchedule %}
+                 <div class="schedule-item">
+                     <p class="schedule-item-time">{{ item.time }}</p>
+                     <h3 class="schedule-item-title">{{ item.title }}</h3>
+                     <div class="schedule-item-meta">
+                         {% if item.speaker %}
+                         <span><svg><use href="#icon-user"/></svg> {{ item.speaker }}</span>
+                         {% endif %}
+                          {% if item.location %}
+                         <span><svg><use href="#icon-location"/></svg> {{ item.location }}</span>
+                         {% endif %}
+                     </div>
+                     {% if item.description %}
+                     <p class="schedule-item-desc">{{ item.description }}</p>
+                     {% endif %}
+                 </div>
+                 {% endfor %}
+             </div>
+         </div>
+     </section>
+     {% endif %}
+
+{% endblock content %}
