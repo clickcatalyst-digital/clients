@@ -1,0 +1,60 @@
+{
+  "user_type": "business",
+  "color_palette": "nature-inspired",
+  "headline": "gggggh",
+  "tagline": "ggghh",
+  "about": "ghjgjhgjg",
+  "services": [
+    {
+      "name": "bhbm",
+      "icon": "briefcase",
+      "description": "bmhk"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": ",bmnb",
+      "title": "m mnb",
+      "company": "cdcdds",
+      "rating": "1",
+      "quote": "svvffsfsvfvsf"
+    }
+  ],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "logo": "gggggh/assets/image-1744352056714-hc7sc9.jpg",
+  "banner": "gggggh/assets/image-1744352056793-gaqvzk.jpg",
+  "about_image": "gggggh/assets/image-1744352056846-8jj7yz.jpg",
+  "email": "hh@hf.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [],
+  "site_url": "gggggh",
+  "websiteId": "web-l01it761m9ce6d1k",
+  "createdAt": "2025-04-11T06:14:16.712Z",
+  "lastUpdated": "2025-04-11T06:14:16.712Z",
+  "status": "pending_deployment"
+}
