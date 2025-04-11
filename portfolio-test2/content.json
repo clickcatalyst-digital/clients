@@ -1,0 +1,63 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "luxurious-chic",
+  "headline": "portfolio-test2",
+  "tagline": "one-liner",
+  "about": "tell me about yourself here / Bio",
+  "services": [
+    {
+      "name": "proj1",
+      "icon": "briefcase",
+      "description": "desc1"
+    }
+  ],
+  "portfolioProjects": [
+    {
+      "title": "project1",
+      "description": "description1",
+      "imagePreview": "portfolio-test2/assets/image-1744366372434-67ptxm.png"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "position",
+      "company": "org",
+      "startDate": "start date",
+      "endDate": "end date",
+      "location": "location",
+      "description": "desc",
+      "isCurrent": false
+    }
+  ],
+  "skills": [
+    "Python",
+    "SQL"
+  ],
+  "certifications": [
+    {
+      "name": "cert name",
+      "issuer": "org",
+      "date": "date eaned",
+      "expiration": "expiration date"
+    }
+  ],
+  "logo": "portfolio-test2/assets/image-1744366365380-ndppez.png",
+  "banner": "portfolio-test2/assets/image-1744366367359-yg474p.png",
+  "about_image": "portfolio-test2/assets/image-1744366371983-96mswt.jpg",
+  "email": "ghjgjh@gjgjh.vghj",
+  "phone": "58566568586",
+  "social": {
+    "whatsapp": "79676678688",
+    "telegram": "vjvjvjvj",
+    "facebook": "gkhkhkh",
+    "instagram": "bhhbjhjgh",
+    "twitter": "hhhjhjkhk",
+    "linkedin": "hghjgjghjgj"
+  },
+  "addOns": [],
+  "site_url": "portfolio-test2",
+  "websiteId": "web-9p6dmb8mm9cmp1oj",
+  "createdAt": "2025-04-11T10:12:45.379Z",
+  "lastUpdated": "2025-04-11T10:12:45.379Z",
+  "status": "pending_deployment"
+}
