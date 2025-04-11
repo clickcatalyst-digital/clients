@@ -1,0 +1,297 @@
+{% extends "_base.html" %}
+
+{# --- Page Title --- #}
+{% block title %}{{ headline }} - {{ tagline }}{% endblock title %}
+
+{# --- Meta Tags specific to Portfolio/Profile --- #}
+{% block meta_tags %}
+    <meta name="description" content="{{ tagline + '. ' + about[:120] + '...' if about else tagline }}">
+    <meta name="author" content="{{ headline }}">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile"> {# or website #}
+    <meta property="og:title" content="{{ headline }} - {{ tagline }}">
+    <meta property="og:description" content="{{ about[:120] + '...' if about else tagline }}">
+    {% if banner_path %}<meta property="og:image" content="{{ banner_path }}">{% endif %} {# Use banner/logo as main image #}
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
+    <meta property="twitter:description" content="{{ about[:120] + '...' if about else tagline }}">
+    {% if banner_path %}<meta property="twitter:image" content="{{ banner_path }}">{% endif %}
+{% endblock meta_tags %}
+
+{# --- Schema.org --- #}
+{% block schema_org %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person", {# Or CreativeWork / WebSite #}
+      "name": "{{ headline }}",
+      "url": "{{ 'https://' + folder_name + '.' + DOMAIN_NAME if folder_name and DOMAIN_NAME else '#' }}",
+      "description": "{{ tagline }}",
+      {% if logo_path %}"image": "{{ logo_path }}",{% endif %}
+      {% if email %}"email": "{{ email }}",{% endif %}
+      {% if phone %}"telephone": "{{ phone }}"{% endif %}
+      {# Link relevant profiles #}
+      {% set sameAsLinks = [] %}
+      {% if social.linkedin %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
+      {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
+      {% if portfolio_url %}{% set _ = sameAsLinks.append(portfolio_url) %}{% endif %}
+      {# Add GitHub, Behance etc. if relevant #}
+      {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
+      {# Could add 'worksFor' or 'hasOccupation' #}
+      "jobTitle": "{{ tagline | default('') }}"
+    }
+    </script>
+{% endblock schema_org %}
+
+{# --- Page Specific Styles --- #}
+{% block page_styles %}
+    <style>
+        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; }
+        .section-divider { width: 60px; margin-bottom: 1.5rem; }
+
+         /* Hero styling */
+        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+
+        /* Portfolio Card Refined */
+        .portfolio-card {
+            position: relative; transition: all var(--transition-speed) ease; background-color: white;
+            border-radius: 0.5rem; overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); border: 1px solid #e5e7eb;
+        }
+        .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); }
+        .portfolio-image-container { position: relative; aspect-ratio: 16 / 10; background-color: var(--color-secondary); }
+        .portfolio-image-container img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; } /* Slower zoom */
+        .portfolio-card:hover .portfolio-image-container img { transform: scale(1.05); }
+        .portfolio-image-placeholder { display: flex; align-items: center; justify-content: center; color: var(--color-text-on-secondary); font-size: 1.5rem; height: 100%; width: 100%; font-weight: 600; }
+        .portfolio-content { padding: 1rem 1.25rem; border-top: 1px solid #f3f4f6; } /* Added top border */
+        .portfolio-content h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem; color: #1f2937;}
+        .portfolio-tags span { /* Style for tags if you add them */
+            display: inline-block; background-color: var(--color-primary); opacity: 0.1; color: var(--color-primary);
+            font-size: 0.75rem; font-weight: 500; padding: 0.125rem 0.5rem; border-radius: 9999px; margin-right: 0.25rem; margin-top: 0.25rem;
+        }
+        /* Portfolio Overlay Refined */
+        .portfolio-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.7); /* Darker overlay */
+            color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            padding: 1.5rem; text-align: center; opacity: 0; transform: scale(0.95);
+            transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none;
+        }
+        .portfolio-card:hover .portfolio-overlay { opacity: 1; transform: scale(1); pointer-events: auto; }
+        .portfolio-overlay p { font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem; max-width: 90%; }
+        .portfolio-overlay-link { /* Style for a "View Project" button */
+             display: inline-flex; align-items: center; padding: 0.5rem 1rem; background-color: var(--color-primary); color: var(--color-text-on-primary);
+             border-radius: 0.375rem; text-decoration: none; font-weight: 500; font-size: 0.875rem; transition: background-color 0.2s ease;
+         }
+         .portfolio-overlay-link:hover { background-color: color-mix(in srgb, var(--color-primary) 90%, black); }
+         .portfolio-overlay-link svg { width: 1rem; height: 1rem; margin-right: 0.5rem; }
+
+         /* Skills pills hover */
+         .skills-list span:hover { transform: scale(1.05); background-color: var(--color-primary); color: var(--color-text-on-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+    </style>
+     {# <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> #}
+{% endblock page_styles %}
+
+{# --- Header --- #}
+{% block header %}
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    {% if logo_path %}
+                        <a href="#" aria-label="{{ headline }} homepage">
+                            <img class="h-10 w-10 rounded-full object-cover" src="{{ logo_path }}" alt="Profile picture of {{ headline }}" loading="lazy">
+                        </a>
+                    {% endif %}
+                    <div class="ml-3">
+                        <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">{{ headline }}</a>
+                        {% if tagline %}<p class="text-sm text-gray-500">{{ tagline }}</p>{% endif %}
+                    </div>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
+                    <a href="#portfolio" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Portfolio</a>
+                    {% if skills %} <a href="#skills" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Skills</a> {% endif %}
+                    {% if workExperience %} <a href="#experience" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Experience</a> {% endif %}
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                </div>
+                 <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <!-- Mobile menu Container -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
+             <div class="px-2 pt-2 pb-4 space-y-1">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
+                <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Portfolio</a>
+                {% if skills %} <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Skills</a> {% endif %}
+                {% if workExperience %} <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Experience</a> {% endif %}
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+             </div>
+        </div>
+    </header>
+{% endblock header %}
+
+{# --- Main Page Content --- #}
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero-section bg-gradient-primary py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
+         <div class="max-w-4xl mx-auto text-center">
+             {% if logo_path %}
+                 <img class="h-32 w-32 rounded-full object-cover mx-auto mb-4 shadow-lg border-4 border-white border-opacity-50" src="{{ logo_path }}" alt="Profile picture of {{ headline }}" loading="lazy">
+             {% endif %}
+             <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2 hero-text-shadow">{{ headline }}</h1>
+             <p class="text-xl sm:text-2xl max-w-2xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline }}</p>
+             <div class="flex flex-wrap justify-center gap-4 sm:gap-5">
+                 <a href="#portfolio" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                     <svg class="h-5 w-5 mr-2"><use href="#icon-photo" /></svg> View Work
+                 </a>
+                 <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-secondary transition-all transform hover:scale-105">
+                    <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg> Contact Me
+                 </a>
+             </div>
+         </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Correct BG #}
+        <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-12 items-center">
+            <div class="md:col-span-1 reveal">
+                {% if about_image %}
+                 <img class="rounded-lg shadow-xl w-full h-auto object-cover aspect-square" src="{{ about_image }}" alt="About {{ headline }}" loading="lazy">
+                 {% else %}
+                  <div class="rounded-lg shadow-xl aspect-square bg-white flex items-center justify-center text-gray-400 border border-gray-200">
+                      <svg class="h-16 w-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5.121 17.804A13.937 13.937 0 0112 16.5c2.572 0 4.98.746 6.879 2.004M15 11a3 3 0 11-6 0 3 3 0 016 0zm6 6a2 2 0 11-4 0 2 2 0 014 0zM6 17a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                  </div>
+                 {% endif %}
+            </div>
+            <div class="md:col-span-2 reveal">
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">About Me</h2>
+                <div class="section-divider !mx-0 !mb-6"></div>
+                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                    {{ about }}
+                </div>
+            </div>
+         </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    {% if portfolioProjects and portfolioProjects | length > 0 %}
+        <section id="portfolio" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Correct BG #}
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Portfolio</h2>
+                    <div class="section-divider"></div>
+                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">A selection of my recent work.</p>
+                </div>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for project in portfolioProjects %}
+                        <div class="portfolio-card reveal group"> {# Added group for overlay hover state #}
+                            <a href="{{ project.url | default('#') }}" {{ 'target="_blank" rel="noopener noreferrer"' if project.url else '' }} aria-label="View project {{ project.title }}">
+                                <div class="portfolio-image-container">
+                                    {% if project.imagePreview %}
+                                        <img src="{{ project.imagePreview }}" alt="Preview image for {{ project.title }}" loading="lazy">
+                                    {% else %}
+                                        <div class="portfolio-image-placeholder">
+                                            <span>{{ project.title[0] if project.title else 'P' }}</span>
+                                        </div>
+                                    {% endif %}
+                                     {# Overlay appears on hover of card (group) #}
+                                     <div class="portfolio-overlay">
+                                         <p>{{ project.description | truncate(100) }}</p>
+                                         <span class="portfolio-overlay-link mt-2">
+                                            <svg><use href="#icon-eye" /></svg>
+                                            <span>View Details</span>
+                                         </span>
+                                     </div>
+                                </div>
+                            </a>
+                            <div class="portfolio-content">
+                                <h3>{{ project.title }}</h3>
+                                {# Example Tags - populate from backend if available #}
+                                {# <div class="portfolio-tags mt-2">
+                                    <span>Web Design</span> <span>Development</span>
+                                </div> #}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    <!-- Skills Section -->
+     {% if skills and skills | length > 0 %}
+         <section id="skills" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Correct BG #}
+            <div class="max-w-4xl mx-auto">
+                 <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-4 reveal">Skills</h2>
+                 <div class="section-divider reveal"></div>
+                 <div class="text-center reveal">
+                     <div class="flex flex-wrap justify-center gap-3 skills-list"> {# Increased gap #}
+                         {% for skill in skills %}
+                             <span class="inline-block bg-primary bg-opacity-10 text-primary text-sm sm:text-base font-medium px-4 py-1.5 rounded-full">{{ skill }}</span>
+                         {% endfor %}
+                     </div>
+                 </div>
+             </div>
+         </section>
+     {% endif %}
+
+    <!-- Experience & Education (Optional, as Portfolio might focus less on this) -->
+    {% if workExperience or education %}
+    <section id="experience" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Correct BG #}
+         <div class="max-w-4xl mx-auto">
+             <div class="grid md:grid-cols-{{ 2 if workExperience and education else 1 }} gap-12">
+                 {% if workExperience and workExperience | length > 0 %}
+                    <div class="reveal">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Experience</h2>
+                        {# <div class="section-divider !mx-0 !mb-6"></div> #}
+                        <div class="space-y-6">
+                            {% for job in workExperience %}
+                            <div class="pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1">
+                                    <h3 class="text-md sm:text-lg font-semibold text-primary">{{ job.title }}</h3>
+                                    <p class="text-xs text-gray-500 mt-1 sm:mt-0 flex-shrink-0">{{ job.startDate }} - {{ job.endDate if not job.isCurrent else 'Present' }}</p>
+                                </div>
+                                <p class="text-sm font-medium text-gray-800">{{ job.company }} {% if job.location %}<span class="text-gray-500 font-normal">- {{ job.location }}</span>{% endif %}</p>
+                                {% if job.description %}<p class="mt-2 text-sm text-gray-600 leading-relaxed">{{ job.description }}</p>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                 {% endif %}
+
+                 {% if education and education | length > 0 %}
+                    <div class="reveal">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Education</h2>
+                        {# <div class="section-divider !mx-0 !mb-6"></div> #}
+                         <div class="space-y-6">
+                            {% for edu in education %}
+                            <div class="pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1">
+                                    <h3 class="text-md sm:text-lg font-semibold text-secondary">{{ edu.degree }}</h3>
+                                    <p class="text-xs text-gray-500 mt-1 sm:mt-0 flex-shrink-0">{{ edu.startYear }} - {{ edu.endYear if not edu.inProgress else 'Present' }}</p>
+                                </div>
+                                <p class="text-sm font-medium text-gray-800">{{ edu.institution }} {% if edu.location %}<span class="text-gray-500 font-normal">- {{ edu.location }}</span>{% endif %}</p>
+                                {% if edu.grade %}<p class="mt-1 text-xs text-gray-600">Grade: {{ edu.grade }}</p>{% endif %}
+                                {% if edu.activities %}<p class="mt-1 text-xs text-gray-600">Activities: {{ edu.activities }}</p>{% endif %}
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+    {% endif %}
+
+{% endblock content %}
