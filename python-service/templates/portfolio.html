@@ -11,7 +11,7 @@
     <meta property="og:type" content="profile"> {# or website #}
     <meta property="og:title" content="{{ headline }} - {{ tagline }}">
     <meta property="og:description" content="{{ about[:120] + '...' if about else tagline }}">
-    {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %} {# Use logo if no banner for portfolio #}
+    {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %} {# Use logo if no banner #}
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
@@ -57,7 +57,7 @@
         /* Portfolio Card Refined */
         .portfolio-card { position: relative; transition: all var(--transition-speed) ease; background-color: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); border: 1px solid #e5e7eb; display: flex; flex-direction: column; }
         .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); }
-        .portfolio-image-container { position: relative; aspect-ratio: 16 / 10; background-color: var(--color-secondary); cursor: pointer; /* Indicate clickable area */}
+        .portfolio-image-container { position: relative; aspect-ratio: 16 / 10; background-color: var(--color-secondary); cursor: pointer; }
         .portfolio-image-container img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
         .portfolio-card:hover .portfolio-image-container img { transform: scale(1.05); }
         .portfolio-image-placeholder { display: flex; align-items: center; justify-content: center; color: var(--color-text-on-secondary); font-size: 1.5rem; height: 100%; width: 100%; font-weight: 600; }
@@ -97,7 +97,7 @@
      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"> #}
 {% endblock page_styles %}
 
-{# --- Header --- #}
+{# --- Header (Portfolio Specific - No Tagline in Nav) --- #}
 {% block header %}
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -184,7 +184,9 @@
          </div>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- ============================================= -->
+    <!-- Portfolio Section - THIS WAS MISSING BEFORE -->
+    <!-- ============================================= -->
     {% if portfolioProjects and portfolioProjects | length > 0 %}
         <section id="portfolio" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Correct BG #}
             <div class="max-w-7xl mx-auto">
@@ -196,7 +198,7 @@
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for project in portfolioProjects %}
                         <div class="portfolio-card reveal group">
-                            {# Keep container relative for overlay positioning #}
+                            {# Image container - not linking itself, trigger is the button #}
                              <div class="portfolio-image-container relative">
                                 {% if project.imagePreview %}
                                     <img src="{{ project.imagePreview }}" alt="Preview image for {{ project.title }}" loading="lazy">
@@ -236,6 +238,10 @@
             </div>
         </section>
     {% endif %}
+     <!-- ============================================= -->
+    <!-- End of Portfolio Section -->
+    <!-- ============================================= -->
+
 
     <!-- Skills Section -->
      {% if skills and skills | length > 0 %}
@@ -244,7 +250,7 @@
                  <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-4 reveal">Skills</h2>
                  <div class="section-divider reveal"></div>
                  <div class="text-center reveal">
-                     <div class="flex flex-wrap justify-center gap-3 skills-list"> {# Increased gap #}
+                     <div class="flex flex-wrap justify-center gap-3 skills-list">
                          {% for skill in skills %}
                              <span class="inline-block text-sm sm:text-base font-medium px-4 py-1.5 rounded-full">{{ skill }}</span>
                          {% endfor %}
@@ -302,7 +308,8 @@
 
 {% endblock content %}
 
-{# --- Modal Structure --- #}
+
+{# --- Modal Structure (Place AFTER content block) --- #}
 <div id="portfolioModal" class="fixed inset-0 bg-black bg-opacity-70 z-[60] hidden flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="absolute inset-0 modal-close-backdrop"></div>
     <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden max-w-3xl w-full transform transition-all duration-300 ease-out scale-95 opacity-0" id="modal-panel">
@@ -312,7 +319,7 @@
                 <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
             </button>
         </div>
-        <div class="p-6 space-y-6 modal-body-content"> {# Added class for scrollbar styling #}
+        <div class="p-6 space-y-6 modal-body-content">
             <div class="modal-image-container mb-4 rounded overflow-hidden" style="display: none;">
                 <img id="modal-image" src="" alt="Project image" class="w-full h-auto max-h-80 object-contain">
             </div>
@@ -343,14 +350,14 @@
         if (modal) { // Only run if modal exists on page
             const modalPanel = document.getElementById('modal-panel');
             const modalTitle = document.getElementById('modal-title');
-            const modalImageContainer = document.querySelector('.modal-image-container');
+            const modalImageContainer = modal.querySelector('.modal-image-container'); // Use modal.querySelector
             const modalImage = document.getElementById('modal-image');
             const modalDescription = document.getElementById('modal-description');
-            const modalTagsContainer = document.querySelector('.modal-tags-container');
+            const modalTagsContainer = modal.querySelector('.modal-tags-container'); // Use modal.querySelector
             const modalTags = document.getElementById('modal-tags');
             const modalUrlLink = document.getElementById('modal-url-link');
             const triggerButtons = document.querySelectorAll('.portfolio-modal-trigger');
-            const closeButtons = document.querySelectorAll('.modal-close-button, .modal-close-backdrop');
+            const closeButtons = modal.querySelectorAll('.modal-close-button, .modal-close-backdrop'); // Use modal.querySelectorAll
 
             function openModal(projectData) {
                 if (!modal || !modalPanel) return;
