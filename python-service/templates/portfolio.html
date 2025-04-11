@@ -11,12 +11,12 @@
     <meta property="og:type" content="profile"> {# or website #}
     <meta property="og:title" content="{{ headline }} - {{ tagline }}">
     <meta property="og:description" content="{{ about[:120] + '...' if about else tagline }}">
-    {% if banner_path %}<meta property="og:image" content="{{ banner_path }}">{% endif %} {# Use banner/logo as main image #}
+    {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %} {# Use logo if no banner for portfolio #}
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
     <meta property="twitter:description" content="{{ about[:120] + '...' if about else tagline }}">
-    {% if banner_path %}<meta property="twitter:image" content="{{ banner_path }}">{% endif %}
+    {% if logo_path %}<meta property="twitter:image" content="{{ logo_path }}">{% endif %}
 {% endblock meta_tags %}
 
 {# --- Schema.org --- #}
@@ -38,7 +38,6 @@
       {% if portfolio_url %}{% set _ = sameAsLinks.append(portfolio_url) %}{% endif %}
       {# Add GitHub, Behance etc. if relevant #}
       {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
-      {# Could add 'worksFor' or 'hasOccupation' #}
       "jobTitle": "{{ tagline | default('') }}"
     }
     </script>
@@ -56,57 +55,42 @@
         .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
 
         /* Portfolio Card Refined */
-        .portfolio-card {
-            position: relative; transition: all var(--transition-speed) ease; background-color: white;
-            border-radius: 0.5rem; overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); border: 1px solid #e5e7eb;
-        }
+        .portfolio-card { position: relative; transition: all var(--transition-speed) ease; background-color: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); border: 1px solid #e5e7eb; display: flex; flex-direction: column; }
         .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); }
-        .portfolio-image-container { position: relative; aspect-ratio: 16 / 10; background-color: var(--color-secondary); }
-        .portfolio-image-container img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; } /* Slower zoom */
+        .portfolio-image-container { position: relative; aspect-ratio: 16 / 10; background-color: var(--color-secondary); cursor: pointer; /* Indicate clickable area */}
+        .portfolio-image-container img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
         .portfolio-card:hover .portfolio-image-container img { transform: scale(1.05); }
         .portfolio-image-placeholder { display: flex; align-items: center; justify-content: center; color: var(--color-text-on-secondary); font-size: 1.5rem; height: 100%; width: 100%; font-weight: 600; }
-        .portfolio-content { padding: 1rem 1.25rem; border-top: 1px solid #f3f4f6; } /* Added top border */
+        .portfolio-content { padding: 1rem 1.25rem; border-top: 1px solid #f3f4f6; margin-top: auto; }
         .portfolio-content h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem; color: #1f2937;}
-        .portfolio-tags span { /* Style for tags if you add them */
-            display: inline-block; background-color: var(--color-primary); opacity: 0.1; color: var(--color-primary);
-            font-size: 0.75rem; font-weight: 500; padding: 0.125rem 0.5rem; border-radius: 9999px; margin-right: 0.25rem; margin-top: 0.25rem;
-        }
+        .portfolio-tags span { display: inline-block; background-color: #e5e7eb; color: #4b5563; font-size: 0.75rem; font-weight: 500; padding: 0.125rem 0.5rem; border-radius: 9999px; margin-right: 0.25rem; margin-top: 0.25rem; }
         /* Portfolio Overlay Refined */
-        .portfolio-overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.7); /* Darker overlay */
-            color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            padding: 1.5rem; text-align: center; opacity: 0; transform: scale(0.95);
-            transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none;
-        }
+        .portfolio-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1.5rem; text-align: center; opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; }
         .portfolio-card:hover .portfolio-overlay { opacity: 1; transform: scale(1); pointer-events: auto; }
         .portfolio-overlay p { font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem; max-width: 90%; }
-        .portfolio-overlay-link { /* Style for a "View Project" button */
-             display: inline-flex; align-items: center; padding: 0.5rem 1rem; background-color: var(--color-primary); color: var(--color-text-on-primary);
-             border-radius: 0.375rem; text-decoration: none; font-weight: 500; font-size: 0.875rem; transition: background-color 0.2s ease;
-         }
-         .portfolio-overlay-link:hover { background-color: color-mix(in srgb, var(--color-primary) 90%, black); }
-         .portfolio-overlay-link svg { width: 1rem; height: 1rem; margin-right: 0.5rem; }
+        .portfolio-overlay-link { cursor: pointer; display: inline-flex; align-items: center; padding: 0.5rem 1rem; background-color: var(--color-primary); color: var(--color-text-on-primary); border-radius: 0.375rem; text-decoration: none; font-weight: 500; font-size: 0.875rem; transition: background-color 0.2s ease; border: none; }
+        .portfolio-overlay-link:hover { background-color: color-mix(in srgb, var(--color-primary) 90%, black); }
+        .portfolio-overlay-link svg { width: 1rem; height: 1rem; margin-right: 0.5rem; }
 
          /* Skills pills hover */
-         .skills-list span {
-            display: inline-block;
-            background-color: var(--color-primary);
-            background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
-            color: color-mix(in srgb, var(--color-primary) 70%, black);
-            font-size: 0.875rem; /* text-sm */
-            font-weight: 500; /* medium */
-            padding: 0.25rem 0.75rem; /* px-3 py-1 */
-            border-radius: 9999px; /* rounded-full */
-            transition: all 0.2s ease-in-out;
-         }
-        .skills-list span:hover {
-             transform: scale(1.05);
-             background-color: var(--color-primary); 
-             color: var(--color-text-on-primary); 
-             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-         }
+         .skills-list span { display: inline-block; background-color: color-mix(in srgb, var(--color-primary) 15%, transparent); color: color-mix(in srgb, var(--color-primary) 70%, black); font-size: 0.875rem; font-weight: 500; padding: 0.25rem 0.75rem; border-radius: 9999px; transition: all 0.2s ease-in-out; }
+         .skills-list span:hover { transform: scale(1.05); background-color: var(--color-primary); color: var(--color-text-on-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+         .experience-item, .education-item { padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; }
+         .experience-item:last-child, .education-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+
+        /* --- Portfolio Modal Styles --- */
+        #portfolioModal { transition: opacity 0.3s ease-out; }
+        #portfolioModal:not(.hidden) { opacity: 1; }
+        #portfolioModal #modal-panel { transform: scale(0.95); opacity: 0; transition: opacity 0.3s ease-out, transform 0.3s ease-out; }
+        #portfolioModal:not(.hidden) #modal-panel { opacity: 1; transform: scale(1); }
+        .modal-close-backdrop { cursor: pointer; }
+         #portfolioModal .modal-body-content::-webkit-scrollbar { width: 8px; }
+         #portfolioModal .modal-body-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+         #portfolioModal .modal-body-content::-webkit-scrollbar-thumb { background: #a0aec0; border-radius: 4px;}
+         #portfolioModal .modal-body-content::-webkit-scrollbar-thumb:hover { background: #718096; }
+         #portfolioModal .modal-body-content { scrollbar-width: thin; scrollbar-color: #a0aec0 #f1f1f1; max-h-[70vh]; overflow-y: auto; padding-right: 0.5rem; /* space for scrollbar */ }
+         .modal-tag { background-color: var(--color-secondary); color: var(--color-text-on-secondary); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
+
     </style>
      {# <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -126,7 +110,7 @@
                     {% endif %}
                     <div class="ml-3">
                         <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">{{ headline }}</a>
-                        {% if tagline %}<p class="text-sm text-gray-500">{{ tagline }}</p>{% endif %}
+                        {# Tagline Removed from Nav #}
                     </div>
                 </div>
                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
@@ -211,32 +195,40 @@
                 </div>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for project in portfolioProjects %}
-                        <div class="portfolio-card reveal group"> {# Added group for overlay hover state #}
-                            <a href="{{ project.url | default('#') }}" {{ 'target="_blank" rel="noopener noreferrer"' if project.url else '' }} aria-label="View project {{ project.title }}">
-                                <div class="portfolio-image-container">
-                                    {% if project.imagePreview %}
-                                        <img src="{{ project.imagePreview }}" alt="Preview image for {{ project.title }}" loading="lazy">
-                                    {% else %}
-                                        <div class="portfolio-image-placeholder">
-                                            <span>{{ project.title[0] if project.title else 'P' }}</span>
-                                        </div>
-                                    {% endif %}
-                                     {# Overlay appears on hover of card (group) #}
-                                     <div class="portfolio-overlay">
-                                         <p>{{ project.description | truncate(100) }}</p>
-                                         <span class="portfolio-overlay-link mt-2">
-                                            <svg><use href="#icon-eye" /></svg>
-                                            <span>View Details</span>
-                                         </span>
-                                     </div>
-                                </div>
-                            </a>
+                        <div class="portfolio-card reveal group">
+                            {# Keep container relative for overlay positioning #}
+                             <div class="portfolio-image-container relative">
+                                {% if project.imagePreview %}
+                                    <img src="{{ project.imagePreview }}" alt="Preview image for {{ project.title }}" loading="lazy">
+                                {% else %}
+                                    <div class="portfolio-image-placeholder"><span>{{ project.title[0] if project.title else 'P' }}</span></div>
+                                {% endif %}
+                                 {# Overlay with Button Trigger #}
+                                 <div class="portfolio-overlay">
+                                     <p>{{ project.description | truncate(100) }}</p>
+                                     <button type="button"
+                                             class="portfolio-overlay-link mt-2 portfolio-modal-trigger"
+                                             data-modal-target="portfolioModal"
+                                             data-project-title="{{ project.title | e }}"
+                                             data-project-image="{{ project.imagePreview | default('') }}"
+                                             data-project-description="{{ project.description | e }}"
+                                             data-project-url="{{ project.url | default('') }}"
+                                             data-project-tags="{{ project.tags | join(',') if project.tags else '' }}">
+                                         <svg><use href="#icon-eye" /></svg>
+                                         <span>View Details</span>
+                                     </button>
+                                 </div>
+                            </div>
                             <div class="portfolio-content">
                                 <h3>{{ project.title }}</h3>
-                                {# Example Tags - populate from backend if available #}
-                                {# <div class="portfolio-tags mt-2">
-                                    <span>Web Design</span> <span>Development</span>
-                                </div> #}
+                                {# Display tags below title if they exist #}
+                                {% if project.tags %}
+                                <div class="portfolio-tags mt-1 flex flex-wrap gap-1">
+                                    {% for tag in project.tags %}
+                                        <span>{{ tag }}</span>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
                             </div>
                         </div>
                     {% endfor %}
@@ -254,7 +246,7 @@
                  <div class="text-center reveal">
                      <div class="flex flex-wrap justify-center gap-3 skills-list"> {# Increased gap #}
                          {% for skill in skills %}
-                             <span class="inline-block bg-primary bg-opacity-10 text-primary text-sm sm:text-base font-medium px-4 py-1.5 rounded-full">{{ skill }}</span>
+                             <span class="inline-block text-sm sm:text-base font-medium px-4 py-1.5 rounded-full">{{ skill }}</span>
                          {% endfor %}
                      </div>
                  </div>
@@ -262,7 +254,7 @@
          </section>
      {% endif %}
 
-    <!-- Experience & Education (Optional, as Portfolio might focus less on this) -->
+    <!-- Experience & Education (Optional) -->
     {% if workExperience or education %}
     <section id="experience" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Correct BG #}
          <div class="max-w-4xl mx-auto">
@@ -270,10 +262,9 @@
                  {% if workExperience and workExperience | length > 0 %}
                     <div class="reveal">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Experience</h2>
-                        {# <div class="section-divider !mx-0 !mb-6"></div> #}
                         <div class="space-y-6">
                             {% for job in workExperience %}
-                            <div class="pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                            <div class="experience-item">
                                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1">
                                     <h3 class="text-md sm:text-lg font-semibold text-primary">{{ job.title }}</h3>
                                     <p class="text-xs text-gray-500 mt-1 sm:mt-0 flex-shrink-0">{{ job.startDate }} - {{ job.endDate if not job.isCurrent else 'Present' }}</p>
@@ -289,10 +280,9 @@
                  {% if education and education | length > 0 %}
                     <div class="reveal">
                         <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-6">Education</h2>
-                        {# <div class="section-divider !mx-0 !mb-6"></div> #}
                          <div class="space-y-6">
                             {% for edu in education %}
-                            <div class="pb-6 border-b border-gray-200 last:border-b-0 last:pb-0">
+                            <div class="education-item">
                                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1">
                                     <h3 class="text-md sm:text-lg font-semibold text-secondary">{{ edu.degree }}</h3>
                                     <p class="text-xs text-gray-500 mt-1 sm:mt-0 flex-shrink-0">{{ edu.startYear }} - {{ edu.endYear if not edu.inProgress else 'Present' }}</p>
@@ -311,3 +301,129 @@
     {% endif %}
 
 {% endblock content %}
+
+{# --- Modal Structure --- #}
+<div id="portfolioModal" class="fixed inset-0 bg-black bg-opacity-70 z-[60] hidden flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="absolute inset-0 modal-close-backdrop"></div>
+    <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden max-w-3xl w-full transform transition-all duration-300 ease-out scale-95 opacity-0" id="modal-panel">
+        <div class="flex items-start justify-between p-5 border-b border-gray-200 dark:border-gray-700 rounded-t">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white" id="modal-title">Project Details</h3>
+            <button type="button" class="modal-close-button text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" aria-label="Close modal">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+            </button>
+        </div>
+        <div class="p-6 space-y-6 modal-body-content"> {# Added class for scrollbar styling #}
+            <div class="modal-image-container mb-4 rounded overflow-hidden" style="display: none;">
+                <img id="modal-image" src="" alt="Project image" class="w-full h-auto max-h-80 object-contain">
+            </div>
+            <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400" id="modal-description">Loading project description...</p>
+            <div class="modal-tags-container pt-4 border-t border-gray-200 dark:border-gray-700" style="display: none;">
+                 <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Technologies/Tags</h4>
+                 <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+            </div>
+        </div>
+        <div class="flex items-center p-6 space-x-2 border-t border-gray-200 dark:border-gray-600 rounded-b">
+            <a id="modal-url-link" href="#" target="_blank" rel="noopener noreferrer" style="display: none;"
+               class="inline-flex items-center px-4 py-2 bg-primary text-contrast-primary text-sm font-medium rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                Visit Project/Link
+            </a>
+            <button type="button" class="modal-close-button px-4 py-2 bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 rounded-md border border-gray-200 dark:border-gray-500 text-sm font-medium">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
+
+{# --- Add Modal JS --- #}
+{% block dom_ready_scripts %}
+    <script>
+        // --- Portfolio Modal Logic ---
+        const modal = document.getElementById('portfolioModal');
+        if (modal) { // Only run if modal exists on page
+            const modalPanel = document.getElementById('modal-panel');
+            const modalTitle = document.getElementById('modal-title');
+            const modalImageContainer = document.querySelector('.modal-image-container');
+            const modalImage = document.getElementById('modal-image');
+            const modalDescription = document.getElementById('modal-description');
+            const modalTagsContainer = document.querySelector('.modal-tags-container');
+            const modalTags = document.getElementById('modal-tags');
+            const modalUrlLink = document.getElementById('modal-url-link');
+            const triggerButtons = document.querySelectorAll('.portfolio-modal-trigger');
+            const closeButtons = document.querySelectorAll('.modal-close-button, .modal-close-backdrop');
+
+            function openModal(projectData) {
+                if (!modal || !modalPanel) return;
+                modalTitle.textContent = projectData.title || 'Project Details';
+                modalDescription.textContent = projectData.description || 'No description available.';
+
+                if (projectData.image && modalImageContainer && modalImage) {
+                    modalImage.src = projectData.image;
+                    modalImage.alt = `Image for ${projectData.title || 'project'}`;
+                    modalImageContainer.style.display = 'block';
+                } else if (modalImageContainer) {
+                    modalImageContainer.style.display = 'none';
+                }
+
+                if (projectData.tags && modalTagsContainer && modalTags) {
+                    modalTags.innerHTML = '';
+                    const tagsArray = projectData.tags.split(',').filter(tag => tag.trim() !== '');
+                    if (tagsArray.length > 0) {
+                        tagsArray.forEach(tag => {
+                            const tagElement = document.createElement('span');
+                            tagElement.className = 'modal-tag';
+                            tagElement.textContent = tag.trim();
+                            modalTags.appendChild(tagElement);
+                        });
+                        modalTagsContainer.style.display = 'block';
+                    } else {
+                         modalTagsContainer.style.display = 'none';
+                    }
+                } else if (modalTagsContainer) {
+                     modalTagsContainer.style.display = 'none';
+                }
+
+                if (projectData.url && modalUrlLink) {
+                    modalUrlLink.href = projectData.url;
+                    modalUrlLink.style.display = 'inline-flex';
+                } else if (modalUrlLink) {
+                    modalUrlLink.style.display = 'none';
+                }
+
+                modal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                void modal.offsetWidth;
+                modal.style.opacity = '1';
+                modalPanel.style.opacity = '1';
+                modalPanel.style.transform = 'scale(1)';
+            }
+
+            function closeModal() {
+                if (!modal || !modalPanel) return;
+                modal.style.opacity = '0';
+                modalPanel.style.opacity = '0';
+                modalPanel.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+
+            triggerButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const projectData = {
+                        title: button.dataset.projectTitle, image: button.dataset.projectImage,
+                        description: button.dataset.projectDescription, url: button.dataset.projectUrl,
+                        tags: button.dataset.projectTags
+                    };
+                    openModal(projectData);
+                });
+            });
+
+            closeButtons.forEach(button => { button.addEventListener('click', closeModal); });
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && !modal.classList.contains('hidden')) { closeModal(); }
+            });
+        } // end if(modal)
+    </script>
+{% endblock dom_ready_scripts %}
