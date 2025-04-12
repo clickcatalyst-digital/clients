@@ -1,0 +1,56 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "nature-inspired",
+  "headline": "test-port",
+  "tagline": "buildinggg",
+  "about": "jfj",
+  "services": [
+    {
+      "name": "dsffdssdf",
+      "icon": "briefcase",
+      "description": "dsfdsfdfs"
+    }
+  ],
+  "portfolioProjects": [
+    {
+      "title": "adsdas",
+      "description": "asdadsads",
+      "imagePreview": "test-port/assets/image-1744473040328-metcdl.png"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "xzcxcxz",
+      "company": "xxzcx",
+      "startDate": "xczcx",
+      "endDate": "xczxcz",
+      "location": "xzcxzc",
+      "description": "xczxcz",
+      "isCurrent": false
+    }
+  ],
+  "skills": [
+    "sql",
+    "python"
+  ],
+  "certifications": [],
+  "logo": "test-port/assets/image-1744473032708-8dxj1d.png",
+  "banner": "test-port/assets/image-1744473039210-qg3a9s.png",
+  "about_image": "test-port/assets/image-1744473039685-1icajj.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [],
+  "site_url": "test-port",
+  "websiteId": "web-crper1e7m9ee7apu",
+  "createdAt": "2025-04-12T15:50:32.706Z",
+  "lastUpdated": "2025-04-12T15:50:32.706Z",
+  "status": "pending_deployment"
+}
