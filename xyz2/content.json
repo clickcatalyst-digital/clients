@@ -1,0 +1,47 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "nature-inspired",
+  "headline": "xyz2",
+  "tagline": "tagline",
+  "about": "about myselfff",
+  "services": [],
+  "portfolioProjects": [
+    {
+      "title": "Project title 1",
+      "description": "Description here",
+      "imagePreview": null
+    }
+  ],
+  "workExperience": [],
+  "skills": [
+    "hg",
+    "gykh"
+  ],
+  "certifications": [
+    {
+      "name": "ghasciou",
+      "issuer": "kjhgkhg",
+      "date": "hkljhhjk",
+      "expiration": "kjlhh"
+    }
+  ],
+  "logo": null,
+  "email": "fghhgfd@fgcbfhgdhgdf.fvdfdsv",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "addOns": [],
+  "site_url": "xyz2",
+  "banner": null,
+  "about_image": null,
+  "websiteId": "web-dwp5e020m9uc62km",
+  "createdAt": "2025-04-23T19:37:55.078Z",
+  "lastUpdated": "2025-04-23T19:37:55.078Z",
+  "status": "pending_deployment"
+}
