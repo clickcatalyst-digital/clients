@@ -36,7 +36,8 @@ jobs:
         shell: bash
 
       - name: Compile Tailwind CSS
-        run: npx tailwindcss -i ./src/input.css -o ./python-service/templates/styles.css --minify
+        # run: npx tailwindcss -i ./src/input.css -o ./python-service/templates/styles.css --minify
+        run: npx tailwindcss -i ./src/input.css -o ./python-service/templates/styles.css --content "./python-service/templates/**/*.html" --minify
         shell: bash
 
       - name: Install Python dependencies
