@@ -214,10 +214,14 @@
                                              class="portfolio-overlay-link mt-2 portfolio-modal-trigger"
                                              data-modal-target="portfolioModal"
                                              data-project-title="{{ project.title | e }}"
-                                             data-project-image="{{ project.imagePreview | default('') }}"
+                                             data-project-image="{{ project.imagePreview if project.imagePreview and project.imagePreview != 'None' else '' }}"
                                              data-project-description="{{ project.description | e }}"
-                                             data-project-url="{{ project.url | default('') }}"
-                                             data-project-tags="{{ project.tags | join(',') if project.tags else '' }}">
+                                             data-project-url="{{ project.url | default('') | e }}"
+                                             data-project-tags="{{ project.technologies | join(',') if project.technologies else '' | e }}" 
+                                             data-project-startdate="{{ project.startDate | default('') | e }}"
+                                             data-project-enddate="{{ project.endDate | default('') | e }}"
+                                             data-project-features="{{ project.features | join('|') if project.features else '' | e }}"
+                                             >
                                          <svg><use href="#icon-eye" /></svg>
                                          <span>View Details</span>
                                      </button>
@@ -361,14 +365,33 @@
                 </button>
             </div>
             <div class="p-6 space-y-6 modal-body-content">
-                <div class="modal-image-container mb-4 rounded overflow-hidden" style="display: none;">
-                    <img id="modal-image" src="" alt="Project image" class="w-full h-auto max-h-80 object-contain">
-                </div>
-                <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400" id="modal-description">Loading project description...</p>
-                <div class="modal-tags-container pt-4 border-t border-gray-200 dark:border-gray-700" style="display: none;">
-                     <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Technologies/Tags</h4>
-                     <div id="modal-tags" class="flex flex-wrap gap-2"></div>
-                </div>
+                 <div class="modal-image-container mb-4 rounded overflow-hidden" style="display: none;">
+                     <img id="modal-image" src="" alt="Project image" class="w-full h-auto max-h-80 object-contain">
+                 </div>
+            
+                 {# --- ADDED: Dates --- #}
+                 <div id="modal-dates-container" class="text-sm text-gray-500 dark:text-gray-400" style="display: none;">
+                     <span class="font-medium">Duration:</span> <span id="modal-dates"></span>
+                 </div>
+                 {# --- END ADDED: Dates --- #}
+            
+                 <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400" id="modal-description">Loading project description...</p>
+            
+                 {# --- ADDED: Features --- #}
+                 <div id="modal-features-container" class="pt-4 border-t border-gray-200 dark:border-gray-700" style="display: none;">
+                     <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Key Features</h4>
+                     <ul id="modal-features-list" class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                         {#! Features will be added here by JS #}
+                     </ul>
+                 </div>
+                 {# --- END ADDED: Features --- #}
+            
+                 {# --- MODIFIED: Technologies/Tags Section --- #}
+                 <div id="modal-tags-container" class="pt-4 border-t border-gray-200 dark:border-gray-700" style="display: none;">
+                      <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Technologies Used</h4> {# Changed Title #}
+                      <div id="modal-tags" class="flex flex-wrap gap-2"></div>
+                 </div>
+                 {# --- END MODIFIED --- #}
             </div>
             <div class="flex items-center p-6 space-x-2 border-t border-gray-200 dark:border-gray-600 rounded-b">
                 <a id="modal-url-link" href="#" target="_blank" rel="noopener noreferrer" style="display: none;"
@@ -408,26 +431,85 @@
 
             const closeButtons = modal.querySelectorAll('.modal-close-button, .modal-close-backdrop'); // Use modal.querySelectorAll
 
+            const modalDatesContainer = document.getElementById('modal-dates-container');
+            const modalDates = document.getElementById('modal-dates');
+            const modalFeaturesContainer = document.getElementById('modal-features-container');
+            const modalFeaturesList = document.getElementById('modal-features-list');
+            
             function openModal(projectData) {
                 if (!modal || !modalPanel) return;
                 modalTitle.textContent = projectData.title || 'Project Details';
                 modalDescription.textContent = projectData.description || 'No description available.';
-
+            
+                // Image handling (existing)
                 if (projectData.image && modalImageContainer && modalImage) {
-                    modalImage.src = projectData.image;
+                    // Check if path looks absolute or external, otherwise assume relative
+                    let imageSrc = projectData.image;
+                     // Basic check: if it doesn't start with http, /, or data:, treat as potentially relative
+                     // You might need a more robust check depending on your path structure
+                    if (!imageSrc.startsWith('http') && !imageSrc.startsWith('/') && !imageSrc.startsWith('data:')) {
+                         // If your assets folder is always relative to root, uncomment next line:
+                         // imageSrc = '/' + imageSrc;
+                         // Or adjust based on your specific setup if needed
+                         console.warn("Relative image path detected:", projectData.image, "- Ensure it resolves correctly.");
+                    }
+                    modalImage.src = imageSrc;
                     modalImage.alt = `Image for ${projectData.title || 'project'}`;
                     modalImageContainer.style.display = 'block';
                 } else if (modalImageContainer) {
                     modalImageContainer.style.display = 'none';
                 }
-
+            
+                // --- ADDED: Dates Handling ---
+                if (modalDatesContainer && modalDates && (projectData.startdate || projectData.enddate)) {
+                    let dateString = '';
+                    if (projectData.startdate) {
+                        dateString += projectData.startdate;
+                    }
+                    if (projectData.startdate && projectData.enddate) {
+                         dateString += ' – '; // Use en dash for date ranges
+                    } else if (!projectData.startdate && projectData.enddate){
+                         dateString += 'Completed by ';
+                    } else if (projectData.startdate && !projectData.enddate) {
+                         dateString += ' – Present';
+                    }
+                    if (projectData.enddate) {
+                         dateString += projectData.enddate;
+                    }
+                     modalDates.textContent = dateString || 'N/A';
+                     modalDatesContainer.style.display = 'block';
+                } else if (modalDatesContainer) {
+                     modalDatesContainer.style.display = 'none';
+                }
+                // --- END ADDED: Dates Handling ---
+            
+                // --- ADDED: Features Handling ---
+                 if (modalFeaturesContainer && modalFeaturesList && projectData.features) {
+                     modalFeaturesList.innerHTML = ''; // Clear previous features
+                     const featuresArray = projectData.features.split('|').filter(feat => feat.trim() !== ''); // Use the separator you chose ('|')
+                     if (featuresArray.length > 0) {
+                         featuresArray.forEach(feature => {
+                             const listItem = document.createElement('li');
+                             listItem.textContent = feature.trim();
+                             modalFeaturesList.appendChild(listItem);
+                         });
+                         modalFeaturesContainer.style.display = 'block';
+                     } else {
+                          modalFeaturesContainer.style.display = 'none';
+                     }
+                 } else if (modalFeaturesContainer) {
+                      modalFeaturesContainer.style.display = 'none';
+                 }
+                // --- END ADDED: Features Handling ---
+            
+                // Tags (Technologies) handling (existing, check variable name if needed)
                 if (projectData.tags && modalTagsContainer && modalTags) {
                     modalTags.innerHTML = '';
-                    const tagsArray = projectData.tags.split(',').filter(tag => tag.trim() !== '');
+                    const tagsArray = projectData.tags.split(',').filter(tag => tag.trim() !== ''); // Assuming tags uses comma
                     if (tagsArray.length > 0) {
                         tagsArray.forEach(tag => {
                             const tagElement = document.createElement('span');
-                            tagElement.className = 'modal-tag';
+                            tagElement.className = 'modal-tag'; // Use existing style
                             tagElement.textContent = tag.trim();
                             modalTags.appendChild(tagElement);
                         });
@@ -438,17 +520,19 @@
                 } else if (modalTagsContainer) {
                      modalTagsContainer.style.display = 'none';
                 }
-
+            
+                // URL Link handling (existing)
                 if (projectData.url && modalUrlLink) {
                     modalUrlLink.href = projectData.url;
                     modalUrlLink.style.display = 'inline-flex';
                 } else if (modalUrlLink) {
                     modalUrlLink.style.display = 'none';
                 }
-
+            
+                // Show modal (existing)
                 modal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
-                void modal.offsetWidth;
+                void modal.offsetWidth; // Force reflow for transition
                 modal.style.opacity = '1';
                 modalPanel.style.opacity = '1';
                 modalPanel.style.transform = 'scale(1)';
