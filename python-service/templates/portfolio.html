@@ -118,6 +118,7 @@
                     <a href="#portfolio" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Portfolio</a>
                     {% if skills %} <a href="#skills" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Skills</a> {% endif %}
                     {% if workExperience %} <a href="#experience" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Experience</a> {% endif %}
+                    {% if certifications %} <a href="#certifications" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Certifications</a> {% endif %}
                     <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
                 </div>
                  <div class="md:hidden flex items-center">
@@ -135,7 +136,8 @@
                 <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Portfolio</a>
                 {% if skills %} <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Skills</a> {% endif %}
                 {% if workExperience %} <a href="#experience" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Experience</a> {% endif %}
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                {% if certifications %} <a href="#certifications" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Certifications</a> {% endif %}
+                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
              </div>
         </div>
     </header>
@@ -306,6 +308,47 @@
     </section>
     {% endif %}
 
+    {# --- Certifications Section --- #}
+    {% if certifications and certifications | length > 0 %}
+    <section id="certifications" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Alternate BG color #}
+        <div class="max-w-4xl mx-auto">
+            <div class="reveal">
+                <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-4 reveal">Certifications & Awards</h2> {# Centered like Skills #}
+                <div class="section-divider reveal"></div>
+                <div class="mt-10 space-y-6">
+                    {% for cert in certifications %}
+                    {# Using a card-like style for each certification for a premium feel #}
+                    <div class="certification-item bg-white p-5 rounded-lg shadow-sm border border-gray-200 reveal hover:shadow-md transition-shadow duration-200 ease-in-out">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-1">
+                            <h3 class="text-md sm:text-lg font-semibold text-primary">{{ cert.name }}</h3>
+                             {# Nicely formatted dates on the right #}
+                             {% if cert.date or cert.expiration %}
+                             <p class="text-xs text-gray-500 mt-1 sm:mt-0 flex-shrink-0 space-x-2">
+                                 {% if cert.date %}<span>Issued: {{ cert.date }}</span>{% endif %}
+                                 {% if cert.date and cert.expiration %} <span class="hidden sm:inline">|</span> {% endif %}
+                                 {% if cert.expiration %}<span>Expires: {{ cert.expiration }}</span>{% endif %}
+                             </p>
+                             {% endif %}
+                        </div>
+                        <p class="text-sm font-medium text-gray-700">
+                            Issued by: <span class="text-gray-600">{{ cert.issuer }}</span>
+                        </p>
+                        {# Example: Add a link if a URL was provided in the JSON later
+                           {% if cert.credential_url %}
+                           <a href="{{ cert.credential_url }}" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center text-sm text-primary hover:underline">
+                               View Credential <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                           </a>
+                           {% endif %}
+                        #}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+    {# --- End Certifications Section --- #}
+
 {% endblock content %}
 
 
@@ -344,9 +387,14 @@
 
 {# --- Add Modal JS --- #}
 {% block dom_ready_scripts %}
+        console.log('DOM Ready Script Block Started');
         // --- Portfolio Modal Logic ---
         const modal = document.getElementById('portfolioModal');
+        console.log('Modal Element:', modal);
+
         if (modal) { // Only run if modal exists on page
+            console.log('Modal element found, proceeding with setup.');
+
             const modalPanel = document.getElementById('modal-panel');
             const modalTitle = document.getElementById('modal-title');
             const modalImageContainer = modal.querySelector('.modal-image-container'); // Use modal.querySelector
@@ -356,6 +404,8 @@
             const modalTags = document.getElementById('modal-tags');
             const modalUrlLink = document.getElementById('modal-url-link');
             const triggerButtons = document.querySelectorAll('.portfolio-modal-trigger');
+            console.log('Found Trigger Buttons:', triggerButtons.length, triggerButtons);
+
             const closeButtons = modal.querySelectorAll('.modal-close-button, .modal-close-backdrop'); // Use modal.querySelectorAll
 
             function openModal(projectData) {
@@ -416,12 +466,16 @@
             }
 
             triggerButtons.forEach(button => {
+                console.log('Attaching listener to button:', button);
+
                 button.addEventListener('click', () => {
+                    console.log('Trigger button CLICKED!');
                     const projectData = {
                         title: button.dataset.projectTitle, image: button.dataset.projectImage,
                         description: button.dataset.projectDescription, url: button.dataset.projectUrl,
                         tags: button.dataset.projectTags
                     };
+                    console.log('Opening modal with data:', projectData);
                     openModal(projectData);
                 });
             });
@@ -430,5 +484,8 @@
             document.addEventListener('keydown', (event) => {
                 if (event.key === 'Escape' && !modal.classList.contains('hidden')) { closeModal(); }
             });
-        } // end if(modal)
+        } else {
+             console.error('Modal element with ID "portfolioModal" NOT FOUND!'); // <--- ADD THIS
+        }
+         console.log('DOM Ready Script Block Finished');
 {% endblock dom_ready_scripts %}
