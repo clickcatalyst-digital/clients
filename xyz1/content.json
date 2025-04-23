@@ -1,0 +1,83 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "dreamy-sunset",
+  "headline": "xyz",
+  "tagline": "short description",
+  "about": "something about myself",
+  "services": [
+    {
+      "name": "Project Title 1",
+      "icon": "briefcase",
+      "description": "Description 1"
+    },
+    {
+      "name": "Project Title 2",
+      "icon": "folder",
+      "description": "Description 2"
+    }
+  ],
+  "portfolioProjects": [
+    {
+      "title": "Project Title 3",
+      "description": "Description 3",
+      "imagePreview": "xyz1/assets/image-1745433466736-qge38x.png"
+    },
+    {
+      "title": "Project Title 4",
+      "description": "Description 4",
+      "imagePreview": "xyz1/assets/image-1745433466737-y0pt3l.jpg"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "Job Title 1",
+      "company": "Org 1",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "location": "NY",
+      "description": "Resp 1",
+      "isCurrent": false
+    },
+    {
+      "title": "Job Title 2",
+      "company": "Org 2",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "location": "NJ",
+      "description": "Resp 2",
+      "isCurrent": false
+    }
+  ],
+  "skills": [
+    "skill1",
+    "skill2",
+    "skill3"
+  ],
+  "certifications": [
+    {
+      "name": "Cert 1",
+      "issuer": "Issuing Org",
+      "date": "Date Earned ",
+      "expiration": ""
+    }
+  ],
+  "logo": "xyz1/assets/image-1745433463165-ls913q.jpg",
+  "banner": "xyz1/assets/image-1745433464976-10tuyn.jpg",
+  "about_image": "xyz1/assets/image-1745433465842-7ony55.png",
+  "email": "mp@gm.com",
+  "phone": "57897685867",
+  "social": {
+    "whatsapp": "687686868",
+    "telegram": "kjhhkhkjhkjhk",
+    "facebook": "kjhgbkkhkhkhk",
+    "instagram": "kjhhkjhkjhk",
+    "twitter": "kjhhkjhkjhkjhk",
+    "linkedin": "hkjhkhkhkhkjh"
+  },
+  "addOns": [],
+  "site_url": "xyz1",
+  "websiteId": "web-8tvnrv0em9ua0nlp",
+  "createdAt": "2025-04-23T18:37:43.165Z",
+  "lastUpdated": "2025-04-23T18:37:43.165Z",
+  "status": "pending_deployment"
+}
