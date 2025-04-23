@@ -344,7 +344,6 @@
 
 {# --- Add Modal JS --- #}
 {% block dom_ready_scripts %}
-    <script>
         // --- Portfolio Modal Logic ---
         const modal = document.getElementById('portfolioModal');
         if (modal) { // Only run if modal exists on page
@@ -432,5 +431,4 @@
                 if (event.key === 'Escape' && !modal.classList.contains('hidden')) { closeModal(); }
             });
         } // end if(modal)
-    </script>
 {% endblock dom_ready_scripts %}
