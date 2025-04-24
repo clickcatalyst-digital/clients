@@ -1,0 +1,59 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "xyz3",
+  "tagline": "dfghdfgh",
+  "about": "dfssdsdsgd",
+  "services": [],
+  "portfolioProjects": [
+    {
+      "title": "sdfsdsd",
+      "description": "dfgdfggdf",
+      "imagePreview": "xyz3/assets/image-1745458648915-vg2u60.png"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "gdfdgfdgf",
+      "company": "dfgdfgdgfdfg",
+      "startMonth": "3",
+      "startYear": "2024",
+      "endMonth": "3",
+      "endYear": "2025",
+      "isCurrent": false,
+      "location": "dfggdfgdf",
+      "description": "gdfdfggfddfg"
+    }
+  ],
+  "skills": [
+    "kjghkhj",
+    "hdhfghfg"
+  ],
+  "certifications": [
+    {
+      "name": "gdfdfg",
+      "issuer": "dfgdfg",
+      "date": "gdffdgdgf",
+      "expiration": "gdfdfgdfg"
+    }
+  ],
+  "logo": "xyz3/assets/image-1745458640505-jjxrpw.jpg",
+  "banner": "xyz3/assets/image-1745458642321-lrx3em.jpg",
+  "about_image": "xyz3/assets/image-1745458643218-n977wf.jpg",
+  "email": "gfdgfdgdf@hjdf.co",
+  "phone": "564354366543",
+  "social": {
+    "whatsapp": "dfgdfggdf",
+    "telegram": "dgfddfgfdg",
+    "facebook": "gdfdgfd",
+    "instagram": "gdfgdf",
+    "twitter": "dgfdfgdgf",
+    "linkedin": "dfgfdgdf"
+  },
+  "addOns": [],
+  "site_url": "xyz3",
+  "websiteId": "web-pbt1x86sm9up0ak8",
+  "createdAt": "2025-04-24T01:37:20.504Z",
+  "lastUpdated": "2025-04-24T01:37:20.504Z",
+  "status": "pending_deployment"
+}
