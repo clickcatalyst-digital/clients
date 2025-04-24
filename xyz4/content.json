@@ -1,0 +1,38 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "xyz4",
+  "tagline": "xyz4 desc",
+  "about": "asdcdsaads",
+  "services": [],
+  "portfolioProjects": [
+    {
+      "title": "adsadsads",
+      "description": "adadsds",
+      "imagePreview": null
+    }
+  ],
+  "workExperience": [],
+  "skills": [
+    "asd"
+  ],
+  "certifications": [],
+  "logo": "xyz4/assets/image-1745528978661-txa7p9.jpg",
+  "about_image": "xyz4/assets/image-1745528980171-cwd66v.png",
+  "email": "sss@ddd.co",
+  "phone": "324432423243",
+  "social": {
+    "whatsapp": "342234234",
+    "telegram": "adfsdsaa",
+    "facebook": "adssdasd",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "xyz4",
+  "banner": null,
+  "websiteId": "web-m4elm2n3m9vuvvtf",
+  "createdAt": "2025-04-24T21:09:38.643Z",
+  "lastUpdated": "2025-04-24T21:09:38.643Z",
+  "status": "pending_deployment"
+}
