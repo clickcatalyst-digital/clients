@@ -1,0 +1,59 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "nature-inspired",
+  "headline": "simran's momo shop",
+  "tagline": "best momo in town",
+  "about": "I am an expert in making momos and wraps",
+  "services": [],
+  "portfolioProjects": [
+    {
+      "title": "proj1",
+      "description": "desc1",
+      "imagePreview": "simrans-momo-shop/assets/image-1745459710064-bm715x.png"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "job1",
+      "company": "org1",
+      "startMonth": "7",
+      "startYear": "2018",
+      "endMonth": "3",
+      "endYear": "2024",
+      "isCurrent": false,
+      "location": "texas",
+      "description": "responsibility"
+    }
+  ],
+  "skills": [
+    "sql",
+    "python"
+  ],
+  "certifications": [
+    {
+      "name": "aws",
+      "issuer": "amazon",
+      "date": "june 2021",
+      "expiration": ""
+    }
+  ],
+  "logo": "simrans-momo-shop/assets/image-1745459705470-nbesb5.jpg",
+  "banner": "simrans-momo-shop/assets/image-1745459707594-8r5hek.jpg",
+  "about_image": "simrans-momo-shop/assets/image-1745459708518-22di8d.jpg",
+  "email": "simran@gmail.com",
+  "phone": "675765767567",
+  "social": {
+    "whatsapp": "658686867",
+    "telegram": "",
+    "facebook": "hguyigjy",
+    "instagram": "gyujgjg",
+    "twitter": "kljjhkl",
+    "linkedin": "gjuygj"
+  },
+  "addOns": [],
+  "site_url": "simrans-momo-shop",
+  "websiteId": "web-7di1d4ntm9upn4al",
+  "createdAt": "2025-04-24T01:55:05.469Z",
+  "lastUpdated": "2025-04-24T01:55:05.469Z",
+  "status": "pending_deployment"
+}
