@@ -1,0 +1,38 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "ccdf",
+  "tagline": "fsdsd",
+  "about": "fdsdfdfd",
+  "services": [],
+  "portfolioProjects": [
+    {
+      "title": "fsd",
+      "description": "fds",
+      "imagePreview": null
+    }
+  ],
+  "workExperience": [],
+  "skills": [
+    "fdsfds"
+  ],
+  "certifications": [],
+  "logo": null,
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "ccdf",
+  "banner": null,
+  "about_image": null,
+  "websiteId": "web-84guderym9w13fxa",
+  "createdAt": "2025-04-25T00:03:28.989Z",
+  "lastUpdated": "2025-04-25T00:03:28.989Z",
+  "status": "pending_deployment"
+}
