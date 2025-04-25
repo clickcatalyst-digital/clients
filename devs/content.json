@@ -1,7 +1,7 @@
 {
   "user_type": "portfolio",
   "color_palette": "nature-inspired",
-  "headline": "dev's",
+  "headline": "dev's shake shop",
   "tagline": "sabka baap",
   "about": "about myself",
   "services": [],
@@ -29,6 +29,6 @@
   "about_image": null,
   "websiteId": "web-ea8vkhhgm9wjlr80",
   "createdAt": "2025-04-25T08:41:36.527Z",
-  "lastUpdated": "2025-04-25T08:41:36.527Z",
+  "lastUpdated": "2025-04-25T08:53:55.136Z",
   "status": "pending_deployment"
 }
