@@ -1,0 +1,73 @@
+{
+  "user_type": "charity",
+  "color_palette": "modern-minimalist",
+  "headline": "grdsgdssg",
+  "tagline": "sdsdfdfsdfssdf",
+  "about": "gsggsffgfg",
+  "services": [
+    {
+      "name": "ssffsf",
+      "icon": "briefcase",
+      "description": "dfsdfsfds"
+    },
+    {
+      "name": "fddfsfsd",
+      "icon": "briefcase",
+      "description": "fdsdsff"
+    }
+  ],
+  "charityMission": {
+    "mission": "fgfgfdg",
+    "vision": "fgdfgdgfd",
+    "values": [
+      "dfgfgd",
+      "gfdfgd",
+      "gfdfdg"
+    ],
+    "foundedYear": "fgddgf",
+    "foundingStory": "dgfgddgf"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "gfdfdgfg",
+        "label": "gffgfgddfg",
+        "description": "fdgdfgfdgdfgfdg"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "dfgfdgdfg",
+        "content": "dfgfdgfdg",
+        "date": "fgdfgfdg",
+        "location": "fgddfgdfg",
+        "featured": true
+      },
+      {
+        "title": "dgfdfgfdg",
+        "content": "fdgfdgfgdgf",
+        "date": "dgfdfgfdg",
+        "location": "gfdfgdfdg",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "grdsgdssg/assets/image-1745693190922-xh5yfy.png",
+  "banner": "grdsgdssg/assets/image-1745693192997-luk8bt.png",
+  "about_image": "grdsgdssg/assets/image-1745693194413-9mdsct.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "grdsgdssg",
+  "websiteId": "web-iso6le8pm9yknitg",
+  "createdAt": "2025-04-26T18:46:30.915Z",
+  "lastUpdated": "2025-04-26T18:46:30.915Z",
+  "status": "pending_deployment"
+}
