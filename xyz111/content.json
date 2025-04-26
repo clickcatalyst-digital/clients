@@ -1,0 +1,70 @@
+{
+  "user_type": "resume",
+  "color_palette": "modern-minimalist",
+  "headline": "xyz111",
+  "tagline": "decs",
+  "about": "jhjkdhdjk",
+  "services": [
+    {
+      "name": "dsccdsdsc",
+      "icon": "briefcase",
+      "description": "sdcdcs"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "dscsdc",
+      "company": "scddc",
+      "startMonth": "4",
+      "startYear": "2024",
+      "endMonth": "2",
+      "endYear": "2025",
+      "isCurrent": false,
+      "location": "sdcdsc",
+      "description": "cdsdssdc"
+    }
+  ],
+  "education": [
+    {
+      "institution": "cdsdsccsd",
+      "degree": "dscscdsc",
+      "startYear": "cdsdscsdc",
+      "endYear": "sdcsdc",
+      "location": "sffs",
+      "grade": "dsfsdf",
+      "activities": "dcsdscdsc",
+      "inProgress": false
+    }
+  ],
+  "skills": [
+    "cds",
+    "ds",
+    "sdc"
+  ],
+  "certifications": [
+    {
+      "name": "certification",
+      "issuer": "asadc",
+      "date": "scdcsd",
+      "expiration": "cdssdc"
+    }
+  ],
+  "logo": "xyz111/assets/image-1745639371778-inj9ig.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "assa",
+    "telegram": "cddsc",
+    "facebook": "cds",
+    "instagram": "csd",
+    "twitter": "cds",
+    "linkedin": "csd"
+  },
+  "site_url": "xyz111",
+  "banner": null,
+  "about_image": null,
+  "websiteId": "web-rmn7xqnvm9xolzpc",
+  "createdAt": "2025-04-26T03:49:31.775Z",
+  "lastUpdated": "2025-04-26T03:49:31.775Z",
+  "status": "pending_deployment"
+}
