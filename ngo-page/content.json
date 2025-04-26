@@ -1,0 +1,83 @@
+{
+  "user_type": "charity",
+  "color_palette": "dreamy-sunset",
+  "headline": "ngo page",
+  "tagline": "desc",
+  "about": "Tell us about your org",
+  "services": [
+    {
+      "name": "program 1",
+      "icon": "users",
+      "description": ""
+    },
+    {
+      "name": "program 2",
+      "icon": "office",
+      "description": "program 1"
+    },
+    {
+      "name": "program 3",
+      "icon": "globe",
+      "description": "program 1"
+    }
+  ],
+  "charityMission": {
+    "mission": "Mission",
+    "vision": "Vision",
+    "values": [
+      "Value 1",
+      "2",
+      "3"
+    ],
+    "foundedYear": "founded year",
+    "foundingStory": "out story"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "100",
+        "label": "People helped",
+        "description": "Description"
+      },
+      {
+        "value": "2.5 %",
+        "label": "Improved Salary",
+        "description": "desc"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "success story title 1",
+        "content": "Content 1",
+        "date": "Date - Year",
+        "location": "Location",
+        "featured": true
+      },
+      {
+        "title": "success story title 2",
+        "content": "Content 2",
+        "date": "Date - Year",
+        "location": "Location",
+        "featured": false
+      }
+    ]
+  },
+  "logo": null,
+  "banner": null,
+  "about_image": "ngo-page/assets/image-1745670271528-zjzfxx.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "xczzcx",
+    "telegram": "czxczxzcx",
+    "facebook": "cxzzcx",
+    "instagram": "cxzzxc",
+    "twitter": "zxczxc",
+    "linkedin": "zxczx"
+  },
+  "site_url": "ngo-page",
+  "websiteId": "web-cs4x4ztpm9y6zgm4",
+  "createdAt": "2025-04-26T12:23:53.277Z",
+  "lastUpdated": "2025-04-26T12:23:53.277Z",
+  "status": "pending_deployment"
+}
