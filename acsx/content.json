@@ -1,0 +1,66 @@
+{
+  "user_type": "charity",
+  "color_palette": "retro-pop",
+  "headline": "acsx",
+  "tagline": "acsd",
+  "about": "cas",
+  "services": [
+    {
+      "name": "cas",
+      "icon": "briefcase",
+      "description": "cas"
+    },
+    {
+      "name": "cas",
+      "icon": "briefcase",
+      "description": "cas"
+    }
+  ],
+  "charityMission": {
+    "mission": "cas",
+    "vision": "csa",
+    "values": [
+      "csa",
+      "cas",
+      "cas"
+    ],
+    "foundedYear": "csa",
+    "foundingStory": "acs"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "csa",
+        "label": "csa",
+        "description": "csa"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "csa",
+        "content": "acs",
+        "date": "acs",
+        "location": "cas",
+        "featured": true
+      }
+    ]
+  },
+  "logo": "acsx/assets/image-1745670574275-d8tbml.jpg",
+  "banner": "acsx/assets/image-1745670576330-h63ksy.jpg",
+  "about_image": "acsx/assets/image-1745670577292-72fqc2.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "csa",
+    "telegram": "cas",
+    "facebook": "asc",
+    "instagram": "sac",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "acsx",
+  "websiteId": "web-nwekgkxpm9y76rp9",
+  "createdAt": "2025-04-26T12:29:34.265Z",
+  "lastUpdated": "2025-04-26T12:29:34.265Z",
+  "status": "pending_deployment"
+}
