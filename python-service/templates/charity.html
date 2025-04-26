@@ -219,7 +219,8 @@
                      {% set stat_count = charityImpact.impactStats | length %}
                      {% set col_class = 'sm:grid-cols-1' %} {# Default #}
                      {% if stat_count == 2 %}{% set col_class = 'sm:grid-cols-2' %}{% endif %}
-                     {% if stat_count >= 3 %}{% set col_class = 'sm:grid-cols-3' %}{% endif %}     
+                     {% if stat_count >= 3 %}{% set col_class = 'sm:grid-cols-3' %}{% endif %}
+                      <div class="grid grid-cols-1 {{ col_class }} gap-10 text-center mb-16 reveal">
                          {% for stat in charityImpact.impactStats %}
                              <div class="impact-stat-item">
                                  <div class="impact-stat-value">{{ stat.value }}</div>
