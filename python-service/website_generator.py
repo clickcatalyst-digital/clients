@@ -266,6 +266,28 @@ def render_template(jinja_env, content_data, assets):
     template_data["colors"] = selected_colors
     logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
 
+    # --- ADD DEBUG PRINTS ---
+    logger.info("--- Debugging Data Before Render ---")
+    # Check main lists expected by charity template
+    mission_data = template_data.get('charityMission', {})
+    impact_data = template_data.get('charityImpact', {})
+
+    mission_values = mission_data.get('values')
+    impact_stats = impact_data.get('impactStats')
+    success_stories = impact_data.get('successStories')
+
+    logger.info(f"Type of charityMission.values: {type(mission_values)}")
+    logger.info(f"Value of charityMission.values: {mission_values}")
+
+    logger.info(f"Type of charityImpact.impactStats: {type(impact_stats)}")
+    logger.info(f"Value of charityImpact.impactStats: {impact_stats}")
+
+    logger.info(f"Type of charityImpact.successStories: {type(success_stories)}")
+    logger.info(f"Value of charityImpact.successStories: {success_stories}")
+    logger.info("--- End Debugging Data ---")
+    # --- END DEBUG PRINTS ---
+
+
     # Render the loaded template
     try:
         return template.render(**template_data)
