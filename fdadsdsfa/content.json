@@ -1,0 +1,78 @@
+{
+  "user_type": "charity",
+  "color_palette": "nature-inspired",
+  "headline": "fdadsdsfa",
+  "tagline": "dfsadafsdfs",
+  "about": "sadasddas",
+  "services": [
+    {
+      "name": "asdsadasd",
+      "icon": "document",
+      "description": "adsasdsadads"
+    },
+    {
+      "name": "dsaasdasdfas",
+      "icon": "folder",
+      "description": "fgasdfsd"
+    },
+    {
+      "name": "sdggsdbv",
+      "icon": "cog",
+      "description": "sdvbsdvdsv"
+    }
+  ],
+  "charityMission": {
+    "mission": "svdbvbvds",
+    "vision": "webvrwbveqbevwr",
+    "values": [
+      "wbrwbrwrbf",
+      "wrvwvwv",
+      "wvrvrve"
+    ],
+    "foundedYear": "2018",
+    "foundingStory": "vsdsdvbsdfssdbvwevweq"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "qgeveqeq",
+        "label": "egvwvewevws",
+        "description": "vsddsvvds"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "sdvdvsdsvb",
+        "content": "bwrrwbwbre",
+        "date": "bwfsbwr",
+        "location": "sbvdsbsbd",
+        "featured": true
+      },
+      {
+        "title": "sdvbbvddsbv",
+        "content": "sdbvbsdsbdsdb",
+        "date": "sdvsdvsdv",
+        "location": "svdsdvsvd",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "fdadsdsfa/assets/image-1745675561968-c25qgt.jpg",
+  "banner": "fdadsdsfa/assets/image-1745675564072-8us3p0.png",
+  "about_image": "fdadsdsfa/assets/image-1745675565207-2ao8ji.jpg",
+  "email": "pujan10sept@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "fdadsdsfa",
+  "websiteId": "web-yl063x8pm9ya5o8e",
+  "createdAt": "2025-04-26T13:52:41.963Z",
+  "lastUpdated": "2025-04-26T13:52:41.963Z",
+  "status": "pending_deployment"
+}
