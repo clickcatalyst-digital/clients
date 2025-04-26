@@ -1,0 +1,52 @@
+{
+  "user_type": "event",
+  "color_palette": "nature-inspired",
+  "headline": "event page",
+  "tagline": "tagline",
+  "about": "Bio",
+  "services": [
+    {
+      "name": "Highlight 1",
+      "icon": "user",
+      "description": "desc"
+    }
+  ],
+  "eventDetails": {
+    "date": "2025-04-26",
+    "startTime": "11:42",
+    "endTime": "22:44",
+    "location": "hhsja",
+    "virtualLink": "adsasas",
+    "ticketInfo": "assacs",
+    "price": "acca",
+    "limitedSeats": true,
+    "maxAttendees": "1000"
+  },
+  "eventSchedule": [
+    {
+      "title": "Session 1",
+      "time": "10 - 11",
+      "description": "desc",
+      "speaker": "Speaker",
+      "location": "Main Hall"
+    }
+  ],
+  "logo": "event-page/assets/image-1745640876050-m77ofq.jpg",
+  "banner": "event-page/assets/image-1745640878743-oiy2jd.jpg",
+  "about_image": "event-page/assets/image-1745640883311-1iuy18.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "event-page",
+  "websiteId": "web-qt5v0duxm9xpi8ep",
+  "createdAt": "2025-04-26T04:14:36.049Z",
+  "lastUpdated": "2025-04-26T04:14:36.049Z",
+  "status": "pending_deployment"
+}
