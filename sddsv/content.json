@@ -1,0 +1,79 @@
+{
+  "user_type": "resume",
+  "color_palette": "modern-minimalist",
+  "headline": "sddsv",
+  "tagline": "vsdfsdvvds",
+  "about": "vsddsvdsv",
+  "services": [
+    {
+      "name": "befvefr",
+      "icon": "briefcase",
+      "description": "rgewgrgre"
+    },
+    {
+      "name": "rgegregre",
+      "icon": "briefcase",
+      "description": "ergger"
+    },
+    {
+      "name": "fwewefwef",
+      "icon": "briefcase",
+      "description": "fewweewf"
+    }
+  ],
+  "education": [
+    {
+      "institution": "fwewefefw",
+      "degree": "fewweewf",
+      "startYear": "wefwe",
+      "endYear": "wefweewf",
+      "location": "ewfewfwef",
+      "grade": "efwewf",
+      "activities": "fewewf",
+      "inProgress": false
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "efwfwe",
+      "company": "fewwefwef",
+      "startMonth": "4",
+      "startYear": "2021",
+      "endMonth": "4",
+      "endYear": "2024",
+      "isCurrent": false,
+      "location": "efwewf",
+      "description": "efwefwefw"
+    }
+  ],
+  "skills": [
+    "efw",
+    "few"
+  ],
+  "certifications": [
+    {
+      "name": "dqw",
+      "issuer": "fqew",
+      "date": "fewq",
+      "expiration": "fewq"
+    }
+  ],
+  "logo": "sddsv/assets/image-1745688154369-5h9sdg.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "sddsv",
+  "banner": null,
+  "about_image": null,
+  "websiteId": "web-owa0a86zm9yhnklc",
+  "createdAt": "2025-04-26T17:22:34.368Z",
+  "lastUpdated": "2025-04-26T17:22:34.368Z",
+  "status": "pending_deployment"
+}
