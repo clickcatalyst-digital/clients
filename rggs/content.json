@@ -1,0 +1,73 @@
+{
+  "user_type": "charity",
+  "color_palette": "modern-minimalist",
+  "headline": "rggs",
+  "tagline": "sdfdfsdf",
+  "about": "sdfdfsdf",
+  "services": [
+    {
+      "name": "sdfdfsdf",
+      "icon": "briefcase",
+      "description": "sdfdfsdf"
+    },
+    {
+      "name": "sdfdfsdf",
+      "icon": "briefcase",
+      "description": "sdfdfsdf"
+    }
+  ],
+  "charityMission": {
+    "mission": "sdfdfsdf",
+    "vision": "sdfdfsdf",
+    "values": [
+      "sdfdfsdf",
+      "sdfdfsdf",
+      "sdfdfsdf"
+    ],
+    "foundedYear": "sdfdfsdf",
+    "foundingStory": "sdfdfsdf"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "sdfdfsdf",
+        "label": "sdfdfsdf",
+        "description": "sdfdfsdf"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "sdfdfsdf",
+        "content": "sdfdfsdf",
+        "date": "sdfdfsdf",
+        "location": "sdfdfsdf",
+        "featured": true
+      },
+      {
+        "title": "sdfdfsdf",
+        "content": "sdfdfsdf",
+        "date": "sdfdfsdf",
+        "location": "sdfdfsdf",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "rggs/assets/image-1745700102544-4hh64u.jpg",
+  "banner": "rggs/assets/image-1745700103926-qutoex.png",
+  "about_image": "rggs/assets/image-1745700104866-kcd0yb.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "rggs",
+  "websiteId": "web-a06a7beym9yornv3",
+  "createdAt": "2025-04-26T20:41:42.542Z",
+  "lastUpdated": "2025-04-26T20:41:42.542Z",
+  "status": "pending_deployment"
+}
