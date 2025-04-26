@@ -216,7 +216,10 @@
                     <div class="section-divider"></div>
                 </div>
                  {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
-                     <div class="grid grid-cols-1 sm:grid-cols-{{ charityImpact.impactStats|length if charityImpact.impactStats|length <= 3 else 3 }} gap-10 text-center mb-16 reveal"> {# Increased gap/margin #}
+                     {% set stat_count = charityImpact.impactStats | length %}
+                     {% set col_class = 'sm:grid-cols-1' %} {# Default #}
+                     {% if stat_count == 2 %}{% set col_class = 'sm:grid-cols-2' %}{% endif %}
+                     {% if stat_count >= 3 %}{% set col_class = 'sm:grid-cols-3' %}{% endif %}     
                          {% for stat in charityImpact.impactStats %}
                              <div class="impact-stat-item">
                                  <div class="impact-stat-value">{{ stat.value }}</div>
