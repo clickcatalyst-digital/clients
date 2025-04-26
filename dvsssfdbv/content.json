@@ -1,0 +1,90 @@
+{
+  "user_type": "charity",
+  "color_palette": "nature-inspired",
+  "headline": "dvsssfdbv",
+  "tagline": "sdfvbsbfsbfsf",
+  "about": "dsgssdsbd",
+  "services": [
+    {
+      "name": "adfdsfef",
+      "icon": "briefcase",
+      "description": "adfasfdaasdf"
+    },
+    {
+      "name": "fsd",
+      "icon": "briefcase",
+      "description": "sdfvsdsfd"
+    },
+    {
+      "name": "sdfdsadsg",
+      "icon": "briefcase",
+      "description": "sdgfsdsdf"
+    }
+  ],
+  "charityMission": {
+    "mission": "fdssddsgbgsdb",
+    "vision": "gsbdvsdgsgds",
+    "values": [
+      "sgdsgdsdg",
+      "sdgfsdg",
+      "sdgsdggds"
+    ],
+    "foundedYear": "sdgsgdgds",
+    "foundingStory": "gdsdsgdsg"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "sdggsdsdg",
+        "label": "gsdsdgdsg",
+        "description": "sdgdsgsdg"
+      },
+      {
+        "value": "gsdsdggsd",
+        "label": "gsdssgddsg",
+        "description": "sgdsdgsgd"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "gdsgdsgddsg",
+        "content": "sgdsgdsdg",
+        "date": "gsdsgdsdg",
+        "location": "sgddsgdsg",
+        "featured": true
+      },
+      {
+        "title": "sgdsdggsd",
+        "content": "sgddgssdg",
+        "date": "sgdsgdsdg",
+        "location": "sgdsdgsgdsdg",
+        "featured": false
+      },
+      {
+        "title": "sgfdsgdfsgdf",
+        "content": "sdggdssgdsdg",
+        "date": "sgddsgsgd",
+        "location": "sdgsdgsdg",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "dvsssfdbv/assets/image-1745685740601-4k66p2.png",
+  "banner": "dvsssfdbv/assets/image-1745685742608-ulsko3.png",
+  "about_image": "dvsssfdbv/assets/image-1745685743735-09lp8a.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "dvsssfdbv",
+  "websiteId": "web-9bpu7fg2m9yg7u48",
+  "createdAt": "2025-04-26T16:42:20.596Z",
+  "lastUpdated": "2025-04-26T16:42:20.596Z",
+  "status": "pending_deployment"
+}
