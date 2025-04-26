@@ -1,0 +1,78 @@
+{
+  "user_type": "charity",
+  "color_palette": "modern-minimalist",
+  "headline": "xxx11",
+  "tagline": "xxxx",
+  "about": "xxsc",
+  "services": [
+    {
+      "name": "sad",
+      "icon": "document",
+      "description": "asd"
+    },
+    {
+      "name": "asd",
+      "icon": "clipboard-check",
+      "description": "ads"
+    },
+    {
+      "name": "asd",
+      "icon": "clipboard-list",
+      "description": "ads"
+    }
+  ],
+  "charityMission": {
+    "mission": "sad",
+    "vision": "asd",
+    "values": [
+      "dsf",
+      "sdf",
+      "sdf"
+    ],
+    "foundedYear": "sdf",
+    "foundingStory": "sdf"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "fsd",
+        "label": "dfs",
+        "description": "dsf"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "fsd",
+        "content": "sdf",
+        "date": "dsf",
+        "location": "dsf",
+        "featured": true
+      },
+      {
+        "title": "fsd",
+        "content": "sdf",
+        "date": "gsfd",
+        "location": "fsd",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "xxx11/assets/image-1745674998694-w4gxac.jpg",
+  "banner": "xxx11/assets/image-1745675000634-cjsih8.jpg",
+  "about_image": "xxx11/assets/image-1745675002401-bwz1fb.png",
+  "email": "pujan10sept@gmail.com",
+  "phone": "fa32r23235",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "xxx11",
+  "websiteId": "web-tyq3pp64m9y9tlly",
+  "createdAt": "2025-04-26T13:43:18.691Z",
+  "lastUpdated": "2025-04-26T13:43:18.691Z",
+  "status": "pending_deployment"
+}
