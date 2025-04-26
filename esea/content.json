@@ -1,0 +1,68 @@
+{
+  "user_type": "charity",
+  "color_palette": "modern-minimalist",
+  "headline": "esea",
+  "tagline": "sfsdfds",
+  "about": "sefesfefs",
+  "services": [
+    {
+      "name": "esf",
+      "icon": "briefcase",
+      "description": "efssef"
+    }
+  ],
+  "charityMission": {
+    "mission": "fesefsf",
+    "vision": "efsefs",
+    "values": [
+      "esfefs",
+      "fesf",
+      "esfesf"
+    ],
+    "foundedYear": "esf",
+    "foundingStory": "efsefs"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "fesefs",
+        "label": "fefes",
+        "description": "efsesf"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "fesefs",
+        "content": "fesesf",
+        "date": "efsfse",
+        "location": "fesefs",
+        "featured": true
+      },
+      {
+        "title": "fesefs",
+        "content": "fesesf",
+        "date": "efsfse",
+        "location": "esfesf",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "esea/assets/image-1745701071722-3szx2k.png",
+  "banner": "esea/assets/image-1745701073711-qxz0sm.png",
+  "about_image": "esea/assets/image-1745701074642-2bt71s.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "esea",
+  "websiteId": "web-fhuen3vzm9ypcfop",
+  "createdAt": "2025-04-26T20:57:51.721Z",
+  "lastUpdated": "2025-04-26T20:57:51.721Z",
+  "status": "pending_deployment"
+}
