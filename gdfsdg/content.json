@@ -1,0 +1,85 @@
+{
+  "user_type": "charity",
+  "color_palette": "modern-minimalist",
+  "headline": "gdfsdg",
+  "tagline": "gfdgfdfg",
+  "about": "dgfsfgdgfgfds",
+  "services": [
+    {
+      "name": "fdgsgfd",
+      "icon": "briefcase",
+      "description": "fgddfdfg"
+    },
+    {
+      "name": "dgfsgdf",
+      "icon": "briefcase",
+      "description": "dfgsfdgsfdg"
+    },
+    {
+      "name": "gffgddgfs",
+      "icon": "briefcase",
+      "description": "gfdsfdgsgfds"
+    }
+  ],
+  "charityMission": {
+    "mission": "gfsdgfds",
+    "vision": "gfdsgfdgfd",
+    "values": [
+      "dfgfgd",
+      "fdgsdfsg",
+      "gfdsgfds"
+    ],
+    "foundedYear": "gdfsgfds",
+    "foundingStory": "dfggfdsfdgs"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "fgdsfgds",
+        "label": "dfgsfdg",
+        "description": "gfdfdgds"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "fdgsfgdsdfsg",
+        "content": "fdgsgfdsgdfs",
+        "date": "fdfdgsgfds",
+        "location": "dfgfdg",
+        "featured": true
+      },
+      {
+        "title": "fgdsfgddfg",
+        "content": "dfgsfgdsfdgs",
+        "date": "gdfsgdfsfdgs",
+        "location": "gdfsdfgsdfgs",
+        "featured": false
+      },
+      {
+        "title": "greegr",
+        "content": "dsfgfgdsgf\n- gdsffgsfgsdgf\n2312213\n- 43232413241 + lhlkvsdh",
+        "date": "wgefrwger",
+        "location": "ewwwewe",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "gdfsdg/assets/image-1745686696520-7idz6w.png",
+  "banner": "gdfsdg/assets/image-1745686698350-aqnoqi.png",
+  "about_image": "gdfsdg/assets/image-1745686699830-j097e7.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "gdfsdg",
+  "websiteId": "web-rruen8qam9ygsbpk",
+  "createdAt": "2025-04-26T16:58:16.511Z",
+  "lastUpdated": "2025-04-26T16:58:16.511Z",
+  "status": "pending_deployment"
+}
