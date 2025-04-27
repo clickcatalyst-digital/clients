@@ -1,0 +1,61 @@
+{
+  "user_type": "business",
+  "color_palette": "luxurious-chic",
+  "headline": "ecfcaeds",
+  "tagline": "asdsaasd",
+  "about": "asddas",
+  "services": [
+    {
+      "name": "asdsad",
+      "icon": "phone",
+      "description": "fasfasfsa"
+    },
+    {
+      "name": "fsaasf",
+      "icon": "finger-print",
+      "description": "afvsd"
+    },
+    {
+      "name": "asfsaf",
+      "icon": "globe-alt",
+      "description": ""
+    }
+  ],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "logo": "ecfcaeds/assets/image-1745779501347-4rvdbx.jpg",
+  "banner": "ecfcaeds/assets/image-1745779502699-3bt5e8.jpg",
+  "about_image": "ecfcaeds/assets/image-1745779503478-5xksex.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "srv",
+    "telegram": "ssdg",
+    "facebook": "sgdgsd",
+    "instagram": "sgdgsd",
+    "twitter": "gsd",
+    "linkedin": "gds"
+  },
+  "site_url": "ecfcaeds",
+  "websiteId": "web-dvw4y0h8ma001gdf",
+  "createdAt": "2025-04-27T18:45:01.343Z",
+  "lastUpdated": "2025-04-27T18:45:01.343Z",
+  "status": "pending_deployment"
+}
