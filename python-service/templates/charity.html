@@ -283,6 +283,7 @@
                 </div>
                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
                     <a href="#mission" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Mission</a>
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About Us</a>
                     {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
                        <a href="#impact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Impact</a>
                     {% endif %}
@@ -305,6 +306,7 @@
              {% block mobile_nav_links %}
              <div class="px-2 pt-2 pb-4 space-y-1">
                 <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Mission</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About Us</a>
                 {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
                    <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Impact</a>
                 {% endif %}
@@ -368,15 +370,10 @@
                <div class="section-divider"></div>
            </div>
            
-           <div class="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
+           <div class="text-center">
                <!-- Left Column: Image or Story -->
                <div class="mb-10 lg:mb-0 reveal">
-                   {% if about_image %}
-                       <div class="relative">
-                           <img src="{{ about_image }}" alt="About {{ headline }}" class="w-full h-auto object-cover rounded-lg shadow-lg" loading="lazy">
-                           <div class="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-primary opacity-10 transform rotate-12"></div>
-                       </div>
-                   {% elif charityMission and charityMission.foundingStory %}
+                   {% if charityMission and charityMission.foundingStory %}
                        <div class="bg-white p-6 rounded-lg shadow-md">
                            <h3 class="text-xl font-semibold mb-4">Our Story</h3>
                            <p class="text-gray-700">{{ charityMission.foundingStory }}</p>
@@ -479,16 +476,6 @@
                     </div>
                     {% endif %}
                     
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                        {% for feature in [("Integrity", "shield-check"), ("Compassion", "heart"), ("Transparency", "eye"), ("Excellence", "star")] %}
-                        <div class="about-feature-item">
-                            <div class="about-feature-icon-bg">
-                               <svg class="h-5 w-5"><use href="#icon-{{ feature[1] }}" /></svg>
-                            </div>
-                            <span class="font-medium text-gray-800 text-sm">{{ feature[0] }}</span>
-                        </div>
-                        {% endfor %}
-                    </div>
                     <a href="#contact" class="inline-flex items-center px-6 py-3 bg-primary text-contrast-primary rounded-md shadow hover:opacity-90 transition-all hover:shadow-lg transform hover:-translate-y-1">
                        <svg class="h-5 w-5 mr-2"><use href="#icon-plus-circle" /></svg>
                         <span>Get In Touch</span>
