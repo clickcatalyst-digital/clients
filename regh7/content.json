@@ -1,0 +1,68 @@
+{
+  "user_type": "charity",
+  "color_palette": "modern-minimalist",
+  "headline": "regh",
+  "tagline": "rge",
+  "about": "reg",
+  "services": [
+    {
+      "name": "gre",
+      "icon": "briefcase",
+      "description": "reg"
+    }
+  ],
+  "charityMission": {
+    "mission": "rge",
+    "vision": "rge",
+    "values": [
+      "rge",
+      "reg",
+      "rge"
+    ],
+    "foundedYear": "rge",
+    "foundingStory": "reg"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "rge",
+        "label": "gre",
+        "description": "reg"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "gre",
+        "content": "reg",
+        "date": "reg",
+        "location": "rge",
+        "featured": true
+      },
+      {
+        "title": "rge",
+        "content": "rge",
+        "date": "gre",
+        "location": "rge",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "regh7/assets/image-1745738607394-c31clx.png",
+  "banner": "regh7/assets/image-1745738609211-v714p0.png",
+  "about_image": "regh7/assets/image-1745738610114-ecli3z.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "ger",
+    "telegram": "reg",
+    "facebook": "reg",
+    "instagram": "reg",
+    "twitter": "reg",
+    "linkedin": "erg"
+  },
+  "site_url": "regh7",
+  "websiteId": "web-65zy5n2pm9zboye8",
+  "createdAt": "2025-04-27T07:23:27.383Z",
+  "lastUpdated": "2025-04-27T07:23:27.383Z",
+  "status": "pending_deployment"
+}
