@@ -288,10 +288,8 @@
                        <a href="#impact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Impact</a>
                     {% endif %}
                     <a href="#get-involved" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Get Involved</a>
-                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
-                    <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                       <svg class="h-5 w-5 mr-1.5 -ml-1"><use href="#icon-heart" /></svg>
-                        Donate
+                    <a href="#contact" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        Donate Now
                     </a>
                 </div>
                 <div class="md:hidden flex items-center">
@@ -311,8 +309,7 @@
                    <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Impact</a>
                 {% endif %}
                 <a href="#get-involved" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Get Involved</a>
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
-                <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-contrast-primary bg-primary hover:opacity-90 w-full">
+                <a href="#contact" class="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-contrast-primary bg-primary hover:opacity-90 w-full">
                     <svg class="h-5 w-5 mr-2"><use href="#icon-heart" /></svg> Donate Now
                 </a>
              </div>
