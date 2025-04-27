@@ -23,29 +23,38 @@
 
 {# --- Schema.org JSON-LD --- #}
 {% block schema_org %}
-    {# JSON-LD must be valid JSON; we’ll build a dict and render #}
     <script type="application/ld+json">
-    {{ {
-        "@context": "https://schema.org",
-        "@type": "NGO",
-        "name": headline,
-        "url": ('https://' + folder_name + '.' + DOMAIN_NAME) if folder_name and DOMAIN_NAME else '#',
-        "logo": logo_path if logo_path else omit,
-        "description": (charityMission.mission if charityMission and charityMission.mission else tagline),
-        "foundingStory": charityMission.foundingStory if charityMission.foundingStory else omit,
-        "foundingDate": charityMission.foundedYear if charityMission.foundedYear else omit,
-        "email": email if email else omit,
-        "telephone": phone if phone else omit,
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": location.address,
-            "addressLocality": location.city,
-            "addressRegion": location.state,
-            "postalCode": location.zip,
-            "addressCountry": location.country
-        } if location and location.address else omit,
-        "sameAs": sameAsLinks if sameAsLinks else omit
-    } | tojson | safe }}
+    {
+      "@context": "https://schema.org",
+      "@type": "NGO",
+      "name": "{{ headline }}",
+      "url": "{{ 'https://' + folder_name + '.' + DOMAIN_NAME if folder_name and DOMAIN_NAME else '#' }}",
+      {% if logo_path %}"logo": "{{ logo_path }}",{% endif %}
+      "description": "{{ charityMission.mission if charityMission and charityMission.mission else tagline }}",
+      {% if charityMission.foundingStory %}"foundingStory": "{{ charityMission.foundingStory }}",{% endif %}
+      {% if charityMission.foundedYear %}"foundingDate": "{{ charityMission.foundedYear }}",{% endif %}
+      {% if email %}"email": "{{ email }}",{% endif %}
+      {% if phone %}"telephone": "{{ phone }}",{% endif %}
+      {% if location and location.address %}
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ location.address | escape }}",
+        "addressLocality": "{{ location.city | escape }}",
+        "addressRegion": "{{ location.state | escape }}",
+        "postalCode": "{{ location.zip | escape }}",
+        "addressCountry": "{{ location.country | escape }}"
+      },
+      {% endif %}
+      {# Build sameAs links #}
+      {% set sameAsLinks = [] %}
+      {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %}
+      {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
+      {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %}
+      {% if social.linkedin %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
+      {% if sameAsLinks %}
+      "sameAs": {{ sameAsLinks | tojson | safe }}
+      {% endif %}
+    }
     </script>
 {% endblock schema_org %}
 
