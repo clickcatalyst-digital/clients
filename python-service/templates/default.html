@@ -34,69 +34,77 @@
             min-height: 65vh;
             display: flex;
             align-items: center;
-            padding-top: 4rem; /* py-16 */
-            padding-bottom: 4rem; /* py-16 */
-            position: relative; /* Needed for potential absolute positioning inside (like hero overlay) */
-            overflow: hidden; /* Prevent potential overflows */
+            padding-top: 5rem; /* Increased base padding slightly */
+            padding-bottom: 5rem;
+            position: relative;
+            overflow: hidden;
         }
         @media (min-width: 768px) { /* md */
             section {
-                 min-height: 70vh;
-                 padding-top: 5rem; /* md:py-20 */
-                 padding-bottom: 5rem; /* md:py-20 */
+                 min-height: 75vh; /* Increased min-height */
+                 padding-top: 6rem;
+                 padding-bottom: 6rem;
             }
         }
+         @media (min-width: 1024px) { /* lg */
+             section {
+                 min-height: 80vh; /* Closer to screen height on large */
+             }
+         }
 
-        /* Hero Section - Gradient OR Image Background */
+        /* Hero Section - Gradient Background applied to the section */
         .hero-section {
-             /* Default to gradient */
             background: linear-gradient(to bottom right, var(--color-primary, #4f46e5), var(--color-secondary, #ec4899));
-            color: var(--color-text-on-gradient, white);
-            min-height: 80vh; /* Taller hero */
-            padding-top: 5rem;
-            padding-bottom: 5rem;
+            color: var(--color-text-on-gradient, white); /* Text color for gradient */
+             /* Override default section height for hero */
+            min-height: 85vh; /* Taller hero */
         }
          @media (min-width: 768px) { /* md */
             .hero-section {
-                 min-height: 85vh;
-                 padding-top: 7rem;
-                 padding-bottom: 7rem;
+                 min-height: 90vh;
             }
          }
 
-        .hero-bg-image-container {
-             position: absolute;
-             inset: 0;
-             z-index: 0;
+        /* Hero content styling */
+        .hero-section h1, .hero-section p { color: inherit; } /* Inherit from section */
+        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+
+        /* Styling for the Hero Image container */
+        .hero-image-container {
+             border-radius: 0.75rem; /* rounded-xl */
+             overflow: hidden;
+             box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1));
+             aspect-ratio: 16 / 9; /* Common aspect ratio */
         }
-        .hero-bg-image {
+         @media (min-width: 1024px) { /* lg */
+             .hero-image-container {
+                 aspect-ratio: 4 / 3; /* Adjust aspect ratio on larger screens if desired */
+             }
+         }
+        .hero-image-container img {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cover the area */
-            object-position: center; /* Center the image */
+            object-fit: cover;
         }
-        .hero-bg-overlay {
-             position: absolute;
-             inset: 0;
-             background-color: rgba(0, 0, 0, 0.3); /* Dark semi-transparent overlay */
-             z-index: 1;
+        .hero-image-placeholder {
+             width: 100%;
+             height: 100%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+             background-color: rgba(255, 255, 255, 0.1); /* Subtle placeholder bg */
+             color: rgba(255, 255, 255, 0.7);
         }
-        .hero-content {
-             position: relative; /* Ensure content is above background/overlay */
-             z-index: 10;
-        }
-
-        /* Ensure hero text has contrast */
-        .hero-section.has-bg-image h1, .hero-section.has-bg-image p {
-            color: white; /* Force white text on image bg */
-        }
-        .hero-section:not(.has-bg-image) h1, .hero-section:not(.has-bg-image) p {
-             color: inherit; /* Use gradient text color */
-        }
-        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); } /* Slightly stronger shadow */
 
         /* Refined Section Divider */
-        .section-divider-thin { width: 4rem; height: 2px; background-color: var(--color-primary, #4f46e5); margin-left: auto; margin-right: auto; margin-bottom: 2rem; border: 0; border-radius: 1px; }
+        .section-divider-thin { width: 4rem; height: 2px; background-color: var(--color-primary, #4f46e5); margin-bottom: 2rem; border: 0; border-radius: 1px; }
+        /* Correct alignment for divider */
+        .divider-center { margin-left: auto; margin-right: auto; }
+        .divider-left-lg { margin-left: auto; margin-right: auto; } /* Default centered */
+        @media (min-width: 1024px) { /* lg */
+            .divider-left-lg { margin-left: 0; margin-right: auto; } /* Left aligned on large screens */
+        }
+
 
         /* Enhanced Service Card Styling */
         .service-card { background-color: white; border-radius: 0.5rem; box-shadow: var(--shadow, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)); padding: 1.5rem; text-align: center; transition: all 0.3s ease-in-out; border: 1px solid var(--color-border-soft, #e5e7eb); height: 100%; display: flex; flex-direction: column; }
@@ -123,12 +131,12 @@
             box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1));
             object-fit: cover;
             width: 100%;
-            aspect-ratio: 4 / 3; /* Maintain aspect ratio */
+             aspect-ratio: 4 / 3; /* Default aspect ratio */
         }
-         @media (min-width: 1024px) { /* lg */
-             .about-image-container img {
-                  aspect-ratio: 1 / 1; /* Square on larger screens */
-             }
+         /* Ensure image grid column takes height */
+         .about-image-grid-col {
+             display: flex;
+             align-items: center; /* Center image vertically if column is taller */
          }
 
     </style>
@@ -193,46 +201,59 @@
 
 {# --- Main Page Content --- #}
 {% block content %}
-    <!-- Hero Section: Gradient OR Image Background -->
-    {# Add 'has-bg-image' class dynamically if banner_path exists #}
-    <section class="hero-section {% if banner_path %}has-bg-image{% endif %}" id="main-content">
-        {# Conditionally add background image container #}
-        {% if banner_path %}
-            <div class="hero-bg-image-container">
-                <img src="{{ banner_path }}" alt="{{ headline }} banner" class="hero-bg-image" loading="eager"> {# Eager load hero image #}
-                <div class="hero-bg-overlay"></div> {# Overlay for text contrast #}
+    <!-- Hero Section: Grid Layout -->
+    <section class="hero-section" id="main-content">
+        {# Use max-w-7xl for consistency with header nav #}
+        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {# Grid Layout for Hero #}
+            <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
+                {# Text Column #}
+                <div class="lg:col-span-6 xl:col-span-7 text-center lg:text-left reveal">
+                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4 hero-text-shadow">{{ headline | default("Welcome!") }}</h1>
+                     <p class="text-lg sm:text-xl max-w-xl lg:max-w-none mx-auto lg:mx-0 opacity-90 mb-8 hero-text-shadow">{{ tagline | default("Explore what we have to offer.") }}</p>
+                     {% if about %}
+                         {# Button style for gradient background #}
+                         <a href="#about" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-md text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                             <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
+                             Learn More
+                         </a>
+                     {% endif %}
+                </div>
+                 {# Image Column #}
+                <div class="lg:col-span-6 xl:col-span-5 mt-10 lg:mt-0 reveal">
+                    <div class="hero-image-container">
+                        {% if banner_path %}
+                            <img src="{{ banner_path }}" alt="{{ headline }} banner" loading="eager"> {# Eager load hero image #}
+                        {% else %}
+                            {# Placeholder if no banner image #}
+                            <div class="hero-image-placeholder">
+                                 <svg class="h-16 w-16 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 10l-3.5-3.5a1 1 0 00-1.414 0L5 16m10-4l-2 2m0 0l-2-2m2 2V7" /></svg>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
-        {% endif %}
-
-        {# Hero content container, ensure it's above the background/overlay #}
-        <div class="hero-content w-full max-w-4xl mx-auto text-center reveal">
-             <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-3 hero-text-shadow">{{ headline | default("Welcome!") }}</h1>
-             <p class="text-lg sm:text-xl max-w-3xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline | default("Explore what we have to offer.") }}</p>
-             {% if about %}
-             {# Button style - Needs good contrast on gradient AND image overlay #}
-             <a href="#about" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-md text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-all transform hover:scale-105">
-                 <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
-                 Learn More
-             </a>
-             {% endif %}
-         </div>
+        </div>
     </section>
 
     <!-- About Section -->
      {% if about %}
          <section id="about" class="px-4 sm:px-6 lg:px-8 bg-white">
-             {# Use full width container to allow grid/centering logic #}
              <div class="w-full max-w-5xl mx-auto reveal">
-                 {# Check if about_image exists to determine layout #}
                  {% if about_image %}
                      {# Grid layout with image #}
                      <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-                         <div class="about-image-container relative mb-10 lg:mb-0 reveal">
-                             <img src="{{ about_image }}" alt="About {{ headline }}" loading="lazy">
+                         {# Image Column #}
+                         <div class="about-image-grid-col relative mb-10 lg:mb-0 reveal order-last lg:order-first"> {# Image first on large #}
+                             <div class="about-image-container w-full">
+                                 <img src="{{ about_image }}" alt="About {{ headline }}" loading="lazy">
+                             </div>
                          </div>
+                          {# Text Column #}
                          <div class="relative reveal text-center lg:text-left">
                              <h2 class="text-3xl font-bold text-gray-900 mb-4">About</h2>
-                             <div class="section-divider-thin mx-auto lg:mx-0"></div> {# Adjust divider alignment #}
+                             {# Use divider-left-lg for correct alignment #}
+                             <div class="section-divider-thin divider-left-lg"></div>
                              <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                                   {{ about }}
                              </div>
@@ -242,7 +263,8 @@
                      {# Centered text layout without image #}
                      <div class="max-w-3xl mx-auto text-center">
                          <h2 class="text-3xl font-bold text-gray-900 mb-4">About</h2>
-                         <div class="section-divider-thin"></div>
+                         {# Use divider-center for correct alignment #}
+                         <div class="section-divider-thin divider-center"></div>
                          <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
                               {{ about }}
                          </div>
@@ -258,7 +280,8 @@
          <div class="w-full max-w-5xl mx-auto">
              <div class="text-center mb-12 md:mb-16 reveal">
                  <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">What We Offer</h2>
-                 <div class="section-divider-thin mt-4"></div>
+                  {# Use divider-center for correct alignment #}
+                 <div class="section-divider-thin divider-center mt-4"></div>
              </div>
              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                  {% for service in services %}
