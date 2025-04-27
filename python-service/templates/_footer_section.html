@@ -5,7 +5,7 @@
 <footer class="bg-section-dark text-gray-400 pt-16 pb-8 px-4 sm:px-6 lg:px-8"> {# Increased top padding #}
      <div class="max-w-7xl mx-auto">
          {# Main Footer Content Grid #}
-         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12"> {# Added lg:grid-cols-4 #}
+         <div class="grid grid-cols-1 md:grid-cols-3 {% if social and (social.facebook or social.twitter or social.instagram or social.linkedin) %}lg:grid-cols-4{% else %}lg:grid-cols-3{% endif %} gap-8 mb-12">
 
              {# Column 1: Branding & About #}
              <div class="lg:col-span-1"> {# Allow this column to potentially span more on smaller screens if needed #}
@@ -72,23 +72,20 @@
                  </ul>
              </div>
 
-              {# Column 4: Social Media (moved to its own column for balance) #}
-             <div class="lg:col-span-1">
-                 <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Follow Us</h4>
-                 {% if social %}
-                    <div class="flex flex-wrap gap-4"> {# Use flex-wrap for responsiveness #}
-                        {% if social.facebook %}<a href="https://facebook.com/{{ social.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Facebook</span><svg class="h-6 w-6"><use href="#icon-facebook" /></svg></a>{% endif %}
-                        {% if social.twitter %}<a href="https://twitter.com/{{ social.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg></a>{% endif %}
-                        {% if social.instagram %}<a href="https://instagram.com/{{ social.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Instagram</span><svg class="h-6 w-6"><use href="#icon-instagram" /></svg></a>{% endif %}
-                        {% if social.linkedin %}<a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg></a>{% endif %}
-                        {# Add other relevant icons like GitHub, YouTube, etc. #}
-                    </div>
-                 {% else %}
-                    <p class="text-sm">Follow us for updates.</p> {# Fallback message #}
-                 {% endif %}
-             </div>
-
-         </div>
+          {# Column 4: Social Media - Only show if we have social media links #}
+          {% if social and (social.facebook or social.twitter or social.instagram or social.linkedin) %}
+          <div class="lg:col-span-1">
+               <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Follow Us</h4>
+               <div class="flex flex-wrap gap-4"> {# Use flex-wrap for responsiveness #}
+                    {% if social.facebook %}<a href="https://facebook.com/{{ social.facebook }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Facebook</span><svg class="h-6 w-6"><use href="#icon-facebook" /></svg></a>{% endif %}
+                    {% if social.twitter %}<a href="https://twitter.com/{{ social.twitter }}" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg></a>{% endif %}
+                    {% if social.instagram %}<a href="https://instagram.com/{{ social.instagram }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Instagram</span><svg class="h-6 w-6"><use href="#icon-instagram" /></svg></a>{% endif %}
+                    {% if social.linkedin %}<a href="{{ social.linkedin }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg></a>{% endif %}
+                    {# Add other relevant icons like GitHub, YouTube, etc. #}
+               </div>
+          </div>
+          {% endif %}
+        </div>
 
          {# Sub-Footer: Copyright and Credits #}
         <div class="border-t border-gray-700 pt-8 mt-8 text-center text-sm">
