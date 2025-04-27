@@ -42,17 +42,7 @@
       {% if email %}"email": "{{ email | escape }}",{% endif %}
       {% if phone %}"telephone": "{{ phone | escape }}",{% endif %}
       {# Address details would be handled by _contact_section.html if needed, or add here if present in root data #}
-      {# Filter out empty strings before joining #}
-      {% set sameAsLinks = [] %}
-      {% if social %} {# Check if social dictionary exists #}
-           {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %}
-           {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
-           {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %}
-           {% if social.linkedin %}{% set _ = sameAsLinks.append("https://linkedin.com/in/" + social.linkedin) %}{% endif %}
-      {% endif %}
-      {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
-      {# Remove trailing comma if needed - check output. Simplest is just to ensure another property follows #}
-       "mainEntityOfPage": {
+      "mainEntityOfPage": {
          "@type": "WebPage",
          {# Handle potentially missing DOMAIN_NAME #}
          "@id": "{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else '#' }}"
