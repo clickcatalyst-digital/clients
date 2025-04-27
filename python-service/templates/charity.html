@@ -5,21 +5,23 @@
 
 {# --- Meta Tags specific to Charity --- #}
 {% block meta_tags %}
-    <meta name="description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline | default('') }}">
+    <meta name="description" content="{{ (charityMission.mission if charityMission and charityMission.mission else tagline) | default('') }}">
     <meta name="author" content="{{ headline | default('') }}">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="profile"> {# Can use profile or organization #}
     <meta property="og:site_name" content="{{ headline | default('') }}">
     <meta property="og:title" content="{{ headline | default('') }} - {{ tagline | default('') }}">
-    <meta property="og:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline | default('') }}">
-    {% if logo %}<meta property="og:image" content="{{ logo }}">{% endif %} {# Adjusted to use 'logo' from your JSON #}
-    {# Assuming site_url corresponds to folder_name and DOMAIN_NAME is available #}
+    <meta property="og:description" content="{{ (charityMission.mission if charityMission and charityMission.mission else tagline) | default('') }}">
+    {# Use logo_path provided by Python script #}
+    {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %}
+    {# Handle potentially missing DOMAIN_NAME #}
     <meta property="og:url" content="{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else '#' }}">
     <!-- Twitter -->
     <meta property="twitter:card" content="summary"> {# Summary card often better for orgs #}
     <meta property="twitter:title" content="{{ headline | default('') }} - {{ tagline | default('') }}">
-    <meta property="twitter:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline | default('') }}">
-    {% if logo %}<meta property="twitter:image" content="{{ logo }}">{% endif %} {# Adjusted #}
+    <meta property="twitter:description" content="{{ (charityMission.mission if charityMission and charityMission.mission else tagline) | default('') }}">
+    {# Use logo_path provided by Python script #}
+    {% if logo_path %}<meta property="twitter:image" content="{{ logo_path }}">{% endif %}
 {% endblock meta_tags %}
 
 {# --- Schema.org --- #}
@@ -29,36 +31,32 @@
       "@context": "https://schema.org",
       "@type": "NGO", // Or Organization
       "name": "{{ headline | default('') | escape }}",
-      "url": "{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else '#' }}", {# Adjusted #}
-      {% if logo %}"logo": "{{ logo }}",{% endif %} {# Adjusted #}
+      {# Handle potentially missing DOMAIN_NAME #}
+      "url": "{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else '#' }}",
+      {# Use logo_path provided by Python script #}
+      {% if logo_path %}"logo": "{{ logo_path }}",{% endif %}
       {# Use mission if available, else tagline #}
       "description": "{{ (charityMission.mission if charityMission and charityMission.mission else tagline) | default('') | escape }}",
       {% if charityMission and charityMission.foundingStory %}"foundingStory": "{{ charityMission.foundingStory | escape }}",{% endif %}
       {% if charityMission and charityMission.foundedYear %}"foundingDate": "{{ charityMission.foundedYear | escape }}",{% endif %}
       {% if email %}"email": "{{ email | escape }}",{% endif %}
       {% if phone %}"telephone": "{{ phone | escape }}",{% endif %}
-      {# Assuming no specific location object in your flattened JSON based on example #}
-      {# If you had address fields directly under root, add them here, e.g.,
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "{{ street_address | default('') | escape }}",
-        "addressLocality": "{{ city | default('') | escape }}",
-        ...etc
-      },
-      #}
+      {# Address details would be handled by _contact_section.html if needed, or add here if present in root data #}
       {# Filter out empty strings before joining #}
       {% set sameAsLinks = [] %}
       {% if social %} {# Check if social dictionary exists #}
           {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %}
           {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
           {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %}
-          {# Only add linkedin if it seems like a full URL already #}
-          {% if social.linkedin and social.linkedin is startingwith('http') %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
+          {# CORRECTED: Use 'startswith' test #}
+          {# Ensure linkedin value is a string before testing #}
+          {% if social.linkedin and social.linkedin is string and social.linkedin is startswith('http') %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
       {% endif %}
       {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
       {# Remove trailing comma if needed - check output. Simplest is just to ensure another property follows #}
        "mainEntityOfPage": {
          "@type": "WebPage",
+         {# Handle potentially missing DOMAIN_NAME #}
          "@id": "{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else '#' }}"
        }
     }
@@ -68,47 +66,47 @@
 {# --- Page Specific Styles --- #}
 {% block page_styles %}
     <style>
-        /* Reverted to original styles from first post */
+        /* Styles from the original charity.html */
         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
-        h1, h2, h3, h4 { font-weight: 700; color: #111827; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; } /* Adjust color if needed based on final theme */
         .section-divider {
              height: 4px; width: 60px; margin: 1rem auto 1.5rem; /* Adjusted margin */
              background-color: var(--color-primary); border-radius: 9999px;
         }
 
         /* Hero */
-        .hero-section { position: relative; overflow: hidden; /* Ensure overflow is hidden for absolute positioning */}
+        .hero-section { position: relative; overflow: hidden; }
         .hero-section .hero-bg-image {
             position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; z-index: 0; opacity: 0.20; /* Original opacity */
+            object-fit: cover; z-index: 0; opacity: 0.20;
         }
         .hero-section .hero-bg-overlay {
-             position: absolute; inset: 0; z-index: 1; /* Above image, below text */
-             background: linear-gradient(to bottom right, var(--color-primary), var(--color-secondary)); /* Original gradient */
-             opacity: 0.60; /* Original opacity */
-             mix-blend-mode: multiply; /* Original blend mode */
+             position: absolute; inset: 0; z-index: 1;
+             background: linear-gradient(to bottom right, var(--color-primary), var(--color-secondary));
+             opacity: 0.60;
+             mix-blend-mode: multiply;
         }
-        .hero-section .hero-content { position: relative; z-index: 10; } /* Ensure text is above overlay */
+        .hero-section .hero-content { position: relative; z-index: 10; }
         .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
         .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-        .hero-text-shadow { /* Added for consistency with original template */
+        .hero-text-shadow {
              text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
          }
 
         /* Impact Stats */
         .impact-stat-item { text-align: center; }
-        .impact-stat-value { font-size: 2.5rem; /* text-4xl */ line-height: 1; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem; }
-        @media (min-width: 640px) { .impact-stat-value { font-size: 3rem; /* sm:text-5xl */ } }
-        .impact-stat-label { font-size: 0.875rem; /* text-sm */ color: #4b5563; /* text-gray-600 */ font-weight: 500; /* medium */ }
-        .impact-stat-desc { font-size: 0.75rem; /* text-xs */ color: #6b7280; /* text-gray-500 */ margin-top: 0.25rem; }
+        .impact-stat-value { font-size: 2.5rem; line-height: 1; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem; }
+        @media (min-width: 640px) { .impact-stat-value { font-size: 3rem; } }
+        .impact-stat-label { font-size: 0.875rem; color: #4b5563; font-weight: 500; }
+        .impact-stat-desc { font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem; }
 
         /* Success Story Card */
         .success-story-card {
-            background-color: #f9fafb; /* bg-gray-50 */ border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: 0 2px 4px rgba(0,0,0,.05); padding: 1.5rem; /* p-6 */ border: 1px solid #e5e7eb;
-            margin-bottom: 1.5rem; /* Added space between cards */
+            background-color: #f9fafb; border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,.05); padding: 1.5rem; border: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
         }
-         .success-story-card h4 { color: var(--color-secondary); /* Use secondary color for title */ margin-bottom: 0.25rem; font-size: 1.125rem; }
+         .success-story-card h4 { color: var(--color-secondary); margin-bottom: 0.25rem; font-size: 1.125rem; }
          .success-story-card .meta { font-size: 0.75rem; color: #6b7280; margin-bottom: 0.75rem; }
          .success-story-card p { color: #374151; line-height: 1.6; }
 
@@ -116,35 +114,33 @@
          .involved-card {
              background-color: white; border-radius: 0.5rem; padding: 2rem; text-align: center;
              box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05);
-             border: 1px solid #e5e7eb; transition: all 0.2s ease; /* var(--transition-speed) */
-             display: flex; flex-direction: column; align-items: center; height: 100%; /* Make cards same height */
+             border: 1px solid #e5e7eb; transition: all 0.2s ease;
+             display: flex; flex-direction: column; align-items: center; height: 100%;
          }
          .involved-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.08); }
-         .involved-card svg { width: 3rem; height: 3rem; margin-bottom: 1rem; } /* Keep style, assuming SVGs are used */
+         .involved-card svg { width: 3rem; height: 3rem; margin-bottom: 1rem; }
          .involved-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
          .involved-card p { font-size: 0.875rem; color: #4b5563; margin-bottom: 1.25rem; flex-grow: 1;}
-         .involved-card a { margin-top: auto; /* Push button down */}
+         .involved-card a { margin-top: auto; }
 
          /* Ensure reveal placeholders don't break layout if JS isn't added */
-         .reveal { opacity: 1; transform: none; } /* Default state if JS fails or isn't present */
+         /* .reveal { opacity: 1; transform: none; } */ /* Base template handles reveal */
 
     </style>
-     {# Original Font Links - uncomment if needed
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> #}
+     {# Font links can be added here or managed globally in _base.html if desired #}
 {% endblock page_styles %}
 
 {# --- Header --- #}
 {% block header %}
+    {# Overriding the base header for charity-specific navigation #}
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                  <div class="flex items-center">
-                    {% if logo %}
+                    {# Use logo_path provided by Python script #}
+                    {% if logo_path %}
                         <a href="#" aria-label="{{ headline | default('Charity') }} homepage">
-                            {# Using 'logo' field from your JSON #}
-                            <img class="h-10 w-auto" src="{{ logo }}" alt="{{ headline | default('Charity') }} logo" loading="lazy">
+                            <img class="h-10 w-auto" src="{{ logo_path }}" alt="{{ headline | default('Charity') }} logo" loading="lazy">
                         </a>
                     {% endif %}
                     <div class="ml-3">
@@ -153,15 +149,14 @@
                 </div>
                  <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
                     <a href="#mission" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Mission</a>
-                    {# Conditionally show Impact link - uses original check #}
+                    {# Conditionally show Impact link #}
                     {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
                        <a href="#impact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Impact</a>
                     {% endif %}
                     <a href="#get-involved" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Get Involved</a>
                     <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
-                    {# Original donation link logic #}
+                    {# Use default for donation_url #}
                     <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                       {# Keep original SVG reference method #}
                        <svg class="h-5 w-5 mr-1.5 -ml-1"><use href="#icon-heart" /></svg>
                         Donate
                     </a>
@@ -169,13 +164,15 @@
                  <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
                         <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg> {# Original icon reference #}
+                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
                     </button>
                 </div>
             </div>
         </nav>
-        <!-- Mobile menu Container (Original Structure) -->
-        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-40"> {# z-40 to be below sticky header but above content #}
+        <!-- Mobile menu Container -->
+        {# Use base mobile menu structure but define charity-specific links #}
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-40">
+             {% block mobile_nav_links %} {# Override the block from _base.html #}
              <div class="px-2 pt-2 pb-4 space-y-1">
                 <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Mission</a>
                 {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
@@ -183,28 +180,32 @@
                  {% endif %}
                 <a href="#get-involved" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Get Involved</a>
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
-                <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-contrast-primary bg-primary hover:opacity-90 w-full"> {# Added w-full for better mobile appearance #}
+                {# Use default for donation_url #}
+                <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-contrast-primary bg-primary hover:opacity-90 w-full">
                     <svg class="h-5 w-5 mr-2"><use href="#icon-heart" /></svg> Donate Now
                 </a>
              </div>
+             {% endblock mobile_nav_links %}
         </div>
     </header>
 {% endblock header %}
 
 {# --- Main Page Content --- #}
 {% block content %}
-    <!-- Hero Section (Original Structure) -->
-     <section class="hero-section bg-gradient-primary py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient text-center" id="main-content"> {# Added text-center #}
-         {% if banner %} {# Use 'banner' from your JSON #}
+    <!-- Hero Section -->
+     <section class="hero-section bg-gradient-primary py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient text-center" id="main-content">
+         {# Use banner_path provided by Python script #}
+         {% if banner_path %}
          <div class="absolute inset-0">
-             <img src="{{ banner }}" alt="Charity background image" class="hero-bg-image" loading="eager">
+             <img src="{{ banner_path }}" alt="Charity background image" class="hero-bg-image" loading="eager">
              <div class="hero-bg-overlay" aria-hidden="true"></div>
          </div>
          {% endif %}
-         <div class="max-w-4xl mx-auto text-center relative z-10 hero-content"> {# Added text-center & hero-content class #}
+         <div class="max-w-4xl mx-auto text-center relative z-10 hero-content">
              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-3 hero-text-shadow">{{ headline | default('Support Our Cause') }}</h1>
              <p class="text-xl sm:text-2xl max-w-3xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline | default('Join us in making a positive impact.') }}</p>
              <div class="flex flex-wrap justify-center gap-4 sm:gap-5">
+                 {# Use default for donation_url #}
                  <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary focus:ring-primary transition-all transform hover:scale-105">
                      <svg class="h-5 w-5 mr-2"><use href="#icon-heart" /></svg>
                      Support Our Cause
@@ -216,14 +217,14 @@
          </div>
     </section>
 
-    <!-- Mission/About Section - NOW ACTIVE -->
-    <section id="mission" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Original BG #}
-        <div class="max-w-4xl mx-auto reveal text-center"> {# Original classes #}
+    <!-- Mission/About Section -->
+    <section id="mission" class="py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral"> {# Use base class #}
+        <div class="max-w-4xl mx-auto reveal text-center">
             <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Our Mission</h2>
             <div class="section-divider"></div>
              {% if charityMission and charityMission.mission %}
                 <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">{{ charityMission.mission }}</p>
-            {% elif about %} {# Fallback to about field #}
+            {% elif about %} {# Fallback to about field from root data #}
                  <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">{{ about }}</p>
             {% else %}
                  <p class="text-lg md:text-xl text-gray-700 leading-relaxed mb-6">Learn more about our goals and vision.</p> {# Default text #}
@@ -248,10 +249,10 @@
          </div>
     </section>
 
-     <!-- Impact Section - NOW ACTIVE -->
+     <!-- Impact Section -->
      {# Only render section if there's data to show #}
      {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
-        <section id="impact" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# Original BG #}
+        <section id="impact" class="py-20 px-4 sm:px-6 lg:px-8 bg-section-light"> {# Use base class #}
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16 reveal">
                     <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Our Impact</h2>
@@ -261,10 +262,10 @@
                  {# Impact Stats - Check list exists and has items #}
                  {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
                      {% set stat_count = charityImpact.impactStats | length %}
-                     {# Original column logic #}
+                     {# Dynamic column logic #}
                      {% set col_class = 'sm:grid-cols-1' %} {# Default #}
-                     {% if stat_count == 2 %}{% set col_class = 'sm:grid-cols-2' %}{% endif %}
-                     {% if stat_count >= 3 %}{% set col_class = 'sm:grid-cols-3' %}{% endif %}
+                     {% if stat_count == 2 %}{% set col_class = 'md:grid-cols-2' %}{% endif %} {# Use md for 2 cols #}
+                     {% if stat_count >= 3 %}{% set col_class = 'md:grid-cols-3' %}{% endif %} {# Use md for 3 cols #}
                       <div class="grid grid-cols-1 {{ col_class }} gap-10 text-center mb-16 reveal">
                          {% for stat in charityImpact.impactStats %}
                              <div class="impact-stat-item">
@@ -282,7 +283,7 @@
                     {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
                          <hr class="my-16 border-gray-200 reveal">
                     {% endif %}
-                     <div class="space-y-12 reveal"> {# Original spacing #}
+                     <div class="space-y-12 reveal">
                          <h3 class="text-2xl font-semibold text-center text-gray-800 mb-8">Success Stories</h3>
                          {% for story in charityImpact.successStories %}
                          <div class="success-story-card reveal"> {# Original card class #}
@@ -301,25 +302,26 @@
         </section>
     {% endif %} {# End of conditional Impact Section #}
 
-     <!-- Get Involved Section (Original Structure) -->
-     <section id="get-involved" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Original BG #}
-         <div class="max-w-5xl mx-auto text-center"> {# Original max-width #}
+     <!-- Get Involved Section -->
+     <section id="get-involved" class="py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral"> {# Use base class #}
+         <div class="max-w-5xl mx-auto text-center">
               <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 reveal">Get Involved</h2>
               <div class="section-divider reveal"></div>
-              <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 reveal mb-12">Join us in making a difference. Here's how you can contribute to our cause.</p>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-10"> {# Original gap #}
+              <p class="mt-4 max-w-2xl mx-auto text-lg text-muted reveal mb-12">Join us in making a difference. Here's how you can contribute to our cause.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                  {# Donate Card #}
-                 <div id="donate" class="involved-card reveal">
-                      <svg class="text-primary"><use href="#icon-gift" /></svg> {# Original icon reference #}
+                 <div id="donate" class="involved-card reveal"> {# Use ID for anchor link target #}
+                      <svg class="text-primary"><use href="#icon-gift" /></svg>
                       <h3>Donate</h3>
                       <p>Your contribution, big or small, helps us continue our work and reach more people in need.</p>
+                      {# Use default for donation_url #}
                       <a href="{{ donation_url | default('#contact') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all transform hover:scale-105">
                          Make a Donation
                       </a>
                  </div>
                   {# Volunteer Card #}
                   <div class="involved-card reveal">
-                      <svg class="text-secondary"><use href="#icon-hand-raised" /></svg> {# Original icon reference #}
+                      <svg class="text-secondary"><use href="#icon-hand-raised" /></svg>
                       <h3>Volunteer</h3>
                       <p>Lend your time and skills! We have various opportunities where your help can make a real impact.</p>
                       <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all transform hover:scale-105">
@@ -331,40 +333,14 @@
      </section>
 
     <!-- Contact Section (Included via _base.html) -->
-    {# Assuming this is handled by _base.html as per original comments #}
-    {# {% include "_contact_section.html" %} #}
+    {# No need to include here, _base.html handles it #}
 
 {% endblock content %}
 
-{# Footer (Included via _base.html) #}
+{# Footer (Included via _base.html) - No block needed #}
 
 {# --- Page Specific JS --- #}
 {% block page_scripts %}
-{# Keep this block empty to avoid adding the new JS from the previous attempt #}
-{# If you had specific JS here originally, add it back. Adding basic mobile menu toggle as it's essential #}
-<script>
- // Basic Mobile Menu Toggle (Minimal version)
- const mobileMenuButton = document.getElementById('mobile-menu-button');
- const mobileMenu = document.getElementById('mobile-menu');
-
- if (mobileMenuButton && mobileMenu) {
-   mobileMenuButton.addEventListener('click', () => {
-     const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-     mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-     mobileMenu.classList.toggle('hidden');
-   });
-
-   // Optional: Close menu when clicking a link inside it
-    mobileMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mobileMenuButton.setAttribute('aria-expanded', 'false');
-            mobileMenu.classList.add('hidden');
-        });
-    });
- }
-
- // Minimal reveal logic placeholder if needed (just makes elements visible)
- document.querySelectorAll(".reveal").forEach(el => el.style.opacity = 1);
-
-</script>
+{# Base template JS handles mobile menu, reveal, scroll-to-top etc. #}
+{# Keep this empty unless charity page needs *additional* JS not in _base.html #}
 {% endblock page_scripts %}
