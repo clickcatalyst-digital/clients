@@ -48,8 +48,7 @@
            {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %}
            {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
            {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %}
-           {# CORRECTED: Use 'startswith' filter correctly #}
-           {% if social.linkedin and social.linkedin is string and social.linkedin | startswith('http') %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
+           {% if social.linkedin %}{% set _ = sameAsLinks.append("https://linkedin.com/in/" + social.linkedin) %}{% endif %}
       {% endif %}
       {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
       {# Remove trailing comma if needed - check output. Simplest is just to ensure another property follows #}
