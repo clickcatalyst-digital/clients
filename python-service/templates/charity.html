@@ -1,0 +1,211 @@
+{% extends "_base.html" %}
+
+{# --- Page Title --- #}
+{% block title %}{{ headline }} - {{ tagline }}{% endblock title %}
+
+{# --- Meta Tags specific to Charity --- #}
+{% block meta_tags %}
+{# Use Jinja comments to disable rendering during debugging #}
+{# <meta name="description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> #}
+    <meta name="author" content="{{ headline }}">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile"> {# Or organization #}
+    <meta property="og:site_name" content="{{ headline }}">
+    <meta property="og:title" content="{{ headline }} - {{ tagline }}">
+{# <meta property="og:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> #}
+    {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %}
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary"> {# summary_large_image or summary #}
+    <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
+{# <meta property="twitter:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> #}
+    {% if logo_path %}<meta property="twitter:image" content="{{ logo_path }}">{% endif %}
+{% endblock meta_tags %}
+
+{# --- Schema.org JSON-LD --- #}
+{% block schema_org %}
+    {# JSON-LD must be valid JSON; we’ll build a dict and render #}
+    <script type="application/ld+json">
+    {{ {
+        "@context": "https://schema.org",
+        "@type": "NGO",
+        "name": headline,
+        "url": ('https://' + folder_name + '.' + DOMAIN_NAME) if folder_name and DOMAIN_NAME else '#',
+        "logo": logo_path if logo_path else omit,
+        "description": (charityMission.mission if charityMission and charityMission.mission else tagline),
+        "foundingStory": charityMission.foundingStory if charityMission.foundingStory else omit,
+        "foundingDate": charityMission.foundedYear if charityMission.foundedYear else omit,
+        "email": email if email else omit,
+        "telephone": phone if phone else omit,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": location.address,
+            "addressLocality": location.city,
+            "addressRegion": location.state,
+            "postalCode": location.zip,
+            "addressCountry": location.country
+        } if location and location.address else omit,
+        "sameAs": sameAsLinks if sameAsLinks else omit
+    } | tojson | safe }}
+    </script>
+{% endblock schema_org %}
+
+{# --- Page Specific Styles --- #}
+{% block page_styles %}
+    <style>
+        /* Typography */
+        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; }
+        .section-divider { width: 60px; margin-bottom: 1.5rem; }
+        /* Hero */
+        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        /* Impact Stats */
+        .impact-stat-item { text-align: center; }
+        .impact-stat-value { font-size: 2.5rem; line-height: 1; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem; }
+        @media (min-width: 640px) { .impact-stat-value { font-size: 3rem; } }
+        .impact-stat-label { font-size: 0.875rem; color: #4b5563; font-weight: 500; }
+        .impact-stat-desc { font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem; }
+        /* Success Story Card */
+        .success-story-card { background-color: #f9fafb; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,.05); padding: 1.5rem; border: 1px solid #e5e7eb; }
+        .success-story-card h4 { margin-bottom: 0.25rem; font-size: 1.125rem; }
+        .success-story-card .meta { font-size: 0.75rem; color: #6b7280; margin-bottom: 0.75rem; }
+        .success-story-card p { color: #374151; line-height: 1.6; }
+        /* Get Involved Cards */
+        .involved-card { background-color: white; border-radius: 0.5rem; padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); }
+        .involved-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    </style>
+{% endblock page_styles %}
+
+{# --- Header & Navigation --- #}
+{% block header %}
+    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    {% if logo_path %}
+                        <a href="#" aria-label="{{ headline }} homepage">
+                            <img src="{{ logo_path }}" class="h-10 w-auto" loading="lazy" alt="{{ headline }} logo">
+                        </a>
+                    {% endif %}
+                    <a href="#" class="ml-3 text-lg font-bold text-gray-800 hover:text-primary transition-colors">{{ headline }}</a>
+                </div>
+                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
+                    <a href="#mission" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Mission</a>
+                    {# {# {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %} #}
+                    <a href="#impact" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Impact</a>
+                    {# {% endif %} #}
+                    <a href="#get-involved" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Get Involved</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                    <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="ml-4 inline-flex items-center px-4 py-2 bg-primary text-contrast-primary rounded-md shadow-sm hover:opacity-90">Donate</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center p-2 rounded-md text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-primary">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full inset-x-0 p-2 bg-white shadow-lg z-30">
+            <div class="px-2 pt-2 pb-4 space-y-1">
+                <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Mission</a>
+                {# {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %} #}
+                <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Impact</a>
+                {# {% endif %} #}
+                <a href="#get-involved" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Get Involved</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact</a>
+                <a href="{{ donation_url | default('#donate') }}" class="mt-2 block text-center px-4 py-2 bg-primary text-contrast-primary rounded-md hover:opacity-90">Donate Now</a>
+            </div>
+        </div>
+    </header>
+{% endblock header %}
+
+{# --- Main Content --- #}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero-section bg-gradient-primary py-24 md:py-32 text-contrast-gradient relative text-center" id="main-content">
+    {% if banner_path %}
+    <div class="absolute inset-0">
+        <img src="{{ banner_path }}" alt="Charity background" class="w-full h-full object-cover opacity-20">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary to-secondary mix-blend-multiply opacity-60"></div>
+    </div>
+    {% endif %}
+    <div class="relative z-10 max-w-4xl mx-auto">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-3">{{ headline }}</h1>
+        <p class="text-xl sm:text-2xl mb-8">{{ tagline }}</p>
+        <div class="flex justify-center gap-4">
+            <a href="{{ donation_url | default('#donate') }}" class="px-8 py-3 bg-primary text-contrast-primary rounded-md shadow-lg hover:scale-105 transition">Support Our Cause</a>
+            <a href="#mission" class="px-8 py-3 bg-white text-primary rounded-md shadow-sm hover:scale-105 transition">Learn More</a>
+        </div>
+    </div>
+</section>
+
+{# Our Mission Section (commented) #}
+{#
+<section id="mission" class="py-20 bg-gray-50 text-center">
+    <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
+    <div class="section-divider mx-auto"></div>
+    {% if charityMission.mission %}
+        <p class="mt-6 text-gray-700">{{ charityMission.mission }}</p>
+    {% elif about %}
+        <p class="mt-6 text-gray-700">{{ about }}</p>
+    {% endif %}
+    {% if charityMission.values and charityMission.values|length > 0 %}
+    <div class="mt-10 flex flex-wrap justify-center gap-3">
+        {% for value in charityMission.values %}
+            <span class="px-4 py-1.5 rounded-full bg-secondary text-contrast-secondary">{{ value }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+</section>
+#}
+
+{# Impact Section (commented) #}
+{#
+{% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
+<section id="impact" class="py-20 bg-white">
+    <h2 class="text-3xl font-bold text-center mb-8">Our Impact</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center mb-16">
+        {% for stat in charityImpact.impactStats %}
+        <div>
+            <div class="impact-stat-value">{{ stat.value }}</div>
+            <div class="impact-stat-label">{{ stat.label }}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="space-y-12">
+        {% for story in charityImpact.successStories %}
+        <div class="success-story-card">
+            <h4 class="font-semibold">{{ story.title }}</h4>
+            <p class="meta text-gray-600 mb-2">{{ story.date }}{% if story.location %} | {{ story.location }}{% endif %}</p>
+            <p>{{ story.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+#}
+
+<!-- Get Involved -->
+<section id="get-involved" class="py-20 bg-gray-50 text-center">
+    <h2 class="text-3xl font-bold mb-4">Get Involved</h2>
+    <div class="section-divider mx-auto mb-6"></div>
+    <p class="max-w-2xl mx-auto text-gray-600 mb-12">Join us in making a difference. Here's how you can help.</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <div class="involved-card">
+            <svg class="h-12 w-12 text-primary"><use href="#icon-gift"/></svg>
+            <h3>Donate</h3>
+            <p>Your contribution helps us reach more people in need.</p>
+            <a href="{{ donation_url | default('#contact') }}" class="mt-4 px-6 py-3 bg-primary text-contrast-primary rounded-md">Make a Donation</a>
+        </div>
+        <div class="involved-card">
+            <svg class="h-12 w-12 text-secondary"><use href="#icon-hand-raised"/></svg>
+            <h3>Volunteer</h3>
+            <p>Lend your time and skills to our programs.</p>
+            <a href="#contact" class="mt-4 px-6 py-3 bg-secondary text-contrast-secondary rounded-md">Contact Us</a>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
