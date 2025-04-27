@@ -234,7 +234,7 @@
              {% endif %}
 
              {# Values - Check list exists and has items #}
-             {% if charityMission and charityMission.values and charityMission.values | length > 0 %}
+             {% if charityMission and charityMission.values %}
              <div class="mt-10">
                  <h3 class="text-xl font-semibold text-primary mb-4">Our Core Values</h3>
                  <div class="flex flex-wrap justify-center gap-3">
@@ -258,7 +258,7 @@
                 </div>
 
                  {# Impact Stats - Check list exists and has items #}
-                 {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
+                 {% if charityImpact.impactStats %}
                      {% set stat_count = charityImpact.impactStats | length %}
                      {# Dynamic column logic #}
                      {% set col_class = 'sm:grid-cols-1' %} {# Default #}
@@ -276,9 +276,9 @@
                  {% endif %}
 
                  {# Success Stories - Check list exists and has items #}
-                 {% if charityImpact.successStories and charityImpact.successStories | length > 0 %}
+                 {% if charityImpact.successStories %}
                     {# Divider logic - only show if stats also exist #}
-                    {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
+                    {% if charityImpact.impactStats %}
                          <hr class="my-16 border-gray-200 reveal">
                     {% endif %}
                      <div class="space-y-12 reveal">
