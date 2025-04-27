@@ -6,7 +6,6 @@
 {# --- Meta Tags (Using base defaults) --- #}
 {% block meta_tags %}
     {{ super() }} {# Inherit base meta tags #}
-    {# Add any default-specific meta tags if needed #}
 {% endblock meta_tags %}
 
 {# --- Schema.org --- #}
@@ -30,19 +29,38 @@
         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
         h1, h2 { font-weight: 700; color: #111827; } /* text-gray-900 */
 
-        /* Gradient Hero Section */
+        /* Enhanced Section Heights & Centering */
+        section {
+            /* Default min-height for sections */
+            min-height: 65vh;
+            display: flex; /* Enable flexbox for vertical centering */
+            align-items: center; /* Vertically center content */
+            padding-top: 4rem; /* py-16 */
+            padding-bottom: 4rem; /* py-16 */
+        }
+        @media (min-width: 768px) { /* md */
+            section {
+                 min-height: 70vh;
+                 padding-top: 5rem; /* md:py-20 */
+                 padding-bottom: 5rem; /* md:py-20 */
+            }
+        }
+
+        /* Gradient Hero Section - Increased Height */
         .hero-section {
-             /* Define gradient using primary and secondary, provide fallbacks */
             background: linear-gradient(to bottom right, var(--color-primary, #4f46e5), var(--color-secondary, #ec4899));
-             /* Ensure text has good contrast on gradient */
             color: var(--color-text-on-gradient, white);
-            padding: 5rem 1rem; /* py-20 px-4 */
+             /* Override default section height for hero */
+            min-height: 80vh; /* Make hero taller */
+            padding-top: 5rem; /* Adjust padding if needed */
+            padding-bottom: 5rem;
         }
          @media (min-width: 768px) { /* md */
-            .hero-section { padding: 7rem 1.5rem; } /* md:py-28 md:px-6 */
-         }
-         @media (min-width: 1024px) { /* lg */
-            .hero-section { padding: 7rem 2rem; } /* lg:py-28 lg:px-8 */
+            .hero-section {
+                 min-height: 85vh;
+                 padding-top: 7rem;
+                 padding-bottom: 7rem;
+            }
          }
 
         /* Ensure hero text inherits the section's color */
@@ -74,13 +92,19 @@
             padding: 1.5rem; /* p-6 */
             text-align: center;
             transition: all 0.3s ease-in-out;
-             /* Subtle border for definition */
             border: 1px solid var(--color-border-soft, #e5e7eb); /* border-gray-200 */
+            height: 100%; /* Make cards fill grid height */
+            display: flex; /* Flex column for content */
+            flex-direction: column;
         }
         .service-card:hover {
             transform: translateY(-6px); /* More noticeable lift */
             box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)); /* Tailwind shadow-lg */
         }
+        .service-card-content {
+            flex-grow: 1; /* Allow content to push icon/title up */
+        }
+
 
         /* Refined Icon Wrapper in Service Card */
         .service-icon-wrapper {
@@ -90,9 +114,7 @@
             height: 3rem; /* h-12 */
             width: 3rem; /* w-12 */
             border-radius: 9999px; /* rounded-full */
-             /* Lighter primary background, more subtle */
             background-color: color-mix(in srgb, var(--color-primary, #4f46e5) 15%, transparent);
-             /* Use primary color for the icon itself */
             color: var(--color-primary, #4f46e5);
             margin-bottom: 1rem; /* mb-4 */
         }
@@ -112,16 +134,16 @@
         .prose h2, .prose h3 { color: #111827; } /* Match heading colors */
 
     </style>
-     {# Optional: Font loading (Uncomment if Inter isn't loaded globally) #}
+     {# Optional: Font loading #}
      {# <link rel="preconnect" href="https://fonts.googleapis.com">
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> #}
 {% endblock page_styles %}
 
-{# --- Header (Simplified - Unchanged from your input) --- #}
+{# --- Header with Section Navigation --- #}
 {% block header %}
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
-        <nav class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> {# Use wider container for nav #}
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
                     {% if logo_path %}
@@ -130,15 +152,25 @@
                         </a>
                     {% endif %}
                     <div class="ml-3">
-                        <a href="#" class="text-lg font-semibold text-gray-800">{{ headline | default("Website Title") }}</a>
+                        <a href="#" class="text-lg font-semibold text-gray-800 hover:text-primary transition-colors">{{ headline | default("Website Title") }}</a>
                     </div>
                 </div>
-                {# Only show Contact link if data exists #}
-                {% if email or phone %}
-                    <div class="hidden md:block">
-                         <a href="#contact" class="text-sm font-medium text-primary hover:opacity-80 transition-opacity">Contact</a>
-                    </div>
-                    {# Mobile Menu Button - Only needed if there are mobile actions #}
+
+                {# Desktop Navigation Links #}
+                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
+                    {% if about %}
+                        <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
+                    {% endif %}
+                    {% if services and services | length > 0 %}
+                        <a href="#services" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Services</a>
+                    {% endif %}
+                    {% if email or phone %} {# Assume contact section exists if email/phone exist #}
+                        <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                    {% endif %}
+                </div>
+
+                {# Mobile Menu Button - Show if any nav links exist #}
+                {% if about or (services and services | length > 0) or email or phone %}
                     <div class="md:hidden flex items-center">
                        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
                            <span class="sr-only">Open main menu</span>
@@ -148,13 +180,22 @@
                 {% endif %}
             </div>
         </nav>
-        <!-- Mobile menu Container - Only include if button exists -->
-        {% if email or phone %}
-        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
-             <div class="px-2 pt-2 pb-4 space-y-1">
-                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
-             </div>
-        </div>
+
+        {# Mobile menu Container - Only include if button exists #}
+        {% if about or (services and services | length > 0) or email or phone %}
+            <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-40">
+                <div class="px-2 pt-2 pb-4 space-y-1">
+                    {% if about %}
+                        <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
+                    {% endif %}
+                    {% if services and services | length > 0 %}
+                         <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Services</a>
+                    {% endif %}
+                    {% if email or phone %}
+                        <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                    {% endif %}
+                </div>
+            </div>
         {% endif %}
     </header>
 {% endblock header %}
@@ -163,11 +204,11 @@
 {% block content %}
     <!-- Hero Section: Gradient Background -->
     <section class="hero-section" id="main-content">
-         <div class="max-w-4xl mx-auto text-center reveal">
+        {# Wrap content in a div to allow flex centering on the section #}
+        <div class="w-full max-w-4xl mx-auto text-center reveal">
              <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-3 hero-text-shadow">{{ headline | default("Welcome!") }}</h1>
              <p class="text-lg sm:text-xl max-w-3xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline | default("Explore what we have to offer.") }}</p>
              {% if about %}
-             {# Button style remains contrasting white on gradient #}
              <a href="#about" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
                  <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
                  Learn More
@@ -178,13 +219,13 @@
 
     <!-- About Section -->
      {% if about %}
-         <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-white"> {# White bg for contrast #}
-             <div class="max-w-3xl mx-auto reveal text-center"> {# Constrained width for readability #}
+         <section id="about" class="px-4 sm:px-6 lg:px-8 bg-white"> {# White bg #}
+             {# Wrap content in a div to allow flex centering on the section #}
+             <div class="w-full max-w-3xl mx-auto reveal text-center">
                  <h2 class="text-3xl font-bold text-gray-900 mb-4">About</h2>
-                 <div class="section-divider-thin"></div> {# Use refined divider #}
-                 {# Use prose for potential markdown content styling #}
+                 <div class="section-divider-thin"></div>
                  <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed text-left md:text-center">
-                      {{ about }} {# Assume 'about' can contain markdown or HTML #}
+                      {{ about }}
                  </div>
               </div>
          </section>
@@ -192,24 +233,26 @@
 
     <!-- Optional Services/Features Section -->
     {% if services and services | length > 0 %}
-    <section id="services" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Light gray bg #}
-         <div class="max-w-5xl mx-auto">
-             <div class="text-center mb-12 md:mb-16 reveal"> {# Increased bottom margin #}
+    <section id="services" class="px-4 sm:px-6 lg:px-8 bg-gray-100"> {# Darker gray bg (Tailwind gray-100) #}
+         {# Wrap content in a div to allow flex centering on the section #}
+         <div class="w-full max-w-5xl mx-auto">
+             <div class="text-center mb-12 md:mb-16 reveal">
                  <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">What We Offer</h2>
-                 <div class="section-divider-thin mt-4"></div> {# Use refined divider #}
+                 <div class="section-divider-thin mt-4"></div>
              </div>
              <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                  {% for service in services %}
-                     {# Use the defined service-card style #}
                      <div class="service-card reveal">
-                        <div class="service-icon-wrapper"> {# Use defined icon wrapper style #}
-                             {# Use a sensible default icon like check-circle #}
+                        <div class="service-icon-wrapper">
                             <svg><use href="#icon-{{ service.icon | default('check-circle') }}" /></svg>
                         </div>
-                        <h3 class="text-lg font-semibold mb-2 text-gray-900">{{ service.name | default("Feature") }}</h3>
-                        {% if service.description %}
-                            <p class="text-gray-600 text-sm">{{ service.description }}</p>
-                        {% endif %}
+                        {# Wrap text content for flex grow #}
+                        <div class="service-card-content">
+                             <h3 class="text-lg font-semibold mb-2 text-gray-900">{{ service.name | default("Feature") }}</h3>
+                             {% if service.description %}
+                                 <p class="text-gray-600 text-sm">{{ service.description }}</p>
+                             {% endif %}
+                        </div>
                      </div>
                  {% endfor %}
              </div>
@@ -219,9 +262,8 @@
 
      <!-- Contact Section (Included via _base.html) -->
      {# The {% include "_contact_section.html" %} in _base.html handles this #}
-     {# Ensure the _contact_section.html uses appropriate background (e.g., bg-white or bg-section-neutral) #}
+     {# Remember this section will use its own background defined in _contact_section.html or inherit base styles #}
 
 {% endblock content %}
 
 {# Footer (Included via _base.html) #}
-{# Ensure footer in _base.html has appropriate background color (e.g., bg-gray-800 text-gray-300) #}
