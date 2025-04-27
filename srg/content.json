@@ -1,0 +1,79 @@
+{
+  "user_type": "business",
+  "color_palette": "luxurious-chic",
+  "headline": "srg",
+  "tagline": "sdg",
+  "about": "gdg",
+  "services": [
+    {
+      "name": "gsdsgd",
+      "icon": "briefcase",
+      "description": "sgdsgd"
+    },
+    {
+      "name": "dghfdhf",
+      "icon": "clipboard-list",
+      "description": "hfdfdh"
+    },
+    {
+      "name": "hfjnhet",
+      "icon": "chart-square-bar",
+      "description": "rehreh"
+    },
+    {
+      "name": "shrrh",
+      "icon": "shopping-bag",
+      "description": "dsghshghgs"
+    },
+    {
+      "name": "resergseg",
+      "icon": "adjustments-horizontal",
+      "description": "egsegs"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "esgesg",
+      "title": "segeg",
+      "company": "egs",
+      "rating": "2",
+      "quote": "gerwgegeweg"
+    }
+  ],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "logo": null,
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "efqt432",
+    "telegram": "3232",
+    "facebook": "ewtwe",
+    "instagram": "ewfewf",
+    "twitter": "waeffaw",
+    "linkedin": "awfawf"
+  },
+  "site_url": "srg",
+  "banner": null,
+  "about_image": null,
+  "websiteId": "web-2traumnum9zwpy43",
+  "createdAt": "2025-04-27T17:12:05.618Z",
+  "lastUpdated": "2025-04-27T17:12:05.618Z",
+  "status": "pending_deployment"
+}
