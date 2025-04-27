@@ -1,0 +1,80 @@
+{
+  "user_type": "charity",
+  "color_palette": "retro-pop",
+  "headline": "svdvdsf",
+  "tagline": "svddssdsbdv",
+  "about": "sbdsbdbsbsd",
+  "services": [
+    {
+      "name": "bsdsbds",
+      "icon": "briefcase",
+      "description": "bsdsdbdsb"
+    },
+    {
+      "name": "sdbsdbdsb",
+      "icon": "briefcase",
+      "description": "sdbsbbsd"
+    }
+  ],
+  "charityMission": {
+    "mission": "sbdsdbdsb",
+    "vision": "dsbsdbsdb",
+    "foundedYear": "2022",
+    "foundingStory": "vdvsddsvvdsdvsv"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "svddsv",
+        "label": "vdssdb",
+        "description": "bdssdbdsb"
+      },
+      {
+        "value": "sbbsd",
+        "label": "dsbsdb",
+        "description": "bsbdsdbsdb"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "sdbdsbsdb",
+        "content": "bdssbd",
+        "date": "sbdsbd",
+        "location": "dsbbsdbds",
+        "featured": false
+      },
+      {
+        "title": "dsbsbsdb",
+        "content": "bsdsdbdsb",
+        "date": "sbdsdbbds",
+        "location": "sdbsdb",
+        "featured": false
+      },
+      {
+        "title": "sdbdbsdbs",
+        "content": "bdsdsbdsbdsb",
+        "date": "bsddbsdb",
+        "location": "sbdssdbdsb",
+        "featured": true
+      }
+    ]
+  },
+  "logo": "svdvdsf/assets/image-1745756198424-h3efii.jpg",
+  "banner": "svdvdsf/assets/image-1745756201424-0s4zd1.png",
+  "about_image": "svdvdsf/assets/image-1745756209175-z7361k.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "gr2w3gr3",
+    "telegram": "3gr3gre",
+    "facebook": "wggwewerweg",
+    "instagram": "ewgwegwge",
+    "twitter": "wgewgeewg",
+    "linkedin": "wegweg"
+  },
+  "site_url": "svdvdsf",
+  "websiteId": "web-bvq5pet4m9zm5zpy",
+  "createdAt": "2025-04-27T12:16:38.415Z",
+  "lastUpdated": "2025-04-27T12:16:38.415Z",
+  "status": "pending_deployment"
+}
