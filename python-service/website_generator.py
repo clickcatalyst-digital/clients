@@ -373,6 +373,20 @@ def generate_website(
             logger.info(f"Copied CSS to {css_target_path}")
         else:
             logger.warning(f"CSS file not found at {css_source_path}")
+
+        # Copy images folder if it exists for the logo on the sidebar
+        images_source_path = Path(f"{templates_dir}/images")
+        images_target_path = client_dir / "images"
+        
+        if images_source_path.exists():
+            import shutil
+            if not images_target_path.exists():
+                images_target_path.mkdir(parents=True)
+            for image_file in images_source_path.glob('*.*'):
+                shutil.copy2(image_file, images_target_path / image_file.name)
+            logger.info(f"Copied images to {images_target_path}")
+        else:
+            logger.warning(f"Images folder not found at {images_source_path}")
         
         return {
             'success': True,
