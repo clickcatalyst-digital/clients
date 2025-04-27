@@ -521,28 +521,18 @@
         <div class="max-w-5xl mx-auto text-center">
              <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 reveal">Get Involved</h2>
              <div class="section-divider reveal"></div>
-             <p class="mt-4 max-w-2xl mx-auto text-lg text-muted reveal mb-12">Join us in making a difference. Here's how you can contribute to our cause.</p>
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <!-- Donate Card -->
-                <div id="donate" class="involved-card reveal">
-                    <div class="icon-circle mb-6">
-                        <svg class="h-8 w-8" fill="currentColor"><use href="#icon-gift" /></svg>
-                    </div>
-                    <h3>Donate</h3>
-                    <p>Your contribution, big or small, helps us continue our work and reach more people in need.</p>
-                    <a href="{{ donation_url | default('#contact') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all transform hover:scale-105">
-                       Make a Donation
-                    </a>
-                </div>
-                <!-- Volunteer Card -->
+             <p class="mt-4 max-w-2xl mx-auto text-lg text-muted reveal mb-12">Join us in making a difference. Here's how you can contribute to our cause.</p>            
+           <!-- Single Combined Card -->
+             <div class="max-w-lg mx-auto">
                 <div class="involved-card reveal">
                     <div class="icon-circle mb-6">
-                        <svg class="h-8 w-8" fill="currentColor"><use href="#icon-hand-raised" /></svg>
+                        <svg class="h-10 w-10" fill="currentColor"><use href="#icon-hands-helping" /></svg>
                     </div>
-                    <h3>Volunteer</h3>
-                    <p>Lend your time and skills! We have various opportunities where your help can make a real impact.</p>
-                    <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all transform hover:scale-105">
-                       Contact Us to Help
+                    <h3>Support Our Mission</h3>
+                   <p>Whether through a financial contribution or by volunteering your time and skills, your support is vital. Help us continue our work and make a real impact in the community.</p>
+
+                    <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all transform hover:scale-105">
+                       Learn How to Help
                     </a>
                 </div>
             </div>
