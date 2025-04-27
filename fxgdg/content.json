@@ -1,0 +1,68 @@
+{
+  "user_type": "charity",
+  "color_palette": "nature-inspired",
+  "headline": "fxgdg",
+  "tagline": "dfhhdf",
+  "about": "dfhdfh",
+  "services": [
+    {
+      "name": "hdf",
+      "icon": "briefcase",
+      "description": "dhf"
+    }
+  ],
+  "charityMission": {
+    "mission": "hdfdfh",
+    "vision": "hdffdhdhf",
+    "values": [
+      "dhfdfh",
+      "dfhfdh",
+      "dfhhdf"
+    ],
+    "foundedYear": "dfhdhf",
+    "foundingStory": "hdfdfh"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "hdfhfd",
+        "label": "dhfdfh",
+        "description": "dfhfdh"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "fdhhfd",
+        "content": "dfhdhf",
+        "date": "hdffdh",
+        "location": "hdffdh",
+        "featured": true
+      },
+      {
+        "title": "dhfhfd",
+        "content": "hdfdfh",
+        "date": "dfhhdf",
+        "location": "dfhdfh",
+        "featured": false
+      }
+    ]
+  },
+  "logo": null,
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "fxgdg",
+  "banner": null,
+  "about_image": null,
+  "websiteId": "web-u05ntubfm9zexg29",
+  "createdAt": "2025-04-27T08:54:02.384Z",
+  "lastUpdated": "2025-04-27T08:54:02.384Z",
+  "status": "pending_deployment"
+}
