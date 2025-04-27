@@ -1,0 +1,68 @@
+{
+  "user_type": "charity",
+  "color_palette": "modern-minimalist",
+  "headline": "fds",
+  "tagline": "dfs",
+  "about": "gfs",
+  "services": [
+    {
+      "name": "dsf",
+      "icon": "briefcase",
+      "description": "gfs"
+    }
+  ],
+  "charityMission": {
+    "mission": "sdg",
+    "vision": "gsd",
+    "values": [
+      "sdgf",
+      "sdg",
+      "sd"
+    ],
+    "foundedYear": "dsg",
+    "foundingStory": "dsgsdsd"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "sdg",
+        "label": "gsdsgd",
+        "description": "sgdsgd"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "dsggsd",
+        "content": "sdgsdg",
+        "date": "sdg",
+        "location": "sgd",
+        "featured": true
+      },
+      {
+        "title": "sdg",
+        "content": "sdg",
+        "date": "sdgsdg",
+        "location": "sdgsdg",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "fds/assets/image-1745738788248-kqnf69.png",
+  "banner": "fds/assets/image-1745738789743-p4y13v.png",
+  "about_image": "fds/assets/image-1745738790460-3jo0gi.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "fds",
+  "websiteId": "web-qg2d9mzem9zbstxz",
+  "createdAt": "2025-04-27T07:26:28.237Z",
+  "lastUpdated": "2025-04-27T07:26:28.237Z",
+  "status": "pending_deployment"
+}
