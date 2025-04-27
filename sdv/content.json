@@ -1,0 +1,37 @@
+{
+  "user_type": "other",
+  "color_palette": "retro-pop",
+  "headline": "sdv",
+  "tagline": "ges",
+  "about": "wgeweg",
+  "services": [
+    {
+      "name": "weg",
+      "icon": "briefcase",
+      "description": "ewg"
+    },
+    {
+      "name": "rgwe",
+      "icon": "chart",
+      "description": "erb"
+    }
+  ],
+  "logo": "sdv/assets/image-1745784446909-4j2z2r.png",
+  "banner": "sdv/assets/image-1745784448112-j3pyrl.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "sdv",
+  "about_image": null,
+  "websiteId": "web-4s26p5d8ma02zge5",
+  "createdAt": "2025-04-27T20:07:26.908Z",
+  "lastUpdated": "2025-04-27T20:07:26.908Z",
+  "status": "pending_deployment"
+}
