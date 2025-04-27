@@ -370,27 +370,8 @@
                <div class="section-divider"></div>
            </div>
            
-           <div class="text-center">
-               <!-- Left Column: Image or Story -->
-               <div class="mb-10 lg:mb-0 reveal">
-                   {% if charityMission and charityMission.foundingStory %}
-                       <div class="bg-white p-6 rounded-lg shadow-md">
-                           <h3 class="text-xl font-semibold mb-4">Our Story</h3>
-                           <p class="text-gray-700">{{ charityMission.foundingStory }}</p>
-                           
-                           {% if charityMission and charityMission.foundedYear %}
-                           <div class="mt-4 pt-4 border-t border-gray-100">
-                               <span class="inline-flex items-center text-sm text-gray-600">
-                                   <svg class="h-4 w-4 mr-1.5 text-primary"><use href="#icon-calendar" /></svg>
-                                   Founded in {{ charityMission.foundedYear }}
-                               </span>
-                           </div>
-                           {% endif %}
-                       </div>
-                   {% endif %}
-               </div>
-               
-               <!-- Right Column: Mission & Values -->
+           <div class="text-center">             
+               <!-- Mission & Values -->
                <div class="reveal">
                 {% if charityMission and charityMission.mission %}
                     <h3 class="text-xl font-semibold text-gray-900 mb-3">Our Mission</h3>
