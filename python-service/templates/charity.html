@@ -51,7 +51,7 @@
            {# CORRECTED: Use 'startswith' filter correctly #}
            {% if social.linkedin and social.linkedin is string and social.linkedin | startswith('http') %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
       {% endif %}
-      {% if sameAsLinks and sameAsLinks | length > 0 %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
+      {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
       {# Remove trailing comma if needed - check output. Simplest is just to ensure another property follows #}
        "mainEntityOfPage": {
          "@type": "WebPage",
