@@ -1,0 +1,68 @@
+{
+  "user_type": "charity",
+  "color_palette": "nature-inspired",
+  "headline": "kvhj",
+  "tagline": "teh",
+  "about": "dfbfdb",
+  "services": [
+    {
+      "name": "bdfbfd",
+      "icon": "briefcase",
+      "description": "bfdbfd"
+    }
+  ],
+  "charityMission": {
+    "mission": "bdfdfbfdb",
+    "vision": "bfddfbbdf",
+    "values": [
+      "fdbdfb",
+      "bdfdbf",
+      "bfdbfd"
+    ],
+    "foundedYear": "fbddbf",
+    "foundingStory": "fbdbdfbfd"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "bdfdbf",
+        "label": "bfdfbd",
+        "description": "bfdfbd"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "fbdbfd",
+        "content": "fbddbfbdf",
+        "date": "bfddfb",
+        "location": "dfbbdf",
+        "featured": true
+      },
+      {
+        "title": "fbdbdf",
+        "content": "dfbdbf",
+        "date": "bdfbdf",
+        "location": "bfdfdb",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "kvhj/assets/image-1745740078762-t0s5ke.png",
+  "banner": "kvhj/assets/image-1745740080637-nhvqpx.jpg",
+  "about_image": "kvhj/assets/image-1745740081365-k3rlxj.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "gew",
+    "telegram": "vgsd",
+    "facebook": "dsv",
+    "instagram": "svd",
+    "twitter": "sdv",
+    "linkedin": "dsv"
+  },
+  "site_url": "kvhj",
+  "websiteId": "web-72bsvmdbm9zckhpm",
+  "createdAt": "2025-04-27T07:47:58.757Z",
+  "lastUpdated": "2025-04-27T07:47:58.757Z",
+  "status": "pending_deployment"
+}
