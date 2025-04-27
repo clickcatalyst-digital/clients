@@ -5,18 +5,18 @@
 
 {# --- Meta Tags specific to Charity --- #}
 {% block meta_tags %}
-    <meta name="description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}">
+<!--     <meta name="description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> -->
     <meta name="author" content="{{ headline }}">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="profile"> {# Can use profile or organization #}
     <meta property="og:site_name" content="{{ headline }}">
     <meta property="og:title" content="{{ headline }} - {{ tagline }}">
-    <meta property="og:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}">
+<!--     <meta property="og:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> -->
     {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %}
     <!-- Twitter -->
     <meta property="twitter:card" content="summary"> {# Summary card often better for orgs #}
     <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
-    <meta property="twitter:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}">
+<!--     <meta property="twitter:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> -->
     {% if logo_path %}<meta property="twitter:image" content="{{ logo_path }}">{% endif %}
 {% endblock meta_tags %}
 
