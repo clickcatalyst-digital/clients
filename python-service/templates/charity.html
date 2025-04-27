@@ -29,7 +29,7 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "NGO", // Or Organization
+      "@type": "NGO",
       "name": "{{ headline | default('') | escape }}",
       {# Handle potentially missing DOMAIN_NAME #}
       "url": "{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else '#' }}",
@@ -43,16 +43,15 @@
       {% if phone %}"telephone": "{{ phone | escape }}",{% endif %}
       {# Address details would be handled by _contact_section.html if needed, or add here if present in root data #}
       {# Filter out empty strings before joining #}
-      {# {% set sameAsLinks = [] %} #}
-       {#   {% if social %} {# Check if social dictionary exists #}
-      {#        {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %} #}
-      {#       {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %} #}
-       {#       {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %} #}
-       {#       {# CORRECTED: Use 'startswith' test
-        {#      {# Ensure linkedin value is a string before testing #} 
-        {#      {% if social.linkedin and social.linkedin is string and social.linkedin is startswith('http') %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}   #}
-        {#  {% endif %}  #}
-      {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
+      {% set sameAsLinks = [] %}
+      {% if social %} {# Check if social dictionary exists #}
+           {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %}
+           {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
+           {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %}
+           {# CORRECTED: Use 'startswith' filter correctly #}
+           {% if social.linkedin and social.linkedin is string and social.linkedin | startswith('http') %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
+      {% endif %}
+      {% if sameAsLinks and sameAsLinks | length > 0 %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
       {# Remove trailing comma if needed - check output. Simplest is just to ensure another property follows #}
        "mainEntityOfPage": {
          "@type": "WebPage",
@@ -246,8 +245,6 @@
                  </div>
              </div>
              {% endif %}
-             {% endcomment %}
-             {# --- End of Temporarily Commented Out Block --- #}
          </div>
     </section>
 
