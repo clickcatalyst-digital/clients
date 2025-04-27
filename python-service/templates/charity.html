@@ -1,59 +1,69 @@
 {% extends "_base.html" %}
 
 {# --- Page Title --- #}
-{% block title %}{{ headline }} - {{ tagline }}{% endblock title %}
+{% block title %}{{ headline | default('Charity') }} - {{ tagline | default('Making a Difference') }}{% endblock title %}
 
 {# --- Meta Tags specific to Charity --- #}
 {% block meta_tags %}
-{# Use Jinja comments to disable rendering during debugging #}
-{# <meta name="description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> #}
-    <meta name="author" content="{{ headline }}">
+    <meta name="description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline | default('Learn more about our mission.') }}">
+    <meta name="author" content="{{ headline | default('Our Charity') }}">
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="profile"> {# Or organization #}
-    <meta property="og:site_name" content="{{ headline }}">
-    <meta property="og:title" content="{{ headline }} - {{ tagline }}">
-{# <meta property="og:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> #}
-    {% if logo_path %}<meta property="og:image" content="{{ logo_path }}">{% endif %}
+    <meta property="og:type" content="profile"> {# Can use profile or organization #}
+    <meta property="og:site_name" content="{{ headline | default('Charity Name') }}">
+    <meta property="og:title" content="{{ headline | default('Charity') }} - {{ tagline | default('Making a Difference') }}">
+    <meta property="og:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline | default('Learn more about our mission.') }}">
+    {% if logo %}<meta property="og:image" content="{{ logo }}">{% endif %} {# Assuming logo is the full path/URL now #}
+    <meta property="og:url" content="{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else '#' }}"> {# Assuming site_url is like 'folder_name' #}
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary"> {# summary_large_image or summary #}
-    <meta property="twitter:title" content="{{ headline }} - {{ tagline }}">
-{# <meta property="twitter:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline }}"> #}
-    {% if logo_path %}<meta property="twitter:image" content="{{ logo_path }}">{% endif %}
+    <meta property="twitter:card" content="summary_large_image"> {# Use summary_large_image if banner exists #}
+    <meta property="twitter:title" content="{{ headline | default('Charity') }} - {{ tagline | default('Making a Difference') }}">
+    <meta property="twitter:description" content="{{ charityMission.mission if charityMission and charityMission.mission else tagline | default('Learn more about our mission.') }}">
+    {% if logo %}<meta property="twitter:image" content="{{ logo }}">{% endif %} {# Assuming logo is the full path/URL #}
+    {% if social.twitter %}<meta name="twitter:site" content="@{{ social.twitter }}">{% endif %} {# Optional: Add Twitter handle #}
 {% endblock meta_tags %}
 
-{# --- Schema.org JSON-LD --- #}
+{# --- Schema.org --- #}
 {% block schema_org %}
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "NGO",
-      "name": "{{ headline }}",
-      "url": "{{ 'https://' + folder_name + '.' + DOMAIN_NAME if folder_name and DOMAIN_NAME else '#' }}",
-      {% if logo_path %}"logo": "{{ logo_path }}",{% endif %}
-      "description": "{{ charityMission.mission if charityMission and charityMission.mission else tagline }}",
-      {% if charityMission.foundingStory %}"foundingStory": "{{ charityMission.foundingStory }}",{% endif %}
-      {% if charityMission.foundedYear %}"foundingDate": "{{ charityMission.foundedYear }}",{% endif %}
-      {% if email %}"email": "{{ email }}",{% endif %}
-      {% if phone %}"telephone": "{{ phone }}",{% endif %}
-      {% if location and location.address %}
+      "@type": "NGO", // Or Organization
+      "name": "{{ headline | default('Charity Name') | escape }}",
+      "url": "{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else request.url | default('#') }}", {# Use request URL as fallback #}
+      {% if logo %}"logo": "{{ logo }}",{% endif %}
+      {# Use mission if available, else tagline or about #}
+      "description": "{{ (charityMission.mission if charityMission and charityMission.mission else about if about else tagline) | default('') | escape }}",
+      {% if charityMission and charityMission.foundingStory %}"foundingStory": "{{ charityMission.foundingStory | escape }}",{% endif %}
+      {% if charityMission and charityMission.foundedYear %}"foundingDate": "{{ charityMission.foundedYear | escape }}",{% endif %}
+      {% if email %}"email": "{{ email | escape }}",{% endif %}
+      {% if phone %}"telephone": "{{ phone | escape }}",{% endif %}
+      {# Location data needs explicit keys based on common usage or your specific structure #}
+      {# Assuming no separate location object for now, adjust if needed #}
+      {# Example if location data was flat:
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "{{ location.address | escape }}",
-        "addressLocality": "{{ location.city | escape }}",
-        "addressRegion": "{{ location.state | escape }}",
-        "postalCode": "{{ location.zip | escape }}",
-        "addressCountry": "{{ location.country | escape }}"
+        "streetAddress": "{{ address_street | default('') | escape }}",
+        "addressLocality": "{{ address_city | default('') | escape }}",
+        "addressRegion": "{{ address_state | default('') | escape }}",
+        "postalCode": "{{ address_zip | default('') | escape }}",
+        "addressCountry": "{{ address_country | default('') | escape }}"
       },
-      {% endif %}
-      {# Build sameAs links #}
+      #}
+      {# Filter out empty strings before joining #}
       {% set sameAsLinks = [] %}
-      {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %}
-      {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
-      {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %}
-      {% if social.linkedin %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %}
-      {% if sameAsLinks %}
-      "sameAs": {{ sameAsLinks | tojson | safe }}
+      {% if social %} {# Check if social dict exists #}
+        {% if social.facebook %}{% set _ = sameAsLinks.append("https://facebook.com/" + social.facebook) %}{% endif %}
+        {% if social.twitter %}{% set _ = sameAsLinks.append("https://twitter.com/" + social.twitter) %}{% endif %}
+        {% if social.instagram %}{% set _ = sameAsLinks.append("https://instagram.com/" + social.instagram) %}{% endif %}
+        {% if social.linkedin and social.linkedin is startingwith('http') %}{% set _ = sameAsLinks.append(social.linkedin) %}{% endif %} {# Only add if it looks like a URL #}
+        {# Add others like whatsapp, telegram if applicable and you have standard URL formats #}
       {% endif %}
+      {% if sameAsLinks %}"sameAs": {{ sameAsLinks | tojson | safe }},{% endif %}
+      "mainEntityOfPage": {
+         "@type": "WebPage",
+         "@id": "{{ ('https://' + site_url + '.' + DOMAIN_NAME) if site_url and DOMAIN_NAME else request.url | default('#') }}"
+       }
+       {# Remove trailing comma if sameAs was the last element #}
     }
     </script>
 {% endblock schema_org %}
@@ -61,160 +71,416 @@
 {# --- Page Specific Styles --- #}
 {% block page_styles %}
     <style>
-        /* Typography */
         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
-        h1, h2, h3, h4 { font-weight: 700; color: #111827; }
-        .section-divider { width: 60px; margin-bottom: 1.5rem; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; } /* text-gray-900 */
+        .section-divider {
+            height: 4px; /* h-1 */
+            width: 60px; /* w-16 */
+            background-color: var(--color-primary); /* bg-primary */
+            margin: 1rem auto 1.5rem; /* my-4 mb-6 mx-auto */
+            border-radius: 9999px; /* rounded-full */
+        }
+
         /* Hero */
-        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
+        .hero-section { position: relative; overflow: hidden; }
+        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.4); }
+        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        .hero-background-image {
+            position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+            z-index: 0; opacity: 0.15; /* Adjust opacity */
+        }
+        .hero-background-overlay {
+            position: absolute; inset: 0; z-index: 1;
+            background: linear-gradient(to bottom, rgba(var(--color-primary-rgb), 0.6), rgba(var(--color-secondary-rgb), 0.7)); /* Gradient overlay */
+            /* mix-blend-mode: multiply; /* Optional blending */
+        }
+        .hero-content { position: relative; z-index: 10; }
+
         /* Impact Stats */
         .impact-stat-item { text-align: center; }
-        .impact-stat-value { font-size: 2.5rem; line-height: 1; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem; }
-        @media (min-width: 640px) { .impact-stat-value { font-size: 3rem; } }
-        .impact-stat-label { font-size: 0.875rem; color: #4b5563; font-weight: 500; }
-        .impact-stat-desc { font-size: 0.75rem; color: #6b7280; margin-top: 0.25rem; }
+        .impact-stat-value { font-size: 2.5rem; /* text-4xl */ line-height: 1; font-weight: 700; color: var(--color-primary); margin-bottom: 0.25rem; }
+        @media (min-width: 640px) { .impact-stat-value { font-size: 3rem; /* sm:text-5xl */ } }
+        .impact-stat-label { font-size: 0.875rem; /* text-sm */ color: #4b5563; /* text-gray-600 */ font-weight: 500; /* medium */ text-transform: uppercase; letter-spacing: 0.05em;}
+        .impact-stat-desc { font-size: 0.875rem; /* text-sm */ color: #6b7280; /* text-gray-500 */ margin-top: 0.5rem; }
+
         /* Success Story Card */
-        .success-story-card { background-color: #f9fafb; border-radius: 0.5rem; box-shadow: 0 2px 4px rgba(0,0,0,.05); padding: 1.5rem; border: 1px solid #e5e7eb; }
-        .success-story-card h4 { margin-bottom: 0.25rem; font-size: 1.125rem; }
-        .success-story-card .meta { font-size: 0.75rem; color: #6b7280; margin-bottom: 0.75rem; }
-        .success-story-card p { color: #374151; line-height: 1.6; }
-        /* Get Involved Cards */
-        .involved-card { background-color: white; border-radius: 0.5rem; padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); }
-        .involved-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+        .success-story-card {
+            background-color: #ffffff; /* bg-white */ border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); /* shadow-md */
+            padding: 1.5rem; /* p-6 */ border: 1px solid #e5e7eb; /* border border-gray-200 */
+            margin-bottom: 1.5rem; /* Add margin between cards */
+        }
+         .success-story-card h4 { color: var(--color-secondary); /* Use secondary color */ margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 600; }
+         .success-story-card .meta { font-size: 0.875rem; color: #6b7280; /* text-gray-500 */ margin-bottom: 0.75rem; }
+         .success-story-card p { color: #374151; /* text-gray-700 */ line-height: 1.6; }
+
+         /* Get Involved Cards */
+         .involved-card {
+             background-color: white; border-radius: 0.75rem; /* rounded-xl */ padding: 2rem; text-align: center;
+             box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); /* shadow-md */
+             border: 1px solid #e5e7eb; /* border border-gray-200 */
+             transition: all 0.2s ease-in-out; /* var(--transition-speed) */
+             display: flex; flex-direction: column; align-items: center; height: 100%; /* Make cards same height */
+         }
+         .involved-card:hover { transform: translateY(-4px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.08); /* shadow-lg */ }
+         .involved-card svg { width: 3rem; height: 3rem; margin-bottom: 1rem; }
+         .involved-card h3 { font-size: 1.25rem; margin-bottom: 0.75rem; color: #111827; font-weight: 600; }
+         .involved-card p { font-size: 1rem; /* text-base */ color: #4b5563; /* text-gray-600 */ margin-bottom: 1.5rem; flex-grow: 1;}
+         .involved-card a { margin-top: auto; /* Push button down */ }
+
+         /* About Section Styling */
+        #mission .about-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem; /* Increased gap */
+            align-items: center; /* Align items vertically */
+        }
+        @media (min-width: 768px) { /* md breakpoint */
+            #mission .about-content {
+                grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+                gap: 3rem;
+                 text-align: left; /* Align text left on larger screens */
+            }
+             #mission .about-text { order: 1; } /* Text first on md */
+             #mission .about-image-container { order: 2; }
+        }
+        #mission .about-image {
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); /* shadow-lg */
+            object-fit: cover;
+            width: 100%;
+            height: auto; /* Maintain aspect ratio */
+            max-height: 400px; /* Optional max height */
+        }
+        #mission h2 { text-align: center; } /* Keep section title centered */
+        #mission .section-divider { margin-left: auto; margin-right: auto; } /* Keep divider centered */
+        #mission .values-container { text-align: center; margin-top: 2.5rem; }
+        #mission .values-container h3 { color: var(--color-primary); margin-bottom: 1rem; font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        #mission .values-list span {
+             background-color: rgba(var(--color-primary-rgb), 0.1); /* Lighter primary bg */
+             color: var(--color-primary);
+             border: 1px solid rgba(var(--color-primary-rgb), 0.2);
+        }
+
     </style>
+     {# Example using Google Fonts - uncomment if needed
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"> #}
 {% endblock page_styles %}
 
-{# --- Header & Navigation --- #}
+{# --- Header --- #}
 {% block header %}
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    {% if logo_path %}
-                        <a href="#" aria-label="{{ headline }} homepage">
-                            <img src="{{ logo_path }}" class="h-10 w-auto" loading="lazy" alt="{{ headline }} logo">
+                 <div class="flex items-center">
+                    {% if logo %}
+                        <a href="#" aria-label="{{ headline | default('Charity') }} homepage">
+                            <img class="h-10 w-auto" src="{{ logo }}" alt="{{ headline | default('Charity') }} logo" loading="lazy">
                         </a>
                     {% endif %}
-                    <a href="#" class="ml-3 text-lg font-bold text-gray-800 hover:text-primary transition-colors">{{ headline }}</a>
+                    <div class="ml-3">
+                        <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">{{ headline | default('Charity') }}</a>
+                    </div>
                 </div>
-                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
-                    <a href="#mission" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Mission</a>
-                    {# {# {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %} #}
-                    <a href="#impact" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Impact</a>
-                    {# {% endif %} #}
-                    <a href="#get-involved" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Get Involved</a>
-                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
-                    <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="ml-4 inline-flex items-center px-4 py-2 bg-primary text-contrast-primary rounded-md shadow-sm hover:opacity-90">Donate</a>
+                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
+                    <a href="#mission" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary-focus">Mission</a>
+                    {# Conditionally show Impact link if there's data #}
+                    {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
+                       <a href="#impact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary-focus">Impact</a>
+                    {% endif %}
+                    <a href="#get-involved" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary-focus">Get Involved</a>
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary-focus">Contact</a>
+                    {# Use donation_url if provided, otherwise link to #donate section #}
+                    <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:bg-primary-focus focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                       <svg class="h-5 w-5 mr-1.5 -ml-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                        Donate
+                    </a>
                 </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center p-2 rounded-md text-gray-500 hover:bg-gray-100 focus:ring-2 focus:ring-primary">
+                 <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
                         <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
+                        {# Simple Menu Icon #}
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        {# Simple Close Icon (can be toggled with JS) #}
+                         <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                         </svg>
                     </button>
                 </div>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden absolute top-full inset-x-0 p-2 bg-white shadow-lg z-30">
-            <div class="px-2 pt-2 pb-4 space-y-1">
-                <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Mission</a>
-                {# {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %} #}
-                <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Impact</a>
-                {# {% endif %} #}
-                <a href="#get-involved" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Get Involved</a>
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-50">Contact</a>
-                <a href="{{ donation_url | default('#donate') }}" class="mt-2 block text-center px-4 py-2 bg-primary text-contrast-primary rounded-md hover:opacity-90">Donate Now</a>
-            </div>
+        <!-- Mobile menu Container -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-40">
+             <div class="px-2 pt-2 pb-4 space-y-1">
+                <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Mission</a>
+                {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
+                   <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Impact</a>
+                 {% endif %}
+                <a href="#get-involved" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Get Involved</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-contrast-primary bg-primary hover:bg-primary-focus w-full">
+                   <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                    Donate Now
+                </a>
+             </div>
         </div>
     </header>
 {% endblock header %}
 
-{# --- Main Content --- #}
+{# --- Main Page Content --- #}
 {% block content %}
+    <!-- Hero Section -->
+     <section class="hero-section bg-gradient-to-br from-primary to-secondary py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient text-center" id="main-content">
+         {% if banner %}
+         <img src="{{ banner }}" alt="Charity background image" class="hero-background-image" loading="eager">
+         <div class="hero-background-overlay" aria-hidden="true"></div>
+         {% endif %}
+         <div class="max-w-4xl mx-auto hero-content">
+             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">{{ headline | default('Support Our Cause') }}</h1>
+             <p class="text-xl sm:text-2xl max-w-3xl mx-auto opacity-95 mb-8">{{ tagline | default('Join us in making a positive impact.') }}</p>
+             <div class="flex flex-wrap justify-center gap-4 sm:gap-5">
+                 <a href="{{ donation_url | default('#donate') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg text-contrast-primary bg-primary hover:bg-primary-focus focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary focus:ring-primary transition-all transform hover:scale-105">
+                     <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"></path></svg>
+                     Support Our Cause
+                 </a>
+                 <a href="#mission" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-secondary focus:ring-white transition-all transform hover:scale-105">
+                    <svg class="h-5 w-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                     Learn More
+                 </a>
+             </div>
+         </div>
+    </section>
 
-<!-- Hero Section -->
-<section class="hero-section bg-gradient-primary py-24 md:py-32 text-contrast-gradient relative text-center" id="main-content">
-    {% if banner_path %}
-    <div class="absolute inset-0">
-        <img src="{{ banner_path }}" alt="Charity background" class="w-full h-full object-cover opacity-20">
-        <div class="absolute inset-0 bg-gradient-to-br from-primary to-secondary mix-blend-multiply opacity-60"></div>
-    </div>
-    {% endif %}
-    <div class="relative z-10 max-w-4xl mx-auto">
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold mb-3">{{ headline }}</h1>
-        <p class="text-xl sm:text-2xl mb-8">{{ tagline }}</p>
-        <div class="flex justify-center gap-4">
-            <a href="{{ donation_url | default('#donate') }}" class="px-8 py-3 bg-primary text-contrast-primary rounded-md shadow-lg hover:scale-105 transition">Support Our Cause</a>
-            <a href="#mission" class="px-8 py-3 bg-white text-primary rounded-md shadow-sm hover:scale-105 transition">Learn More</a>
-        </div>
-    </div>
-</section>
+    <!-- Mission/About Section -->
+    <section id="mission" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+        <div class="max-w-5xl mx-auto reveal"> {# Wider container for two columns #}
+            <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 text-center">Our Mission & Vision</h2>
+            <div class="section-divider"></div>
 
-{# Our Mission Section (commented) #}
-{#
-<section id="mission" class="py-20 bg-gray-50 text-center">
-    <h2 class="text-3xl font-bold mb-4">Our Mission</h2>
-    <div class="section-divider mx-auto"></div>
-    {% if charityMission.mission %}
-        <p class="mt-6 text-gray-700">{{ charityMission.mission }}</p>
-    {% elif about %}
-        <p class="mt-6 text-gray-700">{{ about }}</p>
-    {% endif %}
-    {% if charityMission.values and charityMission.values|length > 0 %}
-    <div class="mt-10 flex flex-wrap justify-center gap-3">
-        {% for value in charityMission.values %}
-            <span class="px-4 py-1.5 rounded-full bg-secondary text-contrast-secondary">{{ value }}</span>
-        {% endfor %}
-    </div>
-    {% endif %}
-</section>
-#}
+             <div class="about-content">
+                 <div class="about-text space-y-4">
+                     {# Display Mission or About text #}
+                     {% if charityMission and charityMission.mission %}
+                         <p class="text-lg md:text-xl text-gray-700 leading-relaxed">{{ charityMission.mission }}</p>
+                     {% elif about %}
+                         <p class="text-lg md:text-xl text-gray-700 leading-relaxed">{{ about }}</p>
+                     {% else %}
+                          <p class="text-lg md:text-xl text-gray-700 leading-relaxed">Information about our mission is coming soon.</p>
+                     {% endif %}
 
-{# Impact Section (commented) #}
-{#
-{% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
-<section id="impact" class="py-20 bg-white">
-    <h2 class="text-3xl font-bold text-center mb-8">Our Impact</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 text-center mb-16">
-        {% for stat in charityImpact.impactStats %}
-        <div>
-            <div class="impact-stat-value">{{ stat.value }}</div>
-            <div class="impact-stat-label">{{ stat.label }}</div>
-        </div>
-        {% endfor %}
-    </div>
-    <div class="space-y-12">
-        {% for story in charityImpact.successStories %}
-        <div class="success-story-card">
-            <h4 class="font-semibold">{{ story.title }}</h4>
-            <p class="meta text-gray-600 mb-2">{{ story.date }}{% if story.location %} | {{ story.location }}{% endif %}</p>
-            <p>{{ story.content }}</p>
-        </div>
-        {% endfor %}
-    </div>
-</section>
-{% endif %}
-#}
+                     {# Display Vision if available #}
+                     {% if charityMission and charityMission.vision %}
+                         <p class="text-md text-gray-600 italic border-l-4 border-secondary pl-4 py-2">"{{ charityMission.vision }}"</p>
+                     {% endif %}
 
-<!-- Get Involved -->
-<section id="get-involved" class="py-20 bg-gray-50 text-center">
-    <h2 class="text-3xl font-bold mb-4">Get Involved</h2>
-    <div class="section-divider mx-auto mb-6"></div>
-    <p class="max-w-2xl mx-auto text-gray-600 mb-12">Join us in making a difference. Here's how you can help.</p>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-        <div class="involved-card">
-            <svg class="h-12 w-12 text-primary"><use href="#icon-gift"/></svg>
-            <h3>Donate</h3>
-            <p>Your contribution helps us reach more people in need.</p>
-            <a href="{{ donation_url | default('#contact') }}" class="mt-4 px-6 py-3 bg-primary text-contrast-primary rounded-md">Make a Donation</a>
-        </div>
-        <div class="involved-card">
-            <svg class="h-12 w-12 text-secondary"><use href="#icon-hand-raised"/></svg>
-            <h3>Volunteer</h3>
-            <p>Lend your time and skills to our programs.</p>
-            <a href="#contact" class="mt-4 px-6 py-3 bg-secondary text-contrast-secondary rounded-md">Contact Us</a>
-        </div>
-    </div>
-</section>
+                     {# Display Founding Story if available #}
+                     {% if charityMission and charityMission.foundingStory %}
+                        <div class="mt-6 pt-4 border-t border-gray-200">
+                            <h4 class="text-lg font-semibold text-gray-800 mb-2">Our Founding Story</h4>
+                            <p class="text-base text-gray-600">{{ charityMission.foundingStory }}</p>
+                        </div>
+                     {% endif %}
+                 </div>
+
+                 {# Display About Image if available #}
+                 {% if about_image %}
+                 <div class="about-image-container mt-8 md:mt-0">
+                     <img src="{{ about_image }}" alt="About {{ headline | default('Us') }}" class="about-image" loading="lazy">
+                 </div>
+                 {% endif %}
+             </div>
+
+
+             {# Display Values if available #}
+             {% if charityMission and charityMission.values and charityMission.values | length > 0 %}
+             <div class="values-container reveal">
+                 <h3 class="text-xl font-semibold mb-4">Our Core Values</h3>
+                 <div class="flex flex-wrap justify-center gap-3 values-list">
+                     {% for value in charityMission.values %}
+                         <span class="inline-block text-sm font-medium px-4 py-1.5 rounded-full shadow-sm">{{ value | escape }}</span>
+                     {% endfor %}
+                 </div>
+             </div>
+             {% endif %}
+         </div>
+    </section>
+
+     <!-- Impact Section -->
+     {# Only render section if there's data to show #}
+     {% if charityImpact and (charityImpact.impactStats or charityImpact.successStories) %}
+        <section id="impact" class="py-20 px-4 sm:px-6 lg:px-8 bg-white">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Our Impact</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                 {# Display Impact Stats if available #}
+                 {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
+                     {% set stat_count = charityImpact.impactStats | length %}
+                     {# Dynamic grid columns based on number of stats #}
+                     {% set col_class = 'sm:grid-cols-1 md:grid-cols-2' %} {# Default for 1 or 2 stats #}
+                     {% if stat_count >= 3 %}{% set col_class = 'sm:grid-cols-2 md:grid-cols-3' %}{% endif %}
+                     {% if stat_count >= 4 %}{% set col_class = 'sm:grid-cols-2 md:grid-cols-4' %}{% endif %} {# Example for 4+ stats #}
+
+                      <div class="grid grid-cols-1 {{ col_class }} gap-10 lg:gap-12 text-center mb-16 reveal">
+                         {% for stat in charityImpact.impactStats %}
+                             <div class="impact-stat-item">
+                                 <div class="impact-stat-value">{{ stat.value | default('0') }}</div>
+                                 <div class="impact-stat-label">{{ stat.label | default('Stat') }}</div>
+                                 {% if stat.description %}<p class="impact-stat-desc">{{ stat.description }}</p>{% endif %}
+                             </div>
+                         {% endfor %}
+                     </div>
+                 {% endif %}
+
+                 {# Display Success Stories if available #}
+                 {% if charityImpact.successStories and charityImpact.successStories | length > 0 %}
+                    {# Add divider if both stats and stories exist #}
+                    {% if charityImpact.impactStats and charityImpact.impactStats | length > 0 %}
+                         <hr class="my-16 border-gray-200 reveal">
+                    {% endif %}
+                     <div class="reveal"> {# Container for stories #}
+                         <h3 class="text-2xl font-semibold text-center text-gray-800 mb-10">Success Stories</h3>
+                         {# Grid layout for stories - adjust columns as needed #}
+                         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                             {% for story in charityImpact.successStories %}
+                             <div class="success-story-card reveal">
+                                 <h4>{{ story.title | default('Success Story') }}</h4>
+                                 {% if story.date or story.location %}
+                                 <p class="meta">
+                                     {% if story.date %}<span class="font-medium">{{ story.date }}</span>{% endif %}
+                                     {% if story.date and story.location %} | {% endif %}
+                                     {% if story.location %}<span>{{ story.location }}</span>{% endif %}
+                                 </p>
+                                 {% endif %}
+                                 <p>{{ story.content | default('Details about this success.') }}</p>
+                             </div>
+                             {% endfor %}
+                         </div>
+                     </div>
+                 {% endif %}
+            </div>
+        </section>
+    {% endif %} {# End of Impact Section conditional rendering #}
+
+     <!-- Get Involved Section -->
+     <section id="get-involved" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50">
+         <div class="max-w-5xl mx-auto text-center">
+              <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 reveal">Get Involved</h2>
+              <div class="section-divider reveal"></div>
+              <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 reveal mb-12">Join us in making a difference. Here's how you can contribute to our cause.</p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                 {# Donate Card #}
+                 <div id="donate" class="involved-card reveal">
+                      {# Simple Gift Icon #}
+                      <svg class="text-primary w-12 h-12 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                      </svg>
+                      <h3>Donate</h3>
+                      <p>Your contribution, big or small, helps us continue our work and reach more people in need.</p>
+                      <a href="{{ donation_url | default('#contact') }}" target="{{ '_blank' if donation_url else '_self' }}" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:bg-primary-focus focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all transform hover:scale-105">
+                         Make a Donation
+                      </a>
+                 </div>
+                  {# Volunteer Card #}
+                  <div class="involved-card reveal">
+                    {# Simple Hand Icon #}
+                    <svg class="text-secondary w-12 h-12 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 15l3-3m3 0l-3 3m3-3l3 3M6 12a6 6 0 1112 0v3a3 3 0 01-3 3H9a3 3 0 01-3-3v-3z" />
+                    </svg>
+                    <h3>Volunteer</h3>
+                    <p>Lend your time and skills! We have various opportunities where your help can make a real impact.</p>
+                    {# Link to contact section as fallback #}
+                    <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:bg-secondary-focus focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary transition-all transform hover:scale-105">
+                       Contact Us to Help
+                    </a>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+    <!-- Contact Section -->
+    {# Assuming contact section is included via _base.html or you have a separate include here #}
+    {# {% include "_contact_section.html" %} #}
 
 {% endblock content %}
+
+{# Footer is likely included via _base.html #}
+
+{# --- Page Specific JS --- #}
+{% block page_scripts %}
+<script>
+ // Basic Mobile Menu Toggle
+ const mobileMenuButton = document.getElementById('mobile-menu-button');
+ const mobileMenu = document.getElementById('mobile-menu');
+ const mobileMenuLinks = mobileMenu.querySelectorAll('a'); // Get all links in the menu
+
+ if (mobileMenuButton && mobileMenu) {
+   mobileMenuButton.addEventListener('click', () => {
+     const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+     mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+     mobileMenu.classList.toggle('hidden');
+     // Optional: Toggle menu/close icons if you added them
+     const icons = mobileMenuButton.querySelectorAll('svg');
+     if(icons.length === 2) {
+         icons[0].classList.toggle('hidden'); // Toggle menu icon
+         icons[1].classList.toggle('hidden'); // Toggle close icon
+     }
+   });
+
+   // Close mobile menu when a link is clicked
+   mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+            mobileMenu.classList.add('hidden');
+             const icons = mobileMenuButton.querySelectorAll('svg');
+             if(icons.length === 2) {
+                 icons[0].classList.remove('hidden'); // Show menu icon
+                 icons[1].classList.add('hidden'); // Hide close icon
+             }
+        });
+    });
+ }
+
+ // Simple Scroll Reveal Effect (Example)
+ function reveal() {
+   var reveals = document.querySelectorAll(".reveal");
+   for (var i = 0; i < reveals.length; i++) {
+     var windowHeight = window.innerHeight;
+     var elementTop = reveals[i].getBoundingClientRect().top;
+     var elementVisible = 100; // Adjust this value to control when the element reveals
+     if (elementTop < windowHeight - elementVisible) {
+       reveals[i].classList.add("active");
+     } else {
+       // Optional: remove active class if you want elements to fade out when scrolled back up
+       // reveals[i].classList.remove("active");
+     }
+   }
+ }
+
+ window.addEventListener("scroll", reveal);
+ // Trigger reveal on initial load as well
+ reveal();
+
+</script>
+{# Add CSS for the reveal effect in your base styles or here #}
+<style>
+    .reveal {
+        position: relative;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        will-change: opacity, transform;
+    }
+    .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
+{% endblock page_scripts %}
