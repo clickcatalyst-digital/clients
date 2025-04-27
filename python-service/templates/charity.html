@@ -413,16 +413,23 @@
                     </blockquote>
                 {% endif %}
 
-                   {% if charityMission and charityMission.values and charityMission.values is iterable %}
-                   <div class="mt-8">
-                       <h3 class="text-xl font-semibold text-gray-900 mb-4">Our Core Values</h3>
-                       <div class="flex flex-wrap">
-                           {% for value in charityMission.values %}
-                               <span class="value-badge">{{ value }}</span>
-                           {% endfor %}
-                       </div>
-                   </div>
-                   {% endif %}
+                   {% if services and services is iterable %}
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Our Core Values</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                            {% for service in services %}
+                                {% if service.name %}
+                                <div class="about-feature-item">
+                                    <div class="about-feature-icon-bg">
+                                       <svg class="h-5 w-5"><use href="#icon-{{ service.icon|default('check-circle') }}" /></svg>
+                                    </div>
+                                    <span class="font-medium text-gray-800 text-sm">{{ service.name }}</span>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                </div>
            </div>
        </div>
