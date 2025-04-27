@@ -1,0 +1,73 @@
+{
+  "user_type": "charity",
+  "color_palette": "luxurious-chic",
+  "headline": "rang3",
+  "tagline": "1 line tag",
+  "about": "about org",
+  "services": [
+    {
+      "name": "core 1",
+      "icon": "chart",
+      "description": "desc"
+    },
+    {
+      "name": "Core2",
+      "icon": "chart-square-bar",
+      "description": "desc"
+    }
+  ],
+  "charityMission": {
+    "mission": "mission",
+    "vision": "vision",
+    "foundedYear": "2012",
+    "foundingStory": "our story"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "10000",
+        "label": "people helped",
+        "description": "description about how we helped"
+      },
+      {
+        "value": "$2.5",
+        "label": "Raised",
+        "description": "We have lot of donors already"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "success story 1",
+        "content": "story content 1",
+        "date": "2023",
+        "location": "Location",
+        "featured": true
+      },
+      {
+        "title": "success story 2",
+        "content": "story content 2",
+        "date": "2022",
+        "location": "Location",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "rang3/assets/image-1745754849512-yuiale.jpg",
+  "banner": "rang3/assets/image-1745754851382-yd8dy8.jpg",
+  "about_image": "rang3/assets/image-1745754853916-0pc6ud.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "1122",
+    "telegram": "1122",
+    "facebook": "1122",
+    "instagram": "1122",
+    "twitter": "1122",
+    "linkedin": "1122"
+  },
+  "site_url": "rang3",
+  "websiteId": "web-964dclhcm9zld2w7",
+  "createdAt": "2025-04-27T11:54:09.509Z",
+  "lastUpdated": "2025-04-27T11:54:09.509Z",
+  "status": "pending_deployment"
+}
