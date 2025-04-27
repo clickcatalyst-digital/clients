@@ -1,0 +1,73 @@
+{
+  "user_type": "charity",
+  "color_palette": "nature-inspired",
+  "headline": "Rang Funds",
+  "tagline": "We fill color in people's lives",
+  "about": "we have been actively making robust changes thorough out states of Gujarat and Rajasthan for many years now. We love helping thousands and we take full pride in our services which is very pure and secular.",
+  "services": [
+    {
+      "name": "Program 1",
+      "icon": "adjustments-vertical",
+      "description": "Desc1"
+    },
+    {
+      "name": "Program 2",
+      "icon": "shopping-bag",
+      "description": "Desc2"
+    }
+  ],
+  "charityMission": {
+    "mission": "Make India more colorful with happy tears and joy",
+    "vision": "No poverty in India",
+    "values": [
+      "Integrity",
+      "Compassion",
+      "Transparency"
+    ],
+    "foundedYear": "2023",
+    "foundingStory": "We have been founded by AB foundation and we have been founded in this beautiful since 1991"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "100000+ ",
+        "label": "People Helped",
+        "description": "We have helped many farmers, postmen and agricultural heads."
+      }
+    ],
+    "successStories": [
+      {
+        "title": "Building wells in Rutuzula",
+        "content": "We have provided water by building wells to atleast 5000 people in village and we are still getting local help to expand this success story to many more. ",
+        "date": "2022",
+        "location": "Nadiad, Gujarat",
+        "featured": true
+      },
+      {
+        "title": "Building Electricity Station in Rural Keda",
+        "content": "We have provided electricity to atleast 1000+ families around the village",
+        "date": "2021",
+        "location": "Rural Keda, Gujarat",
+        "featured": false
+      }
+    ]
+  },
+  "logo": "rang-funds/assets/image-1745750735164-hdpih5.jpg",
+  "banner": "rang-funds/assets/image-1745750737987-jg8eb8.png",
+  "about_image": "rang-funds/assets/image-1745750739290-rh2lle.png",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "6793246789243",
+    "telegram": "87632486432",
+    "facebook": "jfsdgjsdfg`g",
+    "instagram": "trhrth",
+    "twitter": "rtrthrth",
+    "linkedin": "rthhtrhtr"
+  },
+  "site_url": "rang-funds",
+  "websiteId": "web-8xa61dsom9ziww8q",
+  "createdAt": "2025-04-27T10:45:35.154Z",
+  "lastUpdated": "2025-04-27T10:45:35.154Z",
+  "status": "pending_deployment"
+}
