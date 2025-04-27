@@ -25,18 +25,19 @@
 {# --- Page Specific Styles --- #}
 {% block page_styles %}
     <style>
-        /* Premium Font - Ensure Inter is loaded or use system fonts */
+        /* Font */
         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
         h1, h2 { font-weight: 700; color: #111827; } /* text-gray-900 */
 
         /* Enhanced Section Heights & Centering */
         section {
-            /* Default min-height for sections */
             min-height: 65vh;
-            display: flex; /* Enable flexbox for vertical centering */
-            align-items: center; /* Vertically center content */
+            display: flex;
+            align-items: center;
             padding-top: 4rem; /* py-16 */
             padding-bottom: 4rem; /* py-16 */
+            position: relative; /* Needed for potential absolute positioning inside (like hero overlay) */
+            overflow: hidden; /* Prevent potential overflows */
         }
         @media (min-width: 768px) { /* md */
             section {
@@ -46,13 +47,13 @@
             }
         }
 
-        /* Gradient Hero Section - Increased Height */
+        /* Hero Section - Gradient OR Image Background */
         .hero-section {
+             /* Default to gradient */
             background: linear-gradient(to bottom right, var(--color-primary, #4f46e5), var(--color-secondary, #ec4899));
             color: var(--color-text-on-gradient, white);
-             /* Override default section height for hero */
-            min-height: 80vh; /* Make hero taller */
-            padding-top: 5rem; /* Adjust padding if needed */
+            min-height: 80vh; /* Taller hero */
+            padding-top: 5rem;
             padding-bottom: 5rem;
         }
          @media (min-width: 768px) { /* md */
@@ -63,87 +64,80 @@
             }
          }
 
-        /* Ensure hero text inherits the section's color */
-        .hero-section h1, .hero-section p {
-             color: inherit;
+        .hero-bg-image-container {
+             position: absolute;
+             inset: 0;
+             z-index: 0;
         }
-         /* Subtle text shadow for readability on gradient */
-        .hero-text-shadow {
-             text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+        .hero-bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Cover the area */
+            object-position: center; /* Center the image */
         }
+        .hero-bg-overlay {
+             position: absolute;
+             inset: 0;
+             background-color: rgba(0, 0, 0, 0.3); /* Dark semi-transparent overlay */
+             z-index: 1;
+        }
+        .hero-content {
+             position: relative; /* Ensure content is above background/overlay */
+             z-index: 10;
+        }
+
+        /* Ensure hero text has contrast */
+        .hero-section.has-bg-image h1, .hero-section.has-bg-image p {
+            color: white; /* Force white text on image bg */
+        }
+        .hero-section:not(.has-bg-image) h1, .hero-section:not(.has-bg-image) p {
+             color: inherit; /* Use gradient text color */
+        }
+        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); } /* Slightly stronger shadow */
 
         /* Refined Section Divider */
-        .section-divider-thin {
-            width: 4rem; /* w-16 */
-            height: 2px; /* equivalent to h-0.5 */
-            background-color: var(--color-primary, #4f46e5);
-            margin-left: auto;
-            margin-right: auto;
-            margin-bottom: 2rem; /* mb-8 */
-            border: 0;
-            border-radius: 1px;
-        }
+        .section-divider-thin { width: 4rem; height: 2px; background-color: var(--color-primary, #4f46e5); margin-left: auto; margin-right: auto; margin-bottom: 2rem; border: 0; border-radius: 1px; }
 
         /* Enhanced Service Card Styling */
-        .service-card {
-            background-color: white;
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: var(--shadow, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)); /* Tailwind shadow */
-            padding: 1.5rem; /* p-6 */
-            text-align: center;
-            transition: all 0.3s ease-in-out;
-            border: 1px solid var(--color-border-soft, #e5e7eb); /* border-gray-200 */
-            height: 100%; /* Make cards fill grid height */
-            display: flex; /* Flex column for content */
-            flex-direction: column;
-        }
-        .service-card:hover {
-            transform: translateY(-6px); /* More noticeable lift */
-            box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)); /* Tailwind shadow-lg */
-        }
-        .service-card-content {
-            flex-grow: 1; /* Allow content to push icon/title up */
-        }
-
+        .service-card { background-color: white; border-radius: 0.5rem; box-shadow: var(--shadow, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)); padding: 1.5rem; text-align: center; transition: all 0.3s ease-in-out; border: 1px solid var(--color-border-soft, #e5e7eb); height: 100%; display: flex; flex-direction: column; }
+        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)); }
+        .service-card-content { flex-grow: 1; }
 
         /* Refined Icon Wrapper in Service Card */
-        .service-icon-wrapper {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 3rem; /* h-12 */
-            width: 3rem; /* w-12 */
-            border-radius: 9999px; /* rounded-full */
-            background-color: color-mix(in srgb, var(--color-primary, #4f46e5) 15%, transparent);
-            color: var(--color-primary, #4f46e5);
-            margin-bottom: 1rem; /* mb-4 */
-        }
-        .service-icon-wrapper svg {
-            height: 1.5rem; /* h-6 */
-            width: 1.5rem; /* w-6 */
-        }
+        .service-icon-wrapper { display: inline-flex; align-items: center; justify-content: center; height: 3rem; width: 3rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--color-primary, #4f46e5) 15%, transparent); color: var(--color-primary, #4f46e5); margin-bottom: 1rem; }
+        .service-icon-wrapper svg { height: 1.5rem; width: 1.5rem; }
 
-        /* Styling for simple centered contact info */
+        /* Contact Info Item */
         .contact-info-item { display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
         .contact-info-item svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: var(--color-primary); }
 
-        /* Prose styles for About section */
+        /* Prose styles */
         .prose { color: #374151; } /* text-gray-700 */
         .prose a { color: var(--color-primary); text-decoration: underline; }
         .prose a:hover { color: color-mix(in srgb, var(--color-primary) 80%, black); }
-        .prose h2, .prose h3 { color: #111827; } /* Match heading colors */
+        .prose h2, .prose h3 { color: #111827; }
+
+        /* About Section Image Styling */
+        .about-image-container img {
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1));
+            object-fit: cover;
+            width: 100%;
+            aspect-ratio: 4 / 3; /* Maintain aspect ratio */
+        }
+         @media (min-width: 1024px) { /* lg */
+             .about-image-container img {
+                  aspect-ratio: 1 / 1; /* Square on larger screens */
+             }
+         }
 
     </style>
-     {# Optional: Font loading #}
-     {# <link rel="preconnect" href="https://fonts.googleapis.com">
-     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet"> #}
 {% endblock page_styles %}
 
 {# --- Header with Section Navigation --- #}
 {% block header %}
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> {# Use wider container for nav #}
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
                     {% if logo_path %}
@@ -155,7 +149,6 @@
                         <a href="#" class="text-lg font-semibold text-gray-800 hover:text-primary transition-colors">{{ headline | default("Website Title") }}</a>
                     </div>
                 </div>
-
                 {# Desktop Navigation Links #}
                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
                     {% if about %}
@@ -164,12 +157,11 @@
                     {% if services and services | length > 0 %}
                         <a href="#services" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Services</a>
                     {% endif %}
-                    {% if email or phone %} {# Assume contact section exists if email/phone exist #}
+                    {% if email or phone %}
                         <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
                     {% endif %}
                 </div>
-
-                {# Mobile Menu Button - Show if any nav links exist #}
+                {# Mobile Menu Button #}
                 {% if about or (services and services | length > 0) or email or phone %}
                     <div class="md:hidden flex items-center">
                        <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
@@ -180,8 +172,7 @@
                 {% endif %}
             </div>
         </nav>
-
-        {# Mobile menu Container - Only include if button exists #}
+        {# Mobile menu Container #}
         {% if about or (services and services | length > 0) or email or phone %}
             <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-40">
                 <div class="px-2 pt-2 pb-4 space-y-1">
@@ -202,14 +193,24 @@
 
 {# --- Main Page Content --- #}
 {% block content %}
-    <!-- Hero Section: Gradient Background -->
-    <section class="hero-section" id="main-content">
-        {# Wrap content in a div to allow flex centering on the section #}
-        <div class="w-full max-w-4xl mx-auto text-center reveal">
+    <!-- Hero Section: Gradient OR Image Background -->
+    {# Add 'has-bg-image' class dynamically if banner_path exists #}
+    <section class="hero-section {% if banner_path %}has-bg-image{% endif %}" id="main-content">
+        {# Conditionally add background image container #}
+        {% if banner_path %}
+            <div class="hero-bg-image-container">
+                <img src="{{ banner_path }}" alt="{{ headline }} banner" class="hero-bg-image" loading="eager"> {# Eager load hero image #}
+                <div class="hero-bg-overlay"></div> {# Overlay for text contrast #}
+            </div>
+        {% endif %}
+
+        {# Hero content container, ensure it's above the background/overlay #}
+        <div class="hero-content w-full max-w-4xl mx-auto text-center reveal">
              <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-3 hero-text-shadow">{{ headline | default("Welcome!") }}</h1>
              <p class="text-lg sm:text-xl max-w-3xl mx-auto opacity-90 mb-8 hero-text-shadow">{{ tagline | default("Explore what we have to offer.") }}</p>
              {% if about %}
-             <a href="#about" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+             {# Button style - Needs good contrast on gradient AND image overlay #}
+             <a href="#about" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-md text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white transition-all transform hover:scale-105">
                  <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
                  Learn More
              </a>
@@ -219,22 +220,41 @@
 
     <!-- About Section -->
      {% if about %}
-         <section id="about" class="px-4 sm:px-6 lg:px-8 bg-white"> {# White bg #}
-             {# Wrap content in a div to allow flex centering on the section #}
-             <div class="w-full max-w-3xl mx-auto reveal text-center">
-                 <h2 class="text-3xl font-bold text-gray-900 mb-4">About</h2>
-                 <div class="section-divider-thin"></div>
-                 <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed text-left md:text-center">
-                      {{ about }}
-                 </div>
+         <section id="about" class="px-4 sm:px-6 lg:px-8 bg-white">
+             {# Use full width container to allow grid/centering logic #}
+             <div class="w-full max-w-5xl mx-auto reveal">
+                 {# Check if about_image exists to determine layout #}
+                 {% if about_image %}
+                     {# Grid layout with image #}
+                     <div class="lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
+                         <div class="about-image-container relative mb-10 lg:mb-0 reveal">
+                             <img src="{{ about_image }}" alt="About {{ headline }}" loading="lazy">
+                         </div>
+                         <div class="relative reveal text-center lg:text-left">
+                             <h2 class="text-3xl font-bold text-gray-900 mb-4">About</h2>
+                             <div class="section-divider-thin mx-auto lg:mx-0"></div> {# Adjust divider alignment #}
+                             <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                                  {{ about }}
+                             </div>
+                         </div>
+                     </div>
+                 {% else %}
+                     {# Centered text layout without image #}
+                     <div class="max-w-3xl mx-auto text-center">
+                         <h2 class="text-3xl font-bold text-gray-900 mb-4">About</h2>
+                         <div class="section-divider-thin"></div>
+                         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                              {{ about }}
+                         </div>
+                     </div>
+                 {% endif %}
               </div>
          </section>
      {% endif %}
 
     <!-- Optional Services/Features Section -->
     {% if services and services | length > 0 %}
-    <section id="services" class="px-4 sm:px-6 lg:px-8 bg-gray-100"> {# Darker gray bg (Tailwind gray-100) #}
-         {# Wrap content in a div to allow flex centering on the section #}
+    <section id="services" class="px-4 sm:px-6 lg:px-8 bg-gray-100"> {# Darker gray bg #}
          <div class="w-full max-w-5xl mx-auto">
              <div class="text-center mb-12 md:mb-16 reveal">
                  <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">What We Offer</h2>
@@ -246,7 +266,6 @@
                         <div class="service-icon-wrapper">
                             <svg><use href="#icon-{{ service.icon | default('check-circle') }}" /></svg>
                         </div>
-                        {# Wrap text content for flex grow #}
                         <div class="service-card-content">
                              <h3 class="text-lg font-semibold mb-2 text-gray-900">{{ service.name | default("Feature") }}</h3>
                              {% if service.description %}
@@ -261,8 +280,7 @@
     {% endif %}
 
      <!-- Contact Section (Included via _base.html) -->
-     {# The {% include "_contact_section.html" %} in _base.html handles this #}
-     {# Remember this section will use its own background defined in _contact_section.html or inherit base styles #}
+     {# {% include "_contact_section.html" %} is handled by base #}
 
 {% endblock content %}
 
