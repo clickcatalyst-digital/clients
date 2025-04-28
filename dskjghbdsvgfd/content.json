@@ -9,18 +9,75 @@
   "email": "motiwalapujan@gmail.com",
   "phone": "7323065127",
   "social": {
-    "whatsapp": "",
-    "telegram": "",
     "facebook": "",
-    "instagram": "",
     "twitter": "",
-    "linkedin": ""
+    "linkedin": "",
+    "instagram": "",
+    "whatsapp": "",
+    "telegram": ""
   },
   "site_url": "dskjghbdsvgfd",
   "banner": null,
-  "about_image": null,
+  "about_image": "",
   "websiteId": "web-4fgjhtr7ma0ysk0j",
   "createdAt": "2025-04-28T10:57:52.723Z",
-  "lastUpdated": "2025-04-28T10:57:52.723Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-04-28T12:17:04.513Z",
+  "status": "pending_deployment",
+  "logo_path": "",
+  "banner_path": "",
+  "colors": {
+    "primary": "#4A90E2",
+    "secondary": "#6FCF97",
+    "background": "#FFFFFF",
+    "text": "#333333",
+    "text_on_primary": "#FFFFFF",
+    "text_on_secondary": "#333333",
+    "text_on_gradient": "#FFFFFF",
+    "text_on_dark": "#FFFFFF"
+  },
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "business_stats": [],
+  "testimonials": [],
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": ""
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "skills": [],
+  "workExperience": [],
+  "education": [],
+  "certifications": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": ""
 }
