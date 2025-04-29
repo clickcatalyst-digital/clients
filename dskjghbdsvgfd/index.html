@@ -355,17 +355,17 @@
     <style>
         /* Define theme colors from the dynamic color scheme */
         :root {
-            --color-primary: #1400c6;
-            --color-secondary: #7ebc59;
-            --color-background: #eaeaea;
-            --color-text: #33363b;
+            --color-primary: #6B7A8F;
+            --color-secondary: #F7882F;
+            --color-background: #DCC7AA;
+            --color-text: #2d545e;
             /* Calculate muted text color (e.g., ~70% opacity hex) */
-            --color-text-muted: #33363bB3;
+            --color-text-muted: #2d545eB3;
             /* Text contrast colors */
-            --color-text-on-primary: #eaeaea;
-            --color-text-on-secondary: #33363b;
-            --color-text-on-gradient: #eaeaea;
-            --color-text-on-dark: #eaeaea;
+            --color-text-on-primary: #DCC7AA;
+            --color-text-on-secondary: #2d545e;
+            --color-text-on-gradient: #DCC7AA;
+            --color-text-on-dark: #DCC7AA;
             --transition-speed: 0.3s;
         }
 
@@ -426,7 +426,7 @@
 
         /* Contact form basic input styling */
         .form-input { transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: 1px solid #d1d5db; /* Tailwind gray-300 */ }
-        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #1400c633; /* Primary with opacity */ outline: none; }
+        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #6B7A8F33; /* Primary with opacity */ outline: none; }
 
         /* Quick connect button base style (used in resume/portfolio) */
         .quick-connect-button { display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 500; transition: background-color, opacity, box-shadow, transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); text-decoration: none; }
@@ -653,6 +653,8 @@
                         <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
                     
                     
+                        <a href="#services" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Services</a>
+                    
                     
                         <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
                     
@@ -675,6 +677,8 @@
                     
                         <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
                     
+                    
+                         <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Services</a>
                     
                     
                         <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
@@ -747,6 +751,29 @@
      
 
     <!-- Optional Services/Features Section -->
+    
+    <section id="services" class="px-4 sm:px-6 lg:px-8 bg-gray-100"> 
+         <div class="w-full max-w-5xl mx-auto">
+             <div class="text-center mb-12 md:mb-16 reveal">
+                 <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">What We Offer</h2>
+                  
+                 <div class="section-divider-thin divider-center mt-4"></div>
+             </div>
+             <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                 
+                     <div class="service-card reveal">
+                        <div class="service-icon-wrapper">
+                            <svg><use href="#icon-check-circle" /></svg>
+                        </div>
+                        <div class="service-card-content">
+                             <h3 class="text-lg font-semibold mb-2 text-gray-900">Feature</h3>
+                             
+                        </div>
+                     </div>
+                 
+             </div>
+         </div>
+    </section>
     
 
      <!-- Contact Section (Included via _base.html) -->
@@ -875,7 +902,7 @@
                      <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
                      <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
                      
-                     
+                     <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
                      
                      <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
                  </ul>
