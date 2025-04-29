@@ -4,14 +4,7 @@
   "headline": "dskjghbdsvgf",
   "tagline": "fggfdssdfg",
   "about": "About Section Here",
-  "services": {
-    "0": {
-      "name": "e",
-      "icon": "",
-      "description": "",
-      "_tempId": "temp_52qtxv6"
-    }
-  },
+  "services": [],
   "logo": null,
   "email": "motiwalapujan@gmail.com",
   "phone": "7323065127",
@@ -28,7 +21,7 @@
   "about_image": "dskjghbdsvgfd/assets/16d7e50c-7007-409d-bd6c-4593c74bcb1d.png",
   "websiteId": "web-4fgjhtr7ma0ysk0j",
   "createdAt": "2025-04-28T10:57:52.723Z",
-  "lastUpdated": "2025-04-29T20:23:15.890Z",
+  "lastUpdated": "2025-04-29T21:04:38.487Z",
   "status": "pending_deployment",
   "logo_path": "dskjghbdsvgfd/assets/37e6171b-c617-42c1-9899-1d7ba95bd2e2.jpg",
   "banner_path": "dskjghbdsvgfd/assets/88e9245e-f77e-4a18-bec1-fbaf74a143b0.jpg",
