@@ -1,6 +1,6 @@
 {
   "user_type": "portfolio",
-  "color_palette": "nature-inspired",
+  "color_palette": "retro-pop",
   "headline": "dashboard-test-portfolio",
   "tagline": "short desc",
   "about": "about myself",
@@ -9,13 +9,14 @@
     {
       "title": "project1",
       "description": "project desc",
-      "imagePreview": "dashboard-test-portfolio/assets/image-1745994596438-4yxz7d.jpg"
+      "imagePreview": "dashboard-test-portfolio/assets/872ed4e2-6665-4906-bfe5-0f65984d72d7.jpg"
     }
   ],
   "workExperience": [],
   "skills": [
     "skill1",
-    "skill2"
+    "skill2",
+    "Skill 3"
   ],
   "certifications": [
     {
@@ -23,10 +24,16 @@
       "issuer": "org1",
       "date": "date earned",
       "expiration": "expiration date"
+    },
+    {
+      "name": "cert 2",
+      "issuer": "org 2",
+      "date": "date en",
+      "_tempId": "temp_jc46682"
     }
   ],
   "logo": "dashboard-test-portfolio/assets/image-1745994593776-iyd4f0.png",
-  "about_image": "dashboard-test-portfolio/assets/image-1745994595560-l1v0dc.jpg",
+  "about_image": "dashboard-test-portfolio/assets/5349e636-b941-458e-bd75-f0813835c58d.jpg",
   "email": "motiwalapujan@gmail.com",
   "phone": "7323065127",
   "social": {
@@ -41,10 +48,10 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-04-30T06:52:43.933Z",
+  "lastUpdated": "2025-04-30T07:34:57.082Z",
   "status": "pending_deployment",
-  "logo_path": "dashboard-test-portfolio/assets/432a11af-9b85-460c-a139-d6433a88df3f.jpg",
-  "banner_path": "",
+  "logo_path": "dashboard-test-portfolio/assets/24598dcc-5aa2-44c5-82d0-ec9f9df5a769.jpg",
+  "banner_path": null,
   "colors": {
     "primary": "#4A90E2",
     "secondary": "#6FCF97",
