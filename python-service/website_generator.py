@@ -199,8 +199,8 @@ def download_assets(s3_client, bucket, folder_name, asset_keys):
                     # Determine the key for the template data
                     template_key = task['asset_type']
                     # Add _path suffix only for standard keys like logo and banner
-                    if task['asset_type'] in ['logo', 'banner']:
-                         template_key = f"{task['asset_type']}_path"
+                    # if task['asset_type'] in ['logo', 'banner']:
+                    #      template_key = f"{task['asset_type']}_path"
 
                     # Store the relative path
                     downloaded_assets[template_key] = f"assets/{task['filename']}"
@@ -332,11 +332,15 @@ def generate_website(
             json.dump(content_data, f, indent=2)
         
         # Download assets
-        asset_keys = {
-            'logo': content_data.get('logo'),
-            'banner': content_data.get('banner'),
+        asset_key_dict = {
+            'logo_path': content_data.get('logo_path') or content_data.get('logo'), # Prioritize logo_path
+            'banner_path': content_data.get('banner_path') or content_data.get('banner'), # Prioritize banner_path
             'about_image': content_data.get('about_image')
+            # Add other potential top-level image paths here if needed
         }
+
+        # Remove None/empty values
+        asset_keys = {k: v for k, v in asset_key_dict.items() if v} 
         
         # Add additional assets if present
         if content_data.get('gallery'):
