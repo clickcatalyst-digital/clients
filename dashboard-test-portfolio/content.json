@@ -1,6 +1,6 @@
 {
   "user_type": "portfolio",
-  "color_palette": "dreamy-sunset",
+  "color_palette": "nature-inspired",
   "headline": "dashboard-test-portfolio",
   "tagline": "short desc",
   "about": "about myself",
@@ -12,17 +12,7 @@
       "imagePreview": "dashboard-test-portfolio/assets/image-1745994596438-4yxz7d.jpg"
     }
   ],
-  "workExperience": {
-    "0": {
-      "title": "o",
-      "company": "",
-      "location": "",
-      "startDate": "",
-      "endDate": "",
-      "description": "",
-      "_tempId": "temp_eiocmx4"
-    }
-  },
+  "workExperience": [],
   "skills": [
     "skill1",
     "skill2"
@@ -51,9 +41,9 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-04-30T06:34:24.406Z",
+  "lastUpdated": "2025-04-30T06:52:43.933Z",
   "status": "pending_deployment",
-  "logo_path": "dashboard-test-portfolio/assets/6578ffdf-f95f-4de9-b5d6-213669cfcb10.png",
+  "logo_path": "dashboard-test-portfolio/assets/432a11af-9b85-460c-a139-d6433a88df3f.jpg",
   "banner_path": "",
   "colors": {
     "primary": "#4A90E2",
