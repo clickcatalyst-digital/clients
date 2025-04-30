@@ -53,7 +53,7 @@
     }
   ],
   "logo": "dashboard-test-portfolio/assets/image-1745994593776-iyd4f0.png",
-  "about_image": "dashboard-test-portfolio/assets/311ad581-2725-4dd9-adef-16dc130e9339.jpg",
+  "about_image": null,
   "email": "motiwalapujan@gmail.com",
   "phone": "7323065127",
   "social": {
@@ -81,7 +81,7 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-04-30T20:02:08.826Z",
+  "lastUpdated": "2025-04-30T20:07:59.782Z",
   "status": "pending_deployment",
   "logo_path": null,
   "banner_path": null,
