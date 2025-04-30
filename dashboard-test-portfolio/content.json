@@ -1,0 +1,58 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "dashboard-test-portfolio",
+  "tagline": "short desc",
+  "about": "about myself",
+  "services": [],
+  "portfolioProjects": [
+    {
+      "title": "project1",
+      "description": "project desc",
+      "imagePreview": "dashboard-test-portfolio/assets/image-1745994596438-4yxz7d.jpg"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "position 1",
+      "company": "company 1",
+      "startMonth": "2",
+      "startYear": "2024",
+      "endMonth": "",
+      "endYear": "",
+      "isCurrent": true,
+      "location": "location",
+      "description": "responsibilities"
+    }
+  ],
+  "skills": [
+    "skill1",
+    "skill2"
+  ],
+  "certifications": [
+    {
+      "name": "cert 1",
+      "issuer": "org1",
+      "date": "date earned",
+      "expiration": "expiration date"
+    }
+  ],
+  "logo": "dashboard-test-portfolio/assets/image-1745994593776-iyd4f0.png",
+  "about_image": "dashboard-test-portfolio/assets/image-1745994595560-l1v0dc.jpg",
+  "email": "motiwalapujan@gmail.com",
+  "phone": "7323065127",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "dashboard-test-portfolio",
+  "banner": null,
+  "websiteId": "web-z0rhq8sfma3k3mr2",
+  "createdAt": "2025-04-30T06:29:53.771Z",
+  "lastUpdated": "2025-04-30T06:29:53.771Z",
+  "status": "pending_deployment"
+}
