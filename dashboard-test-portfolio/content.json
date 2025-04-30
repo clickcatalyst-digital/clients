@@ -1,9 +1,9 @@
 {
   "user_type": "portfolio",
-  "color_palette": "retro-pop",
-  "headline": "dashboard-test-portfolio",
-  "tagline": "short desc",
-  "about": "about myself",
+  "color_palette": "futuristic-tech",
+  "headline": "dashboard-test-portfolio-change",
+  "tagline": "short description",
+  "about": "about myself and myself",
   "services": [],
   "portfolioProjects": [
     {
@@ -12,11 +12,31 @@
       "imagePreview": "dashboard-test-portfolio/assets/872ed4e2-6665-4906-bfe5-0f65984d72d7.jpg"
     }
   ],
-  "workExperience": [],
+  "workExperience": [
+    {
+      "title": "j",
+      "company": "c",
+      "location": "l",
+      "startDate": "Jan 2022",
+      "endDate": "Dec 2022",
+      "description": "desss",
+      "_tempId": "temp_awdxc3p"
+    },
+    {
+      "title": "jj",
+      "company": "cc",
+      "location": "ll",
+      "startDate": "Jan 2020",
+      "endDate": "Present",
+      "description": "resssss",
+      "_tempId": "temp_fo14otp"
+    }
+  ],
   "skills": [
     "skill1",
     "skill2",
-    "Skill 3"
+    "Skill 3",
+    "skill 4"
   ],
   "certifications": [
     {
@@ -33,7 +53,7 @@
     }
   ],
   "logo": "dashboard-test-portfolio/assets/image-1745994593776-iyd4f0.png",
-  "about_image": "dashboard-test-portfolio/assets/5349e636-b941-458e-bd75-f0813835c58d.jpg",
+  "about_image": "dashboard-test-portfolio/assets/c60c834c-2619-41ba-85b6-cadfe1e490a0.png",
   "email": "motiwalapujan@gmail.com",
   "phone": "7323065127",
   "social": {
@@ -48,9 +68,9 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-04-30T07:34:57.082Z",
+  "lastUpdated": "2025-04-30T09:42:54.568Z",
   "status": "pending_deployment",
-  "logo_path": "dashboard-test-portfolio/assets/24598dcc-5aa2-44c5-82d0-ec9f9df5a769.jpg",
+  "logo_path": "dashboard-test-portfolio/assets/478c19c9-cf39-4a97-9f78-7563042848e8.png",
   "banner_path": null,
   "colors": {
     "primary": "#4A90E2",
@@ -88,7 +108,18 @@
     "successStories": []
   },
   "donation_url": "",
-  "education": [],
+  "education": [
+    {
+      "degree": "sddd",
+      "institution": "iiii",
+      "location": "lll",
+      "startYear": "2018",
+      "endYear": "2022",
+      "grade": "3.2",
+      "activities": "",
+      "_tempId": "temp_hhw9m02"
+    }
+  ],
   "eventDetails": {
     "date": "",
     "startTime": "",
