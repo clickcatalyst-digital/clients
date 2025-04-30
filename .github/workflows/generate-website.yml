@@ -65,16 +65,18 @@ jobs:
           # --- Get data passed from the dispatch trigger ---
           WEBSITE_ID: ${{ github.event.client_payload.websiteId }}
           FOLDER_NAME: ${{ github.event.client_payload.folderName }}
-          DEPLOYMENT_DOC_ID: ${{ github.event.client_payload.deploymentDocId }} # Get the doc ID
-          TRIGGER_TIMESTAMP: ${{ github.event.client_payload.timestamp }} # Original trigger time if needed
+          DEPLOYMENT_DOC_ID: ${{ github.event.client_payload.deploymentDocId }} 
+          USER_EMAIL: ${{ github.event.client_payload.userEmail }} # <-- Get userEmail
+          TRIGGER_TIMESTAMP: ${{ github.event.client_payload.timestamp }} 
           # --- Determine status ---
           DEPLOYMENT_STATUS: ${{ (steps.generate.outcome == 'success' && steps.deploy.outcome == 'success') && 'success' || 'failure' }}
           ERROR_MESSAGE: ${{ (steps.generate.outcome != 'success' && 'Generation failed.') || (steps.deploy.outcome != 'success' && 'Deployment failed.') || '' }}
         run: |
           echo "Determined Status: $DEPLOYMENT_STATUS"
           echo "Deployment Doc ID: $DEPLOYMENT_DOC_ID" 
+          echo "User Email: $USER_EMAIL" # Log it
           
-          # Construct JSON payload including deploymentDocId
+          # Construct JSON payload including userEmail
           JSON_PAYLOAD=$(jq -n \
             --arg websiteId "$WEBSITE_ID" \
             --arg folderName "$FOLDER_NAME" \
@@ -82,7 +84,8 @@ jobs:
             --arg timestamp "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
             --arg errorMessage "$ERROR_MESSAGE" \
             --arg deploymentDocId "$DEPLOYMENT_DOC_ID" \
-            '{websiteId: $websiteId, folderName: $folderName, status: $status, timestamp: $timestamp, errorMessage: $errorMessage, deploymentDocId: $deploymentDocId}') # Add ID here
+            --arg userEmail "$USER_EMAIL" \
+            '{websiteId: $websiteId, folderName: $folderName, status: $status, timestamp: $timestamp, errorMessage: $errorMessage, deploymentDocId: $deploymentDocId, userEmail: $userEmail}') # Add userEmail
 
           echo "Sending payload: $JSON_PAYLOAD"
 
