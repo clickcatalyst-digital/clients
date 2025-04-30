@@ -1,52 +1,43 @@
 name: Generate Website
-
 permissions:
   contents: write    # Needed for checkout and gh-pages deploy
   pages: write       # Needed for gh-pages deploy
   id-token: write    # May be needed depending on future interactions
-
 on:
   repository_dispatch:
     types: [website-generation]
-
 # Concurrency Control
 concurrency:
   group: ${{ github.workflow }} # Group runs of THIS workflow
   cancel-in-progress: false    # Queue new runs instead of canceling old ones
-
 jobs:
   generate-website:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
-
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
       - name: Install Node.js Dependencies
         run: npm install
         shell: bash
-
       - name: Compile Tailwind CSS
         # run: npx tailwindcss -i ./src/input.css -o ./python-service/templates/styles.css --minify
         run: npx tailwindcss -i ./src/input.css -o ./python-service/templates/styles.css --content "./python-service/templates/**/*.html" --minify
         shell: bash
-
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install boto3 requests jinja2 python-dotenv xmltodict flask
         shell: bash
-
       - name: Process website content & Copy Files
+        id: generate
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -57,11 +48,47 @@ jobs:
         # Execute the separate Python script instead of inline code
         run: python python-service/run_action_script.py
         shell: bash
-
       - name: Deploy to GitHub Pages
+        id: deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./clients     # Deploy the whole 'clients' folder
           keep_files: true         # Keep existing files/folders
           commit_message: Deploy website for ${{ github.event.client_payload.folderName }}
+      # --- NEW: Notify Backend Step ---
+      - name: Notify Backend of Deployment Status
+        if: always() 
+        env:
+          WEBHOOK_URL: ${{ secrets.DEPLOYMENT_STATUS_WEBHOOK_URL }} 
+          WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }} 
+          # --- Get data passed from the dispatch trigger ---
+          WEBSITE_ID: ${{ github.event.client_payload.websiteId }}
+          FOLDER_NAME: ${{ github.event.client_payload.folderName }}
+          DEPLOYMENT_DOC_ID: ${{ github.event.client_payload.deploymentDocId }} # Get the doc ID
+          TRIGGER_TIMESTAMP: ${{ github.event.client_payload.timestamp }} # Original trigger time if needed
+          # --- Determine status ---
+          DEPLOYMENT_STATUS: ${{ (steps.generate.outcome == 'success' && steps.deploy.outcome == 'success') && 'success' || 'failure' }}
+          ERROR_MESSAGE: ${{ (steps.generate.outcome != 'success' && 'Generation failed.') || (steps.deploy.outcome != 'success' && 'Deployment failed.') || '' }}
+        run: |
+          echo "Determined Status: $DEPLOYMENT_STATUS"
+          echo "Deployment Doc ID: $DEPLOYMENT_DOC_ID" 
+          
+          # Construct JSON payload including deploymentDocId
+          JSON_PAYLOAD=$(jq -n \
+            --arg websiteId "$WEBSITE_ID" \
+            --arg folderName "$FOLDER_NAME" \
+            --arg status "$DEPLOYMENT_STATUS" \
+            --arg timestamp "$(date -u +'%Y-%m-%dT%H:%M:%SZ')" \
+            --arg errorMessage "$ERROR_MESSAGE" \
+            --arg deploymentDocId "$DEPLOYMENT_DOC_ID" \
+            '{websiteId: $websiteId, folderName: $folderName, status: $status, timestamp: $timestamp, errorMessage: $errorMessage, deploymentDocId: $deploymentDocId}') # Add ID here
+
+          echo "Sending payload: $JSON_PAYLOAD"
+
+          curl -L -X POST "$WEBHOOK_URL" \
+          -H "Content-Type: application/json" \
+          -H "X-Webhook-Secret: $WEBHOOK_SECRET" \
+          -d "$JSON_PAYLOAD" \
+          --max-time 15 \
+          --fail
