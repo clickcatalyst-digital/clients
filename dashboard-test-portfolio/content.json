@@ -1,6 +1,6 @@
 {
   "user_type": "portfolio",
-  "color_palette": "nature-inspired",
+  "color_palette": "dreamy-sunset",
   "headline": "dashboard-test-portfolio-change-1-with-hook",
   "tagline": "short description with hook",
   "about": "about myself and myself",
@@ -53,7 +53,7 @@
     }
   ],
   "logo": "dashboard-test-portfolio/assets/image-1745994593776-iyd4f0.png",
-  "about_image": null,
+  "about_image": "dashboard-test-portfolio/assets/4046947f-eea6-4b1d-8ba7-32851cf9c50b.jpg",
   "email": "motiwalapujan@gmail.com",
   "phone": "7323065127",
   "social": {
@@ -94,7 +94,7 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-05-01T12:19:57.925Z",
+  "lastUpdated": "2025-05-01T12:24:53.626Z",
   "status": "pending_deployment",
   "logo_path": "dashboard-test-portfolio/assets/1487cda0-9f88-480c-802f-0a749ac751d3.png",
   "banner_path": null,
