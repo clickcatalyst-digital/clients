@@ -1,0 +1,36 @@
+{
+  "user_type": "resume",
+  "color_palette": "luxurious-chic",
+  "headline": "resume-dash",
+  "tagline": "1 liner",
+  "about": "bio",
+  "services": [
+    {
+      "name": "expertise 1",
+      "icon": "briefcase",
+      "description": "hngf"
+    }
+  ],
+  "education": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "email": "pujan10sept@gmail.com",
+  "phone": "325",
+  "social": {
+    "whatsapp": "45",
+    "telegram": "345",
+    "facebook": "354",
+    "instagram": "345",
+    "twitter": "345",
+    "linkedin": "3465"
+  },
+  "site_url": "resume-dash",
+  "logo_path": "resume-dash/assets/image-1746138299269-7gg6ap.jpg",
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-66yoo35cma5xnqm8",
+  "createdAt": "2025-05-01T22:24:59.262Z",
+  "lastUpdated": "2025-05-01T22:24:59.262Z",
+  "status": "pending_deployment"
+}
