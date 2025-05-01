@@ -203,8 +203,8 @@
                             {# Image container - not linking itself, trigger is the button #}
                              <div class="portfolio-image-container relative">
                                 {% if project.imagePreview %}
-<!--                                     <img src="{{ project.imagePreview | replace(headline + '/', '') }}" alt="Preview image for {{ project.title }}" loading="lazy"> -->
-                                    <img src="{{ project.imagePreview }}" alt="Preview image for {{ project.title }}" loading="lazy">
+                                    <img src="{{ project.imagePreview | replace(headline + '/', '') }}" alt="Preview image for {{ project.title }}" loading="lazy">
+<!--                                     <img src="{{ project.imagePreview }}" alt="Preview image for {{ project.title }}" loading="lazy"> -->
                                 {% else %}
                                     <div class="portfolio-image-placeholder"><span>{{ project.title[0] if project.title else 'P' }}</span></div>
                                 {% endif %}
@@ -215,8 +215,8 @@
                                              class="portfolio-overlay-link mt-2 portfolio-modal-trigger"
                                              data-modal-target="portfolioModal"
                                              data-project-title="{{ project.title | e }}"
-<!--                                              data-project-image="{% if project.imagePreview and project.imagePreview != 'None' %}{{ project.imagePreview | replace(headline + '/', '') }}{% else %}{% endif %}" -->
-                                             data-project-image="{% if project.imagePreview %}{{ project.imagePreview }}{% else %}{% endif %}"
+                                             data-project-image="{% if project.imagePreview and project.imagePreview != 'None' %}{{ project.imagePreview | replace(headline + '/', '') }}{% else %}{% endif %}"
+<!--                                              data-project-image="{% if project.imagePreview %}{{ project.imagePreview }}{% else %}{% endif %}" -->
                                              data-project-description="{{ project.description | e }}"
                                              data-project-url="{{ project.url | default('') | e }}"
                                              data-project-tags="{{ project.technologies | join(',') if project.technologies else '' | e }}" 
