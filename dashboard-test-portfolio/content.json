@@ -1,6 +1,6 @@
 {
   "user_type": "portfolio",
-  "color_palette": "dreamy-sunset",
+  "color_palette": "nature-inspired",
   "headline": "dashboard-test-portfolio-change-1-with-hook",
   "tagline": "short description with hook",
   "about": "about myself and myself",
@@ -94,9 +94,9 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-05-01T10:12:32.009Z",
+  "lastUpdated": "2025-05-01T12:19:57.925Z",
   "status": "pending_deployment",
-  "logo_path": null,
+  "logo_path": "dashboard-test-portfolio/assets/1487cda0-9f88-480c-802f-0a749ac751d3.png",
   "banner_path": null,
   "colors": {
     "primary": "#4A90E2",
