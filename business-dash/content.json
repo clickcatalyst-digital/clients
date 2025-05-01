@@ -1,0 +1,59 @@
+{
+  "user_type": "business",
+  "color_palette": "retro-pop",
+  "headline": "business-dash",
+  "tagline": "1 liner",
+  "about": "about business",
+  "services": [
+    {
+      "name": "service 1",
+      "icon": "briefcase",
+      "description": "desc"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "Jane",
+      "title": "Title",
+      "company": "company",
+      "rating": "2",
+      "quote": "quote"
+    }
+  ],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "about_image": "business-dash/assets/image-1746140752500-3kgur4.png",
+  "email": "hello.clickcatalyst@gmail.com",
+  "phone": "324423",
+  "social": {
+    "whatsapp": "2434",
+    "telegram": "24343",
+    "facebook": "2343",
+    "instagram": "42343",
+    "twitter": "432423",
+    "linkedin": "432234"
+  },
+  "site_url": "business-dash",
+  "logo_path": "business-dash/assets/image-1746140745608-2lokfy.jpg",
+  "banner_path": "business-dash/assets/image-1746140747469-v5qawz.png",
+  "websiteId": "web-k6lw8phnma5z4687",
+  "createdAt": "2025-05-01T23:05:45.604Z",
+  "lastUpdated": "2025-05-01T23:05:45.604Z",
+  "status": "pending_deployment"
+}
