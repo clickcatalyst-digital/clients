@@ -327,10 +327,10 @@ def download_assets_v2(s3_client, bucket, folder_name, asset_keys_to_download):
 def render_template_v2(jinja_env, template_data):
     """Render the appropriate HTML template based on website type."""
     # Basic Data Validation
-    if "headline" not in content_data:
-        content_data["headline"] = content_data.get("site_url", "Website")
-    if "tagline" not in content_data:
-        content_data["tagline"] = ""
+    if "headline" not in template_data:
+        template_data["headline"] = template_data.get("site_url", "Website")
+    if "tagline" not in template_data:
+        template_data["tagline"] = ""
 
     website_type = template_data.get("user_type", "business")
     primary_template_name = f"{website_type.lower()}.html"
