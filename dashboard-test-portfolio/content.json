@@ -1,8 +1,8 @@
 {
   "user_type": "portfolio",
   "color_palette": "dreamy-sunset",
-  "headline": "dashboard-test-portfolio-change",
-  "tagline": "short description",
+  "headline": "dashboard-test-portfolio-change-1-with-hook",
+  "tagline": "short description with hook",
   "about": "about myself and myself",
   "services": [],
   "portfolioProjects": [
@@ -81,7 +81,7 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-04-30T20:07:59.782Z",
+  "lastUpdated": "2025-05-01T09:57:54.287Z",
   "status": "pending_deployment",
   "logo_path": null,
   "banner_path": null,
