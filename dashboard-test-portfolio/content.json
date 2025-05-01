@@ -1,6 +1,6 @@
 {
   "user_type": "portfolio",
-  "color_palette": "dreamy-sunset",
+  "color_palette": "modern-minimalist",
   "headline": "dashboard-test-portfolio-change-1-with-hook",
   "tagline": "short description with hook",
   "about": "about myself and myself",
@@ -9,11 +9,11 @@
     {
       "title": "project1",
       "description": "project desc",
-      "imagePreview": "dashboard-test-portfolio/assets/c2057ef1-841d-4b71-9a5e-7b7fee35d3b6.jpg"
+      "imagePreview": "dashboard-test-portfolio/assets/c5191ced-9332-4181-a1eb-8ded61cd257c.jpg"
     },
     {
       "title": "p2",
-      "imagePreview": "dashboard-test-portfolio/assets/9132f634-a56a-4562-8c66-8a04ea14f824.png",
+      "imagePreview": "dashboard-test-portfolio/assets/332122a4-5db8-44e5-acfc-8eff9b20a3e0.jpg",
       "description": "dfasdvs",
       "url": "sdfsfd",
       "tags": [],
@@ -24,7 +24,7 @@
   ],
   "workExperience": [
     {
-      "title": "j",
+      "title": "jobbbb",
       "company": "c",
       "location": "l",
       "startDate": "Jan 2022",
@@ -46,7 +46,8 @@
     "skill1",
     "skill2",
     "Skill 3",
-    "skill 4"
+    "skill 4",
+    "skill 5"
   ],
   "certifications": [
     {
@@ -117,7 +118,7 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-05-01T14:07:19.772Z",
+  "lastUpdated": "2025-05-01T14:16:26.481Z",
   "status": "pending_deployment",
   "logo_path": "dashboard-test-portfolio/assets/1487cda0-9f88-480c-802f-0a749ac751d3.png",
   "banner_path": null,
