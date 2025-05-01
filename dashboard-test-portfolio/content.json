@@ -9,7 +9,17 @@
     {
       "title": "project1",
       "description": "project desc",
-      "imagePreview": "dashboard-test-portfolio/assets/fd701f1e-aa54-40b8-bed1-03f856fb9bd6.jpg"
+      "imagePreview": "dashboard-test-portfolio/assets/c8b0af8b-297c-4c79-8b48-333c84c6e60a.jpg"
+    },
+    {
+      "title": "p2",
+      "imagePreview": "dashboard-test-portfolio/assets/9132f634-a56a-4562-8c66-8a04ea14f824.png",
+      "description": "dfasdvs",
+      "url": "sdfsfd",
+      "tags": [],
+      "technologies": [],
+      "features": [],
+      "_tempId": "temp_7af2k5g"
     }
   ],
   "workExperience": [
@@ -107,7 +117,7 @@
   "banner": null,
   "websiteId": "web-z0rhq8sfma3k3mr2",
   "createdAt": "2025-04-30T06:29:53.771Z",
-  "lastUpdated": "2025-05-01T12:32:33.877Z",
+  "lastUpdated": "2025-05-01T12:46:40.948Z",
   "status": "pending_deployment",
   "logo_path": "dashboard-test-portfolio/assets/1487cda0-9f88-480c-802f-0a749ac751d3.png",
   "banner_path": null,
