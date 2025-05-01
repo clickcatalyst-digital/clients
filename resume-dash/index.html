@@ -355,17 +355,17 @@
     <style>
         /* Define theme colors from the dynamic color scheme */
         :root {
-            --color-primary: #5cbdb9;
-            --color-secondary: #ebf6f5;
-            --color-background: #fceed1;
+            --color-primary: #6B7A8F;
+            --color-secondary: #F7882F;
+            --color-background: #DCC7AA;
             --color-text: #2d545e;
             /* Calculate muted text color (e.g., ~70% opacity hex) */
             --color-text-muted: #2d545eB3;
             /* Text contrast colors */
-            --color-text-on-primary: #2d545e;
+            --color-text-on-primary: #DCC7AA;
             --color-text-on-secondary: #2d545e;
-            --color-text-on-gradient: #2d545e;
-            --color-text-on-dark: #fceed1;
+            --color-text-on-gradient: #DCC7AA;
+            --color-text-on-dark: #DCC7AA;
             --transition-speed: 0.3s;
         }
 
@@ -426,7 +426,7 @@
 
         /* Contact form basic input styling */
         .form-input { transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: 1px solid #d1d5db; /* Tailwind gray-300 */ }
-        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #5cbdb933; /* Primary with opacity */ outline: none; }
+        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #6B7A8F33; /* Primary with opacity */ outline: none; }
 
         /* Quick connect button base style (used in resume/portfolio) */
         .quick-connect-button { display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 500; transition: background-color, opacity, box-shadow, transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); text-decoration: none; }
@@ -660,19 +660,23 @@
                     
                     <div class="reveal experience-item">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1"> 
-                            <h3 class="text-lg sm:text-xl font-semibold text-primary"></h3>
-                            <p class="text-sm text-gray-500 mt-1 sm:mt-0 flex-shrink-0"> - </p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-primary">fsd</h3>
+                            <p class="text-sm text-gray-500 mt-1 sm:mt-0 flex-shrink-0">sdf - Present</p>
                         </div>
-                        <p class="text-md font-medium text-gray-800"> </p>
+                        <p class="text-md font-medium text-gray-800">fds <span class="text-gray-500 font-normal text-sm">- sdf</span></p>
+                        
+                        <p class="mt-2 text-base text-gray-600 leading-relaxed">sdfdsfsdf</p> 
                         
                     </div>
                     
                     <div class="reveal experience-item">
                         <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1"> 
-                            <h3 class="text-lg sm:text-xl font-semibold text-primary"></h3>
-                            <p class="text-sm text-gray-500 mt-1 sm:mt-0 flex-shrink-0"> - </p>
+                            <h3 class="text-lg sm:text-xl font-semibold text-primary">fsd</h3>
+                            <p class="text-sm text-gray-500 mt-1 sm:mt-0 flex-shrink-0">dsf - sdf</p>
                         </div>
-                        <p class="text-md font-medium text-gray-800"> </p>
+                        <p class="text-md font-medium text-gray-800">sdf <span class="text-gray-500 font-normal text-sm">- sdf</span></p>
+                        
+                        <p class="mt-2 text-base text-gray-600 leading-relaxed">sdfsdfsdsdf</p> 
                         
                     </div>
                     
@@ -740,9 +744,17 @@
                             <ul class="space-y-1"> 
                                  
                                      <li class="text-base text-gray-700 certification-item">
-                                         <strong class="text-gray-800"></strong> - 
+                                         <strong class="text-gray-800">fdsgs</strong> - dsf
                                          <span class="block text-xs text-gray-500 mt-0.5">
-                                             Issued:  
+                                             Issued: sfd | Expires: fds
+                                             
+                                         </span>
+                                     </li>
+                                 
+                                     <li class="text-base text-gray-700 certification-item">
+                                         <strong class="text-gray-800">sfd</strong> - sfd
+                                         <span class="block text-xs text-gray-500 mt-0.5">
+                                             Issued: sdf | Expires: sdf
                                              
                                          </span>
                                      </li>
