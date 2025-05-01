@@ -160,34 +160,86 @@ def download_single_asset(s3_client, bucket, asset_key, local_path):
         logger.error(f"Error downloading asset {asset_key}: {e}")
         return False
 
-def download_assets(s3_client, bucket, folder_name, asset_keys):
+# def download_assets(s3_client, bucket, folder_name, asset_keys):
+#     """
+#     Download assets (images) from S3 and save to local directory.
+#     Optimized with ThreadPoolExecutor for parallel downloads.
+#     """
+#     assets_dir = Path(f"clients/{folder_name}/assets")
+#     assets_dir.mkdir(exist_ok=True, parents=True)
+
+#     downloaded_assets = {}
+#     download_tasks = []
+
+#     for asset_type, asset_key in asset_keys.items():
+#         if not asset_key:
+#             continue
+
+#         filename = asset_key.split('/')[-1]
+#         local_path = assets_dir / filename
+
+#         download_tasks.append({
+#             'asset_type': asset_type,
+#             'asset_key': asset_key,
+#             'local_path': local_path,
+#             'filename': filename
+#         })
+
+#     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_CONCURRENT_DOWNLOADS) as executor:
+#         future_to_task = {
+#             executor.submit(download_single_asset, s3_client, bucket, task['asset_key'], task['local_path']): task
+#             for task in download_tasks
+#         }
+
+#         for future in concurrent.futures.as_completed(future_to_task):
+#             task = future_to_task[future]
+#             try:
+#                 success = future.result()
+#                 if success:
+#                     # Determine the key for the template data
+#                     template_key = task['asset_type']
+#                     # Add _path suffix only for standard keys like logo and banner
+#                     # if task['asset_type'] in ['logo', 'banner']:
+#                     #      template_key = f"{task['asset_type']}_path"
+
+#                     # Store the relative path
+#                     downloaded_assets[template_key] = f"assets/{task['filename']}"
+#                     logger.info(f"Downloaded {task['asset_type']} to {task['local_path']}")
+#             except Exception as e:
+#                 logger.error(f"Exception downloading {task['asset_key']}: {e}")
+
+#     return downloaded_assets
+
+def download_assets_v2(s3_client, bucket, folder_name, asset_keys_to_download):
     """
-    Download assets (images) from S3 and save to local directory.
-    Optimized with ThreadPoolExecutor for parallel downloads.
+    Downloads assets based on a dictionary mapping download_key -> s3_key.
+    Returns a dictionary mapping s3_key -> relative_path.
     """
     assets_dir = Path(f"clients/{folder_name}/assets")
     assets_dir.mkdir(exist_ok=True, parents=True)
 
-    downloaded_assets = {}
+    s3_key_to_relative_path = {} # Map S3 key -> relative path
     download_tasks = []
 
-    for asset_type, asset_key in asset_keys.items():
-        if not asset_key:
-            continue
+    # Use items() to get both download_key and s3_key
+    for download_key, s3_key in asset_keys_to_download.items(): 
+        if not s3_key: continue
 
-        filename = asset_key.split('/')[-1]
+        filename = s3_key.split('/')[-1]
         local_path = assets_dir / filename
+        relative_path = f"assets/{filename}" # Store relative path immediately
 
         download_tasks.append({
-            'asset_type': asset_type,
-            'asset_key': asset_key,
-            'local_path': local_path,
-            'filename': filename
+            's3_key': s3_key,       # Key to download from S3
+            'local_path': local_path, # Where to save locally
+            'relative_path': relative_path # Relative path for template
         })
+        # Pre-populate map in case download fails? Optional.
+        # s3_key_to_relative_path[s3_key] = None 
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_CONCURRENT_DOWNLOADS) as executor:
         future_to_task = {
-            executor.submit(download_single_asset, s3_client, bucket, task['asset_key'], task['local_path']): task
+            executor.submit(download_single_asset, s3_client, bucket, task['s3_key'], task['local_path']): task
             for task in download_tasks
         }
 
@@ -196,21 +248,83 @@ def download_assets(s3_client, bucket, folder_name, asset_keys):
             try:
                 success = future.result()
                 if success:
-                    # Determine the key for the template data
-                    template_key = task['asset_type']
-                    # Add _path suffix only for standard keys like logo and banner
-                    # if task['asset_type'] in ['logo', 'banner']:
-                    #      template_key = f"{task['asset_type']}_path"
-
-                    # Store the relative path
-                    downloaded_assets[template_key] = f"assets/{task['filename']}"
-                    logger.info(f"Downloaded {task['asset_type']} to {task['local_path']}")
+                    # Map the original S3 key to the successfully downloaded relative path
+                    s3_key_to_relative_path[task['s3_key']] = task['relative_path'] 
+                    logger.info(f"Downloaded {task['s3_key']} to {task['local_path']}")
+                else:
+                    # Optionally keep the map value as None or remove the key
+                    s3_key_to_relative_path[task['s3_key']] = None 
             except Exception as e:
-                logger.error(f"Exception downloading {task['asset_key']}: {e}")
+                logger.error(f"Exception downloading {task['s3_key']}: {e}")
+                s3_key_to_relative_path[task['s3_key']] = None
 
-    return downloaded_assets
+    return s3_key_to_relative_path
 
-def render_template(jinja_env, content_data, assets):
+
+# def render_template(jinja_env, content_data, assets):
+#     """Render the appropriate HTML template based on website type."""
+#     # Basic Data Validation
+#     if "headline" not in content_data:
+#         content_data["headline"] = content_data.get("site_url", "Website")
+#     if "tagline" not in content_data:
+#         content_data["tagline"] = ""
+
+#     website_type = content_data.get("user_type", "business")
+#     primary_template_name = f"{website_type.lower()}.html"
+#     fallback_template_name = "default.html"
+
+#     # Load Template (with fallback)
+#     template = None
+#     template_to_render = ""
+#     try:
+#         template = jinja_env.get_template(primary_template_name)
+#         template_to_render = primary_template_name
+#         logger.info(f"Using primary template: {template_to_render}")
+#     except TemplateNotFound:
+#         logger.warning(f"Primary template '{primary_template_name}' not found. Attempting fallback '{fallback_template_name}'.")
+#         try:
+#             template = jinja_env.get_template(fallback_template_name)
+#             template_to_render = fallback_template_name
+#             logger.info(f"Using fallback template: {template_to_render}")
+#         except TemplateNotFound:
+#             logger.error(f"CRITICAL: Fallback template '{fallback_template_name}' also not found in search path: {jinja_env.loader.searchpath}")
+#             return generate_error_html("Required template files could not be loaded")
+#         except Exception as e_load_fallback:
+#             logger.error(f"Failed to load fallback template '{fallback_template_name}': {e_load_fallback}")
+#             return generate_error_html(f"Error loading fallback template: {str(e_load_fallback)}")
+#     except Exception as e_load_primary:
+#         logger.error(f"Failed to load primary template '{primary_template_name}': {e_load_primary}")
+#         return generate_error_html(f"Error loading primary template: {str(e_load_primary)}")
+
+#     # Prepare Template Data
+#     template_data = {**content_data}
+#     for asset_type, asset_path in assets.items():
+#         template_data[asset_type] = asset_path
+
+#     palette_id = content_data.get("color_palette", "default")
+#     selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
+#     selected_colors.setdefault('background', '#FFFFFF')
+#     selected_colors.setdefault('text', '#333333')
+
+#     light_contrast = selected_colors['background']
+#     dark_contrast = selected_colors['text']
+
+#     selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
+#     selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
+#     selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
+#     selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast)
+
+#     template_data["colors"] = selected_colors
+#     logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
+
+#     # Render the loaded template
+#     try:
+#         return template.render(**template_data)
+#     except Exception as e_render:
+#         logger.error(f"Template rendering error for '{template_to_render}': {e_render}")
+#         return generate_error_html(f"Template rendering error: {str(e_render)}", template_data)
+
+def render_template_v2(jinja_env, template_data):
     """Render the appropriate HTML template based on website type."""
     # Basic Data Validation
     if "headline" not in content_data:
@@ -218,7 +332,7 @@ def render_template(jinja_env, content_data, assets):
     if "tagline" not in content_data:
         content_data["tagline"] = ""
 
-    website_type = content_data.get("user_type", "business")
+    website_type = template_data.get("user_type", "business")
     primary_template_name = f"{website_type.lower()}.html"
     fallback_template_name = "default.html"
 
@@ -245,12 +359,8 @@ def render_template(jinja_env, content_data, assets):
         logger.error(f"Failed to load primary template '{primary_template_name}': {e_load_primary}")
         return generate_error_html(f"Error loading primary template: {str(e_load_primary)}")
 
-    # Prepare Template Data
-    template_data = {**content_data}
-    for asset_type, asset_path in assets.items():
-        template_data[asset_type] = asset_path
-
-    palette_id = content_data.get("color_palette", "default")
+    # Add Colors
+    palette_id = template_data.get("color_palette", "default")
     selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
     selected_colors.setdefault('background', '#FFFFFF')
     selected_colors.setdefault('text', '#333333')
@@ -340,7 +450,12 @@ def generate_website(
         }
 
         # Remove None/empty values
-        asset_keys = {k: v for k, v in asset_key_dict.items() if v} 
+        asset_keys = {k: v for k, v in asset_key_dict.items() if v}
+
+        # --- Store mapping from S3 key back to its purpose/location in data ---
+        s3_key_to_target_map = {} 
+        for template_key, s3_key in asset_key_dict.items():
+             s3_key_to_target_map[s3_key] = {'type': 'top_level', 'template_key': template_key}
         
         # Add additional assets if present
         if content_data.get('gallery'):
@@ -352,15 +467,64 @@ def generate_website(
                 asset_keys[f'team_{i}'] = image
                 
         # Add portfolio project images if they exist
-        if 'portfolioProjects' in content_data:
+        # if 'portfolioProjects' in content_data:
+        #     for i, project in enumerate(content_data['portfolioProjects']):
+        #         if project.get('imagePreview'):
+        #             asset_keys[f'project_{i}_image'] = project['imagePreview']
+
+        if 'portfolioProjects' in content_data and isinstance(content_data['portfolioProjects'], list):
             for i, project in enumerate(content_data['portfolioProjects']):
-                if project.get('imagePreview'):
-                    asset_keys[f'project_{i}_image'] = project['imagePreview']
+                 project_image_key_in_json = 'imagePreview' # Key in content.json object
+                 s3_key = project.get(project_image_key_in_json)
+                 if s3_key:
+                     # Use a unique key for downloading, store mapping info
+                     download_key = f'project_{i}_{project_image_key_in_json}' 
+                     asset_keys[download_key] = s3_key
+                     s3_key_to_target_map[s3_key] = {'type': 'project', 'index': i, 'field': project_image_key_in_json}
         
-        downloaded_assets = download_assets(s3_client, bucket, folder_name, asset_keys)
+        # --- Download Assets ---
+        # downloaded_assets = download_assets(s3_client, bucket, folder_name, asset_keys)
+        # Pass the combined dictionary of assets to download
+        downloaded_relative_paths = download_assets_v2(s3_client, bucket, folder_name, asset_keys)
+
+        # downloaded_relative_paths maps S3_KEY -> "assets/FILENAME.ext"
+
+        # --- Prepare Data for Jinja (Inject Relative Paths) ---
+        template_data = content_data.copy() # Start with a copy
+
+        # Update top-level paths
+        if template_data.get('logo_path'):
+             relative_path = downloaded_relative_paths.get(template_data['logo_path'])
+             if relative_path: template_data['logo_path'] = relative_path
+        if template_data.get('banner_path'):
+             relative_path = downloaded_relative_paths.get(template_data['banner_path'])
+             if relative_path: template_data['banner_path'] = relative_path
+        if template_data.get('about_image'):
+             relative_path = downloaded_relative_paths.get(template_data['about_image'])
+             if relative_path: template_data['about_image'] = relative_path
+
+        # Update portfolio project image paths IN THE ARRAY
+        if 'portfolioProjects' in template_data and isinstance(template_data['portfolioProjects'], list):
+             updated_projects = []
+             for project in template_data['portfolioProjects']:
+                  new_project = project.copy()
+                  project_image_key_in_json = 'imagePreview'
+                  s3_key = new_project.get(project_image_key_in_json)
+                  if s3_key:
+                      relative_path = downloaded_relative_paths.get(s3_key)
+                      if relative_path:
+                          # Overwrite the S3 key with the relative path for the template
+                          new_project[project_image_key_in_json] = relative_path 
+                      else:
+                           logger.warning(f"Could not find downloaded path for project image S3 key: {s3_key}")
+                           # Optionally set to None or keep S3 key? Let's set to None
+                           new_project[project_image_key_in_json] = None
+                  updated_projects.append(new_project)
+             template_data['portfolioProjects'] = updated_projects # Replace array
         
         # Render HTML
-        html_output = render_template(jinja_env, content_data, downloaded_assets)
+        # html_output = render_template(jinja_env, content_data, downloaded_assets)
+        html_output = render_template_v2(jinja_env, template_data)
         
         # Save HTML
         with open(client_dir / "index.html", "w", encoding='utf-8') as f:
