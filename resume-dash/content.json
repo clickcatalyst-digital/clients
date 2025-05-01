@@ -1,9 +1,9 @@
 {
   "user_type": "resume",
-  "color_palette": "luxurious-chic",
-  "headline": "resume-dash",
-  "tagline": "1 liner",
-  "about": "bio",
+  "color_palette": "nature-inspired",
+  "headline": "resume-dash-1",
+  "tagline": "1 liner\n2 liner",
+  "about": "bio about myself",
   "services": [
     {
       "name": "expertise 1",
@@ -11,19 +11,86 @@
       "description": "hngf"
     }
   ],
-  "education": [],
-  "workExperience": [],
-  "skills": [],
-  "certifications": [],
+  "education": [
+    {
+      "institution": "sdf",
+      "degree": "ads",
+      "startYear": "2029",
+      "endYear": "2030",
+      "location": "fsd",
+      "grade": "3.2",
+      "activities": "qwdedaqcd",
+      "inProgress": true
+    },
+    {
+      "degree": "bdf",
+      "institution": "dfb",
+      "location": "bdf",
+      "startYear": "2028",
+      "endYear": "2018",
+      "inProgress": false,
+      "grade": "bdf",
+      "activities": "gn",
+      "_tempId": "temp_tzbx2z2"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "",
+      "company": "",
+      "startDate": "",
+      "endDate": "",
+      "location": "",
+      "description": "",
+      "isCurrent": false
+    },
+    {
+      "title": "",
+      "company": "",
+      "location": "",
+      "startDate": "",
+      "endDate": "",
+      "isCurrent": false,
+      "description": "",
+      "_tempId": "temp_m614abp"
+    }
+  ],
+  "skills": [
+    "skill1",
+    "skill2"
+  ],
+  "certifications": [
+    {
+      "name": "",
+      "issuer": "",
+      "date": "",
+      "expiration": "",
+      "noExpiration": false,
+      "_tempId": "temp_hztedic"
+    }
+  ],
   "email": "pujan10sept@gmail.com",
   "phone": "325",
   "social": {
+    "facebook": "354",
+    "twitter": "345",
+    "linkedin": "3465",
+    "instagram": "345",
     "whatsapp": "45",
     "telegram": "345",
-    "facebook": "354",
-    "instagram": "345",
-    "twitter": "345",
-    "linkedin": "3465"
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "site_url": "resume-dash",
   "logo_path": "resume-dash/assets/image-1746138299269-7gg6ap.jpg",
@@ -31,6 +98,64 @@
   "about_image": null,
   "websiteId": "web-66yoo35cma5xnqm8",
   "createdAt": "2025-05-01T22:24:59.262Z",
-  "lastUpdated": "2025-05-01T22:24:59.262Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-01T22:30:01.216Z",
+  "status": "pending_deployment",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "business_stats": [],
+  "testimonials": [],
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": ""
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": "",
+  "workExperience[0]": {
+    "title": "d",
+    "company": "g",
+    "location": "l",
+    "isCurrent": true
+  },
+  "workExperience[1]": {
+    "title": "v"
+  },
+  "certifications[0]": {
+    "name": "a",
+    "issuer": "b",
+    "date": "d",
+    "expiration": "d",
+    "noExpiration": true
+  }
 }
