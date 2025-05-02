@@ -1,6 +1,6 @@
 {
   "user_type": "resume",
-  "color_palette": "dreamy-sunset",
+  "color_palette": "nature-inspired",
   "headline": "resume-dash-1",
   "tagline": "1 liner\n2 liner",
   "about": "bio about myself",
@@ -106,7 +106,7 @@
   "about_image": null,
   "websiteId": "web-66yoo35cma5xnqm8",
   "createdAt": "2025-05-01T22:24:59.262Z",
-  "lastUpdated": "2025-05-01T23:00:25.872Z",
+  "lastUpdated": "2025-05-02T10:31:51.641Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
