@@ -1,0 +1,59 @@
+{
+  "user_type": "business",
+  "color_palette": "nature-inspired",
+  "headline": "345",
+  "tagline": "63",
+  "about": "34653645",
+  "services": [
+    {
+      "name": "bdg435y",
+      "icon": "briefcase",
+      "description": "gererg"
+    }
+  ],
+  "testimonials": [
+    {
+      "name": "reggre",
+      "title": "htre",
+      "company": "htht",
+      "rating": "3",
+      "quote": "bdgbdb"
+    }
+  ],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "email": "pujan10sept@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "vdsv",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-qfcpgqsxma9zj87t",
+  "createdAt": "2025-05-04T18:28:32.724Z",
+  "lastUpdated": "2025-05-04T18:28:32.724Z",
+  "status": "pending_deployment"
+}
