@@ -1,0 +1,61 @@
+{
+  "user_type": "resume",
+  "color_palette": "retro-pop",
+  "headline": "qwer",
+  "tagline": "qwe",
+  "about": "erw",
+  "services": [
+    {
+      "name": "ewr",
+      "icon": "briefcase",
+      "description": ""
+    }
+  ],
+  "education": [
+    {
+      "institution": "rew",
+      "degree": "rew",
+      "startYear": "rew",
+      "endYear": "erw",
+      "location": "",
+      "grade": "",
+      "activities": "",
+      "inProgress": false
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "rew",
+      "company": "erw",
+      "startMonth": "4",
+      "startYear": "2023",
+      "endMonth": "5",
+      "endYear": "2024",
+      "isCurrent": false,
+      "location": "wer",
+      "description": "erw"
+    }
+  ],
+  "skills": [
+    "ret"
+  ],
+  "certifications": [],
+  "email": "pujan@fvdsfvds.vdcsdc",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "qwer",
+  "logo_path": "qwer/assets/image-1746365470023-6l4qgi.jpg",
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-sp9d9d6ama9owsp3",
+  "createdAt": "2025-05-04T13:31:10.021Z",
+  "lastUpdated": "2025-05-04T13:31:10.021Z",
+  "status": "pending_deployment"
+}
