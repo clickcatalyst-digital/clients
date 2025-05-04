@@ -1,0 +1,55 @@
+{
+  "user_type": "business",
+  "color_palette": "luxurious-chic",
+  "headline": "sfd",
+  "tagline": "sdf",
+  "about": "fsd",
+  "services": [
+    {
+      "name": "fds",
+      "icon": "briefcase",
+      "description": ""
+    }
+  ],
+  "portfolioProjects": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "email": "pujan10sept@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "sfd",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-cc5bc5homa9iobcr",
+  "createdAt": "2025-05-04T10:36:36.603Z",
+  "lastUpdated": "2025-05-04T10:36:36.603Z",
+  "status": "pending_deployment"
+}
