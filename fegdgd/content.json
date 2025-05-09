@@ -1,0 +1,45 @@
+{
+  "user_type": "business",
+  "color_palette": "nature-inspired",
+  "headline": "fegdgd",
+  "tagline": "sdgsdg",
+  "about": "sdgsgd",
+  "services": [],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "email": "dsds@fdfds.cfhf",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "fegdgd",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-jieptpk5mah8rn3z",
+  "createdAt": "2025-05-09T20:21:25.055Z",
+  "lastUpdated": "2025-05-09T20:21:25.055Z",
+  "status": "pending_deployment"
+}
