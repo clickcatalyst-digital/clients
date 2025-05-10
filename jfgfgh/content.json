@@ -1,7 +1,7 @@
 {
   "user_type": "business",
-  "color_palette": "nature-inspired",
-  "headline": "jfgfgh",
+  "color_palette": "dreamy-sunset",
+  "headline": "jfgfghbfebdgfdbg",
   "tagline": "nfghnhf",
   "about": "fgnfgn",
   "services": [],
@@ -27,12 +27,25 @@
   "email": "pujan10sept@gmail.com",
   "phone": "",
   "social": {
+    "facebook": "",
+    "twitter": "",
+    "linkedin": "",
+    "instagram": "",
     "whatsapp": "",
     "telegram": "",
-    "facebook": "",
-    "instagram": "",
-    "twitter": "",
-    "linkedin": ""
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "site_url": "jfgfgh",
   "logo_path": null,
@@ -40,6 +53,50 @@
   "about_image": null,
   "websiteId": "web-xd8fouh5mai9c8g1",
   "createdAt": "2025-05-10T13:25:12.000Z",
-  "lastUpdated": "2025-05-10T13:25:12.000Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-10T14:45:59.805Z",
+  "status": "pending_deployment",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": ""
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "skills": [],
+  "workExperience": [],
+  "education": [],
+  "certifications": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": ""
 }
