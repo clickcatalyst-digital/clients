@@ -1,0 +1,45 @@
+{
+  "user_type": "business",
+  "color_palette": "nature-inspired",
+  "headline": "scqav",
+  "tagline": "sdvvds",
+  "about": "svdsvdsdv",
+  "services": [],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "email": "pujan10sept@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "scqav",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-kgos8wksmai93mfe",
+  "createdAt": "2025-05-10T13:18:30.217Z",
+  "lastUpdated": "2025-05-10T13:18:30.217Z",
+  "status": "pending_deployment"
+}
