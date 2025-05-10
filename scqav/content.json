@@ -1,6 +1,6 @@
 {
   "user_type": "business",
-  "color_palette": "nature-inspired",
+  "color_palette": "dreamy-sunset",
   "headline": "scqav",
   "tagline": "sdvvds",
   "about": "svdsvdsdv",
@@ -27,19 +27,76 @@
   "email": "pujan10sept@gmail.com",
   "phone": "",
   "social": {
+    "facebook": "",
+    "twitter": "",
+    "linkedin": "",
+    "instagram": "",
     "whatsapp": "",
     "telegram": "",
-    "facebook": "",
-    "instagram": "",
-    "twitter": "",
-    "linkedin": ""
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "site_url": "scqav",
-  "logo_path": null,
+  "logo_path": "scqav/assets/f932ef15-cede-4d90-b446-ebac4913ef2c.gif",
   "banner_path": null,
-  "about_image": null,
+  "about_image": "scqav/assets/7f344bb5-25a6-41e7-a880-c070b1d17411.jpg",
   "websiteId": "web-kgos8wksmai93mfe",
   "createdAt": "2025-05-10T13:18:30.217Z",
-  "lastUpdated": "2025-05-10T13:18:30.217Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-10T13:21:22.903Z",
+  "status": "pending_deployment",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": ""
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "skills": [],
+  "workExperience": [],
+  "education": [],
+  "certifications": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": ""
 }
