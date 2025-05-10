@@ -1,0 +1,45 @@
+{
+  "user_type": "business",
+  "color_palette": "nature-inspired",
+  "headline": "jfgfgh",
+  "tagline": "nfghnhf",
+  "about": "fgnfgn",
+  "services": [],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "email": "pujan10sept@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "jfgfgh",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-xd8fouh5mai9c8g1",
+  "createdAt": "2025-05-10T13:25:12.000Z",
+  "lastUpdated": "2025-05-10T13:25:12.000Z",
+  "status": "pending_deployment"
+}
