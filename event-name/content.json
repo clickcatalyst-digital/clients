@@ -1,0 +1,75 @@
+{
+  "user_type": "event",
+  "color_palette": "modern-minimalist",
+  "headline": "event-name",
+  "tagline": "Tagline",
+  "about": "about your event",
+  "services": [
+    {
+      "name": "Highlight 1",
+      "icon": "briefcase",
+      "description": "Description"
+    }
+  ],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "email": "motiwalapujan91@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "event-name",
+  "education": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image": "event-name/assets/image-1746992913285-onf4mn.jpg",
+  "eventDetails": {
+    "date": "2025-05-14",
+    "startTime": "05:16",
+    "endTime": "05:16",
+    "location": "Event Location",
+    "virtualLink": "Zoom Link",
+    "ticketInfo": "How to get tickets",
+    "price": "Free",
+    "limitedSeats": true,
+    "maxAttendees": "122"
+  },
+  "eventSchedule": [
+    {
+      "title": "Session 1",
+      "time": "10 AM to 12 AM",
+      "description": "Description",
+      "speaker": "Jane Smith, CEO",
+      "location": ""
+    }
+  ],
+  "logo_path": null,
+  "banner_path": "event-name/assets/image-1746992911115-eaysuw.png",
+  "websiteId": "web-is0vxh97mak2h1bu",
+  "createdAt": "2025-05-11T19:48:31.095Z",
+  "lastUpdated": "2025-05-11T19:48:31.095Z",
+  "status": "pending_deployment"
+}
