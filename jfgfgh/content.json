@@ -1,11 +1,27 @@
 {
   "user_type": "business",
-  "color_palette": "dreamy-sunset",
-  "headline": "jfgfghbfebdgfdbg",
-  "tagline": "nfghnhf",
-  "about": "fgnfgn",
-  "services": [],
-  "testimonials": [],
+  "color_palette": "modern-minimalist",
+  "headline": "Headline",
+  "tagline": "Tagline",
+  "about": "About Text",
+  "services": [
+    {
+      "name": "Test Service",
+      "icon": "brush",
+      "description": "Description",
+      "_tempId": "temp_54bj6f7"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "Quote",
+      "name": "Author Name",
+      "rating": "3",
+      "title": "Author Title",
+      "company": "Author Company",
+      "_tempId": "temp_2qbza63"
+    }
+  ],
   "business_stats": [
     {
       "value": "10+",
@@ -22,12 +38,17 @@
     {
       "value": "100%",
       "label": "Client Satisfaction"
+    },
+    {
+      "value": "test statistics",
+      "label": "Years Experience",
+      "_tempId": "temp_knty7k1"
     }
   ],
   "email": "pujan10sept@gmail.com",
   "phone": "",
   "social": {
-    "facebook": "",
+    "facebook": "test-facebook",
     "twitter": "",
     "linkedin": "",
     "instagram": "",
@@ -48,36 +69,115 @@
     }
   },
   "site_url": "jfgfgh",
-  "logo_path": null,
+  "logo_path": "jfgfgh/assets/508c3052-1da9-4dbe-a013-48eb81148cf7.webp",
   "banner_path": null,
-  "about_image": null,
+  "about_image": "jfgfgh/assets/a6687ca6-d97b-4df5-ae2a-7d542b03efd6.webp",
   "websiteId": "web-xd8fouh5mai9c8g1",
   "createdAt": "2025-05-10T13:25:12.000Z",
-  "lastUpdated": "2025-05-10T14:45:59.805Z",
+  "lastUpdated": "2025-05-11T08:23:24.972Z",
   "status": "pending_deployment",
-  "colors": {},
+  "colors": {
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
+  },
   "contact": {
     "email": "",
     "phone": "",
     "location": {
       "city": "",
       "state": "",
-      "country": ""
+      "country": "",
+      "services": [],
+      "business_stats": [],
+      "testimonials": [],
+      "portfolioProjects": [],
+      "skills": [],
+      "workExperience": [],
+      "education": [],
+      "certifications": [],
+      "eventSchedule": [],
+      "charityImpact": {
+        "impactStats": [],
+        "successStories": []
+      }
+    },
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
     }
   },
   "footer": {
     "creator_credit_name": "",
-    "creator_credit_url": ""
+    "creator_credit_url": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "charityMission": {
     "mission": "",
     "vision": "",
     "foundingStory": "",
-    "foundedYear": ""
+    "foundedYear": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "charityImpact": {
     "impactStats": [],
-    "successStories": []
+    "successStories": [],
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "donation_url": "",
   "portfolioProjects": [],
@@ -94,7 +194,20 @@
     "price": "",
     "ticketInfo": "",
     "limitedSeats": false,
-    "maxAttendees": ""
+    "maxAttendees": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "eventSchedule": [],
   "registration_url": "",
