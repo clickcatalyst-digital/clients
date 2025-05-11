@@ -1,13 +1,13 @@
 {
   "user_type": "business",
-  "color_palette": "modern-minimalist",
-  "headline": "Headline",
-  "tagline": "Tagline",
+  "color_palette": "nature-inspired",
+  "headline": "Headline / Name",
+  "tagline": "Tagline / Subtitle",
   "about": "About Text",
   "services": [
     {
       "name": "Test Service",
-      "icon": "brush",
+      "icon": "brush -> needs Icons. ",
       "description": "Description",
       "_tempId": "temp_54bj6f7"
     }
@@ -74,7 +74,7 @@
   "about_image": "jfgfgh/assets/a6687ca6-d97b-4df5-ae2a-7d542b03efd6.webp",
   "websiteId": "web-xd8fouh5mai9c8g1",
   "createdAt": "2025-05-10T13:25:12.000Z",
-  "lastUpdated": "2025-05-11T08:23:24.972Z",
+  "lastUpdated": "2025-05-11T08:31:17.273Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],

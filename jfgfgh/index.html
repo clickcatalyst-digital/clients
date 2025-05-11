@@ -7,22 +7,22 @@
 
     
     
-    <meta name="description" content="Tagline">
-    <meta name="author" content="Headline">
+    <meta name="description" content="Tagline / Subtitle">
+    <meta name="author" content="Headline / Name">
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Headline">
-    <meta property="og:description" content="Tagline">
+    <meta property="og:title" content="Headline / Name">
+    <meta property="og:description" content="Tagline / Subtitle">
     
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Headline">
-    <meta property="twitter:description" content="Tagline">
+    <meta property="twitter:title" content="Headline / Name">
+    <meta property="twitter:description" content="Tagline / Subtitle">
     
 
 
     
-    <title>Headline - Tagline</title>
+    <title>Headline / Name - Tagline / Subtitle</title>
 
     
     <link rel="stylesheet" href="styles.css"> <!-- Link to compiled Tailwind CSS -->
@@ -349,17 +349,17 @@
     <style>
         /* Define theme colors from the dynamic color scheme */
         :root {
-            --color-primary: #368cbf;
-            --color-secondary: #7ebc59;
-            --color-background: #eaeaea;
-            --color-text: #33363b;
+            --color-primary: #5cbdb9;
+            --color-secondary: #ebf6f5;
+            --color-background: #fceed1;
+            --color-text: #2d545e;
             /* Calculate muted text color (e.g., ~70% opacity hex) */
-            --color-text-muted: #33363bB3;
+            --color-text-muted: #2d545eB3;
             /* Text contrast colors */
-            --color-text-on-primary: #eaeaea;
-            --color-text-on-secondary: #33363b;
-            --color-text-on-gradient: #eaeaea;
-            --color-text-on-dark: #eaeaea;
+            --color-text-on-primary: #2d545e;
+            --color-text-on-secondary: #2d545e;
+            --color-text-on-gradient: #2d545e;
+            --color-text-on-dark: #fceed1;
             --transition-speed: 0.3s;
         }
 
@@ -420,7 +420,7 @@
 
         /* Contact form basic input styling */
         .form-input { transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: 1px solid #d1d5db; /* Tailwind gray-300 */ }
-        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #368cbf33; /* Primary with opacity */ outline: none; }
+        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #5cbdb933; /* Primary with opacity */ outline: none; }
 
         /* Quick connect button base style (used in resume/portfolio) */
         .quick-connect-button { display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 500; transition: background-color, opacity, box-shadow, transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); text-decoration: none; }
@@ -554,13 +554,13 @@
             <div class="flex justify-between h-20">
                 <div class="flex items-center">
                     
-                        <a href="#" aria-label="Headline Home">
-                             <img class="h-10 sm:h-12 w-auto" src="assets/508c3052-1da9-4dbe-a013-48eb81148cf7.webp" alt="Headline logo" loading="lazy">
+                        <a href="#" aria-label="Headline / Name Home">
+                             <img class="h-10 sm:h-12 w-auto" src="assets/508c3052-1da9-4dbe-a013-48eb81148cf7.webp" alt="Headline / Name logo" loading="lazy">
                         </a>
                     
                     <div class="ml-3">
-                        <a href="#" class="text-xl sm:text-2xl font-bold text-gray-800 hover:text-primary transition-colors">Headline</a>
-                        <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Tagline</p>
+                        <a href="#" class="text-xl sm:text-2xl font-bold text-gray-800 hover:text-primary transition-colors">Headline / Name</a>
+                        <p class="text-xs sm:text-sm text-gray-500 mt-0.5">Tagline / Subtitle</p>
                     </div>
                 </div>
                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
@@ -600,8 +600,8 @@
          <div class="max-w-7xl mx-auto">
             <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
                 <div class="lg:col-span-6 xl:col-span-7 slide-in-left text-center lg:text-left">
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4">Headline</h1>
-                    <p class="text-lg sm:text-xl md:text-2xl max-w-xl lg:max-w-none mx-auto lg:mx-0 opacity-90 mb-8">Tagline</p>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4">Headline / Name</h1>
+                    <p class="text-lg sm:text-xl md:text-2xl max-w-xl lg:max-w-none mx-auto lg:mx-0 opacity-90 mb-8">Tagline / Subtitle</p>
                     <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
                         <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
                             <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
@@ -621,8 +621,8 @@
                             <div class="w-full h-full bg-gradient-to-br from-primary to-secondary opacity-80 flex items-center justify-center p-8 text-contrast-gradient">
                                  <div class="text-center">
                                      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 10l-3.5-3.5a1 1 0 00-1.414 0L5 16m10-4l-2 2m0 0l-2-2m2 2V7" /> </svg>
-                                     <h3 class="text-xl font-bold">Headline</h3>
-                                     <p class="text-sm mt-1">Tagline</p>
+                                     <h3 class="text-xl font-bold">Headline / Name</h3>
+                                     <p class="text-sm mt-1">Tagline / Subtitle</p>
                                  </div>
                              </div>
                         
@@ -678,7 +678,7 @@
              <div class="relative lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
                  <div class="relative reveal mb-10 lg:mb-0">
                      
-                         <img src="assets/a6687ca6-d97b-4df5-ae2a-7d542b03efd6.webp" alt="About Headline" class="w-full h-auto object-cover rounded-lg shadow-xl relative z-10" loading="lazy">
+                         <img src="assets/a6687ca6-d97b-4df5-ae2a-7d542b03efd6.webp" alt="About Headline / Name" class="w-full h-auto object-cover rounded-lg shadow-xl relative z-10" loading="lazy">
                          <div class="hidden lg:block absolute -bottom-6 -left-6 w-24 h-24 rounded-full bg-secondary opacity-20 z-0 transform rotate-12"></div>
                          <div class="hidden lg:block absolute -top-6 -right-6 w-20 h-20 rounded-lg bg-primary opacity-10 z-0 transform -rotate-6"></div>
                       
@@ -739,7 +739,7 @@
                          <div class="service-card reveal">
                             <div class="service-card-content">
                                 <div class="icon-circle">
-                                    <svg class="h-7 w-7" fill="currentColor"><use href="#icon-brush" /></svg>
+                                    <svg class="h-7 w-7" fill="currentColor"><use href="#icon-brush -&gt; needs Icons. " /></svg>
                                 </div>
                                 <h3> Test Service </h3>
                                  <div class="service-card-divider"></div>
@@ -872,7 +872,7 @@
                         <div class="grid grid-cols-1 gap-4">
                             
                             
-                                <a href="mailto:pujan10sept@gmail.com?subject=Inquiry from Website: Headline" target="_blank"
+                                <a href="mailto:pujan10sept@gmail.com?subject=Inquiry from Website: Headline / Name" target="_blank"
                                    class="quick-connect-button bg-primary text-contrast-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                                     <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
                                     <span>Email Me</span>
@@ -907,14 +907,14 @@
              <div class="lg:col-span-1"> 
                  <div class="flex items-center mb-4">
                      
-                        <a href="#" aria-label="Headline">
-                            <img src="assets/508c3052-1da9-4dbe-a013-48eb81148cf7.webp" alt="Headline" class="h-10 mr-3" loading="lazy">
+                        <a href="#" aria-label="Headline / Name">
+                            <img src="assets/508c3052-1da9-4dbe-a013-48eb81148cf7.webp" alt="Headline / Name" class="h-10 mr-3" loading="lazy">
                         </a>
                      
-                     <h3 class="text-xl font-bold text-white">Headline</h3>
+                     <h3 class="text-xl font-bold text-white">Headline / Name</h3>
                  </div>
                  <p class="text-sm leading-relaxed">
-                     Tagline 
+                     Tagline / Subtitle 
                  </p>
              </div>
 
@@ -964,7 +964,7 @@
 
          
         <div class="border-t border-gray-700 pt-8 mt-8 text-center text-sm">
-             <p class="mb-2">© 2025 Headline. All rights reserved.</p>
+             <p class="mb-2">© 2025 Headline / Name. All rights reserved.</p>
              
              
              
