@@ -3,7 +3,7 @@
   "color_palette": "dreamy-sunset",
   "headline": "Headline / Name",
   "tagline": "Taglines / Subtitles",
-  "about": "About Text / Bio",
+  "about": "About Text",
   "services": [
     {
       "name": "Test Service1",
@@ -69,12 +69,12 @@
     }
   },
   "site_url": "jfgfgh",
-  "logo_path": "jfgfgh/assets/508c3052-1da9-4dbe-a013-48eb81148cf7.webp",
+  "logo_path": "jfgfgh/assets/ab57608d-ca74-4ad8-9117-f319614bb73d.webp",
   "banner_path": null,
   "about_image": "jfgfgh/assets/a6687ca6-d97b-4df5-ae2a-7d542b03efd6.webp",
   "websiteId": "web-xd8fouh5mai9c8g1",
   "createdAt": "2025-05-10T13:25:12.000Z",
-  "lastUpdated": "2025-05-11T08:49:34.924Z",
+  "lastUpdated": "2025-05-11T15:38:03.126Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
