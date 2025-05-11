@@ -1,0 +1,68 @@
+{
+  "user_type": "charity",
+  "color_palette": "nature-inspired",
+  "headline": "Building Better Futures",
+  "tagline": "Join us in creating lasting change for communities worldwide",
+  "about": "About the organization",
+  "services": [
+    {
+      "name": "Value 1",
+      "icon": "briefcase",
+      "description": "Description 1"
+    },
+    {
+      "name": "Value 2",
+      "icon": "chart-pie",
+      "description": "Description 2"
+    }
+  ],
+  "charityMission": {
+    "mission": "Mission Statement",
+    "vision": "Vision Statement",
+    "foundedYear": "2010",
+    "foundingStory": "Our Story"
+  },
+  "charityImpact": {
+    "impactStats": [
+      {
+        "value": "1000+",
+        "label": "People Helped",
+        "description": "Description"
+      }
+    ],
+    "successStories": [
+      {
+        "title": "Story Title 1",
+        "content": "Story Content 1",
+        "date": "2022",
+        "location": "Location",
+        "featured": true
+      },
+      {
+        "title": "Story Title 2",
+        "content": "Story Content 2",
+        "date": "2021",
+        "location": "Location",
+        "featured": false
+      }
+    ]
+  },
+  "email": "pujan1091@gmail.com",
+  "phone": "344524543",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "building-better-futures",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-mw43odecmak336j3",
+  "createdAt": "2025-05-11T20:05:44.271Z",
+  "lastUpdated": "2025-05-11T20:05:44.271Z",
+  "status": "pending_deployment"
+}
