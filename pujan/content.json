@@ -1,0 +1,36 @@
+{
+  "user_type": "resume",
+  "color_palette": "dreamy-sunset",
+  "headline": "Pujan",
+  "tagline": "Discover what makes us different",
+  "about": "Bio",
+  "services": [
+    {
+      "name": "Expertise 1",
+      "icon": "briefcase",
+      "description": ""
+    }
+  ],
+  "education": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "email": "motiwalapujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "pujan",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-i7z5wue1mak3jgtx",
+  "createdAt": "2025-05-11T20:18:24.117Z",
+  "lastUpdated": "2025-05-11T20:18:24.117Z",
+  "status": "pending_deployment"
+}
