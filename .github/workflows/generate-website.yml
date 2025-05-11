@@ -62,7 +62,7 @@ jobs:
         # This distinguishes updates (which set the ID) from initial creations (which don't)
         if: github.event.client_payload.deploymentDocId != null && github.event.client_payload.deploymentDocId != ''
         env:
-          WEBHOOK_URL: ${{ secrets.DEPLOYMENT_STATUS_WEBHOOK_URL }} 
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }} 
           WEBHOOK_SECRET: ${{ secrets.WEBHOOK_SECRET }} 
           # --- Get data passed from the dispatch trigger ---
           WEBSITE_ID: ${{ github.event.client_payload.websiteId }}
