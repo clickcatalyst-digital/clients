@@ -180,21 +180,24 @@ function setupFeedbackForm() {
   
   // Create a formData object for the email service
   const formData = new FormData();
-  formData.append('access_key', 'd0d292d4-d285-4508-8027-72ca248db350'); 
+  formData.append('access_key', '2b9db55f-5a2a-441a-b7a0-0902b8bce5db'); // Replace with your actual access key
   formData.append('subject', `Website Feedback: ${feedbackData.feedbackType} from ${window.location.hostname}`);
   formData.append('from_name', 'Website Feedback Form');
   formData.append('reply_to', feedbackData.email || 'noreply@example.com');
   
+  // Add your target email address where you want to receive feedback
+  formData.append('to_email', 'feedback@clickcatalyst.digital'); 
+  
   // Format the message nicely
   const emailMessage = `
-Type: ${feedbackData.feedbackType}
-Rating: ${feedbackData.rating || 'Not provided'} out of 5
-Source URL: ${feedbackData.source}
-User Email: ${feedbackData.email || 'Not provided'}
-Time: ${new Date().toLocaleString()}
-
-Message:
-${feedbackData.message}
+  Type: ${feedbackData.feedbackType}
+  Rating: ${feedbackData.rating || 'Not provided'} out of 5
+  Source URL: ${feedbackData.source}
+  User Email: ${feedbackData.email || 'Not provided'}
+  Time: ${new Date().toLocaleString()}
+  
+  Message:
+  ${feedbackData.message}
   `;
   
   formData.append('message', emailMessage);
