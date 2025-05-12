@@ -7,12 +7,12 @@
   "services": [
     {
       "name": "Test Service1",
-      "icon": "office",
+      "icon": "cube",
       "description": "Description",
       "_tempId": "temp_54bj6f7"
     },
     {
-      "name": "",
+      "name": "Service 2",
       "icon": "globe",
       "description": "",
       "_tempId": "temp_9g5ajnr"
@@ -80,7 +80,7 @@
   "about_image": "jfgfgh/assets/a6687ca6-d97b-4df5-ae2a-7d542b03efd6.webp",
   "websiteId": "web-xd8fouh5mai9c8g1",
   "createdAt": "2025-05-10T13:25:12.000Z",
-  "lastUpdated": "2025-05-12T13:49:49.492Z",
+  "lastUpdated": "2025-05-12T13:57:39.237Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
