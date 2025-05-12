@@ -180,7 +180,7 @@ function setupFeedbackForm() {
   
   // Create a formData object for the email service
   const formData = new FormData();
-  formData.append('access_key', '2b9db55f-5a2a-441a-b7a0-0902b8bce5db'); // Use web3forms.com free service
+  formData.append('access_key', 'd0d292d4-d285-4508-8027-72ca248db350'); 
   formData.append('subject', `Website Feedback: ${feedbackData.feedbackType} from ${window.location.hostname}`);
   formData.append('from_name', 'Website Feedback Form');
   formData.append('reply_to', feedbackData.email || 'noreply@example.com');
