@@ -1,17 +1,17 @@
 {
   "user_type": "charity",
   "color_palette": "nature-inspired",
-  "headline": "Building Better Futures",
+  "headline": "Pujan Motiwala",
   "tagline": "Join us in creating lasting change for communities worldwide",
   "about": "About the organization",
   "services": [
     {
-      "name": "Value 1",
+      "name": "Pujan Motiwala",
       "icon": "briefcase",
       "description": "Description 1"
     },
     {
-      "name": "Value 2",
+      "name": "Pujan Motiwala",
       "icon": "chart-pie",
       "description": "Description 2"
     }
@@ -19,8 +19,21 @@
   "charityMission": {
     "mission": "Mission Statement",
     "vision": "Vision Statement",
-    "foundedYear": "2010",
-    "foundingStory": "Our Story"
+    "foundingStory": "Our Story",
+    "foundedYear": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "charityImpact": {
     "impactStats": [
@@ -28,41 +41,107 @@
         "value": "1000+",
         "label": "People Helped",
         "description": "Description"
+      },
+      {
+        "value": "$15k+",
+        "label": "Raised",
+        "description": "Description",
+        "_tempId": "temp_bn9uids"
       }
     ],
     "successStories": [
       {
-        "title": "Story Title 1",
+        "title": "Principal BI",
         "content": "Story Content 1",
         "date": "2022",
-        "location": "Location",
-        "featured": true
+        "location": "Location"
       },
       {
-        "title": "Story Title 2",
+        "title": "Principal BI",
         "content": "Story Content 2",
         "date": "2021",
-        "location": "Location",
-        "featured": false
+        "location": "Location"
       }
-    ]
+    ],
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "email": "pujan1091@gmail.com",
-  "phone": "344524543",
+  "phone": "dfe4543y46",
   "social": {
-    "whatsapp": "",
-    "telegram": "",
-    "facebook": "",
-    "instagram": "",
-    "twitter": "",
-    "linkedin": ""
+    "facebook": "gnfgnffng",
+    "twitter": "gnfgnffgn",
+    "linkedin": "ngfgnf",
+    "instagram": "gfngfnngf",
+    "whatsapp": "wgngfnfng",
+    "telegram": "gnfgfnfgn",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "site_url": "building-better-futures",
-  "logo_path": null,
-  "banner_path": null,
-  "about_image": null,
+  "logo_path": "building-better-futures/assets/459db36f-4795-4206-a597-a57439ad3a17.webp",
+  "banner_path": "building-better-futures/assets/91c2f416-06cc-418a-9a9f-2beca5026149.webp",
+  "about_image": "building-better-futures/assets/04d749e3-b653-42f1-8c3c-b580716183a1.webp",
   "websiteId": "web-mw43odecmak336j3",
   "createdAt": "2025-05-11T20:05:44.271Z",
-  "lastUpdated": "2025-05-11T20:05:44.271Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-12T15:23:20.383Z",
+  "status": "pending_deployment",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "business_stats": [],
+  "testimonials": [],
+  "donation_url": "https://www.linkedin.com/in/pujanma/",
+  "portfolioProjects": [],
+  "skills": [],
+  "workExperience": [],
+  "education": [],
+  "certifications": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": ""
 }
