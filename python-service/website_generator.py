@@ -526,6 +526,22 @@ def generate_website(
         # html_output = render_template(jinja_env, content_data, downloaded_assets)
         html_output = render_template_v2(jinja_env, template_data)
         
+        # Add feedback script to HTML
+        feedback_script_path = Path(f"{templates_dir}/feedback-script.js")
+        feedback_script = ""
+        if feedback_script_path.exists():
+            try:
+                with open(feedback_script_path, 'r', encoding='utf-8') as f:
+                    feedback_script = f.read()
+                    logger.info(f"Successfully loaded feedback script from {feedback_script_path}")
+            except Exception as script_err:
+                logger.error(f"Error reading feedback script: {script_err}")
+        
+        # Inject the feedback script into the HTML before the closing body tag
+        if feedback_script:
+            html_output = html_output.replace('</body>', f'<script>{feedback_script}</script></body>')
+            logger.info(f"Injected feedback script into HTML for {folder_name}")
+        
         # Save HTML
         with open(client_dir / "index.html", "w", encoding='utf-8') as f:
             f.write(html_output)
