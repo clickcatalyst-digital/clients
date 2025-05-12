@@ -469,9 +469,20 @@
               transition: transform 0.5s ease-out, opacity 0.5s ease-out;
             `;
             
+            // Determine the base URL for the feedback form
+            let feedbackBaseUrl;
+            if (window.location.hostname.includes('clickcatalyst-digital.github.io') || 
+                window.location.hostname.includes('.clickcatalyst.digital')) {
+              // If we're on a generated client site or subdomain
+              feedbackBaseUrl = 'https://www.clickcatalyst.digital';
+            } else {
+              // Use the current origin (works in both dev and prod)
+              feedbackBaseUrl = window.location.origin;
+            }
+            
             // Create the iframe
             const iframe = document.createElement('iframe');
-            iframe.src = 'https://clickcatalyst.digital/feedback?source=' + encodeURIComponent(window.location.href);
+            iframe.src = `${feedbackBaseUrl}/feedback?source=${encodeURIComponent(window.location.href)}`;
             iframe.style.cssText = `
               width: 100%;
               height: 450px;
@@ -481,8 +492,65 @@
               background: white;
             `;
             
+            // Add loading indicator
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.style.cssText = `
+              position: absolute;
+              top: 0;
+              left: 0;
+              right: 0;
+              bottom: 0;
+              background: white;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 8px 8px 0 0;
+            `;
+            
+            const spinner = document.createElement('div');
+            spinner.style.cssText = `
+              width: 40px;
+              height: 40px;
+              border: 3px solid #f3f3f3;
+              border-top: 3px solid #F99604;
+              border-radius: 50%;
+              animation: spin 1s linear infinite;
+            `;
+            
+            // Add spinner animation
+            const style = document.createElement('style');
+            style.textContent = `
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
+            `;
+            document.head.appendChild(style);
+            
+            loadingIndicator.appendChild(spinner);
+            container.appendChild(loadingIndicator);
+            
             // Append iframe to container
             container.appendChild(iframe);
+            
+            // Remove loading indicator when iframe loads
+            iframe.onload = () => {
+              container.removeChild(loadingIndicator);
+            };
+            
+            // Handle iframe load error
+            iframe.onerror = () => {
+              loadingIndicator.innerHTML = `
+                <div style="padding: 20px; text-align: center;">
+                  <p style="margin-bottom: 15px; color: #666;">Unable to load the feedback form.</p>
+                  <a href="${feedbackBaseUrl}/feedback?source=${encodeURIComponent(window.location.href)}" 
+                     target="_blank" 
+                     style="display: inline-block; padding: 8px 16px; background: #F99604; color: white; text-decoration: none; border-radius: 4px;">
+                    Open in new tab
+                  </a>
+                </div>
+              `;
+            };
             
             // Add container to body
             document.body.appendChild(container);
@@ -512,7 +580,19 @@
               align-items: center;
               justify-content: center;
               box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+              z-index: 10000;
             `;
+            
+            // Add hover effect to close button
+            closeButton.addEventListener('mouseover', () => {
+              closeButton.style.transform = 'scale(1.1)';
+              closeButton.style.boxShadow = '0 3px 7px rgba(0,0,0,0.15)';
+            });
+            
+            closeButton.addEventListener('mouseout', () => {
+              closeButton.style.transform = 'scale(1)';
+              closeButton.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+            });
             
             // Add event listener to close button
             closeButton.addEventListener('click', () => {
@@ -524,6 +604,20 @@
             });
             
             container.appendChild(closeButton);
+            
+            // Add keyboard accessibility
+            document.addEventListener('keydown', (e) => {
+              if (e.key === 'Escape') {
+                closeButton.click();
+              }
+            });
+            
+            // Remember this session saw the popup
+            try {
+              localStorage.setItem('cc_feedback_shown', Date.now());
+            } catch (e) {
+              // Ignore localStorage errors
+            }
           }
         }, 30000); // 30 seconds
       });
