@@ -86,17 +86,25 @@
   "eventSchedule": [
     {
       "title": "Session 1",
-      "time": "10 AM to 12 AM",
+      "time": "10 AM to 12 PM",
       "description": "Description",
       "speaker": "Jane Smith, CEO",
       "location": ""
+    },
+    {
+      "time": "12 PM to 2 PM",
+      "title": "Session 2",
+      "speaker": "Gandhi",
+      "location": "Main Hall",
+      "description": "Description",
+      "_tempId": "temp_o91bm5c"
     }
   ],
   "logo_path": "event-name/assets/4127e891-6afa-4ae6-97f7-8c2a202fa831.webp",
   "banner_path": "event-name/assets/image-1746992911115-eaysuw.png",
   "websiteId": "web-is0vxh97mak2h1bu",
   "createdAt": "2025-05-11T19:48:31.095Z",
-  "lastUpdated": "2025-05-12T14:18:24.440Z",
+  "lastUpdated": "2025-05-12T14:19:58.624Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
