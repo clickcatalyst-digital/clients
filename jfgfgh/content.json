@@ -1,8 +1,8 @@
 {
   "user_type": "business",
-  "color_palette": "dreamy-sunset",
-  "headline": "Headline / Name",
-  "tagline": "Taglines / Subtitles",
+  "color_palette": "nature-inspired",
+  "headline": "Business",
+  "tagline": "Taglines / Subtitle",
   "about": "About Text",
   "services": [
     {
@@ -20,7 +20,7 @@
   ],
   "testimonials": [
     {
-      "quote": "Quote",
+      "quote": "Client Testimonials",
       "name": "Author Name",
       "rating": "3",
       "title": "Author Title",
@@ -44,22 +44,17 @@
     {
       "value": "100%",
       "label": "Client Satisfaction"
-    },
-    {
-      "value": "test statistics",
-      "label": "Years Experience",
-      "_tempId": "temp_knty7k1"
     }
   ],
   "email": "pujan10sept@gmail.com",
-  "phone": "",
+  "phone": "32542663453654",
   "social": {
     "facebook": "test-facebook",
-    "twitter": "",
-    "linkedin": "",
-    "instagram": "",
-    "whatsapp": "",
-    "telegram": "",
+    "twitter": "dfgdfg",
+    "linkedin": "hdggfdhghf",
+    "instagram": "ewgfwrgwf",
+    "whatsapp": "3125353253235",
+    "telegram": "25344545343",
     "services": [],
     "business_stats": [],
     "testimonials": [],
@@ -75,12 +70,12 @@
     }
   },
   "site_url": "jfgfgh",
-  "logo_path": "jfgfgh/assets/ab57608d-ca74-4ad8-9117-f319614bb73d.webp",
-  "banner_path": "jfgfgh/assets/5325cb83-1327-4b8c-859b-ef7b37aa9402.webp",
-  "about_image": "jfgfgh/assets/a6687ca6-d97b-4df5-ae2a-7d542b03efd6.webp",
+  "logo_path": "jfgfgh/assets/823cb588-ff5b-4442-999c-3dfc33737af6.jpg",
+  "banner_path": "jfgfgh/assets/00b2bf47-3790-4e36-a75f-ef72ca926ca6.webp",
+  "about_image": "jfgfgh/assets/a9f11cc5-f9a1-45ad-ad5d-87b9f36c1d4e.svg",
   "websiteId": "web-xd8fouh5mai9c8g1",
   "createdAt": "2025-05-10T13:25:12.000Z",
-  "lastUpdated": "2025-05-12T13:57:39.237Z",
+  "lastUpdated": "2025-05-12T14:07:26.739Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
