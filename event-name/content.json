@@ -96,7 +96,7 @@
   "banner_path": "event-name/assets/image-1746992911115-eaysuw.png",
   "websiteId": "web-is0vxh97mak2h1bu",
   "createdAt": "2025-05-11T19:48:31.095Z",
-  "lastUpdated": "2025-05-12T14:15:19.426Z",
+  "lastUpdated": "2025-05-12T14:18:24.440Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
@@ -203,6 +203,6 @@
   },
   "donation_url": "",
   "portfolioProjects": [],
-  "registration_url": "",
-  "organizer_name": ""
+  "registration_url": "https://www.zzz.com",
+  "organizer_name": "Frez"
 }
