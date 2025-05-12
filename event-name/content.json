@@ -6,9 +6,15 @@
   "about": "about your event",
   "services": [
     {
-      "name": "Highlight 1",
-      "icon": "briefcase",
+      "name": "Global Highlight",
+      "icon": "globe",
       "description": "Description"
+    },
+    {
+      "name": "Price Tags",
+      "icon": "tag",
+      "description": "Description",
+      "_tempId": "temp_rko6w1m"
     }
   ],
   "testimonials": [],
@@ -104,7 +110,7 @@
   "banner_path": "event-name/assets/image-1746992911115-eaysuw.png",
   "websiteId": "web-is0vxh97mak2h1bu",
   "createdAt": "2025-05-11T19:48:31.095Z",
-  "lastUpdated": "2025-05-12T14:19:58.624Z",
+  "lastUpdated": "2025-05-12T14:23:06.236Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
