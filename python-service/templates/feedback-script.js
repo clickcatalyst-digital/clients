@@ -256,7 +256,7 @@ ${feedbackData.message}
         });
       });
     }
-  }, 30000); // 30 seconds
+  }, 1000); // 1 second
 }
 
 // Set up the feedback form when the page loads
