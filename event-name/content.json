@@ -74,7 +74,7 @@
     "price": "Free",
     "ticketInfo": "How to get tickets",
     "limitedSeats": true,
-    "maxAttendees": "122",
+    "maxAttendees": "125",
     "services": [],
     "business_stats": [],
     "testimonials": [],
@@ -110,7 +110,7 @@
   "banner_path": "event-name/assets/image-1746992911115-eaysuw.png",
   "websiteId": "web-is0vxh97mak2h1bu",
   "createdAt": "2025-05-11T19:48:31.095Z",
-  "lastUpdated": "2025-05-12T14:23:06.236Z",
+  "lastUpdated": "2025-05-12T15:04:12.453Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
