@@ -20,7 +20,7 @@
     "mission": "Mission Statement",
     "vision": "Vision Statement",
     "foundingStory": "Our Story",
-    "foundedYear": "",
+    "foundedYear": "2019",
     "services": [],
     "business_stats": [],
     "testimonials": [],
@@ -53,7 +53,7 @@
       {
         "title": "Principal BI",
         "content": "Story Content 1",
-        "date": "2022",
+        "date": "03-2033",
         "location": "Location"
       },
       {
@@ -106,7 +106,7 @@
   "about_image": "building-better-futures/assets/04d749e3-b653-42f1-8c3c-b580716183a1.webp",
   "websiteId": "web-mw43odecmak336j3",
   "createdAt": "2025-05-11T20:05:44.271Z",
-  "lastUpdated": "2025-05-12T15:26:19.661Z",
+  "lastUpdated": "2025-05-12T15:35:50.931Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
