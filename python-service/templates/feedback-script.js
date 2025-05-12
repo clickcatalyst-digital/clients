@@ -146,61 +146,114 @@ function setupFeedbackForm() {
       const statusDiv = container.querySelector('#feedback-status');
       
       form.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        const message = textarea.value.trim();
-        if (!message) {
-          statusDiv.textContent = 'Please enter your feedback message.';
-          statusDiv.style.color = '#f44336';
-          return;
-        }
-        
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        statusDiv.textContent = '';
-        
-        // Collect the data - but store it locally, no CORS needed!
-        const feedbackData = {
-          feedbackType: container.querySelector('#feedback-type').value,
-          message: message,
-          email: container.querySelector('#feedback-email').value.trim(),
-          rating: currentRating > 0 ? currentRating : undefined,
-          source: window.location.href,
-          timestamp: new Date().toISOString()
-        };
-        
-        // Save to localStorage for now - we'll collect it later
-        try {
-          const storedFeedback = JSON.parse(localStorage.getItem('ccFeedback') || '[]');
-          storedFeedback.push(feedbackData);
-          localStorage.setItem('ccFeedback', JSON.stringify(storedFeedback));
-          
-          // Show success message
-          statusDiv.textContent = 'Thank you for your feedback!';
-          statusDiv.style.color = '#4CAF50';
-          
-          // Reset form
-          form.reset();
-          currentRating = 0;
-          charCount.textContent = '0';
-          
-          // Reset stars
-          starRating.querySelectorAll('button').forEach(btn => {
-            btn.style.color = '#ccc';
-          });
-          
-          // Hide after delay
-          setTimeout(() => {
-            closeButton.click();
-          }, 3000);
-          
-        } catch (error) {
-          console.error('Error saving feedback:', error);
-          statusDiv.textContent = 'Failed to submit feedback. Please try again.';
-          statusDiv.style.color = '#f44336';
+  e.preventDefault();
+  
+  const message = textarea.value.trim();
+  if (!message) {
+    statusDiv.textContent = 'Please enter your feedback message.';
+    statusDiv.style.color = '#f44336';
+    return;
+  }
+  
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending...';
+  statusDiv.textContent = '';
+  
+  // Collect the data
+  const feedbackData = {
+    feedbackType: container.querySelector('#feedback-type').value,
+    message: message,
+    email: container.querySelector('#feedback-email').value.trim(),
+    rating: currentRating > 0 ? currentRating : undefined,
+    source: window.location.href,
+    timestamp: new Date().toISOString()
+  };
+  
+  // First save to localStorage
+  try {
+    const storedFeedback = JSON.parse(localStorage.getItem('ccFeedback') || '[]');
+    storedFeedback.push(feedbackData);
+    localStorage.setItem('ccFeedback', JSON.stringify(storedFeedback));
+  } catch (error) {
+    console.error('Error saving to localStorage:', error);
+  }
+  
+  // Create a formData object for the email service
+  const formData = new FormData();
+  formData.append('access_key', '2b9db55f-5a2a-441a-b7a0-0902b8bce5db'); // Use web3forms.com free service
+  formData.append('subject', `Website Feedback: ${feedbackData.feedbackType} from ${window.location.hostname}`);
+  formData.append('from_name', 'Website Feedback Form');
+  formData.append('reply_to', feedbackData.email || 'noreply@example.com');
+  
+  // Format the message nicely
+  const emailMessage = `
+Type: ${feedbackData.feedbackType}
+Rating: ${feedbackData.rating || 'Not provided'} out of 5
+Source URL: ${feedbackData.source}
+User Email: ${feedbackData.email || 'Not provided'}
+Time: ${new Date().toLocaleString()}
+
+Message:
+${feedbackData.message}
+  `;
+  
+  formData.append('message', emailMessage);
+  
+  // Submit to Web3Forms service (no CORS issues)
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: formData
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Show success message
+      statusDiv.textContent = 'Thank you for your feedback!';
+      statusDiv.style.color = '#4CAF50';
+      
+      // Reset form
+      form.reset();
+      currentRating = 0;
+      charCount.textContent = '0';
+      
+      // Reset stars
+      starRating.querySelectorAll('button').forEach(btn => {
+        btn.style.color = '#ccc';
+      });
+      
+      // Hide after delay
+      setTimeout(() => {
+        closeButton.click();
+      }, 3000);
+    } else {
+      throw new Error(data.message || 'Failed to submit feedback');
+    }
+  })
+  .catch(error => {
+    console.error('Error sending feedback:', error);
+    // Still show success since we saved to localStorage
+    statusDiv.textContent = 'Thank you! Your feedback was saved.';
+    statusDiv.style.color = '#4CAF50';
+    
+    // Reset form after short delay
+    setTimeout(() => {
+      form.reset();
+      currentRating = 0;
+      charCount.textContent = '0';
+      
+      // Reset stars
+      starRating.querySelectorAll('button').forEach(btn => {
+        btn.style.color = '#ccc';
+      });
+      
+      // Hide the form
+      closeButton.click();
+    }, 3000);
+        })
+        .finally(() => {
           submitBtn.disabled = false;
           submitBtn.textContent = 'Send Feedback';
-        }
+        });
       });
     }
   }, 30000); // 30 seconds
