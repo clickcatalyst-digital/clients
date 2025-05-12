@@ -351,17 +351,17 @@
     <style>
         /* Define theme colors from the dynamic color scheme */
         :root {
-            --color-primary: #368cbf;
-            --color-secondary: #7ebc59;
-            --color-background: #eaeaea;
-            --color-text: #33363b;
+            --color-primary: #7d3cff;
+            --color-secondary: #f2d53c;
+            --color-background: #e1b382;
+            --color-text: #12343b;
             /* Calculate muted text color (e.g., ~70% opacity hex) */
-            --color-text-muted: #33363bB3;
+            --color-text-muted: #12343bB3;
             /* Text contrast colors */
-            --color-text-on-primary: #eaeaea;
-            --color-text-on-secondary: #33363b;
-            --color-text-on-gradient: #eaeaea;
-            --color-text-on-dark: #eaeaea;
+            --color-text-on-primary: #e1b382;
+            --color-text-on-secondary: #12343b;
+            --color-text-on-gradient: #e1b382;
+            --color-text-on-dark: #e1b382;
             --transition-speed: 0.3s;
         }
 
@@ -422,7 +422,7 @@
 
         /* Contact form basic input styling */
         .form-input { transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: 1px solid #d1d5db; /* Tailwind gray-300 */ }
-        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #368cbf33; /* Primary with opacity */ outline: none; }
+        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #7d3cff33; /* Primary with opacity */ outline: none; }
 
         /* Quick connect button base style (used in resume/portfolio) */
         .quick-connect-button { display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 500; transition: background-color, opacity, box-shadow, transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); text-decoration: none; }
@@ -564,9 +564,9 @@
       
       "organizer": {
         "@type": "Organization", 
-        "name": "event-name Organizer", 
+        "name": "", 
         "email": "motiwalapujan91@gmail.com",
-        
+        "telephone": "432634634"
       }
       
       
@@ -574,7 +574,7 @@
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD", 
-        "url": "#details", 
+        "url": "", 
         "availability": "https://schema.org/InStock" 
       }
       
@@ -659,7 +659,7 @@
                  
              </div>
              <div class="flex flex-wrap justify-center gap-4 sm:gap-5">
-                 <a href="#details" target="_self" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                 <a href="" target="_self" rel="noopener noreferrer" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
                      <svg class="h-5 w-5 mr-2"><use href="#icon-ticket" /></svg>
                      Register / Tickets
                  </a>
@@ -804,12 +804,38 @@
                         
                         
                         
+                            <div class="flex items-start">
+                                <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-1"><use href="#icon-phone" /></svg>
+                                <div>
+                                    <h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5 opacity-80">Phone</h4>
+                                    <a href="tel:432634634" class="hover:underline">432634634</a>
+                                </div>
+                            </div>
+                        
                          
                          
                      </div>
 
                      
-                     
+                      
+                        <div class="mt-8 pt-6 border-t border-white/20">
+                            <h4 class="text-sm font-semibold uppercase tracking-wider mb-3 opacity-80">Connect Online</h4>
+                             <div class="flex space-x-4">
+                                 
+                                     <a href="dfdfd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="opacity-80 hover:opacity-100 transition-opacity">
+                                        <span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg>
+                                     </a>
+                                 
+                                 
+                                     <a href="https://twitter.com/fngfng" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="opacity-80 hover:opacity-100 transition-opacity">
+                                         <span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg>
+                                     </a>
+                                 
+                                 
+                                 
+                             </div>
+                         </div>
+                    
                  </div>
 
                  <!-- Right Column: Quick Actions -->
@@ -829,10 +855,28 @@
                             
                             
                             
+                                 <a href="dfdfd" target="_blank" rel="noopener noreferrer"
+                                    class="quick-connect-button bg-[#0A66C2] text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0A66C2]">
+                                    <svg class="h-5 w-5 mr-2"><use href="#icon-linkedin" /></svg>
+                                    <span>Connect on LinkedIn</span>
+                                </a>
                             
+                            
+                            
+                                <a href="tel:432634634"
+                                   class="quick-connect-button bg-secondary text-contrast-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+                                    <svg class="h-5 w-5 mr-2"><use href="#icon-phone" /></svg>
+                                    <span>Call Me</span>
+                                </a>
                             
                              
                             
+                               <a href="https://wa.me/432634634?text=Inquiry from Website" target="_blank" rel="noopener noreferrer"
+                                  class="quick-connect-button bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400">
+                                   <svg class="h-5 w-5 mr-2"><use href="#icon-whatsapp" /></svg>
+                                   <span>Message on WhatsApp</span>
+                               </a>
+                           
                         </div>
                     </div>
                 </div>
@@ -850,7 +894,7 @@
 <footer class="bg-section-dark text-gray-400 pt-16 pb-8 px-4 sm:px-6 lg:px-8"> 
      <div class="max-w-7xl mx-auto">
          
-         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-12">
+         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
 
              
              <div class="lg:col-span-1"> 
@@ -887,12 +931,33 @@
                         </li>
                      
                      
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-gray-500 flex-shrink-0 mt-0.5"><use href="#icon-phone" /></svg>
+                            <a href="tel:432634634" class="hover:text-white transition-colors">432634634</a>
+                        </li>
                      
+                     
+                      
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"><use href="#icon-whatsapp" /></svg>
+                            <a href="https://wa.me/432634634?text=Inquiry" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Message on WhatsApp</a>
+                        </li>
                      
                  </ul>
              </div>
 
           
+          
+          <div class="lg:col-span-1">
+               <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Follow Us</h4>
+               <div class="flex flex-wrap gap-4"> 
+                    <a href="https://facebook.com/fggf" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Facebook</span><svg class="h-6 w-6"><use href="#icon-facebook" /></svg></a>
+                    <a href="https://twitter.com/fngfng" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg></a>
+                    <a href="https://instagram.com/ngffgnngf" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Instagram</span><svg class="h-6 w-6"><use href="#icon-instagram" /></svg></a>
+                    <a href="dfdfd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">LinkedIn</span><svg class="h-6 w-6"><use href="#icon-linkedin" /></svg></a>
+                    
+               </div>
+          </div>
           
         </div>
 
@@ -932,10 +997,30 @@
             
             
                 
+                    <a href="https://facebook.com/fggf" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-facebook"></use></svg>
+                    </a>
+                
                  
+                    <a href="https://twitter.com/fngfng" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-twitter"></use></svg>
+                    </a>
                 
                 
-                 
+                    <a href="dfdfd" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" title="LinkedIn" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-linkedin"></use></svg>
+                    </a>
+                
+                
+                    <a href="https://instagram.com/ngffgnngf" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-instagram"></use></svg>
+                    </a>
+                
+                  
+                    <a href="https://wa.me/432634634?text=Inquiry" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-whatsapp"></use></svg>
+                    </a>
+                
                 
             
         </div> 

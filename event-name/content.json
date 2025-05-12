@@ -1,6 +1,6 @@
 {
   "user_type": "event",
-  "color_palette": "modern-minimalist",
+  "color_palette": "retro-pop",
   "headline": "event-name",
   "tagline": "Tagline",
   "about": "about your event",
@@ -31,14 +31,27 @@
     }
   ],
   "email": "motiwalapujan91@gmail.com",
-  "phone": "",
+  "phone": "432634634",
   "social": {
-    "whatsapp": "",
-    "telegram": "",
-    "facebook": "",
-    "instagram": "",
-    "twitter": "",
-    "linkedin": ""
+    "facebook": "fggf",
+    "twitter": "fngfng",
+    "linkedin": "dfdfd",
+    "instagram": "ngffgnngf",
+    "whatsapp": "253235523",
+    "telegram": "235253352",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "site_url": "event-name",
   "education": [],
@@ -52,10 +65,23 @@
     "endTime": "05:16",
     "location": "Event Location",
     "virtualLink": "Zoom Link",
-    "ticketInfo": "How to get tickets",
     "price": "Free",
+    "ticketInfo": "How to get tickets",
     "limitedSeats": true,
-    "maxAttendees": "122"
+    "maxAttendees": "122",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "eventSchedule": [
     {
@@ -70,6 +96,113 @@
   "banner_path": "event-name/assets/image-1746992911115-eaysuw.png",
   "websiteId": "web-is0vxh97mak2h1bu",
   "createdAt": "2025-05-11T19:48:31.095Z",
-  "lastUpdated": "2025-05-11T19:48:31.095Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-12T14:12:36.959Z",
+  "status": "pending_deployment",
+  "colors": {
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
+  },
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": "",
+      "services": [],
+      "business_stats": [],
+      "testimonials": [],
+      "portfolioProjects": [],
+      "skills": [],
+      "workExperience": [],
+      "education": [],
+      "certifications": [],
+      "eventSchedule": [],
+      "charityImpact": {
+        "impactStats": [],
+        "successStories": []
+      }
+    },
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
+  },
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": [],
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "registration_url": "",
+  "organizer_name": ""
 }
