@@ -1,0 +1,30 @@
+{
+  "user_type": "resume",
+  "color_palette": "modern-minimalist",
+  "headline": "test-refund",
+  "tagline": "refund i what I want",
+  "about": "I have paid and I want refund",
+  "services": [],
+  "education": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "email": "motiwalapujan91@gmail.com",
+  "phone": "6352888633",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "test-refund",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-cs61e5jwmaogss23",
+  "createdAt": "2025-05-14T21:40:38.282Z",
+  "lastUpdated": "2025-05-14T21:40:38.282Z",
+  "status": "pending_deployment"
+}
