@@ -1,6 +1,6 @@
 {
   "user_type": "charity",
-  "color_palette": "nature-inspired",
+  "color_palette": "dreamy-sunset",
   "headline": "Pujan Motiwala",
   "tagline": "Join us in creating lasting change for communities worldwide",
   "about": "About the organization",
@@ -106,7 +106,7 @@
   "about_image": "building-better-futures/assets/04d749e3-b653-42f1-8c3c-b580716183a1.webp",
   "websiteId": "web-mw43odecmak336j3",
   "createdAt": "2025-05-11T20:05:44.271Z",
-  "lastUpdated": "2025-05-12T15:35:50.931Z",
+  "lastUpdated": "2025-05-15T06:56:54.945Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
@@ -209,5 +209,7 @@
   },
   "eventSchedule": [],
   "registration_url": "",
-  "organizer_name": ""
+  "organizer_name": "",
+  "merchantOrderId": "ATTEMPT-1746721391298-aa1bfc6a",
+  "orderCreatedAt": "2025-05-08T16:23:11.965Z"
 }
