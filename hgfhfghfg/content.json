@@ -1,0 +1,43 @@
+{
+  "user_type": "resume",
+  "color_palette": "dreamy-sunset",
+  "headline": "hgfhfghfg",
+  "tagline": "fghfgjjgfj",
+  "about": "jfgfgjfgj",
+  "services": [],
+  "education": [
+    {
+      "institution": "jgfgfj",
+      "degree": "fgjfgj",
+      "startYear": "fjfjg",
+      "endYear": "",
+      "location": "gfjjgf",
+      "grade": "",
+      "activities": "",
+      "inProgress": false
+    }
+  ],
+  "workExperience": [],
+  "skills": [
+    "fjg"
+  ],
+  "certifications": [],
+  "email": "pujan10sept@gmail.com",
+  "phone": "253435432",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "hgfhfghfg",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-9g2lxjwwmasviymx",
+  "createdAt": "2025-05-17T23:43:59.191Z",
+  "lastUpdated": "2025-05-17T23:43:59.191Z",
+  "status": "pending_deployment"
+}
