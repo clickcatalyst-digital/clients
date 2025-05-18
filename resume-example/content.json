@@ -5,7 +5,29 @@
   "tagline": "A clean, modern resume site that makes recruiters say \u201cWow, who\u2019s this genius?\u201d",
   "about": "I'm a results-driven unicorn disguised as a job seeker. I turn coffee into code, ideas into products, and weekends into portfolio updates. Looking to join a team that appreciates GIFs in Slack and big picture thinking.",
   "services": [],
-  "education": [],
+  "education": [
+    {
+      "institution": "Hogwarts School of Witchcraft & Code",
+      "degree": "Bachelor of Magic in Software Engineering",
+      "startYear": "2016",
+      "endYear": "2020",
+      "location": "Thanks, Ministry of Remote Work",
+      "grade": "9\u00be / 10",
+      "activities": "Captain of the Quidditch Analytics Club",
+      "inProgress": false
+    },
+    {
+      "degree": "M.Sc. in \u201cHire Me Already\u201d",
+      "institution": "Resume University",
+      "location": "Anywhere, Earth",
+      "startYear": "",
+      "endYear": "",
+      "inProgress": false,
+      "grade": "4.0 (in binge-watching tutorials)",
+      "activities": "Dean\u2019s List, Meme Strategist, Open-Tab Closer Club",
+      "_tempId": "temp_e7wof2t"
+    }
+  ],
   "workExperience": [
     {
       "title": "Chief Bug Exterminator",
@@ -27,16 +49,41 @@
       "_tempId": "temp_tbjkyzy"
     }
   ],
-  "skills": [],
-  "certifications": [],
+  "skills": [
+    "React",
+    "Python",
+    "Javascript",
+    "SQL",
+    "Debugging under pressure",
+    "Making dashboards look cool",
+    "Cat Herding"
+  ],
+  "certifications": [
+    {
+      "name": "Certified Meme Curator (also AWS Certified Solutions Architect if we must get serious)",
+      "issuer": "Internet (and Amazon Web Services)",
+      "date": "06-2023",
+      "expiration": "",
+      "noExpiration": false,
+      "_tempId": "temp_8yjvo9n"
+    },
+    {
+      "name": "Certified Professional Resumer\u2122",
+      "issuer": "Template Academy",
+      "date": "04-2025",
+      "expiration": "",
+      "noExpiration": false,
+      "_tempId": "temp_wlub6p8"
+    }
+  ],
   "email": "motiwalapujan@gmail.com",
-  "phone": "",
+  "phone": "+91 99999 99999",
   "social": {
-    "facebook": "",
-    "twitter": "",
+    "facebook": "clickcatalyst.digital",
+    "twitter": "ClickCatalyst_",
     "linkedin": "",
-    "instagram": "",
-    "whatsapp": "",
+    "instagram": "clickcatalyst.digital",
+    "whatsapp": "6352878159",
     "telegram": "",
     "services": [],
     "business_stats": [],
@@ -58,7 +105,7 @@
   "about_image": null,
   "websiteId": "web-5041mnwtmau0cf2r",
   "createdAt": "2025-05-18T18:46:38.163Z",
-  "lastUpdated": "2025-05-18T19:03:58.386Z",
+  "lastUpdated": "2025-05-18T19:17:23.750Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
