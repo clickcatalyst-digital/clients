@@ -1,23 +1,69 @@
 {
   "user_type": "portfolio",
   "color_palette": "modern-minimalist",
-  "headline": "xxxx",
-  "tagline": "xxxx",
-  "about": "xxxxx",
+  "headline": "Freelancer by Choice, Sleepless by Client\u2019s Timezone",
+  "tagline": "Designing, developing, and debugging my way through chai breaks and client calls.",
+  "about": "Hi, I'm the person your startup told you not to worry about \u2014 except now I'm building your landing page at 2AM. I craft websites, logos, and digital magic from my home office in India (powered by WiFi, willpower, and way too much filter coffee).",
   "services": [],
-  "portfolioProjects": [],
-  "workExperience": [],
-  "skills": [],
-  "certifications": [],
+  "portfolioProjects": [
+    {
+      "title": "",
+      "imagePreview": null,
+      "description": "",
+      "_tempId": "temp_mxlp6hw"
+    }
+  ],
+  "workExperience": [
+    {
+      "title": "Solo-preneur / Full-Stack Firefighter",
+      "company": "Freelance \u2013 India & Beyond",
+      "startDate": "01-2020",
+      "endDate": "12-2030",
+      "location": "Remote",
+      "description": "Built over 50 custom websites and apps. Mastered the art of negotiating with both clients and Canva. Delivering quality work on time\u2026 unless the client asks for \u201cjust one more thing\u201d \ud83d\ude05"
+    }
+  ],
+  "skills": [
+    "React",
+    "TailwindCSS",
+    "WordPress",
+    "Figma",
+    "SEO",
+    "Negotiation under pressure",
+    "Jugaad mindset"
+  ],
+  "certifications": [
+    {
+      "name": "Certified Client Therapist",
+      "issuer": "Internet & Experience",
+      "date": "01-2020",
+      "expiration": "",
+      "noExpiration": false,
+      "_tempId": "temp_105a5o2"
+    }
+  ],
   "email": "hello.clickcatalyst@gmail.com",
-  "phone": "",
+  "phone": "+91 99999 99999",
   "social": {
-    "whatsapp": "",
+    "facebook": "clickcatalyst.digital",
+    "twitter": "ClickCatalyst_",
+    "linkedin": "",
+    "instagram": "clickcatalyst.digital",
+    "whatsapp": "6352878159",
     "telegram": "",
-    "facebook": "",
-    "instagram": "",
-    "twitter": "",
-    "linkedin": ""
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "site_url": "portfolio-example",
   "logo_path": null,
@@ -25,6 +71,50 @@
   "about_image": null,
   "websiteId": "web-ac3wsp24mau1wevu",
   "createdAt": "2025-05-18T19:30:10.650Z",
-  "lastUpdated": "2025-05-18T19:30:10.650Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-18T21:06:04.904Z",
+  "status": "pending_deployment",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "business_stats": [],
+  "testimonials": [],
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": ""
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "education": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": "",
+  "merchantOrderId": "ATTEMPT-1747596574675-bd58635e",
+  "orderCreatedAt": "2025-05-18T19:29:35.009Z"
 }
