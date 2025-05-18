@@ -1,0 +1,30 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "xxxx",
+  "tagline": "xxxx",
+  "about": "xxxxx",
+  "services": [],
+  "portfolioProjects": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "email": "hello.clickcatalyst@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "portfolio-example",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-ac3wsp24mau1wevu",
+  "createdAt": "2025-05-18T19:30:10.650Z",
+  "lastUpdated": "2025-05-18T19:30:10.650Z",
+  "status": "pending_deployment"
+}
