@@ -7,12 +7,12 @@
   "about_image": "event-example/assets/e8b228b2-74b8-4497-b737-e700bc3b56a5.jpg",
   "websiteId": "web-zh6fxgbtmaufgie3",
   "createdAt": "2025-05-19T01:49:43.323Z",
-  "lastUpdated": "2025-05-19T05:33:38.212Z",
+  "lastUpdated": "2025-05-19T05:35:03.002Z",
   "status": "pending_deployment",
   "headline": "Drip Meets Dialogue: The NYM Creator Circuit",
   "tagline": "An IRL drop + deep talks with India\u2019s dopest designers, marketers, and community builders.",
   "about": "NYM Streetwear is hitting the road! This time, we're bringing a day of style, story, and serious networking to your city. Join creators, founders, fashion-lovers, and young entrepreneurs at an immersive pop-up featuring limited drops, power panels, and interactive workshops.\nWhether you\u2019re building your own label or just love hoodie weather, this one\u2019s for you.\n\n\ud83d\udccdCity: Ahmedabad\n\ud83c\udfaf Audience: D2C founders, Gen Z marketers, student creators, fashion & startup communities",
-  "color_palette": "futuristic-tech",
+  "color_palette": "retro-pop",
   "colors": {
     "services": [],
     "business_stats": [],
@@ -116,7 +116,7 @@
     },
     {
       "name": "Branding Workshop",
-      "icon": "cube-transparent",
+      "icon": "cube",
       "description": "Build your visual identity, even if you\u2019re starting with just a Canva free account.",
       "_tempId": "temp_ze01mmw"
     },
