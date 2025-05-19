@@ -28,6 +28,18 @@
       "icon": "trophy",
       "description": "Coming soon to your college fest, sneaker convention, or local weekend bazaar.",
       "_tempId": "temp_u1llkct"
+    },
+    {
+      "name": "Style Chat Support",
+      "icon": "chat",
+      "description": "Got sizing doubts? Want to know if that neon hoodie screams \u201cMain Character\u201d?\nOur in-house fashion squad is one message away \u2014 real people, no bots, just style help with swag.",
+      "_tempId": "temp_s1r9xq6"
+    },
+    {
+      "name": "Loyalty Perks & Cashback",
+      "icon": "currency",
+      "description": "Earn while you drip. Every purchase gets you points, and every point gets you closer to exclusive drops, cashback, and surprise merch delivered to your door.",
+      "_tempId": "temp_sqaugkz"
     }
   ],
   "testimonials": [
@@ -103,7 +115,7 @@
   "about_image": "business-example/assets/472f7c4b-b310-4f44-82f9-36b8f1988152.png",
   "websiteId": "web-u05i74ikmaucx0d9",
   "createdAt": "2025-05-19T00:38:34.268Z",
-  "lastUpdated": "2025-05-19T01:25:07.127Z",
+  "lastUpdated": "2025-05-19T01:29:43.169Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
