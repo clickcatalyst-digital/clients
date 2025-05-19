@@ -7,6 +7,67 @@
   "about_image": null,
   "websiteId": "web-zh6fxgbtmaufgie3",
   "createdAt": "2025-05-19T01:49:43.323Z",
-  "lastUpdated": "2025-05-19T01:49:43.323Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-19T02:13:52.681Z",
+  "status": "pending_deployment",
+  "headline": "Drip Meets Dialogue: The NYM Creator Circuit",
+  "tagline": "An IRL drop + deep talks with India\u2019s dopest designers, marketers, and community builders.",
+  "about": "NYM Streetwear is hitting the road! This time, we're bringing a day of style, story, and serious networking to your city. Join creators, founders, fashion-lovers, and young entrepreneurs at an immersive pop-up featuring limited drops, power panels, and interactive workshops.\nWhether you\u2019re building your own label or just love hoodie weather, this one\u2019s for you.\n\n\ud83d\udccdCity: Ahmedabad (Alt: Mumbai)\n\ud83c\udfaf Audience: D2C founders, Gen Z marketers, student creators, fashion & startup communities",
+  "color_palette": "retro-pop",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "social": {
+    "facebook": "clickcatalyst.digital",
+    "twitter": "ClickCatalyst_",
+    "linkedin": "",
+    "instagram": "clickcatalyst.digital",
+    "whatsapp": "6352878159"
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "business_stats": [],
+  "services": [],
+  "testimonials": [],
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": ""
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "skills": [],
+  "workExperience": [],
+  "education": [],
+  "certifications": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": "",
+  "merchantOrderId": "ATTEMPT-1747619361953-43915fd6",
+  "orderCreatedAt": "2025-05-19T01:49:22.277Z",
+  "phone": "+91 99999 99999"
 }
