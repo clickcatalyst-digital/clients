@@ -99,11 +99,11 @@
   },
   "site_url": "business-example",
   "logo_path": "business-example/assets/ea13a9cf-9e9f-467d-a8c0-651ed7f80489.png",
-  "banner_path": null,
+  "banner_path": "business-example/assets/2e8e79fe-5d0f-4f40-bfce-4ad35b3f4e8d.jpg",
   "about_image": null,
   "websiteId": "web-u05i74ikmaucx0d9",
   "createdAt": "2025-05-19T00:38:34.268Z",
-  "lastUpdated": "2025-05-19T01:13:03.817Z",
+  "lastUpdated": "2025-05-19T01:14:39.464Z",
   "status": "pending_deployment",
   "colors": {
     "services": [],
