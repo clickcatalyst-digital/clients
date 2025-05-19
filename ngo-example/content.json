@@ -2,11 +2,70 @@
   "email": "pujan1091@gmail.com",
   "user_type": "charity",
   "site_url": "ngo-example",
-  "logo_path": null,
-  "banner_path": null,
-  "about_image": null,
+  "logo_path": "ngo-example/assets/6c031451-e35f-41a4-aa28-8b9b6706c35f.jpg",
+  "banner_path": "ngo-example/assets/09c80a52-f605-48ac-b488-40b710335b44.jpg",
+  "about_image": "ngo-example/assets/9f1c526e-d318-4931-8bfb-04daf0b5f939.jpg",
   "websiteId": "web-k32vsbyhmauobsou",
   "createdAt": "2025-05-19T05:57:59.934Z",
-  "lastUpdated": "2025-05-19T05:57:59.934Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-19T06:40:40.241Z",
+  "status": "pending_deployment",
+  "headline": "Kindness in Action, Change in Motion",
+  "tagline": "We empower communities with education, clean water, and economic opportunity \u2014 one initiative at a time.",
+  "about": "We are a youth-powered non-profit uplifting underserved communities in India through practical impact programs \u2014 from education to healthcare, water access, and women-led entrepreneurship.",
+  "color_palette": "default",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "social": {
+    "facebook": "",
+    "twitter": "",
+    "linkedin": "",
+    "instagram": ""
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "business_stats": [],
+  "services": [],
+  "testimonials": [],
+  "charityMission": {
+    "mission": "To spark long-term change by investing in grassroots solutions driven by local communities.",
+    "vision": "A future where every village is self-sustaining, every child is educated, and every dream has a path forward.",
+    "foundingStory": "It started with 3 friends and one handpump in rural Gujarat. That handpump turned into a school, a microloan project, and a movement that now spans across 4 states \u2014 impacting thousands and growing stronger every year.",
+    "foundedYear": "2017"
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "skills": [],
+  "workExperience": [],
+  "education": [],
+  "certifications": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": "",
+  "merchantOrderId": "ATTEMPT-1747634259263-2e40347f",
+  "orderCreatedAt": "2025-05-19T05:57:39.579Z"
 }
