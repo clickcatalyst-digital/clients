@@ -1,0 +1,45 @@
+{
+  "user_type": "business",
+  "color_palette": "dreamy-sunset",
+  "headline": "India\u2019s Next Favourite Streetwear Brand",
+  "tagline": "Born online. Built for hustle. Backed by the boldest fits this side of the internet.",
+  "about": "We started with 10 t-shirts and a dream \u2014 and now we\u2019re here, building a brand that blends Indian roots with global streetwear vibes. From drop culture to DMs, we create fashion that talks \u2014 literally (just check our hoodies). Made for the youth, by the youth. Every thread is stitched with hustle, memes, and a bit of caffeine-fueled chaos.",
+  "services": [],
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "email": "pujan10sept@gmail.com",
+  "phone": "+91 99999 99999",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "business-example",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image": null,
+  "websiteId": "web-u05i74ikmaucx0d9",
+  "createdAt": "2025-05-19T00:38:34.268Z",
+  "lastUpdated": "2025-05-19T00:38:34.268Z",
+  "status": "pending_deployment"
+}
