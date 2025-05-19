@@ -350,17 +350,17 @@
     <style>
         /* Define theme colors from the dynamic color scheme */
         :root {
-            --color-primary: #4A90E2;
-            --color-secondary: #6FCF97;
-            --color-background: #FFFFFF;
-            --color-text: #333333;
+            --color-primary: #5cbdb9;
+            --color-secondary: #ebf6f5;
+            --color-background: #fceed1;
+            --color-text: #2d545e;
             /* Calculate muted text color (e.g., ~70% opacity hex) */
-            --color-text-muted: #333333B3;
+            --color-text-muted: #2d545eB3;
             /* Text contrast colors */
-            --color-text-on-primary: #333333;
-            --color-text-on-secondary: #333333;
-            --color-text-on-gradient: #333333;
-            --color-text-on-dark: #FFFFFF;
+            --color-text-on-primary: #2d545e;
+            --color-text-on-secondary: #2d545e;
+            --color-text-on-gradient: #2d545e;
+            --color-text-on-dark: #fceed1;
             --transition-speed: 0.3s;
         }
 
@@ -421,7 +421,7 @@
 
         /* Contact form basic input styling */
         .form-input { transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: 1px solid #d1d5db; /* Tailwind gray-300 */ }
-        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #4A90E233; /* Primary with opacity */ outline: none; }
+        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #5cbdb933; /* Primary with opacity */ outline: none; }
 
         /* Quick connect button base style (used in resume/portfolio) */
         .quick-connect-button { display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 500; transition: background-color, opacity, box-shadow, transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); text-decoration: none; }
@@ -725,7 +725,7 @@
       "foundingStory": "It started with 3 friends and one handpump in rural Gujarat. That handpump turned into a school, a microloan project, and a movement that now spans across 4 states — impacting thousands and growing stronger every year.",
       "foundingDate": "2017",
       "email": "pujan1091@gmail.com",
-      
+      "telephone": "+91 99999 99999",
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": "#"
@@ -758,6 +758,8 @@
                     <a href="#mission" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Mission</a>
                     <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About Us</a>
                     
+                       <a href="#impact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Impact</a>
+                    
                     <a href="#get-involved" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Get Involved</a>
                     <a href="#contact" class="ml-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                         Donate Now
@@ -776,6 +778,8 @@
              <div class="px-2 pt-2 pb-4 space-y-1">
                 <a href="#mission" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Mission</a>
                 <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About Us</a>
+                
+                   <a href="#impact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Impact</a>
                 
                 <a href="#get-involved" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Get Involved</a>
                 <a href="#contact" class="mt-2 flex items-center justify-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-contrast-primary bg-primary hover:opacity-90 w-full">
@@ -798,7 +802,7 @@
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4 hero-text-shadow">Kindness in Action, Change in Motion</h1>
                     <p class="text-lg sm:text-xl md:text-2xl max-w-xl lg:max-w-none mx-auto lg:mx-0 opacity-90 mb-8 hero-text-shadow">We empower communities with education, clean water, and economic opportunity — one initiative at a time.</p>
                     <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                        <a href="" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                        <a href="https://give.nymfoundation.org" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-primary bg-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
                             <svg class="h-5 w-5 mr-2"><use href="#icon-heart" /></svg>
                             Support Our Cause
                         </a>
@@ -843,6 +847,40 @@
                 
 
                    
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-4">Our Core Values</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                            
+                                
+                                <div class="about-feature-item">
+                                    <div class="about-feature-icon-bg">
+                                       <svg class="h-5 w-5"><use href="#icon-" /></svg>
+                                    </div>
+                                    <span class="font-medium text-gray-800 text-sm">Empathy</span>
+                                </div>
+                                
+                            
+                                
+                                <div class="about-feature-item">
+                                    <div class="about-feature-icon-bg">
+                                       <svg class="h-5 w-5"><use href="#icon-shield" /></svg>
+                                    </div>
+                                    <span class="font-medium text-gray-800 text-sm">Transparency</span>
+                                </div>
+                                
+                            
+                                
+                                <div class="about-feature-item">
+                                    <div class="about-feature-icon-bg">
+                                       <svg class="h-5 w-5"><use href="#icon-globe" /></svg>
+                                    </div>
+                                    <span class="font-medium text-gray-800 text-sm">Sustainability</span>
+                                </div>
+                                
+                            
+                        </div>
+                    </div>
+                    
                </div>
            </div>
        </div>
@@ -896,6 +934,91 @@
 
     <!-- Impact Section -->
     
+       <section id="impact" class="py-20 px-4 sm:px-6 lg:px-8 bg-section-light">
+           <div class="max-w-7xl mx-auto">
+               <div class="text-center mb-16 reveal">
+                   <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Our Impact</h2>
+                   <div class="section-divider"></div>
+               </div>
+
+                <!-- Impact Stats -->
+                
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 reveal">
+                        
+                            <div class="impact-stat">
+                                <div class="impact-stat-value">25,000+</div>
+                                <div class="impact-stat-label">People Given Access to Clean Water</div>
+                                
+                            </div>
+                        
+                            <div class="impact-stat">
+                                <div class="impact-stat-value">400+</div>
+                                <div class="impact-stat-label">Women Entrepreneurs Launched Through Microfinance</div>
+                                
+                            </div>
+                        
+                            <div class="impact-stat">
+                                <div class="impact-stat-value">6,500+</div>
+                                <div class="impact-stat-label">Children Enrolled in After-School Programs</div>
+                                
+                            </div>
+                        
+                            <div class="impact-stat">
+                                <div class="impact-stat-value">₹82 Lakhs</div>
+                                <div class="impact-stat-label">Raised for Health &amp; Sanitation Drives</div>
+                                
+                            </div>
+                        
+                            <div class="impact-stat">
+                                <div class="impact-stat-value">19</div>
+                                <div class="impact-stat-label">Villages Became Open Defecation-Free</div>
+                                
+                            </div>
+                        
+                    </div>
+                
+
+                <!-- Success Stories -->
+                
+                    <div class="space-y-12 reveal">
+                        <h3 class="text-2xl font-semibold text-center text-gray-800 mb-8">Success Stories</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            
+                                <div class="success-story ">
+                                    
+                                    <h4 class="text-xl font-semibold mb-2">From Tailor to CEO</h4>
+                                    
+                                    <p class="text-gray-700">Meena from Baroda started stitching school uniforms with a ₹10,000 microloan. Three years later, she runs a team of 12 women and supplies uniforms to 6 schools across Gujarat.
+</p>
+                                </div>
+                            
+                                <div class="success-story ">
+                                    
+                                    <h4 class="text-xl font-semibold mb-2">Learning Without Walls</h4>
+                                    
+                                    <p class="text-gray-700">When COVID shut schools, we delivered tablets preloaded with content to tribal kids. 92% passed their exams — one even topped her district!</p>
+                                </div>
+                            
+                                <div class="success-story ">
+                                    
+                                    <h4 class="text-xl font-semibold mb-2">Water Wins in Wardha</h4>
+                                    
+                                    <p class="text-gray-700">A 3-kilometer trek for water is now a 20-second walk. Our solar water station transformed life for 400 families in Wardha.</p>
+                                </div>
+                            
+                                <div class="success-story ">
+                                    
+                                    <h4 class="text-xl font-semibold mb-2">From Patient to Paramedic</h4>
+                                    
+                                    <p class="text-gray-700">Saved through our rural medical camp, Abdul pursued paramedic training with our scholarship and now serves the same area that once saved him.</p>
+                                </div>
+                            
+                        </div>
+                    </div>
+                
+           </div>
+       </section>
+   
 
     <!-- Get Involved Section -->
     <section id="get-involved" class="py-20 px-4 sm:px-6 lg:px-8 bg-section-neutral">
@@ -956,12 +1079,34 @@
                         
                         
                         
+                            <div class="flex items-start">
+                                <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-1"><use href="#icon-phone" /></svg>
+                                <div>
+                                    <h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5 opacity-80">Phone</h4>
+                                    <a href="tel:+91 99999 99999" class="hover:underline">+91 99999 99999</a>
+                                </div>
+                            </div>
+                        
                          
                          
                      </div>
 
                      
-                     
+                      
+                        <div class="mt-8 pt-6 border-t border-white/20">
+                            <h4 class="text-sm font-semibold uppercase tracking-wider mb-3 opacity-80">Connect Online</h4>
+                             <div class="flex space-x-4">
+                                 
+                                 
+                                     <a href="https://twitter.com/ClickCatalyst_" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="opacity-80 hover:opacity-100 transition-opacity">
+                                         <span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg>
+                                     </a>
+                                 
+                                 
+                                 
+                             </div>
+                         </div>
+                    
                  </div>
 
                  <!-- Right Column: Quick Actions -->
@@ -983,8 +1128,20 @@
                             
                             
                             
+                                <a href="tel:+91 99999 99999"
+                                   class="quick-connect-button bg-secondary text-contrast-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+                                    <svg class="h-5 w-5 mr-2"><use href="#icon-phone" /></svg>
+                                    <span>Call Me</span>
+                                </a>
+                            
                              
                             
+                               <a href="https://wa.me/+919999999999?text=Inquiry from Website" target="_blank" rel="noopener noreferrer"
+                                  class="quick-connect-button bg-green-500 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400">
+                                   <svg class="h-5 w-5 mr-2"><use href="#icon-whatsapp" /></svg>
+                                   <span>Message on WhatsApp</span>
+                               </a>
+                           
                         </div>
                     </div>
                 </div>
@@ -1002,7 +1159,7 @@
 <footer class="bg-section-dark text-gray-400 pt-16 pb-8 px-4 sm:px-6 lg:px-8"> 
      <div class="max-w-7xl mx-auto">
          
-         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-12">
+         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
 
              
              <div class="lg:col-span-1"> 
@@ -1026,7 +1183,7 @@
                      <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
                      <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
                      
-                     
+                     <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
                      
                      <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
                  </ul>
@@ -1043,12 +1200,33 @@
                         </li>
                      
                      
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-gray-500 flex-shrink-0 mt-0.5"><use href="#icon-phone" /></svg>
+                            <a href="tel:+91 99999 99999" class="hover:text-white transition-colors">+91 99999 99999</a>
+                        </li>
                      
+                     
+                      
+                        <li class="flex items-start">
+                            <svg class="h-5 w-5 mr-3 text-green-500 flex-shrink-0 mt-0.5"><use href="#icon-whatsapp" /></svg>
+                            <a href="https://wa.me/+919999999999?text=Inquiry" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors">Message on WhatsApp</a>
+                        </li>
                      
                  </ul>
              </div>
 
           
+          
+          <div class="lg:col-span-1">
+               <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Follow Us</h4>
+               <div class="flex flex-wrap gap-4"> 
+                    <a href="https://facebook.com/clickcatalyst.digital" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Facebook</span><svg class="h-6 w-6"><use href="#icon-facebook" /></svg></a>
+                    <a href="https://twitter.com/ClickCatalyst_" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Twitter</span><svg class="h-6 w-6"><use href="#icon-twitter" /></svg></a>
+                    <a href="https://instagram.com/clickcatalyst.digital" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Instagram</span><svg class="h-6 w-6"><use href="#icon-instagram" /></svg></a>
+                    
+                    
+               </div>
+          </div>
           
         </div>
 
@@ -1088,10 +1266,26 @@
             
             
                 
+                    <a href="https://facebook.com/clickcatalyst.digital" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-facebook"></use></svg>
+                    </a>
+                
                  
+                    <a href="https://twitter.com/ClickCatalyst_" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-twitter"></use></svg>
+                    </a>
                 
                 
-                 
+                
+                    <a href="https://instagram.com/clickcatalyst.digital" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-instagram"></use></svg>
+                    </a>
+                
+                  
+                    <a href="https://wa.me/+919999999999?text=Inquiry" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" title="WhatsApp" class="social-sidebar-button-inner">
+                        <svg class="h-4 w-4"><use href="#icon-whatsapp"></use></svg>
+                    </a>
+                
                 
             
         </div> 
