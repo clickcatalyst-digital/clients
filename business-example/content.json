@@ -4,8 +4,58 @@
   "headline": "India\u2019s Next Favourite Streetwear Brand",
   "tagline": "Born online. Built for hustle. Backed by the boldest fits this side of the internet.",
   "about": "We started with 10 t-shirts and a dream \u2014 and now we\u2019re here, building a brand that blends Indian roots with global streetwear vibes. From drop culture to DMs, we create fashion that talks \u2014 literally (just check our hoodies). Made for the youth, by the youth. Every thread is stitched with hustle, memes, and a bit of caffeine-fueled chaos.",
-  "services": [],
-  "testimonials": [],
+  "services": [
+    {
+      "name": "Unisex T-Shirts & Oversized Fits",
+      "icon": "tag",
+      "description": "All-season, all-attitude. Printed and shipped pan-India.\n\n",
+      "_tempId": "temp_i9n8qe5"
+    },
+    {
+      "name": "Limited Edition Drops",
+      "icon": "sparkles",
+      "description": "Hyped designs, surprise collabs, and weekly drops that disappear faster than your Swiggy order.",
+      "_tempId": "temp_blzopzm"
+    },
+    {
+      "name": "Custom Merch for Startups & Creators",
+      "icon": "pencil",
+      "description": "Got a brand? Let\u2019s make it wearable. From 20 to 2000 pieces \u2014 fully customizable.",
+      "_tempId": "temp_aoajg8d"
+    },
+    {
+      "name": "Pop-Up Booth Experiences",
+      "icon": "trophy",
+      "description": "Coming soon to your college fest, sneaker convention, or local weekend bazaar.",
+      "_tempId": "temp_u1llkct"
+    }
+  ],
+  "testimonials": [
+    {
+      "quote": "We sold out 80 tees in 3 days just through our college fest. Their design, website, and Insta strategy made us look like pros \u2014 even when we were still packing orders from our PG.",
+      "name": "Pranay Jindal",
+      "rating": "5",
+      "title": "Campus Ambassador",
+      "company": "NYM Streetwear",
+      "_tempId": "temp_numoq76"
+    },
+    {
+      "quote": "We thought we needed just a logo. Ended up with a whole brand kit, a stunning website, and customers asking, \u2018Are you funded?\u2019 These guys turned our garage idea into an Instagram-worthy movement.",
+      "name": "Aastha Verma",
+      "rating": "5",
+      "title": "Co-founder",
+      "company": "The Filter Collective",
+      "_tempId": "temp_j0jq0ot"
+    },
+    {
+      "quote": "They got our food ordering website live in 72 hours flat. Added online payments, spicy branding, and helped us rank on Google Maps \u2014 faster than our biryani delivery \ud83d\ude80.",
+      "name": "Harshit Trivedi",
+      "rating": "5",
+      "title": "Solo Founder",
+      "company": "Biryani & Beyond (Cloud Kitchen)",
+      "_tempId": "temp_s9mmvln"
+    }
+  ],
   "business_stats": [
     {
       "value": "10+",
@@ -25,14 +75,27 @@
     }
   ],
   "email": "pujan10sept@gmail.com",
-  "phone": "+91 99999 99999",
+  "phone": "6352878159",
   "social": {
-    "whatsapp": "",
+    "facebook": "clickcatalyst.digital",
+    "twitter": "ClickCatalyst_",
+    "linkedin": "",
+    "instagram": "clickcatalyst.digital",
+    "whatsapp": "6352878159",
     "telegram": "",
-    "facebook": "",
-    "instagram": "",
-    "twitter": "",
-    "linkedin": ""
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "site_url": "business-example",
   "logo_path": null,
@@ -40,6 +103,52 @@
   "about_image": null,
   "websiteId": "web-u05i74ikmaucx0d9",
   "createdAt": "2025-05-19T00:38:34.268Z",
-  "lastUpdated": "2025-05-19T00:38:34.268Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-05-19T01:11:49.480Z",
+  "status": "pending_deployment",
+  "colors": {},
+  "contact": {
+    "email": "",
+    "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    }
+  },
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": ""
+  },
+  "charityImpact": {
+    "impactStats": [],
+    "successStories": []
+  },
+  "donation_url": "",
+  "portfolioProjects": [],
+  "skills": [],
+  "workExperience": [],
+  "education": [],
+  "certifications": [],
+  "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": ""
+  },
+  "eventSchedule": [],
+  "registration_url": "",
+  "organizer_name": "",
+  "merchantOrderId": null,
+  "orderCreatedAt": null
 }
