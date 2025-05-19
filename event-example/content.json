@@ -7,20 +7,60 @@
   "about_image": null,
   "websiteId": "web-zh6fxgbtmaufgie3",
   "createdAt": "2025-05-19T01:49:43.323Z",
-  "lastUpdated": "2025-05-19T02:13:52.681Z",
+  "lastUpdated": "2025-05-19T05:02:35.419Z",
   "status": "pending_deployment",
   "headline": "Drip Meets Dialogue: The NYM Creator Circuit",
   "tagline": "An IRL drop + deep talks with India\u2019s dopest designers, marketers, and community builders.",
   "about": "NYM Streetwear is hitting the road! This time, we're bringing a day of style, story, and serious networking to your city. Join creators, founders, fashion-lovers, and young entrepreneurs at an immersive pop-up featuring limited drops, power panels, and interactive workshops.\nWhether you\u2019re building your own label or just love hoodie weather, this one\u2019s for you.\n\n\ud83d\udccdCity: Ahmedabad (Alt: Mumbai)\n\ud83c\udfaf Audience: D2C founders, Gen Z marketers, student creators, fashion & startup communities",
   "color_palette": "retro-pop",
-  "colors": {},
+  "colors": {
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
+  },
   "contact": {
     "email": "",
     "phone": "",
     "location": {
       "city": "",
       "state": "",
-      "country": ""
+      "country": "",
+      "services": [],
+      "business_stats": [],
+      "testimonials": [],
+      "portfolioProjects": [],
+      "skills": [],
+      "workExperience": [],
+      "education": [],
+      "certifications": [],
+      "eventSchedule": [],
+      "charityImpact": {
+        "impactStats": [],
+        "successStories": []
+      }
+    },
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
     }
   },
   "social": {
@@ -28,24 +68,101 @@
     "twitter": "ClickCatalyst_",
     "linkedin": "",
     "instagram": "clickcatalyst.digital",
-    "whatsapp": "6352878159"
+    "whatsapp": "6352878159",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "footer": {
     "creator_credit_name": "",
-    "creator_credit_url": ""
+    "creator_credit_url": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "business_stats": [],
-  "services": [],
+  "services": [
+    {
+      "name": "Live Merch Drop Booth",
+      "icon": "shopping-cart",
+      "description": "Touch, try, and buy our most hyped drop \u2014 in person!",
+      "_tempId": "temp_13l08hd"
+    },
+    {
+      "name": "Creator Panel",
+      "icon": "rocket",
+      "description": "From Reels to Revenue: how to turn content into a career with top Indian creators.",
+      "_tempId": "temp_2ckl0bv"
+    },
+    {
+      "name": "Branding Workshop",
+      "icon": "cube-transparent",
+      "description": "Build your visual identity, even if you\u2019re starting with just a Canva free account.",
+      "_tempId": "temp_ze01mmw"
+    },
+    {
+      "name": "StreetTalks: Hustle Stories",
+      "icon": "chat",
+      "description": "Unfiltered 15-minute rapid talks from indie founders who made it from zero to brand.\n\n",
+      "_tempId": "temp_cbevwb0"
+    }
+  ],
   "testimonials": [],
   "charityMission": {
     "mission": "",
     "vision": "",
     "foundingStory": "",
-    "foundedYear": ""
+    "foundedYear": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "charityImpact": {
     "impactStats": [],
-    "successStories": []
+    "successStories": [],
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "donation_url": "",
   "portfolioProjects": [],
@@ -54,18 +171,72 @@
   "education": [],
   "certifications": [],
   "eventDetails": {
-    "date": "",
-    "startTime": "",
-    "endTime": "",
-    "location": "",
-    "virtualLink": "",
-    "price": "",
-    "ticketInfo": "",
-    "limitedSeats": false,
-    "maxAttendees": ""
+    "date": "2025-07-20",
+    "startTime": "11:00",
+    "endTime": "17:30",
+    "location": "IndieFolio Warehouse, Ahmedabad",
+    "virtualLink": "N/A",
+    "price": "Free",
+    "ticketInfo": "Free entry (first-come-first-served basis)",
+    "limitedSeats": true,
+    "maxAttendees": "700",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
-  "eventSchedule": [],
-  "registration_url": "",
+  "eventSchedule": [
+    {
+      "time": "11:00",
+      "title": "Opening Jam + Welcome Keynote",
+      "speaker": "",
+      "location": "",
+      "description": "Get the vibe, meet the tribe. Founders welcome you, followed by what\u2019s brewing for NYM and beyond.",
+      "_tempId": "temp_qv7mcyu"
+    },
+    {
+      "time": "12:00",
+      "title": "Panel \u2014 Building Brands That Don\u2019t Blend In",
+      "speaker": "",
+      "location": "",
+      "description": "Hear from Gen Z founders and designers building cult-like brands in India.",
+      "_tempId": "temp_dciuxhm"
+    },
+    {
+      "time": "13:30",
+      "title": "Pop-Up Drop & Street Content Sprint",
+      "speaker": "",
+      "location": "",
+      "description": "Merch drop opens! Try fits, click content, and hit the creator pit with photo zones.",
+      "_tempId": "temp_kdb4l50"
+    },
+    {
+      "time": "15:00",
+      "title": "Workshop \u2014 Branding From Scratch",
+      "speaker": "",
+      "location": "",
+      "description": "Design, storytelling, and visual branding for creators, startups & solo-preneurs.",
+      "_tempId": "temp_j4obb7d"
+    },
+    {
+      "time": "16:15",
+      "title": "StreetTalks + Chai Mixer",
+      "speaker": "",
+      "location": "",
+      "description": "A TEDx-style sprint of founder journeys + closing chai with hustle meetups.",
+      "_tempId": "temp_38bfu3j"
+    }
+  ],
+  "registration_url": "https://www.meetup.com/nymwear-events/events/29072025/",
   "organizer_name": "",
   "merchantOrderId": "ATTEMPT-1747619361953-43915fd6",
   "orderCreatedAt": "2025-05-19T01:49:22.277Z",
