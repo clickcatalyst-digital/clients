@@ -7,12 +7,12 @@
   "about_image": "event-example/assets/e8b228b2-74b8-4497-b737-e700bc3b56a5.jpg",
   "websiteId": "web-zh6fxgbtmaufgie3",
   "createdAt": "2025-05-19T01:49:43.323Z",
-  "lastUpdated": "2025-05-19T05:31:10.623Z",
+  "lastUpdated": "2025-05-19T05:33:38.212Z",
   "status": "pending_deployment",
   "headline": "Drip Meets Dialogue: The NYM Creator Circuit",
   "tagline": "An IRL drop + deep talks with India\u2019s dopest designers, marketers, and community builders.",
   "about": "NYM Streetwear is hitting the road! This time, we're bringing a day of style, story, and serious networking to your city. Join creators, founders, fashion-lovers, and young entrepreneurs at an immersive pop-up featuring limited drops, power panels, and interactive workshops.\nWhether you\u2019re building your own label or just love hoodie weather, this one\u2019s for you.\n\n\ud83d\udccdCity: Ahmedabad\n\ud83c\udfaf Audience: D2C founders, Gen Z marketers, student creators, fashion & startup communities",
-  "color_palette": "retro-pop",
+  "color_palette": "futuristic-tech",
   "colors": {
     "services": [],
     "business_stats": [],
@@ -125,6 +125,18 @@
       "icon": "chat",
       "description": "Unfiltered 15-minute rapid talks from indie founders who made it from zero to brand.\n\n",
       "_tempId": "temp_cbevwb0"
+    },
+    {
+      "name": "Idea Spark Zone",
+      "icon": "lightbulb",
+      "description": "A chill corner for spontaneous brainstorms, sticky notes, and whiteboard walls \u2014 where attendees can drop startup ideas, sketch logos, or pitch concepts on the fly. Because sometimes, brilliance happens between panels.",
+      "_tempId": "temp_vpmrkxv"
+    },
+    {
+      "name": "Creator Rewards Corner",
+      "icon": "star",
+      "description": "Check-in. Snap. Tag. Win.\nAttendees who engage \u2014 post stories, check in, or participate in panels \u2014 get surprise perks like free merch, discount cards, or shoutouts on NYM\u2019s official social handles.",
+      "_tempId": "temp_p7oza8f"
     }
   ],
   "testimonials": [],
