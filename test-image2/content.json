@@ -1,0 +1,70 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "dvssdvvds",
+      "description": "vsdsdvvds",
+      "image_path": "test-image2/assets/project-0-889b820b-70c1-4a81-bda1-5cf9690f2a33.png"
+    },
+    {
+      "title": "svdsvdvds",
+      "description": "vdssdvdsv",
+      "image_path": "test-image2/assets/project-1-ce01a608-4081-4a5f-af73-eda38b4b078a.jpg"
+    },
+    {
+      "title": "vdsvsd",
+      "description": "vsdsvdsvd",
+      "image_path": "test-image2/assets/project-2-12b7889f-7e70-476f-b16f-a5b91f85cdb2.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "luxurious-chic",
+  "headline": "test-image22",
+  "tagline": "dsadsvsvdvds",
+  "about": "sdvsdvvdsdsv",
+  "services": [],
+  "workExperience": [
+    {
+      "title": "vdssvd",
+      "company": "vdssdv",
+      "startMonth": "1",
+      "startYear": "2023",
+      "endMonth": "3",
+      "endYear": "2023",
+      "isCurrent": false,
+      "location": "vdssdv",
+      "description": "vdssdvdsv"
+    }
+  ],
+  "skills": [
+    "vdsvds",
+    "vsdvds",
+    "vsdsvd"
+  ],
+  "certifications": [
+    {
+      "name": "vdssdvsvd",
+      "issuer": "dsvcvsd",
+      "date": "sdvcdsv",
+      "expiration": "sdsdv"
+    }
+  ],
+  "email": "propujan@gmail.com",
+  "phone": "253452435243",
+  "social": {
+    "whatsapp": "453345345",
+    "telegram": "",
+    "facebook": "fdggfd",
+    "instagram": "gdfdgf",
+    "twitter": "dgfdfg",
+    "linkedin": "gdfdfgdgf"
+  },
+  "site_url": "test-image2",
+  "logo_path": "test-image2/assets/logo-5aca6ad8-3b6d-4261-98ee-9943d5e8b3d3.png",
+  "banner_path": null,
+  "about_image_path": "test-image2/assets/about-image-d5b9c24e-a88c-4c63-a37f-60b898882154.jpeg",
+  "websiteId": "web-co1un8r7maxii3hv",
+  "createdAt": "2025-05-21T05:38:14.707Z",
+  "lastUpdated": "2025-05-21T05:38:14.707Z",
+  "status": "pending_deployment"
+}
