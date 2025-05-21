@@ -1,0 +1,64 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "bdfbdf",
+      "description": "bfddfb",
+      "url": "bfddbf",
+      "startDate": "",
+      "endDate": "",
+      "technologies": [],
+      "features": [],
+      "image_path": "test-image23/assets/project-0-e89616ec-cb2e-4d94-97b0-4a6a11b58bde.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "luxurious-chic",
+  "headline": "sdsbf",
+  "tagline": "bdfbfdbfd",
+  "about": "bfddfbbfd",
+  "services": [],
+  "workExperience": [
+    {
+      "title": "vdsvds",
+      "company": "vdsdsv",
+      "startMonth": "4",
+      "startYear": "2022",
+      "endMonth": "4",
+      "endYear": "2025",
+      "isCurrent": false,
+      "location": "vds",
+      "description": "vdsvds"
+    }
+  ],
+  "skills": [
+    "vds",
+    "dsv"
+  ],
+  "certifications": [
+    {
+      "name": "dsv",
+      "issuer": "dsvvds",
+      "date": "svddsv",
+      "expiration": "vsdsdv"
+    }
+  ],
+  "email": "propujan@gmail.com",
+  "phone": "235543243",
+  "social": {
+    "whatsapp": "435345354",
+    "telegram": "",
+    "facebook": "453435thghgd",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "test-image23",
+  "logo_path": "test-image23/assets/logo-61d6f469-9921-4fef-beb6-aa638da22e1e.jpg",
+  "banner_path": null,
+  "about_image_path": "test-image23/assets/about-image-87f6836b-1fcb-4aee-83f9-1a11eada0345.jpeg",
+  "websiteId": "web-k9dkm0llmaxkjeee",
+  "createdAt": "2025-05-21T06:35:14.724Z",
+  "lastUpdated": "2025-05-21T06:35:14.724Z",
+  "status": "pending_deployment"
+}
