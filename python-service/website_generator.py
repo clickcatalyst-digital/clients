@@ -445,7 +445,7 @@ def generate_website(
         asset_key_dict = {
             'logo_path': content_data.get('logo_path') or content_data.get('logo'), # Prioritize logo_path
             'banner_path': content_data.get('banner_path') or content_data.get('banner'), # Prioritize banner_path
-            'about_image': content_data.get('about_image_path') or content_data.get('about_image')
+            'about_image_path': content_data.get('about_image_path') or content_data.get('about_image')
             # Add other potential top-level image paths here if needed
         }
 
@@ -493,9 +493,9 @@ def generate_website(
         if template_data.get('banner_path'):
              relative_path = downloaded_relative_paths.get(template_data['banner_path'])
              if relative_path: template_data['banner_path'] = relative_path
-        if template_data.get('about_image'):
-             relative_path = downloaded_relative_paths.get(template_data['about_image'])
-             if relative_path: template_data['about_image'] = relative_path
+        if template_data.get('about_image_path'):
+             relative_path = downloaded_relative_paths.get(template_data['about_image_path'])
+             if relative_path: template_data['about_image_path'] = relative_path
 
         # Update portfolio project image paths IN THE ARRAY
         if 'portfolioProjects' in template_data and isinstance(template_data['portfolioProjects'], list):
