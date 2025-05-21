@@ -445,7 +445,7 @@ def generate_website(
         asset_key_dict = {
             'logo_path': content_data.get('logo_path') or content_data.get('logo'), # Prioritize logo_path
             'banner_path': content_data.get('banner_path') or content_data.get('banner'), # Prioritize banner_path
-            'about_image': content_data.get('about_image')
+            'about_image': content_data.get('about_image_path') or content_data.get('about_image')
             # Add other potential top-level image paths here if needed
         }
 
@@ -479,7 +479,7 @@ def generate_website(
                  if s3_key:
                      # Use a unique key for downloading, store mapping info
                      download_key = f'project_{i}_{project_image_key_in_json}' 
-                     asset_keys[download_key] = s3_key
+                     asset_key_dict[download_key] = s3_key
                      s3_key_to_target_map[s3_key] = {'type': 'project', 'index': i, 'field': project_image_key_in_json}
         
         # --- Download Assets ---
