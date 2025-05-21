@@ -474,7 +474,7 @@ def generate_website(
 
         if 'portfolioProjects' in content_data and isinstance(content_data['portfolioProjects'], list):
             for i, project in enumerate(content_data['portfolioProjects']):
-                 project_image_key_in_json = 'imagePreview' # Key in content.json object
+                 project_image_key_in_json = 'image_path' # Key in content.json object
                  s3_key = project.get(project_image_key_in_json)
                  if s3_key:
                      # Use a unique key for downloading, store mapping info
@@ -508,7 +508,7 @@ def generate_website(
              updated_projects = []
              for project in template_data['portfolioProjects']:
                   new_project = project.copy()
-                  project_image_key_in_json = 'imagePreview'
+                  project_image_key_in_json = 'image_path'
                   s3_key = new_project.get(project_image_key_in_json)
                   if s3_key:
                       relative_path = downloaded_relative_paths.get(s3_key)
