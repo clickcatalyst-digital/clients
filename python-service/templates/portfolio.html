@@ -168,8 +168,8 @@
     <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> {# Correct BG #}
         <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-12 items-center">
             <div class="md:col-span-1 reveal">
-                {% if about_image %}
-                 <img class="rounded-lg shadow-xl w-full h-auto object-cover aspect-square" src="{{ about_image }}" alt="About {{ headline }}" loading="lazy">
+                {% if about_image_path %}
+                 <img class="rounded-lg shadow-xl w-full h-auto object-cover aspect-square" src="{{ about_image_path }}" alt="About {{ headline }}" loading="lazy">
                  {% else %}
                   <div class="rounded-lg shadow-xl aspect-square bg-white flex items-center justify-center text-gray-400 border border-gray-200">
                       <svg class="h-16 w-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5.121 17.804A13.937 13.937 0 0112 16.5c2.572 0 4.98.746 6.879 2.004M15 11a3 3 0 11-6 0 3 3 0 016 0zm6 6a2 2 0 11-4 0 2 2 0 014 0zM6 17a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
