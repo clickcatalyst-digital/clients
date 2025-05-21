@@ -280,7 +280,10 @@
                             <div class="experience-item">
                                 <div class="flex flex-col sm:flex-row justify-between items-start sm:items-baseline mb-1">
                                     <h3 class="text-md sm:text-lg font-semibold text-primary">{{ job.title }}</h3>
-                                    <p class="text-xs text-gray-500 mt-1 sm:mt-0 flex-shrink-0">{{ job.startDate }} - {{ job.endDate if not job.isCurrent else 'Present' }}</p>
+                                    <p class="text-xs text-gray-500 mt-1 sm:mt-0 flex-shrink-0">
+                                        {% if job.startDate %}{{ job.startDate }}{% else %}N/A{% endif %} - 
+                                        {% if job.isCurrent %}Present{% elif job.endDate %}{{ job.endDate }}{% else %}N/A{% endif %}
+                                    </p>
                                 </div>
                                 <p class="text-sm font-medium text-gray-800">{{ job.company }} {% if job.location %}<span class="text-gray-500 font-normal">- {{ job.location }}</span>{% endif %}</p>
                                 {% if job.description %}<p class="mt-2 text-sm text-gray-600 leading-relaxed">{{ job.description }}</p>{% endif %}
