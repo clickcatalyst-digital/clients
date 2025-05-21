@@ -1,0 +1,52 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "nfgdngfd",
+      "description": "hmdhd",
+      "image_path": "bgdbgdf/assets/project-0-711f93bf-f37f-46e3-ad70-70adc01dd9de.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "bgdbgdf",
+  "tagline": "gnsdgndbgdf",
+  "about": "sngdngdfgndf",
+  "services": [],
+  "workExperience": [
+    {
+      "title": "fdbfdb",
+      "company": "gfnfgn",
+      "startMonth": "2",
+      "startYear": "2024",
+      "endMonth": "3",
+      "endYear": "2024",
+      "isCurrent": false,
+      "location": "nfg",
+      "description": "nhffnhnhfg"
+    }
+  ],
+  "skills": [
+    "dbfg",
+    "fdhg"
+  ],
+  "certifications": [],
+  "email": "bkbk@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "bgdbgdf",
+  "logo_path": "bgdbgdf/assets/logo-c281e251-7618-4bd0-9a01-9620d568ff58.jpeg",
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-voiue21bmaxorjzv",
+  "createdAt": "2025-05-21T08:33:33.691Z",
+  "lastUpdated": "2025-05-21T08:33:33.691Z",
+  "status": "pending_deployment"
+}
