@@ -210,24 +210,23 @@
                                 {% endif %}
                                  {# Overlay with Button Trigger #}
                                  <div class="portfolio-overlay">
-                                     <p>{{ project.description | truncate(100) }}</p>
-                                     <button type="button"
-                                             class="portfolio-overlay-link mt-2 portfolio-modal-trigger"
-                                             data-modal-target="portfolioModal"
-                                             data-project-title="{{ project.title | e }}"
-                                             data-project-image="{% if project.image_path and project.image_path != 'None' %}{{ project.image_path }}{% else %}{% endif %}"
-<!--                                              data-project-image="{% if project.image_path %}{{ project.image_path }}{% else %}{% endif %}" -->
-                                             data-project-description="{{ project.description | e }}"
-                                             data-project-url="{{ project.url | default('') | e }}"
-                                             data-project-tags="{{ project.technologies | join(',') if project.technologies else '' | e }}" 
-                                             data-project-startdate="{{ project.startDate | default('') | e }}"
-                                             data-project-enddate="{{ project.endDate | default('') | e }}"
-                                             data-project-features="{{ project.features | join('|') if project.features else '' | e }}"
-                                             >
-                                         <svg><use href="#icon-eye" /></svg>
-                                         <span>View Details</span>
-                                     </button>
-                                 </div>
+                                    <p>{{ project.description | truncate(100) }}</p>
+                                    <button type="button"
+                                            class="portfolio-overlay-link mt-2 portfolio-modal-trigger"
+                                            data-modal-target="portfolioModal"
+                                            data-project-title="{{ project.title | e }}"
+                                            data-project-image="{% if project.image_path and project.image_path != 'None' %}{{ project.image_path }}{% else %}{% endif %}"
+                                            data-project-description="{{ project.description | e }}"
+                                            data-project-url="{{ project.url | default('') | e }}"
+                                            data-project-tags="{{ project.technologies | join(',') if project.technologies else '' | e }}" 
+                                            data-project-startdate="{{ project.startDate | default('') | e }}"
+                                            data-project-enddate="{{ project.endDate | default('') | e }}"
+                                            data-project-features="{{ project.features | join('|') if project.features else '' | e }}"
+                                            >
+                                        <svg><use href="#icon-eye" /></svg>
+                                        <span>View Details</span>
+                                    </button>
+                                </div>
                             </div>
                             <div class="portfolio-content">
                                 <h3>{{ project.title }}</h3>
