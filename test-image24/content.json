@@ -1,0 +1,53 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "bfddfbbfd",
+      "description": "bfdb",
+      "image_path": "test-image24/assets/project-0-38edf5d9-a151-4e3c-8c6a-a89b2af98903.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "gsrfdsfdbhbfd",
+  "tagline": "dbnffdbdfbfbdfbd",
+  "about": "dbfdfbbdffb",
+  "services": [],
+  "workExperience": [
+    {
+      "title": "gnfgfnngf",
+      "company": "ngfngfngf",
+      "startMonth": "5",
+      "startYear": "2022",
+      "endMonth": "10",
+      "endYear": "2025",
+      "isCurrent": false,
+      "location": "fgnfgnngf",
+      "description": "nfgfgn"
+    }
+  ],
+  "skills": [
+    "ngf",
+    "ngfhm",
+    "nmhyrtn"
+  ],
+  "certifications": [],
+  "email": "propujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "test-image24",
+  "logo_path": "test-image24/assets/logo-a0122c9c-0c40-4118-9366-d409264f4766.jpeg",
+  "banner_path": null,
+  "about_image_path": "test-image24/assets/about-image-728aa1a4-59d7-46f9-af91-1013540edd7f.jpg",
+  "websiteId": "web-jlb6o773maxmhv0j",
+  "createdAt": "2025-05-21T07:30:02.178Z",
+  "lastUpdated": "2025-05-21T07:30:02.178Z",
+  "status": "pending_deployment"
+}
