@@ -554,15 +554,20 @@
                 console.log('Attaching listener to button:', button);
 
                 button.addEventListener('click', () => {
-                    console.log('Trigger button CLICKED!');
-                    const projectData = {
-                        title: button.dataset.projectTitle, image: button.dataset.projectImage,
-                        description: button.dataset.projectDescription, url: button.dataset.projectUrl,
-                        tags: button.dataset.projectTags
-                    };
-                    console.log('Opening modal with data:', projectData);
-                    openModal(projectData);
-                });
+                console.log('Trigger button CLICKED!');
+                const projectData = {
+                    title: button.dataset.projectTitle, 
+                    image: button.dataset.projectImage,
+                    description: button.dataset.projectDescription,
+                    url: button.dataset.projectUrl,
+                    tags: button.dataset.projectTags,
+                    startdate: button.dataset.projectStartdate,   // Added this
+                    enddate: button.dataset.projectEnddate,       // Added this
+                    features: button.dataset.projectFeatures      // Added this
+                };
+                console.log('Opening modal with data:', projectData);
+                openModal(projectData);
+            });
             });
 
             closeButtons.forEach(button => { button.addEventListener('click', closeModal); });
