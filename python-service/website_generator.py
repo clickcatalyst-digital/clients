@@ -479,7 +479,7 @@ def generate_website(
         # --- Download Assets ---
         # downloaded_assets = download_assets(s3_client, bucket, folder_name, asset_keys)
         # Pass the combined dictionary of assets to download
-        downloaded_relative_paths = download_assets_v2(s3_client, bucket, folder_name, asset_keys)
+        downloaded_relative_paths = download_assets_v2(s3_client, bucket, folder_name, asset_key_dict)
 
         # downloaded_relative_paths maps S3_KEY -> "assets/FILENAME.ext"
 
