@@ -1,0 +1,58 @@
+{
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "test-bucket",
+  "tagline": "dbfbfd",
+  "about": "sdvdvs",
+  "services": [],
+  "education": [],
+  "workExperience": [
+    {
+      "title": "bfdssbdf",
+      "company": "bfdsbsfd",
+      "startMonth": "2",
+      "startYear": "2023",
+      "endMonth": "4",
+      "endYear": "2023",
+      "isCurrent": false,
+      "location": "bfdbdf",
+      "description": "bdfbdfdbfbfd"
+    }
+  ],
+  "skills": [
+    "bdfbdf"
+  ],
+  "certifications": [
+    {
+      "name": "bfddfb",
+      "issuer": "bdfdfb",
+      "date": "bfddfb",
+      "expiration": "dbfdbf"
+    }
+  ],
+  "logoMetadata": null,
+  "email": "propujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "image-test",
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "image_path": "image-test/assets/project-0-dde04208-a16c-4cd2-b772-28039518b8df.png"
+    }
+  ],
+  "logo_path": "image-test/assets/logo-ec09c011-906b-4f04-b579-d90c55c8861f.png",
+  "banner_path": null,
+  "about_image_path": "image-test/assets/about-image-6c940620-db21-49c0-a8c6-5fe215fd9173.jpeg",
+  "websiteId": "web-gijfjj8lmaxgw0tx",
+  "createdAt": "2025-05-21T04:53:05.205Z",
+  "lastUpdated": "2025-05-21T04:53:05.205Z",
+  "status": "pending_deployment"
+}
