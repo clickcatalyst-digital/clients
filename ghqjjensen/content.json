@@ -1,0 +1,49 @@
+{
+  "portfolioProjects": [
+    {
+      "fileName": "IMG_0960.jpeg",
+      "fileSize": 318933,
+      "image_path": "ghqjjensen/assets/project-0-27297b77-aff0-4472-a697-e6245f8f11ee.jpeg"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "Ghqjjensen",
+  "tagline": "Jshjsj",
+  "about": "Bsbzmzn",
+  "services": [],
+  "projectIndex": 0,
+  "updatedPortfolioProject": {
+    "image_s3_key": "pending-uploads/c092acf8-0779-4650-80db-7dd391443f7d.jpeg",
+    "fileName": "IMG_0960.jpeg",
+    "fileSize": 318933
+  },
+  "workExperience": [],
+  "skills": [
+    "Nxnxnx"
+  ],
+  "certifications": [],
+  "logo_filename": "IMG_0960.jpeg",
+  "logo_filesize": 318933,
+  "about_s3_key": "pending-uploads/634a9f5c-246a-45e0-912b-9425e5b2993a.jpeg",
+  "about_filename": "IMG_0940.jpeg",
+  "about_filesize": 61638,
+  "email": "propujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "8484694",
+    "telegram": "Nsbsbbs",
+    "facebook": "Hhsbsbsn",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "ghqjjensen",
+  "logo_path": "ghqjjensen/assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg",
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-dxydst5cmaxdj2lb",
+  "createdAt": "2025-05-21T03:19:02.110Z",
+  "lastUpdated": "2025-05-21T03:19:02.110Z",
+  "status": "pending_deployment"
+}
