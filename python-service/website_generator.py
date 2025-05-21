@@ -465,12 +465,6 @@ def generate_website(
         if content_data.get('team_photos'):
             for i, image in enumerate(content_data.get('team_photos', [])):
                 asset_keys[f'team_{i}'] = image
-                
-        # Add portfolio project images if they exist
-        # if 'portfolioProjects' in content_data:
-        #     for i, project in enumerate(content_data['portfolioProjects']):
-        #         if project.get('imagePreview'):
-        #             asset_keys[f'project_{i}_image'] = project['imagePreview']
 
         if 'portfolioProjects' in content_data and isinstance(content_data['portfolioProjects'], list):
             for i, project in enumerate(content_data['portfolioProjects']):
