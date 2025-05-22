@@ -1,0 +1,44 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "g",
+      "description": "df",
+      "url": "",
+      "startDate": "",
+      "endDate": "",
+      "technologies": [],
+      "features": [],
+      "image_path": "rgergegre/assets/project-0-3ac32e50-3aa2-4161-9ed9-2979b08c8a28.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "rgergegre",
+  "tagline": "sgrgfdgfdsfgdgfd",
+  "about": "gsdfdgfdgf",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "hgffgh@gnfnhfg.xfcggfd",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "rgergegre",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-ltufwko3maz86q90",
+  "createdAt": "2025-05-22T10:25:00.516Z",
+  "lastUpdated": "2025-05-22T10:25:00.516Z",
+  "status": "pending_deployment"
+}
