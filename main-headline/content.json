@@ -1,0 +1,52 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "project 1",
+      "description": "description upto 500 characters",
+      "url": "www.google.com",
+      "startDate": "2025-05-21",
+      "endDate": "2025-05-22",
+      "technologies": [
+        "React",
+        "Node",
+        "Lop"
+      ],
+      "features": [
+        "f1",
+        "f2",
+        "f3"
+      ],
+      "image_path": "main-headline/assets/project-0-2e70ed78-83aa-4b97-88ee-af09665c4a84.jpg"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "main headline",
+  "tagline": "tagline",
+  "about": "about",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "propujan@gmail.com",
+  "phone": "3245542453",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "main-headline",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-7nidnc45maz9a0ip",
+  "createdAt": "2025-05-22T10:55:33.409Z",
+  "lastUpdated": "2025-05-22T10:55:33.409Z",
+  "status": "pending_deployment"
+}
