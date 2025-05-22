@@ -468,13 +468,13 @@ def generate_website(
 
         if 'portfolioProjects' in content_data and isinstance(content_data['portfolioProjects'], list):
             for i, project in enumerate(content_data['portfolioProjects']):
-                 project_image_key_in_json = 'image_path' # Key in content.json object
-                 s3_key = project.get(project_image_key_in_json)
-                 if s3_key:
-                     # Use a unique key for downloading, store mapping info
-                     download_key = f'project_{i}_{project_image_key_in_json}' 
-                     asset_key_dict[download_key] = s3_key
-                     s3_key_to_target_map[s3_key] = {'type': 'project', 'index': i, 'field': project_image_key_in_json}
+                project_image_key_in_json = 'image_path' # Key in content.json object
+                s3_key = project.get(project_image_key_in_json)
+                if s3_key:
+                    # Use a unique key for downloading, store mapping info
+                    download_key = f'project_{i}_{project_image_key_in_json}' 
+                    asset_key_dict[download_key] = s3_key
+                    s3_key_to_target_map[s3_key] = {'type': 'project', 'index': i, 'field': project_image_key_in_json}
         
         # --- Download Assets ---
         # downloaded_assets = download_assets(s3_client, bucket, folder_name, asset_keys)
@@ -499,8 +499,8 @@ def generate_website(
 
         # Update portfolio project image paths IN THE ARRAY
         if 'portfolioProjects' in template_data and isinstance(template_data['portfolioProjects'], list):
-             updated_projects = []
-             for project in template_data['portfolioProjects']:
+            updated_projects = []
+            for project in template_data['portfolioProjects']:
                 # Convert technologies string to array if needed
                 if isinstance(project.get('technologies'), str) and project['technologies'].strip():
                     project['technologies'] = [tech.strip() for tech in project['technologies'].split(',') if tech.strip()]
@@ -513,7 +513,7 @@ def generate_website(
                 elif not isinstance(project.get('features'), list):
                     project['features'] = []
                 
-                 new_project = project.copy()
+                new_project = project.copy()
                 project_image_key_in_json = 'image_path'
                 s3_key = new_project.get(project_image_key_in_json)
                 if s3_key:
@@ -521,12 +521,12 @@ def generate_website(
                     if relative_path:
                         # Overwrite the S3 key with the relative path for the template
                         new_project[project_image_key_in_json] = relative_path 
-                  else:
-                       logger.warning(f"Could not find downloaded path for project image S3 key: {s3_key}")
-                       # Optionally set to None or keep S3 key? Let's set to None
-                       new_project[project_image_key_in_json] = None
-                  updated_projects.append(new_project)
-             template_data['portfolioProjects'] = updated_projects # Replace array
+                    else:
+                        logger.warning(f"Could not find downloaded path for project image S3 key: {s3_key}")
+                        # Optionally set to None or keep S3 key? Let's set to None
+                        new_project[project_image_key_in_json] = None
+                updated_projects.append(new_project)
+            template_data['portfolioProjects'] = updated_projects # Replace array
         
         # Render HTML
         # html_output = render_template(jinja_env, content_data, downloaded_assets)
