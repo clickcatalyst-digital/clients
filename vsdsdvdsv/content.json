@@ -1,0 +1,44 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "dsvd",
+      "description": "sdvvdsvds",
+      "url": "https://www.google.com",
+      "startDate": "2025-05-07",
+      "endDate": "2025-05-21",
+      "technologies": [],
+      "features": [],
+      "image_path": "vsdsdvdsv/assets/project-0-3e8722bf-378e-4152-890e-5eddd7eac84c.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "vsdsdvdsv",
+  "tagline": "sdvdsvdsvsdv",
+  "about": "dsvdsvsdv",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "xzczxc@cdcd.cjds",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "vsdsdvdsv",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-l0s4gdt0maz6o6av",
+  "createdAt": "2025-05-22T09:42:35.238Z",
+  "lastUpdated": "2025-05-22T09:42:35.238Z",
+  "status": "pending_deployment"
+}
