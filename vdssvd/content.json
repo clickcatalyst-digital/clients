@@ -1,0 +1,45 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "ddsv",
+      "description": "vdsdsv",
+      "url": "https://google.com",
+      "startDate": "",
+      "endDate": "",
+      "technologies": [],
+      "features": [],
+      "image_path": "vdssvd/assets/project-0-9e3841fd-ab26-4e8c-ae65-092bfb546384.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "vdssvd",
+  "tagline": "svddsv",
+  "about": "dsvdsv",
+  "services": [],
+  "workExperience": [],
+  "skills": [
+    "f",
+    "g"
+  ],
+  "certifications": [],
+  "email": "fdgfdg@fgbdfhg.gxffxg",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "vdssvd",
+  "logo_path": "vdssvd/assets/logo-cfaa6b97-370f-4848-803e-7947b557ff8d.jpeg",
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-zo1gu0eqmaz6cns9",
+  "createdAt": "2025-05-22T09:33:38.024Z",
+  "lastUpdated": "2025-05-22T09:33:38.024Z",
+  "status": "pending_deployment"
+}
