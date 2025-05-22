@@ -1,0 +1,51 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "hfgh",
+      "description": "gfhfgh",
+      "url": "www.google.com",
+      "startDate": "2025-05-21",
+      "endDate": "2025-05-23",
+      "technologies": [
+        "React",
+        "G",
+        "h",
+        "d"
+      ],
+      "features": [
+        "f1, f2, f3"
+      ],
+      "image_path": "gdfdfg/assets/project-0-fbe4d4e9-203c-4916-ab5a-ad25834b6a03.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "gdfdfg",
+  "tagline": "fgdfdgfdg",
+  "about": "gfdfdgdfg",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "sdfsfds@vdsvsfd.fgfdsg",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "gdfdfg",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-679m40agmaz8jj5p",
+  "createdAt": "2025-05-22T10:34:57.852Z",
+  "lastUpdated": "2025-05-22T10:34:57.852Z",
+  "status": "pending_deployment"
+}
