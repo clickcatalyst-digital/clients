@@ -1,0 +1,74 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "hdfdhs",
+      "description": "dfhdfs",
+      "url": "hgdfdfgh",
+      "startDate": "2025-05-11",
+      "endDate": "2025-05-22",
+      "technologies": [
+        "dfhggdfdfh"
+      ],
+      "features": [
+        "gdfggdfdfhg"
+      ],
+      "image_path": "testyt/assets/project-0-c3de6621-87a7-48cc-be94-fc0614db363b.png"
+    },
+    {
+      "title": "fhgddfgh",
+      "description": "hgdfdghf",
+      "url": "dhfghgfd",
+      "startDate": "2025-05-12",
+      "endDate": "2025-05-07",
+      "technologies": [
+        "hdfgdghf"
+      ],
+      "features": [
+        "hdfgghf,mhjgfngfgf"
+      ],
+      "image_path": "testyt/assets/project-1-5aed2e2b-c75a-420d-8a01-e0f4dbb2465e.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "dsfngsdhghsdf",
+  "tagline": "hdsfgshdfdsfhdfsh",
+  "about": "hfddfhsdfhs",
+  "services": [],
+  "workExperience": [
+    {
+      "title": "nfgfng",
+      "company": "gnffgn",
+      "startMonth": "3",
+      "startYear": "2019",
+      "endMonth": "6",
+      "endYear": "2022",
+      "isCurrent": false,
+      "location": "gnfgfn",
+      "description": ""
+    }
+  ],
+  "skills": [
+    "fng"
+  ],
+  "certifications": [],
+  "email": "propujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "testyt",
+  "logo_path": "testyt/assets/logo-cea1441f-8f99-413c-902f-f888ec84042a.jpg",
+  "banner_path": null,
+  "about_image_path": "testyt/assets/about-image-f3c17d65-e335-41ec-a24e-fce8aa3d0587.jpeg",
+  "websiteId": "web-cp9bks6wmaz5pty3",
+  "createdAt": "2025-05-22T09:15:52.923Z",
+  "lastUpdated": "2025-05-22T09:15:52.923Z",
+  "status": "pending_deployment"
+}
