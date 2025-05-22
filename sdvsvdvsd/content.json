@@ -1,0 +1,55 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "fdvfdfv",
+      "description": "fvddvfdvfdfv",
+      "url": "www.google.com",
+      "startDate": "2025-05-01",
+      "endDate": "2025-05-21",
+      "technologies": [
+        "dfs",
+        "dfs",
+        "sdf",
+        "fds dfs aw"
+      ],
+      "features": [
+        "gfsfgsfd",
+        "dfsdfsdsf",
+        "sdfsdf",
+        "sdvsdf",
+        "dsffsd"
+      ],
+      "image_path": "sdvsvdvsd/assets/project-0-942932b5-fc15-4389-9b00-f5c78e065274.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "sdvsvdvsd",
+  "tagline": "vsvsdsdvsdv",
+  "about": "dsvsddsvds",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "svddsv@fdgsvsdf.fdsvvfsd",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "sdvsvdvsd",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-q23t28sfmaz8poqw",
+  "createdAt": "2025-05-22T10:39:45.032Z",
+  "lastUpdated": "2025-05-22T10:39:45.032Z",
+  "status": "pending_deployment"
+}
