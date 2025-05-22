@@ -218,7 +218,7 @@
                                             data-project-image="{% if project.image_path and project.image_path != 'None' %}{{ project.image_path }}{% else %}{% endif %}"
                                             data-project-description="{{ project.description | e }}"
                                             data-project-url="{{ project.url | default('') | e }}"
-                                            data-project-tags="{{ project.technologies | join(',') if project.technologies else '' | e }}" 
+                                            data-project-tags="{{ project.technologies | join(',') if project.technologies else '' | e }}"
                                             data-project-startdate="{{ project.startDate | default('') | e }}"
                                             data-project-enddate="{{ project.endDate | default('') | e }}"
                                             data-project-features="{{ project.features | join('|') if project.features else '' | e }}"
@@ -230,11 +230,11 @@
                             </div>
                             <div class="portfolio-content">
                                 <h3>{{ project.title }}</h3>
-                                {# Display tags below title if they exist #}
-                                {% if project.tags %}
+                                {# Display technologies below title if they exist #}
+                                {% if project.technologies %}
                                 <div class="portfolio-tags mt-1 flex flex-wrap gap-1">
-                                    {% for tag in project.tags %}
-                                        <span>{{ tag }}</span>
+                                    {% for tech in project.technologies %}
+                                        <span>{{ tech }}</span>
                                     {% endfor %}
                                 </div>
                                 {% endif %}
