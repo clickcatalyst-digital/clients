@@ -10,15 +10,17 @@
     <meta name="description" content="Jshjsj. Bsbzmzn...">
     <meta name="author" content="Ghqjjensen">
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="profile"> 
+    <meta property="og:type" content="profile">
+    <meta property="profile:first_name" content="Ghqjjensen">
+    
     <meta property="og:title" content="Ghqjjensen - Jshjsj">
     <meta property="og:description" content="Bsbzmzn...">
-    <meta property="og:image" content="assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg"> 
+    
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Ghqjjensen - Jshjsj">
-    <meta property="twitter:description" content="Bsbzmzn...">
-    <meta property="twitter:image" content="assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Ghqjjensen - Jshjsj">
+    <meta name="twitter:description" content="Bsbzmzn...">
+    
 
 
     
@@ -488,51 +490,49 @@
         /* Template-specific overrides can go in their own style blocks or files */
         
     <style>
+        /* Refined styles for resume sections */
         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
-        h1, h2, h3, h4 { font-weight: 700; color: #111827; }
-        .section-divider { width: 60px; margin-bottom: 1.5rem; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; } /* Bolder headings */
+        .section-divider { width: 60px; margin-bottom: 1.5rem; } /* Smaller divider */
+
+        .experience-item, .education-item {
+            padding-bottom: 1.5rem; /* pb-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+        }
+        .experience-item:last-child, .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .skills-list span {
+            display: inline-block;
+            background-color: var(--color-primary);
+            background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+            color: color-mix(in srgb, var(--color-primary) 70%, black);
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* medium */
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */
+            border-radius: 9999px; /* rounded-full */
+            transition: all 0.2s ease-in-out;
+         }
+        .skills-list span:hover {
+             transform: scale(1.05);
+             background-color: var(--color-primary); 
+             color: var(--color-text-on-primary); 
+             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+         }
+        .certification-item {
+             padding: 0.75rem 0;
+             border-bottom: 1px dashed #d1d5db; /* Dashed border */
+        }
+         .certification-item:last-child {
+             border-bottom: none;
+         }
 
          /* Hero styling */
         .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
         .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-
-        /* Portfolio Card Refined */
-        .portfolio-card { position: relative; transition: all var(--transition-speed) ease; background-color: white; border-radius: 0.5rem; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); border: 1px solid #e5e7eb; display: flex; flex-direction: column; }
-        .portfolio-card:hover { transform: translateY(-6px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1); }
-        .portfolio-image-container { position: relative; aspect-ratio: 16 / 10; background-color: var(--color-secondary); cursor: pointer; }
-        .portfolio-image-container img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-        .portfolio-card:hover .portfolio-image-container img { transform: scale(1.05); }
-        .portfolio-image-placeholder { display: flex; align-items: center; justify-content: center; color: var(--color-text-on-secondary); font-size: 1.5rem; height: 100%; width: 100%; font-weight: 600; }
-        .portfolio-content { padding: 1rem 1.25rem; border-top: 1px solid #f3f4f6; margin-top: auto; }
-        .portfolio-content h3 { font-size: 1.125rem; font-weight: 600; margin-bottom: 0.25rem; color: #1f2937;}
-        .portfolio-tags span { display: inline-block; background-color: #e5e7eb; color: #4b5563; font-size: 0.75rem; font-weight: 500; padding: 0.125rem 0.5rem; border-radius: 9999px; margin-right: 0.25rem; margin-top: 0.25rem; }
-        /* Portfolio Overlay Refined */
-        .portfolio-overlay { position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 1.5rem; text-align: center; opacity: 0; transform: scale(0.95); transition: opacity 0.3s ease, transform 0.3s ease; pointer-events: none; }
-        .portfolio-card:hover .portfolio-overlay { opacity: 1; transform: scale(1); pointer-events: auto; }
-        .portfolio-overlay p { font-size: 0.875rem; line-height: 1.5; margin-bottom: 1rem; max-width: 90%; }
-        .portfolio-overlay-link { cursor: pointer; display: inline-flex; align-items: center; padding: 0.5rem 1rem; background-color: var(--color-primary); color: var(--color-text-on-primary); border-radius: 0.375rem; text-decoration: none; font-weight: 500; font-size: 0.875rem; transition: background-color 0.2s ease; border: none; }
-        .portfolio-overlay-link:hover { background-color: color-mix(in srgb, var(--color-primary) 90%, black); }
-        .portfolio-overlay-link svg { width: 1rem; height: 1rem; margin-right: 0.5rem; }
-
-         /* Skills pills hover */
-         .skills-list span { display: inline-block; background-color: color-mix(in srgb, var(--color-primary) 15%, transparent); color: color-mix(in srgb, var(--color-primary) 70%, black); font-size: 0.875rem; font-weight: 500; padding: 0.25rem 0.75rem; border-radius: 9999px; transition: all 0.2s ease-in-out; }
-         .skills-list span:hover { transform: scale(1.05); background-color: var(--color-primary); color: var(--color-text-on-primary); box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-         .experience-item, .education-item { padding-bottom: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid #e5e7eb; }
-         .experience-item:last-child, .education-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-
-        /* --- Portfolio Modal Styles --- */
-        #portfolioModal { transition: opacity 0.3s ease-out; }
-        #portfolioModal:not(.hidden) { opacity: 1; }
-        #portfolioModal #modal-panel { transform: scale(0.95); opacity: 0; transition: opacity 0.3s ease-out, transform 0.3s ease-out; }
-        #portfolioModal:not(.hidden) #modal-panel { opacity: 1; transform: scale(1); }
-        .modal-close-backdrop { cursor: pointer; }
-         #portfolioModal .modal-body-content::-webkit-scrollbar { width: 8px; }
-         #portfolioModal .modal-body-content::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
-         #portfolioModal .modal-body-content::-webkit-scrollbar-thumb { background: #a0aec0; border-radius: 4px;}
-         #portfolioModal .modal-body-content::-webkit-scrollbar-thumb:hover { background: #718096; }
-         #portfolioModal .modal-body-content { scrollbar-width: thin; scrollbar-color: #a0aec0 #f1f1f1; max-h-[70vh]; overflow-y: auto; padding-right: 0.5rem; /* space for scrollbar */ }
-         .modal-tag { background-color: var(--color-secondary); color: var(--color-text-on-secondary); padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 500; }
-
     </style>
      
 
@@ -544,21 +544,20 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Person", 
+      "@type": "Person",
       "name": "Ghqjjensen",
       "url": "#",
       "description": "Jshjsj",
-      "image": "assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg",
-      "email": "propujan@gmail.com",
+      
+      "email": "Pujan10sept@gmail.com",
+      
+      "jobTitle": "Jshjsj",
       
       
       
       
       
       
-      
-      
-      "jobTitle": "Jshjsj"
     }
     </script>
 
@@ -574,23 +573,18 @@
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    
-                        <a href="#" aria-label="Ghqjjensen homepage">
-                            <img class="h-10 w-10 rounded-full object-cover" src="assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg" alt="Profile picture of Ghqjjensen" loading="lazy">
-                        </a>
-                    
                     <div class="ml-3">
                         <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">Ghqjjensen</a>
-                        
                     </div>
                 </div>
                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
                     <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
-                    <a href="#portfolio" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Portfolio</a>
-                     <a href="#skills" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Skills</a> 
+                    
                     
                     
                     <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                    
+                    
                 </div>
                  <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
@@ -600,15 +594,16 @@
                 </div>
             </div>
         </nav>
-        <!-- Mobile menu Container -->
+         <!-- Mobile menu Container -->
         <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
-             <div class="px-2 pt-2 pb-4 space-y-1">
+             <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
-                <a href="#portfolio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Portfolio</a>
-                 <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Skills</a> 
                 
                 
-                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                
+                
              </div>
         </div>
     </header>
@@ -618,176 +613,39 @@
     <main id="main-content">
         
     <!-- Hero Section -->
-    <section class="hero-section bg-gradient-primary py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
+    <section class="hero-section bg-gradient-primary py-20 md:py-28 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
          <div class="max-w-4xl mx-auto text-center">
-             
-                 <img class="h-32 w-32 rounded-full object-cover mx-auto mb-4 shadow-lg border-4 border-white border-opacity-50" src="assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg" alt="Profile picture of Ghqjjensen" loading="lazy">
-             
+              
              <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2 hero-text-shadow">Ghqjjensen</h1>
              <p class="text-xl sm:text-2xl max-w-2xl mx-auto opacity-90 mb-8 hero-text-shadow">Jshjsj</p>
-             <div class="flex flex-wrap justify-center gap-4 sm:gap-5">
-                 <a href="#portfolio" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
-                     <svg class="h-5 w-5 mr-2"><use href="#icon-photo" /></svg> View Work
+             <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                 <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                     <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
+                     Contact Me
                  </a>
-                 <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-secondary transition-all transform hover:scale-105">
-                    <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg> Contact Me
-                 </a>
+                 
+                 
              </div>
          </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> 
-        <div class="max-w-4xl mx-auto grid md:grid-cols-3 gap-12 items-center">
-            <div class="md:col-span-1 reveal">
-                
-                  <div class="rounded-lg shadow-xl aspect-square bg-white flex items-center justify-center text-gray-400 border border-gray-200">
-                      <svg class="h-16 w-16 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M5.121 17.804A13.937 13.937 0 0112 16.5c2.572 0 4.98.746 6.879 2.004M15 11a3 3 0 11-6 0 3 3 0 016 0zm6 6a2 2 0 11-4 0 2 2 0 014 0zM6 17a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                  </div>
-                 
-            </div>
-            <div class="md:col-span-2 reveal">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">About Me</h2>
-                <div class="section-divider !mx-0 !mb-6"></div>
-                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                    Bsbzmzn
-                </div>
-            </div>
+    <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> 
+        <div class="max-w-4xl mx-auto reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3">About Me</h2>
+            <div class="section-divider"></div>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed text-center">Bsbzmzn</p>
          </div>
     </section>
 
-    <!-- ============================================= -->
-    <!-- Portfolio Section - THIS WAS MISSING BEFORE -->
-    <!-- ============================================= -->
-    
-        <section id="portfolio" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> 
-            <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16 reveal">
-                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Portfolio</h2>
-                    <div class="section-divider"></div>
-                    <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600">A selection of my recent work.</p>
-                </div>
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                    
-                        <div class="portfolio-card reveal group">
-                            
-                             <div class="portfolio-image-container relative">
-                                
-                                    <div class="portfolio-image-placeholder"><span>P</span></div>
-                                
-                                 
-                                 <div class="portfolio-overlay">
-                                     <p></p>
-                                     <button type="button"
-                                             class="portfolio-overlay-link mt-2 portfolio-modal-trigger"
-                                             data-modal-target="portfolioModal"
-                                             data-project-title=""
-                                             data-project-image=""
-<!--                                              data-project-image="" -->
-                                             data-project-description=""
-                                             data-project-url=""
-                                             data-project-tags="" 
-                                             data-project-startdate=""
-                                             data-project-enddate=""
-                                             data-project-features=""
-                                             >
-                                         <svg><use href="#icon-eye" /></svg>
-                                         <span>View Details</span>
-                                     </button>
-                                 </div>
-                            </div>
-                            <div class="portfolio-content">
-                                <h3></h3>
-                                
-                                
-                            </div>
-                        </div>
-                    
-                </div>
-            </div>
-        </section>
-    
-     <!-- ============================================= -->
-    <!-- End of Portfolio Section -->
-    <!-- ============================================= -->
-
-
-    <!-- Skills Section -->
-     
-         <section id="skills" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> 
-            <div class="max-w-4xl mx-auto">
-                 <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-4 reveal">Skills</h2>
-                 <div class="section-divider reveal"></div>
-                 <div class="text-center reveal">
-                     <div class="flex flex-wrap justify-center gap-3 skills-list">
-                         
-                             <span class="inline-block text-sm sm:text-base font-medium px-4 py-1.5 rounded-full">Nxnxnx</span>
-                         
-                     </div>
-                 </div>
-             </div>
-         </section>
-     
-
-    <!-- Experience & Education (Optional) -->
+    <!-- Work Experience Section -->
     
 
-    
-    
+    <!-- Education Section -->
     
 
-
+    <!-- Skills & Certifications Section -->
     
-    <div id="portfolioModal" class="fixed inset-0 bg-black bg-opacity-70 z-[60] hidden flex items-center justify-center p-4 transition-opacity duration-300 ease-out opacity-0" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-        <div class="absolute inset-0 modal-close-backdrop"></div>
-        <div class="relative bg-white dark:bg-gray-800 rounded-lg shadow-xl overflow-hidden max-w-3xl w-full transform transition-all duration-300 ease-out scale-95 opacity-0" id="modal-panel">
-            <div class="flex items-start justify-between p-5 border-b border-gray-200 dark:border-gray-700 rounded-t">
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white" id="modal-title">Project Details</h3>
-                <button type="button" class="modal-close-button text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" aria-label="Close modal">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
-            </div>
-            <div class="p-6 space-y-6 modal-body-content">
-                 <div class="modal-image-container mb-4 rounded overflow-hidden" style="display: none;">
-                     <img id="modal-image" src="" alt="Project image" class="w-full h-auto max-h-80 object-contain">
-                 </div>
-            
-                 
-                 <div id="modal-dates-container" class="text-sm text-gray-500 dark:text-gray-400" style="display: none;">
-                     <span class="font-medium">Duration:</span> <span id="modal-dates"></span>
-                 </div>
-                 
-            
-                 <p class="text-base leading-relaxed text-gray-600 dark:text-gray-400" id="modal-description">Loading project description...</p>
-            
-                 
-                 <div id="modal-features-container" class="pt-4 border-t border-gray-200 dark:border-gray-700" style="display: none;">
-                     <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Key Features</h4>
-                     <ul id="modal-features-list" class="list-disc list-inside text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                         
-                     </ul>
-                 </div>
-                 
-            
-                 
-                 <div id="modal-tags-container" class="pt-4 border-t border-gray-200 dark:border-gray-700" style="display: none;">
-                      <h4 class="text-sm font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Technologies Used</h4> 
-                      <div id="modal-tags" class="flex flex-wrap gap-2"></div>
-                 </div>
-                 
-            </div>
-            <div class="flex items-center p-6 space-x-2 border-t border-gray-200 dark:border-gray-600 rounded-b">
-                <a id="modal-url-link" href="#" target="_blank" rel="noopener noreferrer" style="display: none;"
-                   class="inline-flex items-center px-4 py-2 bg-primary text-contrast-primary text-sm font-medium rounded-md hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    Visit Project/Link
-                </a>
-                <button type="button" class="modal-close-button px-4 py-2 bg-white dark:bg-gray-700 text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 rounded-md border border-gray-200 dark:border-gray-500 text-sm font-medium">
-                    Close
-                </button>
-            </div>
-        </div>
-    </div>
 
 
     </main>
@@ -816,7 +674,7 @@
                                 <svg class="h-5 w-5 mr-3 flex-shrink-0 mt-1"><use href="#icon-mail" /></svg>
                                 <div>
                                     <h4 class="text-sm font-semibold uppercase tracking-wider mb-0.5 opacity-80">Email</h4>
-                                    <a href="mailto:propujan@gmail.com" class="hover:underline break-all">propujan@gmail.com</a>
+                                    <a href="mailto:Pujan10sept@gmail.com" class="hover:underline break-all">Pujan10sept@gmail.com</a>
                                 </div>
                             </div>
                         
@@ -839,7 +697,7 @@
                         <div class="grid grid-cols-1 gap-4">
                             
                             
-                                <a href="mailto:propujan@gmail.com?subject=Inquiry from Website: Ghqjjensen" target="_blank"
+                                <a href="mailto:Pujan10sept@gmail.com?subject=Inquiry from Website: Ghqjjensen" target="_blank"
                                    class="quick-connect-button bg-primary text-contrast-primary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                                     <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
                                     <span>Email Me</span>
@@ -868,15 +726,11 @@
 <footer class="bg-section-dark text-gray-400 pt-16 pb-8 px-4 sm:px-6 lg:px-8"> 
      <div class="max-w-7xl mx-auto">
          
-         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-12">
+         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-8 mb-12">
 
              
              <div class="lg:col-span-1"> 
                  <div class="flex items-center mb-4">
-                     
-                        <a href="#" aria-label="Ghqjjensen">
-                            <img src="assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg" alt="Ghqjjensen" class="h-10 mr-3" loading="lazy">
-                        </a>
                      
                      <h3 class="text-xl font-bold text-white">Ghqjjensen</h3>
                  </div>
@@ -905,7 +759,7 @@
                      
                         <li class="flex items-start">
                             <svg class="h-5 w-5 mr-3 text-gray-500 flex-shrink-0 mt-0.5"><use href="#icon-mail" /></svg>
-                            <a href="mailto:propujan@gmail.com" class="hover:text-white transition-colors break-all">propujan@gmail.com</a>
+                            <a href="mailto:Pujan10sept@gmail.com" class="hover:text-white transition-colors break-all">Pujan10sept@gmail.com</a>
                         </li>
                      
                      
@@ -915,17 +769,6 @@
              </div>
 
           
-          
-          <div class="lg:col-span-1">
-               <h4 class="text-base font-semibold text-white uppercase tracking-wider mb-4">Follow Us</h4>
-               <div class="flex flex-wrap gap-4"> 
-                    <a href="https://facebook.com/Hhsbsbsn" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="text-gray-400 hover:text-white transition-colors"><span class="sr-only">Facebook</span><svg class="h-6 w-6"><use href="#icon-facebook" /></svg></a>
-                    
-                    
-                    
-                    
-               </div>
-          </div>
           
         </div>
 
@@ -964,10 +807,6 @@
 
             
             
-                
-                    <a href="https://facebook.com/Hhsbsbsn" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook" class="social-sidebar-button-inner">
-                        <svg class="h-4 w-4"><use href="#icon-facebook"></use></svg>
-                    </a>
                 
                  
                 
@@ -1125,169 +964,6 @@
             });
 
             
-        console.log('DOM Ready Script Block Started');
-        // --- Portfolio Modal Logic ---
-        const modal = document.getElementById('portfolioModal');
-        console.log('Modal Element:', modal);
-
-        if (modal) { // Only run if modal exists on page
-            console.log('Modal element found, proceeding with setup.');
-
-            const modalPanel = document.getElementById('modal-panel');
-            const modalTitle = document.getElementById('modal-title');
-            const modalImageContainer = modal.querySelector('.modal-image-container'); // Use modal.querySelector
-            const modalImage = document.getElementById('modal-image');
-            const modalDescription = document.getElementById('modal-description');
-            const modalTagsContainer = modal.querySelector('.modal-tags-container'); // Use modal.querySelector
-            const modalTags = document.getElementById('modal-tags');
-            const modalUrlLink = document.getElementById('modal-url-link');
-            const triggerButtons = document.querySelectorAll('.portfolio-modal-trigger');
-            console.log('Found Trigger Buttons:', triggerButtons.length, triggerButtons);
-
-            const closeButtons = modal.querySelectorAll('.modal-close-button, .modal-close-backdrop'); // Use modal.querySelectorAll
-
-            const modalDatesContainer = document.getElementById('modal-dates-container');
-            const modalDates = document.getElementById('modal-dates');
-            const modalFeaturesContainer = document.getElementById('modal-features-container');
-            const modalFeaturesList = document.getElementById('modal-features-list');
-            
-            function openModal(projectData) {
-                if (!modal || !modalPanel) return;
-                modalTitle.textContent = projectData.title || 'Project Details';
-                modalDescription.textContent = projectData.description || 'No description available.';
-            
-                // Image handling (existing)
-                if (projectData.image && modalImageContainer && modalImage) {
-                    // Check if path looks absolute or external, otherwise assume relative
-                    let imageSrc = projectData.image;
-                     // Basic check: if it doesn't start with http, /, or data:, treat as potentially relative
-                     // You might need a more robust check depending on your path structure
-                    if (!imageSrc.startsWith('http') && !imageSrc.startsWith('/') && !imageSrc.startsWith('data:')) {
-                         // If your assets folder is always relative to root, uncomment next line:
-                         // imageSrc = '/' + imageSrc;
-                         // Or adjust based on your specific setup if needed
-                         console.warn("Relative image path detected:", projectData.image, "- Ensure it resolves correctly.");
-                    }
-                    modalImage.src = imageSrc;
-                    modalImage.alt = `Image for ${projectData.title || 'project'}`;
-                    modalImageContainer.style.display = 'block';
-                } else if (modalImageContainer) {
-                    modalImageContainer.style.display = 'none';
-                }
-            
-                // --- ADDED: Dates Handling ---
-                if (modalDatesContainer && modalDates && (projectData.startdate || projectData.enddate)) {
-                    let dateString = '';
-                    if (projectData.startdate) {
-                        dateString += projectData.startdate;
-                    }
-                    if (projectData.startdate && projectData.enddate) {
-                         dateString += ' – '; // Use en dash for date ranges
-                    } else if (!projectData.startdate && projectData.enddate){
-                         dateString += 'Completed by ';
-                    } else if (projectData.startdate && !projectData.enddate) {
-                         dateString += ' – Present';
-                    }
-                    if (projectData.enddate) {
-                         dateString += projectData.enddate;
-                    }
-                     modalDates.textContent = dateString || 'N/A';
-                     modalDatesContainer.style.display = 'block';
-                } else if (modalDatesContainer) {
-                     modalDatesContainer.style.display = 'none';
-                }
-                // --- END ADDED: Dates Handling ---
-            
-                // --- ADDED: Features Handling ---
-                 if (modalFeaturesContainer && modalFeaturesList && projectData.features) {
-                     modalFeaturesList.innerHTML = ''; // Clear previous features
-                     const featuresArray = projectData.features.split('|').filter(feat => feat.trim() !== ''); // Use the separator you chose ('|')
-                     if (featuresArray.length > 0) {
-                         featuresArray.forEach(feature => {
-                             const listItem = document.createElement('li');
-                             listItem.textContent = feature.trim();
-                             modalFeaturesList.appendChild(listItem);
-                         });
-                         modalFeaturesContainer.style.display = 'block';
-                     } else {
-                          modalFeaturesContainer.style.display = 'none';
-                     }
-                 } else if (modalFeaturesContainer) {
-                      modalFeaturesContainer.style.display = 'none';
-                 }
-                // --- END ADDED: Features Handling ---
-            
-                // Tags (Technologies) handling (existing, check variable name if needed)
-                if (projectData.tags && modalTagsContainer && modalTags) {
-                    modalTags.innerHTML = '';
-                    const tagsArray = projectData.tags.split(',').filter(tag => tag.trim() !== ''); // Assuming tags uses comma
-                    if (tagsArray.length > 0) {
-                        tagsArray.forEach(tag => {
-                            const tagElement = document.createElement('span');
-                            tagElement.className = 'modal-tag'; // Use existing style
-                            tagElement.textContent = tag.trim();
-                            modalTags.appendChild(tagElement);
-                        });
-                        modalTagsContainer.style.display = 'block';
-                    } else {
-                         modalTagsContainer.style.display = 'none';
-                    }
-                } else if (modalTagsContainer) {
-                     modalTagsContainer.style.display = 'none';
-                }
-            
-                // URL Link handling (existing)
-                if (projectData.url && modalUrlLink) {
-                    modalUrlLink.href = projectData.url;
-                    modalUrlLink.style.display = 'inline-flex';
-                } else if (modalUrlLink) {
-                    modalUrlLink.style.display = 'none';
-                }
-            
-                // Show modal (existing)
-                modal.classList.remove('hidden');
-                document.body.style.overflow = 'hidden';
-                void modal.offsetWidth; // Force reflow for transition
-                modal.style.opacity = '1';
-                modalPanel.style.opacity = '1';
-                modalPanel.style.transform = 'scale(1)';
-            }
-
-            function closeModal() {
-                if (!modal || !modalPanel) return;
-                modal.style.opacity = '0';
-                modalPanel.style.opacity = '0';
-                modalPanel.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }, 300);
-            }
-
-            triggerButtons.forEach(button => {
-                console.log('Attaching listener to button:', button);
-
-                button.addEventListener('click', () => {
-                    console.log('Trigger button CLICKED!');
-                    const projectData = {
-                        title: button.dataset.projectTitle, image: button.dataset.projectImage,
-                        description: button.dataset.projectDescription, url: button.dataset.projectUrl,
-                        tags: button.dataset.projectTags
-                    };
-                    console.log('Opening modal with data:', projectData);
-                    openModal(projectData);
-                });
-            });
-
-            closeButtons.forEach(button => { button.addEventListener('click', closeModal); });
-            document.addEventListener('keydown', (event) => {
-                if (event.key === 'Escape' && !modal.classList.contains('hidden')) { closeModal(); }
-            });
-        } else {
-             console.error('Modal element with ID "portfolioModal" NOT FOUND!'); // <--- ADD THIS
-        }
-         console.log('DOM Ready Script Block Finished');
-
 
         }); // End DOMContentLoaded
 

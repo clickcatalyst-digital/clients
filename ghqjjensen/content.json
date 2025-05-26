@@ -1,49 +1,63 @@
 {
-  "portfolioProjects": [
-    {
-      "fileName": "IMG_0960.jpeg",
-      "fileSize": 318933,
-      "image_path": "ghqjjensen/assets/project-0-27297b77-aff0-4472-a697-e6245f8f11ee.jpeg"
-    }
-  ],
-  "user_type": "portfolio",
+  "user_type": "resume",
   "color_palette": "modern-minimalist",
   "headline": "Ghqjjensen",
   "tagline": "Jshjsj",
   "about": "Bsbzmzn",
   "services": [],
-  "projectIndex": 0,
-  "updatedPortfolioProject": {
-    "image_s3_key": "pending-uploads/c092acf8-0779-4650-80db-7dd391443f7d.jpeg",
-    "fileName": "IMG_0960.jpeg",
-    "fileSize": 318933
-  },
+  "education": [],
   "workExperience": [],
-  "skills": [
-    "Nxnxnx"
-  ],
+  "skills": [],
   "certifications": [],
-  "logo_filename": "IMG_0960.jpeg",
-  "logo_filesize": 318933,
-  "about_s3_key": "pending-uploads/634a9f5c-246a-45e0-912b-9425e5b2993a.jpeg",
-  "about_filename": "IMG_0940.jpeg",
-  "about_filesize": 61638,
-  "email": "propujan@gmail.com",
+  "logoMetadata": {
+    "originalSize": 127278,
+    "compressedSize": 198492,
+    "savings": -71214,
+    "savingsPercent": -56
+  },
+  "email": "Pujan10sept@gmail.com",
   "phone": "",
   "social": {
-    "whatsapp": "8484694",
-    "telegram": "Nsbsbbs",
-    "facebook": "Hhsbsbsn",
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
     "instagram": "",
     "twitter": "",
     "linkedin": ""
   },
   "site_url": "ghqjjensen",
-  "logo_path": "ghqjjensen/assets/logo-e9cf51bb-73bd-440a-9d63-5ada9a7d2a20.jpeg",
+  "testimonials": [],
+  "business_stats": [
+    {
+      "value": "10+",
+      "label": "Years Experience"
+    },
+    {
+      "value": "500+",
+      "label": "Happy Clients"
+    },
+    {
+      "value": "25+",
+      "label": "Team Members"
+    },
+    {
+      "value": "100%",
+      "label": "Client Satisfaction"
+    }
+  ],
+  "portfolioProjects": [
+    {
+      "image_path": null
+    }
+  ],
+  "about_image_s3_key": null,
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "logo_path": null,
   "banner_path": null,
-  "about_image_path": null,
-  "websiteId": "web-dxydst5cmaxdj2lb",
-  "createdAt": "2025-05-21T03:19:02.110Z",
-  "lastUpdated": "2025-05-21T03:19:02.110Z",
+  "about_image_path": "ghqjjensen/assets/about-image-c5ae9ded-4896-4c70-ae60-fc239c7039e7.jpeg",
+  "websiteId": "web-8mrx6nm1mb5jjtxu",
+  "createdAt": "2025-05-26T20:29:44.656Z",
+  "lastUpdated": "2025-05-26T20:29:44.656Z",
   "status": "pending_deployment"
 }
