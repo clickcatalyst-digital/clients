@@ -1,0 +1,44 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "",
+      "description": "",
+      "url": "",
+      "startDate": "",
+      "endDate": "",
+      "technologies": [],
+      "features": [],
+      "image_path": null
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "sdfds",
+  "tagline": "dsfdsdsf",
+  "about": "dfsdfs",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "sdaasd@dssd.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "sdfds",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-ygaxri20mb58xkfm",
+  "createdAt": "2025-05-26T15:32:29.746Z",
+  "lastUpdated": "2025-05-26T15:32:29.746Z",
+  "status": "pending_deployment"
+}
