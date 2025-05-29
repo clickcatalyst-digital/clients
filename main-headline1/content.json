@@ -1,0 +1,33 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "main headline",
+  "tagline": "tagline",
+  "about": "about yourself",
+  "services": [],
+  "workExperience": [],
+  "skills": [
+    "s1"
+  ],
+  "certifications": [],
+  "email": "propujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "main-headline1",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-rbpht22dmb8zeikp",
+  "createdAt": "2025-05-29T06:16:49.032Z",
+  "lastUpdated": "2025-05-29T06:16:49.032Z",
+  "status": "pending_deployment"
+}
