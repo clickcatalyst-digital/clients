@@ -1,0 +1,33 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [],
+  "user_type": "portfolio",
+  "color_palette": "modern-minimalist",
+  "headline": "test 101",
+  "tagline": "crafting taglines",
+  "about": "about myself which I have already written.",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "propujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "test-101fdbdbfdf",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-trjww8d4mb8ymbde",
+  "createdAt": "2025-05-29T05:54:53.330Z",
+  "lastUpdated": "2025-05-29T05:54:53.330Z",
+  "status": "pending_deployment"
+}
