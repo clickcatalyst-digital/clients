@@ -1,0 +1,66 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [
+    {
+      "title": "rrherhereh",
+      "description": "ehrerhrehrehrehhre",
+      "url": "hrehrhreherher",
+      "startDate": "2025-05-01",
+      "endDate": "2025-05-10",
+      "technologies": [
+        "hreher",
+        "gr",
+        "sfgdgsdf",
+        "gd"
+      ],
+      "features": [
+        "gsdsd",
+        "gssgd"
+      ],
+      "image_path": "xyzxxx/assets/project-0-9c808744-d8b2-483d-82de-d08b276f8622.png"
+    }
+  ],
+  "user_type": "portfolio",
+  "color_palette": "dreamy-sunset",
+  "headline": "xyzxxx",
+  "tagline": "xxxxx",
+  "about": "fwesebfdehethetetehteh",
+  "services": [],
+  "workExperience": [
+    {
+      "title": "dfbdfbbfb",
+      "company": "dbfdfbbdf",
+      "startMonth": "",
+      "startYear": "",
+      "endMonth": "",
+      "endYear": "",
+      "isCurrent": false,
+      "location": "bdfdfbbfd",
+      "description": "dfbdfbbfdfbd"
+    }
+  ],
+  "skills": [
+    "fdbfdbfdb",
+    "dfbfdbbfd",
+    "dfbdfbfdb"
+  ],
+  "certifications": [],
+  "email": "propujan@gmail.com",
+  "phone": "2534543243",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "xyzxxx",
+  "logo_path": "xyzxxx/assets/logo-f913254d-2d72-4b60-8642-6e6e887630b4.jpeg",
+  "banner_path": null,
+  "about_image_path": "xyzxxx/assets/about-image-bab68dce-0bc2-471f-8f3a-7a1714e77fff.jpg",
+  "websiteId": "web-yule2t4rmbat5ek9",
+  "createdAt": "2025-05-30T12:57:18.585Z",
+  "lastUpdated": "2025-05-30T12:57:18.585Z",
+  "status": "pending_deployment"
+}
