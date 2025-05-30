@@ -1,0 +1,33 @@
+{
+  "about_image_s3_key": null,
+  "portfolioProjects": [],
+  "user_type": "portfolio",
+  "color_palette": "nature-inspired",
+  "headline": "svdvds",
+  "tagline": "vdssvdsvd",
+  "about": "svdsvd",
+  "services": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "email": "propujan@gmail.com",
+  "phone": "",
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "site_url": "svdvds",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "websiteId": "web-69mgwr1tmbap95ae",
+  "createdAt": "2025-05-30T11:08:14.725Z",
+  "lastUpdated": "2025-05-30T11:08:14.725Z",
+  "status": "pending_deployment"
+}
