@@ -1,0 +1,126 @@
+{
+  "user_type": "resume",
+  "color_palette": "modern-minimalist",
+  "headline": "fghfgh",
+  "tagline": "hggjhgjg",
+  "about": "ghjgjh",
+  "about_image_s3_key": null,
+  "services": [],
+  "education": [],
+  "workExperience": [],
+  "skills": [],
+  "certifications": [],
+  "portfolioProjects": [],
+  "contact": {
+    "email": "",
+    "phone": "",
+    "address_line1": "",
+    "address_line2": "",
+    "city": "",
+    "state_province": "",
+    "postal_code": "",
+    "country": "",
+    "map_link": ""
+  },
+  "social": {
+    "whatsapp": "",
+    "telegram": "",
+    "facebook": "",
+    "instagram": "",
+    "twitter": "",
+    "linkedin": ""
+  },
+  "business_hours": {
+    "monday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "tuesday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "wednesday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "thursday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "friday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "saturday": {
+      "open": "",
+      "close": "",
+      "closed": true
+    },
+    "sunday": {
+      "open": "",
+      "close": "",
+      "closed": true
+    }
+  },
+  "business_stats": [],
+  "testimonials": [],
+  "charityMission": {
+    "mission_statement": "",
+    "vision_statement": "",
+    "impact_overview": "",
+    "founding_story": "",
+    "gallery_s3_keys": []
+  },
+  "charityImpact": {
+    "impact_stats": [],
+    "success_stories": []
+  },
+  "donation_info": {
+    "donation_page_url": "",
+    "payment_methods": [],
+    "tax_deductible_info": ""
+  },
+  "eventDetails": {
+    "event_name": "",
+    "event_date": "",
+    "start_time": "",
+    "end_time": "",
+    "location_type": "physical",
+    "physical_address": "",
+    "virtual_event_link": "",
+    "description_long": "",
+    "speakers": [],
+    "sponsors_s3_keys": [],
+    "ticket_info": {
+      "price": "",
+      "currency": "INR",
+      "booking_url": "",
+      "early_bird_deadline": "",
+      "sold_out": false
+    }
+  },
+  "eventSchedule": [],
+  "site_url": "fghfgh",
+  "email": "jhgjh@hghjgj.com",
+  "fullWebsiteUrl": "",
+  "websiteId": "web-vfyio9jnmcon2uxc",
+  "githubUsername": "clickcatalyst-digital",
+  "folderName": "",
+  "merchantOrderId": null,
+  "payment_status": null,
+  "orderCreatedAt": null,
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "phone": "",
+  "logo_path": null,
+  "banner_path": null,
+  "about_image_path": null,
+  "createdAt": "2025-07-04T09:55:50.928Z",
+  "lastUpdated": "2025-07-04T09:55:50.928Z",
+  "status": "pending_deployment"
+}
