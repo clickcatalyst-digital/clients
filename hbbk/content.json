@@ -111,7 +111,7 @@
   "site_url": "hbbk",
   "email": "pujan10sept@gmail.com",
   "fullWebsiteUrl": "",
-  "websiteId": "web-mdaq11lx-r7q0di",
+  "websiteId": "web-mdaq2ozk-9j9p2u",
   "githubUsername": "clickcatalyst-digital",
   "folderName": "",
   "merchantOrderId": null,
@@ -127,10 +127,10 @@
   "trial_info": {
     "is_trial": true,
     "trial_days": 30,
-    "trial_start": "2025-07-19T20:49:20.520Z",
-    "trial_end": "2025-08-18T20:49:20.520Z"
+    "trial_start": "2025-07-19T20:50:37.518Z",
+    "trial_end": "2025-08-18T20:50:37.518Z"
   },
-  "createdAt": "2025-07-19T20:49:24.398Z",
-  "lastUpdated": "2025-07-19T20:49:24.398Z",
+  "createdAt": "2025-07-19T20:50:39.212Z",
+  "lastUpdated": "2025-07-19T20:50:39.212Z",
   "status": "trial"
 }
