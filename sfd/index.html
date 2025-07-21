@@ -7,22 +7,24 @@
 
     
     
-    <meta name="description" content="sdf">
+    <meta name="description" content="sdg. sdgdsg...">
     <meta name="author" content="sfd">
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="sfd">
-    <meta property="og:description" content="sdf">
+    <meta property="og:type" content="profile">
+    <meta property="profile:first_name" content="sfd">
+    
+    <meta property="og:title" content="sfd - sdg">
+    <meta property="og:description" content="sdgdsg...">
     
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="sfd">
-    <meta property="twitter:description" content="sdf">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="sfd - sdg">
+    <meta name="twitter:description" content="sdgdsg...">
     
 
 
     
-    <title>sfd - sdf</title>
+    <title>sfd - sdg</title>
 
     
     <link rel="stylesheet" href="styles.css"> <!-- Link to compiled Tailwind CSS -->
@@ -488,58 +490,77 @@
         /* Template-specific overrides can go in their own style blocks or files */
         
     <style>
-        /* --- Service Card Styles (Refined) --- */
-        .service-card {
-            background-color: #fff; border-radius: 0.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05);
-            transition: all var(--transition-speed) ease; border: 1px solid #e5e7eb;
-            display: flex; flex-direction: column; height: 100%;
-        }
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -4px rgba(0,0,0,.1);
-            border-color: var(--color-primary);
-        }
-        .service-card-content { padding: 1.5rem; text-align: center; flex-grow: 1; display: flex; flex-direction: column; align-items: center; }
-        .icon-circle {
-            width: 60px; height: 60px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1rem;
-            background-color: var(--color-secondary); color: var(--color-text-on-secondary); transition: all var(--transition-speed) ease;
-        }
-        .service-card:hover .icon-circle { background-color: var(--color-primary); color: var(--color-text-on-primary); transform: scale(1.1) rotate(15deg); }
-        .service-card h3 { margin-bottom: 0.75rem; font-weight: 600; font-size: 1.125rem; color: #111827; flex-grow: 1; }
-        .service-card-divider { width: 40px; height: 2px; background-color: var(--color-primary); margin: 0 auto 1rem; border-radius: 1px; }
-        .service-card p { color: #4b5563; font-size: 0.875rem; line-height: 1.6; }
+        /* Refined styles for resume sections */
+        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; } /* Bolder headings */
+        .section-divider { width: 60px; margin-bottom: 1.5rem; } /* Smaller divider */
 
-        /* --- Hero Styling Refinements --- */
-        /* Gradient is applied via class bg-gradient-primary in HTML */
+        .experience-item, .education-item {
+            padding-bottom: 1.5rem; /* pb-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+        }
+        .experience-item:last-child, .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .skills-list span {
+            display: inline-block;
+            background-color: var(--color-primary);
+            background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+            color: color-mix(in srgb, var(--color-primary) 70%, black);
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* medium */
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */
+            border-radius: 9999px; /* rounded-full */
+            transition: all 0.2s ease-in-out;
+         }
+        .skills-list span:hover {
+             transform: scale(1.05);
+             background-color: var(--color-primary); 
+             color: var(--color-text-on-primary); 
+             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+         }
+        .certification-item {
+             padding: 0.75rem 0;
+             border-bottom: 1px dashed #d1d5db; /* Dashed border */
+        }
+         .certification-item:last-child {
+             border-bottom: none;
+         }
+
+         /* Hero styling */
         .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
         .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
-
-        /* --- About Section Refinements --- */
-        .about-feature-item { display: flex; align-items: center; padding: 0.75rem; background-color: #fff; border-radius: 0.375rem; box-shadow: 0 1px 3px rgba(0,0,0,.05); border: 1px solid #e5e7eb; transition: all var(--transition-speed) ease; }
-        .about-feature-item:hover { transform: scale(1.03); box-shadow: 0 4px 10px rgba(0,0,0,.08); border-color: var(--color-secondary); }
-        .about-feature-icon-bg { flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; background-color: var(--color-primary); color: var(--color-text-on-primary); margin-right: 0.75rem; }
-
-        /* --- Testimonial Card Refinements --- */
-        .testimonial-card { background-color: #fff; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,.05), 0 2px 4px -2px rgba(0,0,0,.05); border: 1px solid #e5e7eb; padding: 1.75rem; display: flex; flex-direction: column; height: 100%; transition: all var(--transition-speed) ease; }
-        .testimonial-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,.08), 0 4px 6px -4px rgba(0,0,0,.08); }
-        .testimonial-card blockquote { font-style: normal; color: #374151; margin-bottom: 1rem; flex-grow: 1; line-height: 1.6; position: relative; padding-left: 1.5rem; overflow: hidden; word-wrap: break-word; }
-        .testimonial-card blockquote::before { content: '“'; position: absolute; left: -0.25rem; top: -0.5rem; font-size: 3rem; color: var(--color-primary); opacity: 0.3; line-height: 1; font-family: serif; }
-        .testimonial-author-info { display: flex; align-items: center; margin-top: auto; padding-top: 1rem; border-top: 1px solid #f3f4f6; }
-        .testimonial-stars { margin-bottom: 0.75rem; }
-
-        /* --- General Refinements --- */
-        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
-        h1, h2, h3, h4 { font-weight: 700; color: #111827; }
-        .section-divider { width: 60px; margin-bottom: 1.5rem; }
     </style>
-    
+     
 
 
     </style>
 
     
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "sfd",
+      "url": "#",
+      "description": "sdg",
+      
+      "email": "pujan10sept@gmail.com",
+      
+      "jobTitle": "sdg",
+      
+      
+      
+      
+      
+      
+    }
+    </script>
+
 
 </head>
 <body class="text-base antialiased"> 
@@ -548,42 +569,42 @@
 
     
     
-    <!-- Navigation -->
     <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
+            <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    
                     <div class="ml-3">
-                        <a href="#" class="text-xl sm:text-2xl font-bold text-gray-800 hover:text-primary transition-colors">sfd</a>
-                        <p class="text-xs sm:text-sm text-gray-500 mt-0.5">sdf</p>
+                        <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">sfd</a>
                     </div>
                 </div>
                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
                     <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
                     
-                        <a href="#services" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Services</a>
+                    
                     
                     <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
                     
+                    
                 </div>
-                <div class="md:hidden flex items-center">
+                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
-                         <span class="sr-only">Open main menu</span>
+                        <span class="sr-only">Open main menu</span>
                         <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
                     </button>
                 </div>
             </div>
         </nav>
+         <!-- Mobile menu Container -->
         <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
              <div class="px-2 pt-2 pb-3 space-y-1">
                 <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
                 
-                    <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Services</a>
+                
                 
                 <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
                 
-            </div>
+                
+             </div>
         </div>
     </header>
 
@@ -592,174 +613,38 @@
     <main id="main-content">
         
     <!-- Hero Section -->
-    <section class="hero-section bg-gradient-primary py-24 md:py-32 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
-         <div class="max-w-7xl mx-auto">
-            <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-                <div class="lg:col-span-6 xl:col-span-7 slide-in-left text-center lg:text-left">
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-4">sfd</h1>
-                    <p class="text-lg sm:text-xl md:text-2xl max-w-xl lg:max-w-none mx-auto lg:mx-0 opacity-90 mb-8">sdf</p>
-                    <div class="flex flex-wrap gap-3 justify-center lg:justify-start">
-                        <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
-                            <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
-                            Learn More
-                        </a>
-                        
-                            <a href="mailto:pujan10sept@gmail.com?subject=Inquiry" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-contrast-secondary bg-secondary hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-secondary transition-all transform hover:scale-105">
-                               <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
-                                Contact Us
-                            </a>
-                        
-                    </div>
-                </div>
-                 <div class="lg:col-span-6 xl:col-span-5 mt-10 lg:mt-0 slide-in-right">
-                    <div class="rounded-lg overflow-hidden shadow-2xl aspect-video lg:aspect-auto lg:h-[450px]">
-                         
-                            <div class="w-full h-full bg-gradient-to-br from-primary to-secondary opacity-80 flex items-center justify-center p-8 text-contrast-gradient">
-                                 <div class="text-center">
-                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto mb-4 opacity-75" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"> <path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 10l-3.5-3.5a1 1 0 00-1.414 0L5 16m10-4l-2 2m0 0l-2-2m2 2V7" /> </svg>
-                                     <h3 class="text-xl font-bold">sfd</h3>
-                                     <p class="text-sm mt-1">sdf</p>
-                                 </div>
-                             </div>
-                        
-                     </div>
-                </div>
+    <section class="hero-section bg-gradient-primary py-20 md:py-28 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
+         <div class="max-w-4xl mx-auto text-center">
+              
+             <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2 hero-text-shadow">sfd</h1>
+             <p class="text-xl sm:text-2xl max-w-2xl mx-auto opacity-90 mb-8 hero-text-shadow">sdg</p>
+             <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                 <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                     <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
+                     Contact Me
+                 </a>
+                 
+                 
              </div>
          </div>
     </section>
-
-    <!-- Stats Section -->
-    
-         <section class="py-16 bg-white"> 
-             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                     
-                         <div class="reveal transition-transform duration-500 ease-out transform hover:scale-105">
-                             <div class="text-4xl sm:text-5xl font-bold text-primary mb-1">10+</div>
-                             <div class="text-sm sm:text-base text-gray-600 uppercase tracking-wider">Years Experience</div>
-                         </div>
-                     
-                         <div class="reveal transition-transform duration-500 ease-out transform hover:scale-105">
-                             <div class="text-4xl sm:text-5xl font-bold text-primary mb-1">500+</div>
-                             <div class="text-sm sm:text-base text-gray-600 uppercase tracking-wider">Happy Clients</div>
-                         </div>
-                     
-                         <div class="reveal transition-transform duration-500 ease-out transform hover:scale-105">
-                             <div class="text-4xl sm:text-5xl font-bold text-primary mb-1">25+</div>
-                             <div class="text-sm sm:text-base text-gray-600 uppercase tracking-wider">Team Members</div>
-                         </div>
-                     
-                         <div class="reveal transition-transform duration-500 ease-out transform hover:scale-105">
-                             <div class="text-4xl sm:text-5xl font-bold text-primary mb-1">100%</div>
-                             <div class="text-sm sm:text-base text-gray-600 uppercase tracking-wider">Client Satisfaction</div>
-                         </div>
-                     
-                 </div>
-             </div>
-         </section>
-    
 
     <!-- About Section -->
-    <section id="about" class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-50 overflow-hidden"> 
-        <div class="max-w-7xl mx-auto">
-             <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">About Us</h2>
-                 <div class="section-divider"></div>
-             </div>
-             <div class="relative lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
-                 <div class="relative reveal mb-10 lg:mb-0">
-                     
-                         
-                         <div class="aspect-w-4 aspect-h-3 bg-gray-100 text-gray-400 rounded-lg shadow-xl p-8 text-center flex flex-col justify-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="mx-auto h-16 w-16 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1"> <path stroke-linecap="round" stroke-linejoin="round" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.24a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /> </svg>
-                             <h3 class="text-xl font-bold">sfd</h3>
-                         </div>
-                     
-                 </div>
-                 <div class="relative reveal">
-                     <h3 class="text-2xl font-semibold text-gray-900 tracking-tight mb-4">Who We Are</h3>
-                     <p class="text-lg text-gray-600 mb-8 leading-relaxed">fsd</p>
-                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                        
-                        <div class="about-feature-item">
-                            <div class="about-feature-icon-bg">
-                               <svg class="h-5 w-5"><use href="#icon-shield-check" /></svg>
-                            </div>
-                            <span class="font-medium text-gray-800 text-sm">Professional Service</span>
-                        </div>
-                        
-                        <div class="about-feature-item">
-                            <div class="about-feature-icon-bg">
-                               <svg class="h-5 w-5"><use href="#icon-lightning-bolt" /></svg>
-                            </div>
-                            <span class="font-medium text-gray-800 text-sm">Fast Delivery</span>
-                        </div>
-                        
-                        <div class="about-feature-item">
-                            <div class="about-feature-icon-bg">
-                               <svg class="h-5 w-5"><use href="#icon-users" /></svg>
-                            </div>
-                            <span class="font-medium text-gray-800 text-sm">Expert Team</span>
-                        </div>
-                        
-                        <div class="about-feature-item">
-                            <div class="about-feature-icon-bg">
-                               <svg class="h-5 w-5"><use href="#icon-currency-dollar" /></svg>
-                            </div>
-                            <span class="font-medium text-gray-800 text-sm">Best Value</span>
-                        </div>
-                        
-                     </div>
-                     <a href="#contact" class="inline-flex items-center px-6 py-3 bg-primary text-contrast-primary rounded-md shadow hover:opacity-90 transition-all hover:shadow-lg transform hover:-translate-y-1">
-                       <svg class="h-5 w-5 mr-2"><use href="#icon-plus-circle" /></svg>
-                        <span>Get Started Today</span>
-                    </a>
-                </div>
-             </div>
+    <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> 
+        <div class="max-w-4xl mx-auto reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3">About Me</h2>
+            <div class="section-divider"></div>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed text-center">sdgdsg</p>
          </div>
     </section>
 
-    <!-- Services Section -->
-    
-         <section id="services" class="py-20 px-4 sm:px-6 lg:px-8 bg-white"> 
-             <div class="max-w-7xl mx-auto">
-                 <div class="text-center mb-16 reveal">
-                     <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">Our Services</h2>
-                     <div class="section-divider"></div>
-                 </div>
-                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-                     
-                         <div class="service-card reveal">
-                            <div class="service-card-content">
-                                <div class="icon-circle">
-                                    <svg class="h-7 w-7" fill="currentColor"><use href="#icon-briefcase" /></svg>
-                                </div>
-                                <h3> fds </h3>
-                                 <div class="service-card-divider"></div>
-                                 
-                             </div>
-                         </div>
-                     
-                 </div>
-             </div>
-         </section>
+    <!-- Work Experience Section -->
     
 
-    <!-- CTA Banner -->
-    <section class="bg-gradient-primary py-20 px-4 sm:px-6 lg:px-8 text-contrast-gradient"> 
-        <div class="max-w-4xl mx-auto text-center">
-             <h2 class="text-3xl sm:text-4xl font-bold mb-6 reveal hero-text-shadow">Ready to Elevate Your Business?</h2>
-             <p class="text-lg sm:text-xl max-w-2xl mx-auto mb-10 opacity-90 reveal hero-text-shadow">Let's discuss how we can help you achieve your goals. Contact us today for a free consultation.</p>
-             <div class="reveal">
-                <a href="#contact" class="inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-lg text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
-                   <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
-                    Request Consultation
-                </a>
-            </div>
-         </div>
-    </section>
+    <!-- Education Section -->
+    
 
-    <!-- Testimonials Section -->
+    <!-- Skills & Certifications Section -->
     
 
 
@@ -850,7 +735,7 @@
                      <h3 class="text-xl font-bold text-white">sfd</h3>
                  </div>
                  <p class="text-sm leading-relaxed">
-                     sdf 
+                     sdg 
                  </p>
              </div>
 
@@ -861,7 +746,7 @@
                      <li><a href="#" class="hover:text-white transition-colors">Home</a></li>
                      <li><a href="#about" class="hover:text-white transition-colors">About</a></li>
                      
-                     <li><a href="#services" class="hover:text-white transition-colors">Services</a></li>
+                     
                      
                      <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
                  </ul>

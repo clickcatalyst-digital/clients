@@ -1,41 +1,30 @@
 {
-  "user_type": "business",
+  "user_type": "resume",
   "color_palette": "luxurious-chic",
   "headline": "sfd",
-  "tagline": "sdf",
-  "about": "fsd",
-  "services": [
-    {
-      "name": "fds",
-      "icon": "briefcase",
-      "description": ""
-    }
-  ],
-  "portfolioProjects": [],
+  "tagline": "sdg",
+  "about": "sdgdsg",
+  "logo": null,
+  "logo_s3_key": null,
+  "banner_s3_key": null,
+  "about_image_s3_key": null,
+  "services": [],
+  "education": [],
   "workExperience": [],
   "skills": [],
   "certifications": [],
-  "testimonials": [],
-  "business_stats": [
-    {
-      "value": "10+",
-      "label": "Years Experience"
-    },
-    {
-      "value": "500+",
-      "label": "Happy Clients"
-    },
-    {
-      "value": "25+",
-      "label": "Team Members"
-    },
-    {
-      "value": "100%",
-      "label": "Client Satisfaction"
-    }
-  ],
-  "email": "pujan10sept@gmail.com",
-  "phone": "",
+  "portfolioProjects": [],
+  "contact": {
+    "email": "",
+    "phone": "",
+    "address_line1": "",
+    "address_line2": "",
+    "city": "",
+    "state_province": "",
+    "postal_code": "",
+    "country": "",
+    "map_link": ""
+  },
   "social": {
     "whatsapp": "",
     "telegram": "",
@@ -44,12 +33,104 @@
     "twitter": "",
     "linkedin": ""
   },
+  "business_hours": {
+    "monday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "tuesday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "wednesday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "thursday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "friday": {
+      "open": "",
+      "close": "",
+      "closed": false
+    },
+    "saturday": {
+      "open": "",
+      "close": "",
+      "closed": true
+    },
+    "sunday": {
+      "open": "",
+      "close": "",
+      "closed": true
+    }
+  },
+  "business_stats": [],
+  "testimonials": [],
+  "charityMission": {
+    "mission_statement": "",
+    "vision_statement": "",
+    "impact_overview": "",
+    "founding_story": "",
+    "gallery_s3_keys": []
+  },
+  "charityImpact": {
+    "impact_stats": [],
+    "success_stories": []
+  },
+  "donation_info": {
+    "donation_page_url": "",
+    "payment_methods": [],
+    "tax_deductible_info": ""
+  },
+  "eventDetails": {
+    "event_name": "",
+    "event_date": "",
+    "start_time": "",
+    "end_time": "",
+    "location_type": "physical",
+    "physical_address": "",
+    "virtual_event_link": "",
+    "description_long": "",
+    "speakers": [],
+    "sponsors_s3_keys": [],
+    "ticket_info": {
+      "price": "",
+      "currency": "INR",
+      "booking_url": "",
+      "early_bird_deadline": "",
+      "sold_out": false
+    }
+  },
+  "eventSchedule": [],
   "site_url": "sfd",
-  "logo_path": null,
-  "banner_path": null,
-  "about_image": null,
-  "websiteId": "web-cc5bc5homa9iobcr",
-  "createdAt": "2025-05-04T10:36:36.603Z",
-  "lastUpdated": "2025-05-04T10:36:36.603Z",
-  "status": "pending_deployment"
+  "email": "pujan10sept@gmail.com",
+  "fullWebsiteUrl": "",
+  "websiteId": "web-mdcnndp9-qdqsdc",
+  "githubUsername": "clickcatalyst-digital",
+  "folderName": "",
+  "merchantOrderId": null,
+  "payment_status": null,
+  "orderCreatedAt": null,
+  "logo_filename": null,
+  "logo_filesize": null,
+  "banner_filename": null,
+  "banner_filesize": null,
+  "about_image_filename": null,
+  "about_image_filesize": null,
+  "phone": "",
+  "trial_info": {
+    "is_trial": true,
+    "trial_days": 30,
+    "trial_start": "2025-07-21T05:18:14.803Z",
+    "trial_end": "2025-08-20T05:18:14.803Z"
+  },
+  "createdAt": "2025-07-21T05:18:19.953Z",
+  "lastUpdated": "2025-07-21T05:18:19.953Z",
+  "status": "trial"
 }
