@@ -54,7 +54,7 @@ jobs:
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install boto3 requests jinja2 python-dotenv xmltodict flask
+          pip install -r requirements.txt
         shell: bash
         
       - name: Run Website Cleanup
@@ -65,7 +65,12 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
           S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
           DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
-        run: python python-service/cleanup_websites.py
+        run: |
+          echo "🧹 Starting website cleanup..."
+          echo "Dry run mode: $DRY_RUN"
+          echo "S3 Bucket: $S3_BUCKET_NAME"
+          echo "AWS Region: $AWS_REGION"
+          python python-service/cleanup_websites.py
         shell: bash
         
       - name: Deploy Updated Sites to GitHub Pages
