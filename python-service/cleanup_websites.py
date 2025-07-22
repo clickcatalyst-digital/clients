@@ -15,7 +15,7 @@ import shutil
 import re
 import logging
 from pathlib import Path
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timedelta
 from website_generator import initialize_s3_client, initialize_jinja_env, extract_content_json, download_from_s3
 
 # Configure logging
@@ -66,10 +66,16 @@ def get_website_dates_from_s3(s3_client, bucket, folder_name):
         if not content_data:
             logger.warning(f"Failed to parse content.json for {folder_name}")
             return None
+        
+        # Get trial_end from trial_info or fallback to top-level
+        trial_end = None
+        if content_data.get('trial_info', {}).get('trial_end'):
+            trial_end = content_data['trial_info']['trial_end']
+        elif content_data.get('trial_end'):
+            trial_end = content_data['trial_end']
             
         return {
-            'trial_end': content_data.get('trial_end'),
-            'deletion_date': content_data.get('deletion_date'),
+            'trial_end': trial_end,
             'content_data': content_data
         }
         
@@ -232,29 +238,31 @@ def cleanup_expired_websites():
                 continue
             
             trial_end = date_info['trial_end']
-            deletion_date = date_info['deletion_date']
             content_data = date_info['content_data']
             
-            # Parse dates if they exist
+            # Parse trial_end date (ISO format from your content.json)
             trial_end_date = None
             deletion_date_obj = None
             
             if trial_end:
                 try:
-                    trial_end_date = datetime.strptime(trial_end, '%Y-%m-%d').date()
-                except ValueError:
-                    logger.warning(f"Invalid trial_end format for {folder_name}: {trial_end}")
-            
-            if deletion_date:
-                try:
-                    deletion_date_obj = datetime.strptime(deletion_date, '%Y-%m-%d').date()
-                except ValueError:
-                    logger.warning(f"Invalid deletion_date format for {folder_name}: {deletion_date}")
+                    # Handle ISO format: "2025-08-21T13:52:50.573Z"
+                    if 'T' in trial_end:
+                        trial_end_date = datetime.fromisoformat(trial_end.replace('Z', '+00:00')).date()
+                    else:
+                        # Handle simple date format: "2025-08-21"
+                        trial_end_date = datetime.strptime(trial_end, '%Y-%m-%d').date()
+                    
+                    # Calculate deletion date (60 days after trial ends)
+                    deletion_date_obj = trial_end_date + timedelta(days=60)
+                    
+                except ValueError as e:
+                    logger.warning(f"Invalid trial_end format for {folder_name}: {trial_end} - {e}")
             
             # Decision logic
             if deletion_date_obj and today >= deletion_date_obj:
                 # Delete the website completely
-                logger.info(f"Deleting expired website: {folder_name} (deletion date: {deletion_date})")
+                logger.info(f"Deleting expired website: {folder_name} (deletion date: {deletion_date_obj})")
                 
                 s3_deleted = safe_delete_s3_folder(s3_client, bucket, folder_name)
                 github_deleted = safe_delete_github_folder(folder_name)
@@ -268,13 +276,20 @@ def cleanup_expired_websites():
                     
             elif trial_end_date and today > trial_end_date:
                 # Suspend the website (regenerate with suspended template)
-                logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end})")
+                # Only suspend if it's actually a trial website
+                is_trial = content_data.get('trial_info', {}).get('is_trial', False)
+                current_status = content_data.get('status', '')
                 
-                success = regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir)
-                if success:
-                    stats['suspended'] += 1
+                if is_trial or current_status == 'trial':
+                    logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end_date})")
+                    
+                    success = regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir)
+                    if success:
+                        stats['suspended'] += 1
+                    else:
+                        stats['errors'] += 1
                 else:
-                    stats['errors'] += 1
+                    logger.info(f"Website {folder_name} has trial_end but is not a trial - skipping suspension")
                     
             else:
                 # Website is still active
