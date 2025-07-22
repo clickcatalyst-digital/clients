@@ -261,71 +261,53 @@ def download_assets_v2(s3_client, bucket, folder_name, asset_keys_to_download):
     return s3_key_to_relative_path
 
 
-# def render_template(jinja_env, content_data, assets):
-#     """Render the appropriate HTML template based on website type."""
-#     # Basic Data Validation
-#     if "headline" not in content_data:
-#         content_data["headline"] = content_data.get("site_url", "Website")
-#     if "tagline" not in content_data:
-#         content_data["tagline"] = ""
+def check_website_status_from_firestore(website_id):
+    """
+    Check website status from Firestore to determine if it's suspended.
+    Returns 'suspended' if website is suspended, 'active' otherwise.
+    """
+    try:
+        # Import Firebase Admin here to avoid dependency issues if not used
+        from google.cloud import firestore as fs
+        
+        # Initialize Firestore client
+        db = fs.Client()
+        
+        # Get website document
+        website_ref = db.collection('websites').document(website_id)
+        website_doc = website_ref.get()
+        
+        if website_doc.exists:
+            website_data = website_doc.to_dict()
+            status = website_data.get('status', 'active')
+            logger.info(f"Website {website_id} status from Firestore: {status}")
+            return status
+        else:
+            logger.warning(f"Website {website_id} not found in Firestore, defaulting to active")
+            return 'active'
+            
+    except Exception as e:
+        logger.error(f"Error checking website status from Firestore: {e}")
+        # If Firestore check fails, default to active to avoid breaking generation
+        return 'active'
 
-#     website_type = content_data.get("user_type", "business")
-#     primary_template_name = f"{website_type.lower()}.html"
-#     fallback_template_name = "default.html"
-
-#     # Load Template (with fallback)
-#     template = None
-#     template_to_render = ""
-#     try:
-#         template = jinja_env.get_template(primary_template_name)
-#         template_to_render = primary_template_name
-#         logger.info(f"Using primary template: {template_to_render}")
-#     except TemplateNotFound:
-#         logger.warning(f"Primary template '{primary_template_name}' not found. Attempting fallback '{fallback_template_name}'.")
-#         try:
-#             template = jinja_env.get_template(fallback_template_name)
-#             template_to_render = fallback_template_name
-#             logger.info(f"Using fallback template: {template_to_render}")
-#         except TemplateNotFound:
-#             logger.error(f"CRITICAL: Fallback template '{fallback_template_name}' also not found in search path: {jinja_env.loader.searchpath}")
-#             return generate_error_html("Required template files could not be loaded")
-#         except Exception as e_load_fallback:
-#             logger.error(f"Failed to load fallback template '{fallback_template_name}': {e_load_fallback}")
-#             return generate_error_html(f"Error loading fallback template: {str(e_load_fallback)}")
-#     except Exception as e_load_primary:
-#         logger.error(f"Failed to load primary template '{primary_template_name}': {e_load_primary}")
-#         return generate_error_html(f"Error loading primary template: {str(e_load_primary)}")
-
-#     # Prepare Template Data
-#     template_data = {**content_data}
-#     for asset_type, asset_path in assets.items():
-#         template_data[asset_type] = asset_path
-
-#     palette_id = content_data.get("color_palette", "default")
-#     selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
-#     selected_colors.setdefault('background', '#FFFFFF')
-#     selected_colors.setdefault('text', '#333333')
-
-#     light_contrast = selected_colors['background']
-#     dark_contrast = selected_colors['text']
-
-#     selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
-#     selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
-#     selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
-#     selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast)
-
-#     template_data["colors"] = selected_colors
-#     logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
-
-#     # Render the loaded template
-#     try:
-#         return template.render(**template_data)
-#     except Exception as e_render:
-#         logger.error(f"Template rendering error for '{template_to_render}': {e_render}")
-#         return generate_error_html(f"Template rendering error: {str(e_render)}", template_data)
 
 def render_template_v2(jinja_env, template_data):
     """Render the appropriate HTML template based on website type."""
+
+    # Check if website is suspended
+    website_id = template_data.get('websiteId') or template_data.get('website_id')
+    if website_id:
+        website_status = check_website_status_from_firestore(website_id)
+        if website_status == 'suspended':
+            logger.info(f"Website {website_id} is suspended, using suspended template")
+            try:
+                suspended_template = jinja_env.get_template('suspended.html')
+                return suspended_template.render(**template_data)
+            except Exception as e:
+                logger.error(f"Error rendering suspended template: {e}")
+                # Fall through to normal template generation
+    
     # Basic Data Validation
     if "headline" not in template_data:
         template_data["headline"] = template_data.get("site_url", "Website")
