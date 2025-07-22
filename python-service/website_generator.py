@@ -261,52 +261,36 @@ def download_assets_v2(s3_client, bucket, folder_name, asset_keys_to_download):
     return s3_key_to_relative_path
 
 
-def check_website_status_from_firestore(website_id):
-    """
-    Check website status from Firestore to determine if it's suspended.
-    Returns 'suspended' if website is suspended, 'active' otherwise.
-    """
-    try:
-        # Import Firebase Admin here to avoid dependency issues if not used
-        from google.cloud import firestore as fs
-        
-        # Initialize Firestore client
-        db = fs.Client()
-        
-        # Get website document
-        website_ref = db.collection('websites').document(website_id)
-        website_doc = website_ref.get()
-        
-        if website_doc.exists:
-            website_data = website_doc.to_dict()
-            status = website_data.get('status', 'active')
-            logger.info(f"Website {website_id} status from Firestore: {status}")
-            return status
-        else:
-            logger.warning(f"Website {website_id} not found in Firestore, defaulting to active")
-            return 'active'
-            
-    except Exception as e:
-        logger.error(f"Error checking website status from Firestore: {e}")
-        # If Firestore check fails, default to active to avoid breaking generation
-        return 'active'
-
-
 def render_template_v2(jinja_env, template_data):
     """Render the appropriate HTML template based on website type."""
-
-    # Check if website is suspended
-    website_id = template_data.get('websiteId') or template_data.get('website_id')
-    if website_id:
-        website_status = check_website_status_from_firestore(website_id)
-        if website_status == 'suspended':
-            logger.info(f"Website {website_id} is suspended, using suspended template")
-            try:
-                suspended_template = jinja_env.get_template('suspended.html')
-                return suspended_template.render(**template_data)
-            except Exception as e:
-                logger.error(f"Error rendering suspended template: {e}")
-                # Fall through to normal template generation
+    
+    # Check if website should be suspended
+    website_status = None
+    
+    # Method 1: Check if status is already provided (from cleanup script)
+    if 'website_status' in template_data:
+        website_status = template_data['website_status']
+        logger.info(f"Using provided website status: {website_status}")
+    
+    # Method 2: Calculate from trial_end date
+    elif 'trial_end' in template_data:
+        try:
+            trial_end_date = datetime.strptime(template_data['trial_end'], '%Y-%m-%d').date()
+            today = datetime.now().date()
+            if today > trial_end_date:
+                website_status = 'suspended'
+                logger.info(f"Trial expired based on date calculation")
+        except (ValueError, TypeError):
+            logger.warning(f"Invalid trial_end format: {template_data.get('trial_end')}")
+    
+    # Use suspended template if needed
+    if website_status == 'suspended':
+        try:
+            suspended_template = jinja_env.get_template('suspended.html')
+            return suspended_template.render(**template_data)
+        except Exception as e:
+            logger.error(f"Error rendering suspended template: {e}")
+            # Fall through to normal template generation
     
     # Basic Data Validation
     if "headline" not in template_data:
