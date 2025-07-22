@@ -1,7 +1,7 @@
 {
   "user_type": "resume",
-  "color_palette": "luxurious-chic",
-  "headline": "paid-1",
+  "color_palette": "dreamy-sunset",
+  "headline": "paid-001",
   "tagline": "sdvdsv",
   "about": "dvsvds",
   "about_image_s3_key": null,
@@ -40,21 +40,52 @@
   "contact": {
     "email": "",
     "phone": "",
+    "location": {
+      "city": "",
+      "state": "",
+      "country": ""
+    },
     "address_line1": "",
     "address_line2": "",
     "city": "",
     "state_province": "",
     "postal_code": "",
     "country": "",
-    "map_link": ""
+    "map_link": "",
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "social": {
+    "facebook": "",
+    "twitter": "",
+    "linkedin": "",
+    "instagram": "",
     "whatsapp": "",
     "telegram": "",
-    "facebook": "",
-    "instagram": "",
-    "twitter": "",
-    "linkedin": ""
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "business_hours": {
     "monday": {
@@ -96,15 +127,47 @@
   "business_stats": [],
   "testimonials": [],
   "charityMission": {
+    "mission": "",
+    "vision": "",
+    "foundingStory": "",
+    "foundedYear": "",
     "mission_statement": "",
     "vision_statement": "",
     "impact_overview": "",
     "founding_story": "",
-    "gallery_s3_keys": []
+    "gallery_s3_keys": [],
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "charityImpact": {
+    "impactStats": [],
+    "successStories": [],
     "impact_stats": [],
-    "success_stories": []
+    "success_stories": [],
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
+    }
   },
   "donation_info": {
     "donation_page_url": "",
@@ -112,6 +175,15 @@
     "tax_deductible_info": ""
   },
   "eventDetails": {
+    "date": "",
+    "startTime": "",
+    "endTime": "",
+    "location": "",
+    "virtualLink": "",
+    "price": "",
+    "ticketInfo": "",
+    "limitedSeats": false,
+    "maxAttendees": "",
     "event_name": "",
     "event_date": "",
     "start_time": "",
@@ -128,6 +200,19 @@
       "booking_url": "",
       "early_bird_deadline": "",
       "sold_out": false
+    },
+    "services": [],
+    "business_stats": [],
+    "testimonials": [],
+    "portfolioProjects": [],
+    "skills": [],
+    "workExperience": [],
+    "education": [],
+    "certifications": [],
+    "eventSchedule": [],
+    "charityImpact": {
+      "impactStats": [],
+      "successStories": []
     }
   },
   "eventSchedule": [],
@@ -146,6 +231,15 @@
   "banner_path": null,
   "about_image_path": null,
   "createdAt": "2025-07-22T11:51:08.851Z",
-  "lastUpdated": "2025-07-22T11:51:08.851Z",
-  "status": "pending_deployment"
+  "lastUpdated": "2025-07-22T13:09:46.038Z",
+  "status": "pending_deployment",
+  "about_image": null,
+  "colors": {},
+  "footer": {
+    "creator_credit_name": "",
+    "creator_credit_url": ""
+  },
+  "donation_url": "",
+  "registration_url": "",
+  "organizer_name": ""
 }
