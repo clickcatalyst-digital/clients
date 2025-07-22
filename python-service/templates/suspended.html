@@ -1,0 +1,213 @@
+{% extends "_base.html" %}
+
+{# --- Page Title --- #}
+{% block title %}Website Suspended - {{ headline }}{% endblock title %}
+
+{# --- Meta Tags --- #}
+{% block meta_tags %}
+    <meta name="description" content="This website trial has expired and is currently suspended.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Website Suspended - {{ headline }}">
+    <meta property="og:description" content="This website trial has expired and is currently suspended.">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:title" content="Website Suspended - {{ headline }}">
+    <meta property="twitter:description" content="This website trial has expired and is currently suspended.">
+{% endblock meta_tags %}
+
+{# --- Page Specific Styles --- #}
+{% block page_styles %}
+    <style>
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .suspended-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            margin: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .suspended-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .dashboard-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .dashboard-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .feature-list {
+            text-align: left;
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: #4b5563;
+        }
+        
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+        
+        .countdown-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: inline-block;
+        }
+    </style>
+{% endblock page_styles %}
+
+{# --- No Header for Suspended Page --- #}
+{% block header %}{% endblock header %}
+
+{# --- Main Content --- #}
+{% block content %}
+    <div class="suspended-container">
+        <!-- Suspension Icon -->
+        <div class="suspended-icon pulse-animation">
+            <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        </div>
+
+        <!-- Countdown Badge (if trial recently expired) -->
+        <div class="countdown-badge">
+            Trial Expired
+        </div>
+
+        <!-- Main Heading -->
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">
+            Website Temporarily Suspended
+        </h1>
+        
+        <!-- Subtitle -->
+        <p class="text-gray-600 mb-6 leading-relaxed">
+            The free trial for <strong>{{ headline or 'this website' }}</strong> has ended. 
+            Don't worry - your data is safe and can be reactivated instantly!
+        </p>
+
+        <!-- Features List -->
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>Instant website reactivation</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>All your content is preserved</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>One-time payment, lifetime hosting</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>Custom domain support included</span>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <a href="https://clickcatalyst-digital.github.io/clients/web-dashboard" 
+           class="dashboard-button"
+           target="_blank"
+           rel="noopener noreferrer">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem;">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Reactivate Your Website
+        </a>
+
+        <!-- Fine Print -->
+        <p class="text-xs text-gray-500 mt-6 leading-relaxed">
+            Need help? Contact us at 
+            <a href="mailto:support@clickcatalyst.digital" class="text-blue-600 hover:underline">
+                support@clickcatalyst.digital
+            </a>
+        </p>
+    </div>
+{% endblock content %}
+
+{# --- Remove Footer and Contact Section --- #}
+{% block contact %}{% endblock contact %}
+{% block footer %}{% endblock footer %}
+{% endblock content %}
