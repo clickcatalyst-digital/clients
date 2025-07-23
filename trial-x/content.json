@@ -128,9 +128,9 @@
     "is_trial": true,
     "trial_days": 30,
     "trial_start": "2025-07-23T19:59:12.007Z",
-    "trial_end": "2025-08-22T19:59:12.007Z"
+    "trial_end": "2025-06-19T01:36:57.275622"
   },
   "createdAt": "2025-07-23T19:59:15.841Z",
-  "lastUpdated": "2025-07-23T19:59:15.841Z",
+  "lastUpdated": "2025-07-24T01:36:57.396402",
   "status": "trial"
 }
