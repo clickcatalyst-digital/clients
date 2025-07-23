@@ -7,24 +7,24 @@
 
     
     
+    <meta name="description" content="dasasdsad. dfsdsfdsf...">
+    <meta name="author" content="trial-x">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="profile">
+    <meta property="profile:first_name" content="trial-x">
     
-        <meta name="description" content="sdfasdfaasfd">
-        <meta name="author" content="trial-x">
-        <!-- Default Open Graph -->
-        <meta property="og:type" content="website">
-        <meta property="og:title" content="trial-x">
-        <meta property="og:description" content="sdfasdfaasfd">
-        
-        <!-- Default Twitter -->
-        <meta property="twitter:card" content="summary_large_image">
-        <meta property="twitter:title" content="trial-x">
-        <meta property="twitter:description" content="sdfasdfaasfd">
-        
-     
+    <meta property="og:title" content="trial-x - dasasdsad">
+    <meta property="og:description" content="dfsdsfdsf...">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="trial-x - dasasdsad">
+    <meta name="twitter:description" content="dfsdsfdsf...">
+    
 
 
     
-    <title>trial-x - sdfasdfaasfd</title>
+    <title>trial-x - dasasdsad</title>
 
     
     <link rel="stylesheet" href="styles.css"> <!-- Link to compiled Tailwind CSS -->
@@ -351,17 +351,17 @@
     <style>
         /* Define theme colors from the dynamic color scheme */
         :root {
-            --color-primary: #5cbdb9;
-            --color-secondary: #ebf6f5;
-            --color-background: #fceed1;
+            --color-primary: #6B7A8F;
+            --color-secondary: #F7882F;
+            --color-background: #DCC7AA;
             --color-text: #2d545e;
             /* Calculate muted text color (e.g., ~70% opacity hex) */
             --color-text-muted: #2d545eB3;
             /* Text contrast colors */
-            --color-text-on-primary: #2d545e;
+            --color-text-on-primary: #DCC7AA;
             --color-text-on-secondary: #2d545e;
-            --color-text-on-gradient: #2d545e;
-            --color-text-on-dark: #fceed1;
+            --color-text-on-gradient: #DCC7AA;
+            --color-text-on-dark: #DCC7AA;
             --transition-speed: 0.3s;
         }
 
@@ -422,7 +422,7 @@
 
         /* Contact form basic input styling */
         .form-input { transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; border: 1px solid #d1d5db; /* Tailwind gray-300 */ }
-        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #5cbdb933; /* Primary with opacity */ outline: none; }
+        .form-input:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px #6B7A8F33; /* Primary with opacity */ outline: none; }
 
         /* Quick connect button base style (used in resume/portfolio) */
         .quick-connect-button { display: flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; border-radius: 0.375rem; font-weight: 500; transition: background-color, opacity, box-shadow, transform; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); transition-duration: 150ms; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); text-decoration: none; }
@@ -490,121 +490,51 @@
         /* Template-specific overrides can go in their own style blocks or files */
         
     <style>
-        /* Font */
+        /* Refined styles for resume sections */
         body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
-        h1, h2 { font-weight: 700; color: #111827; } /* text-gray-900 */
+        h1, h2, h3, h4 { font-weight: 700; color: #111827; } /* Bolder headings */
+        .section-divider { width: 60px; margin-bottom: 1.5rem; } /* Smaller divider */
 
-        /* Enhanced Section Heights & Centering */
-        section {
-            min-height: 65vh;
-            display: flex;
-            align-items: center;
-            padding-top: 5rem; /* Increased base padding slightly */
-            padding-bottom: 5rem;
-            position: relative;
-            overflow: hidden;
+        .experience-item, .education-item {
+            padding-bottom: 1.5rem; /* pb-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
         }
-        @media (min-width: 768px) { /* md */
-            section {
-                 min-height: 75vh; /* Increased min-height */
-                 padding-top: 6rem;
-                 padding-bottom: 6rem;
-            }
+        .experience-item:last-child, .education-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
         }
-         @media (min-width: 1024px) { /* lg */
-             section {
-                 min-height: 80vh; /* Closer to screen height on large */
-             }
+        .skills-list span {
+            display: inline-block;
+            background-color: var(--color-primary);
+            background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+            color: color-mix(in srgb, var(--color-primary) 70%, black);
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* medium */
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */
+            border-radius: 9999px; /* rounded-full */
+            transition: all 0.2s ease-in-out;
+         }
+        .skills-list span:hover {
+             transform: scale(1.05);
+             background-color: var(--color-primary); 
+             color: var(--color-text-on-primary); 
+             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+         }
+        .certification-item {
+             padding: 0.75rem 0;
+             border-bottom: 1px dashed #d1d5db; /* Dashed border */
+        }
+         .certification-item:last-child {
+             border-bottom: none;
          }
 
-        /* Hero Section - Gradient Background applied to the section */
-        .hero-section {
-            background: linear-gradient(to bottom right, var(--color-primary, #4f46e5), var(--color-secondary, #ec4899));
-            color: var(--color-text-on-gradient, white); /* Text color for gradient */
-             /* Override default section height for hero */
-            min-height: 85vh; /* Taller hero */
-        }
-         @media (min-width: 768px) { /* md */
-            .hero-section {
-                 min-height: 90vh;
-            }
-         }
-
-        /* Hero content styling */
-        .hero-section h1, .hero-section p { color: inherit; } /* Inherit from section */
-        .hero-text-shadow { text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-
-        /* Styling for the Hero Image container */
-        .hero-image-container {
-             border-radius: 0.75rem; /* rounded-xl */
-             overflow: hidden;
-             box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1));
-             aspect-ratio: 16 / 9; /* Common aspect ratio */
-        }
-         @media (min-width: 1024px) { /* lg */
-             .hero-image-container {
-                 aspect-ratio: 4 / 3; /* Adjust aspect ratio on larger screens if desired */
-             }
-         }
-        .hero-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .hero-image-placeholder {
-             width: 100%;
-             height: 100%;
-             display: flex;
-             align-items: center;
-             justify-content: center;
-             background-color: rgba(255, 255, 255, 0.1); /* Subtle placeholder bg */
-             color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Refined Section Divider */
-        .section-divider-thin { width: 4rem; height: 2px; background-color: var(--color-primary, #4f46e5); margin-bottom: 2rem; border: 0; border-radius: 1px; }
-        /* Correct alignment for divider */
-        .divider-center { margin-left: auto; margin-right: auto; }
-        .divider-left-lg { margin-left: auto; margin-right: auto; } /* Default centered */
-        @media (min-width: 1024px) { /* lg */
-            .divider-left-lg { margin-left: 0; margin-right: auto; } /* Left aligned on large screens */
-        }
-
-
-        /* Enhanced Service Card Styling */
-        .service-card { background-color: white; border-radius: 0.5rem; box-shadow: var(--shadow, 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)); padding: 1.5rem; text-align: center; transition: all 0.3s ease-in-out; border: 1px solid var(--color-border-soft, #e5e7eb); height: 100%; display: flex; flex-direction: column; }
-        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg, 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)); }
-        .service-card-content { flex-grow: 1; }
-
-        /* Refined Icon Wrapper in Service Card */
-        .service-icon-wrapper { display: inline-flex; align-items: center; justify-content: center; height: 3rem; width: 3rem; border-radius: 9999px; background-color: color-mix(in srgb, var(--color-primary, #4f46e5) 15%, transparent); color: var(--color-primary, #4f46e5); margin-bottom: 1rem; }
-        .service-icon-wrapper svg { height: 1.5rem; width: 1.5rem; }
-
-        /* Contact Info Item */
-        .contact-info-item { display: flex; align-items: center; justify-content: center; margin-bottom: 0.75rem; }
-        .contact-info-item svg { width: 1.25rem; height: 1.25rem; margin-right: 0.5rem; color: var(--color-primary); }
-
-        /* Prose styles */
-        .prose { color: #374151; } /* text-gray-700 */
-        .prose a { color: var(--color-primary); text-decoration: underline; }
-        .prose a:hover { color: color-mix(in srgb, var(--color-primary) 80%, black); }
-        .prose h2, .prose h3 { color: #111827; }
-
-        /* About Section Image Styling */
-        .about-image-container img {
-            border-radius: 0.5rem; /* rounded-lg */
-            box-shadow: var(--shadow-xl, 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1));
-            object-fit: cover;
-            width: 100%;
-             aspect-ratio: 4 / 3; /* Default aspect ratio */
-        }
-         /* Ensure image grid column takes height */
-         .about-image-grid-col {
-             display: flex;
-             align-items: center; /* Center image vertically if column is taller */
-         }
-
+         /* Hero styling */
+        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
+        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
     </style>
+     
 
 
     </style>
@@ -614,11 +544,20 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
+      "@type": "Person",
       "name": "trial-x",
       "url": "#",
+      "description": "dasasdsad",
       
-      "description": "sdfasdfaasfd"
+      "email": "pujan10sept@gmail.com",
+      
+      "jobTitle": "dasasdsad",
+      
+      
+      
+      
+      
+      
     }
     </script>
 
@@ -634,109 +573,79 @@
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    
                     <div class="ml-3">
-                        <a href="#" class="text-lg font-semibold text-gray-800 hover:text-primary transition-colors">trial-x</a>
+                        <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">trial-x</a>
                     </div>
                 </div>
-                
                 <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
-                    
-                        <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
-                    
+                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
                     
                     
-                        <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                    
+                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
+                    
                     
                 </div>
-                
-                
-                    <div class="md:hidden flex items-center">
-                       <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
-                           <span class="sr-only">Open main menu</span>
-                           <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
-                       </button>
-                   </div>
-                
+                 <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
+                    </button>
+                </div>
             </div>
         </nav>
-        
-        
-            <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-40">
-                <div class="px-2 pt-2 pb-4 space-y-1">
-                    
-                        <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
-                    
-                    
-                    
-                        <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
-                    
-                </div>
-            </div>
-        
+         <!-- Mobile menu Container -->
+        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
+             <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
+                
+                
+                
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
+                
+                
+             </div>
+        </div>
     </header>
 
 
     
     <main id="main-content">
         
-    <!-- Hero Section: Grid Layout -->
-    <section class="hero-section" id="main-content">
-        
-        <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
-                
-                <div class="lg:col-span-6 xl:col-span-7 text-center lg:text-left reveal">
-                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4 hero-text-shadow">trial-x</h1>
-                     <p class="text-lg sm:text-xl max-w-xl lg:max-w-none mx-auto lg:mx-0 opacity-90 mb-8 hero-text-shadow">sdfasdfaasfd</p>
-                     
-                         
-                         <a href="#about" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-md text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
-                             <svg class="h-5 w-5 mr-2"><use href="#icon-information-circle" /></svg>
-                             Learn More
-                         </a>
-                     
-                </div>
+    <!-- Hero Section -->
+    <section class="hero-section bg-gradient-primary py-20 md:py-28 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
+         <div class="max-w-4xl mx-auto text-center">
+              
+             <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2 hero-text-shadow">trial-x</h1>
+             <p class="text-xl sm:text-2xl max-w-2xl mx-auto opacity-90 mb-8 hero-text-shadow">dasasdsad</p>
+             <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
+                 <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
+                     <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
+                     Contact Me
+                 </a>
                  
-                <div class="lg:col-span-6 xl:col-span-5 mt-10 lg:mt-0 reveal">
-                    <div class="hero-image-container">
-                        
-                            
-                            <div class="hero-image-placeholder">
-                                 <svg class="h-16 w-16 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5zm10 10l-3.5-3.5a1 1 0 00-1.414 0L5 16m10-4l-2 2m0 0l-2-2m2 2V7" /></svg>
-                            </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
+                 
+             </div>
+         </div>
     </section>
 
     <!-- About Section -->
-     
-         <section id="about" class="px-4 sm:px-6 lg:px-8 bg-white">
-             <div class="w-full max-w-5xl mx-auto reveal">
-                 
-                     
-                     <div class="max-w-3xl mx-auto text-center">
-                         <h2 class="text-3xl font-bold text-gray-900 mb-4">About</h2>
-                         
-                         <div class="section-divider-thin divider-center"></div>
-                         <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                              dfsfdsfds
-                         </div>
-                     </div>
-                 
-              </div>
-         </section>
-     
+    <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> 
+        <div class="max-w-4xl mx-auto reveal">
+            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3">About Me</h2>
+            <div class="section-divider"></div>
+            <p class="text-base md:text-lg text-gray-700 leading-relaxed text-center">dfsdsfdsf</p>
+         </div>
+    </section>
 
-    <!-- Optional Services/Features Section -->
+    <!-- Work Experience Section -->
     
 
-     <!-- Contact Section (Included via _base.html) -->
-     
+    <!-- Education Section -->
+    
+
+    <!-- Skills & Certifications Section -->
+    
 
 
     </main>
@@ -826,7 +735,7 @@
                      <h3 class="text-xl font-bold text-white">trial-x</h3>
                  </div>
                  <p class="text-sm leading-relaxed">
-                     sdfasdfaasfd 
+                     dasasdsad 
                  </p>
              </div>
 
