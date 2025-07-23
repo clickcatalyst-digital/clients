@@ -298,6 +298,8 @@ def cleanup_expired_websites():
         except Exception as e:
             logger.error(f"Error processing website {folder_name}: {e}")
             stats['errors'] += 1
+            # Continue processing other websites instead of stopping
+            continue
     
     # Log final statistics
     logger.info(f"Cleanup completed. Stats: {stats}")
