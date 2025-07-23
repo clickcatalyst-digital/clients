@@ -234,7 +234,7 @@ def cleanup_expired_websites():
             date_info = get_website_dates_from_s3(s3_client, bucket, folder_name)
             if not date_info:
                 logger.warning(f"Skipping {folder_name} - no date information")
-                stats['errors'] += 1
+                # Don't count missing content.json as an error - it's normal for system folders
                 continue
             
             trial_end = date_info['trial_end']
