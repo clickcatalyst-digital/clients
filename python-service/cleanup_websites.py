@@ -164,6 +164,23 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
         
         # Add suspension flag to content data
         content_data['website_status'] = 'suspended'
+        content_data['status'] = 'suspended'  # Also update main status
+        content_data['lastUpdated'] = datetime.now().isoformat()
+        
+        # UPDATE S3 CONTENT.JSON WITH SUSPENDED FLAG
+        content_key = f"{folder_name}/content.json"
+        json_string = json.dumps(content_data, indent=2)
+        json_bytes = json_string.encode('utf-8')
+        gzipped_bytes = gzip.compress(json_bytes)
+        
+        s3_client.put_object(
+            Bucket=bucket,
+            Key=content_key,
+            Body=gzipped_bytes,
+            ContentType='application/json',
+            ContentEncoding='gzip'
+        )
+        logger.info(f"Updated S3 content.json with suspended status for {folder_name}")        
         
         # Generate the website (will use suspended template due to status)
         result = generate_website(
