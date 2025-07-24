@@ -197,10 +197,6 @@
         </div>
 
         <!-- Countdown Badge -->
-        <div class="countdown-badge">
-            Trial Expired
-        </div>
-        <!-- Countdown Badge -->
         <div class="countdown-badge" id="countdown-badge">
             Trial Expired
         </div>
@@ -269,7 +265,7 @@
     
         function updateCountdown() {
             const now = new Date();
-            const daysLeft = Math.ceil((deletionDate - now) / (1000 * 60 * 60 * 1000));
+            const daysLeft = Math.ceil((deletionDate - now) / (1000 * 60 * 60 * 24));
             
             const countdownElement = document.getElementById('countdown-badge');
             const subtitleElement = document.getElementById('subtitle-text');
