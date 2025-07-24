@@ -1,7 +1,7 @@
 {% extends "_base.html" %}
 
 {# --- Page Title --- #}
-{% block title %}Website Suspended - {{ headline }}{% endblock title %}
+{% block title %}Website Suspended - {{ headline }}{% endblock %}
 
 {# --- Meta Tags --- #}
 {% block meta_tags %}
@@ -15,7 +15,7 @@
     <meta property="twitter:card" content="summary">
     <meta property="twitter:title" content="Website Suspended - {{ headline }}">
     <meta property="twitter:description" content="This website trial has expired and is currently suspended.">
-{% endblock meta_tags %}
+{% endblock %}
 
 {# --- Page Specific Styles --- #}
 {% block page_styles %}
@@ -119,10 +119,10 @@
             display: inline-block;
         }
     </style>
-{% endblock page_styles %}
+{% endblock %}
 
 {# --- No Header for Suspended Page --- #}
-{% block header %}{% endblock header %}
+{% block header %}{% endblock %}
 
 {# --- Main Content --- #}
 {% block content %}
@@ -205,9 +205,4 @@
             </a>
         </p>
     </div>
-{% endblock content %}
-
-{# --- Remove Footer and Contact Section --- #}
-{% block contact %}{% endblock contact %}
-{% block footer %}{% endblock footer %}
-{% endblock content %}
+{% endblock %}
