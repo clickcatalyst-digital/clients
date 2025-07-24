@@ -59,6 +59,19 @@ jobs:
          python -m pip install --upgrade pip
          pip install -r requirements.txt
        shell: bash
+
+     - name: Debug gh-pages checkout contents
+       run: |
+         echo "=== Debugging gh-pages checkout ==="
+         echo "Contents of gh-pages-temp:"
+         ls -la gh-pages-temp/ || echo "gh-pages-temp doesn't exist"
+         echo ""
+         echo "Looking for clients directory:"
+         ls -la gh-pages-temp/clients/ || echo "No clients directory"
+         echo ""
+         echo "All files in gh-pages-temp:"
+         find gh-pages-temp -type f | head -20 || echo "No files found"
+       shell: bash
        
      - name: Run Website Cleanup
        id: cleanup
@@ -87,19 +100,6 @@ jobs:
          publish_dir: ./clients
          keep_files: true
          commit_message: 'Weekly cleanup: suspended expired trials and deleted old websites'
-
-     - name: Debug gh-pages checkout contents
-       run: |
-         echo "=== Debugging gh-pages checkout ==="
-         echo "Contents of gh-pages-temp:"
-         ls -la gh-pages-temp/ || echo "gh-pages-temp doesn't exist"
-         echo ""
-         echo "Looking for clients directory:"
-         ls -la gh-pages-temp/clients/ || echo "No clients directory"
-         echo ""
-         echo "All files in gh-pages-temp:"
-         find gh-pages-temp -type f | head -20 || echo "No files found"
-       shell: bash
          
      - name: Cleanup Summary
        if: always()
