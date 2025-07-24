@@ -300,15 +300,31 @@ def cleanup_expired_websites():
                     logger.error(f"Partial deletion failure for {folder_name}")
                     stats['errors'] += 1
                     
+            # elif trial_end_date and today > trial_end_date:
+            #     # Suspend the website (regenerate with suspended template)
+            #     # Only suspend if it's actually a trial website
+            #     is_trial = content_data.get('trial_info', {}).get('is_trial', False)
+            #     current_status = content_data.get('status', '')
+                
+            #     if is_trial or current_status == 'trial':
+            #         logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end_date})")
+
+
             elif trial_end_date and today > trial_end_date:
-                # Suspend the website (regenerate with suspended template)
+                # Check if already suspended
+                current_website_status = content_data.get('website_status')
+                current_status = content_data.get('status', '')
+                
+                if current_website_status == 'suspended' or current_status == 'suspended':
+                    logger.info(f"Website {folder_name} already suspended - skipping regeneration")
+                    continue
+                
                 # Only suspend if it's actually a trial website
                 is_trial = content_data.get('trial_info', {}).get('is_trial', False)
-                current_status = content_data.get('status', '')
                 
                 if is_trial or current_status == 'trial':
                     logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end_date})")
-                    
+        
                     success = regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir, trial_end)
                     if success:
                         stats['suspended'] += 1
