@@ -47,6 +47,28 @@ def get_all_website_folders_from_s3(s3_client, bucket):
         logger.error(f"Error listing S3 folders: {e}")
         return []
 
+def get_all_website_folders_from_github(gh_pages_path):
+    """Get list of all website folders from GitHub Pages."""
+    try:
+        clients_dir = Path(gh_pages_path) / "clients"
+        folders = set()
+        
+        if not clients_dir.exists():
+            logger.info("No clients directory found in GitHub Pages")
+            return []
+        
+        # Get all directories in clients folder
+        for item in clients_dir.iterdir():
+            if item.is_dir() and not item.name.startswith('.'):
+                folders.add(item.name)
+        
+        logger.info(f"Found {len(folders)} website folders in GitHub Pages")
+        return list(folders)
+        
+    except Exception as e:
+        logger.error(f"Error listing GitHub Pages folders: {e}")
+        return []
+
 def get_website_dates_from_s3(s3_client, bucket, folder_name):
     """Download and parse content.json to get trial dates."""
     try:
@@ -330,11 +352,25 @@ def cleanup_expired_websites():
     today = datetime.now().date()
     logger.info(f"Starting cleanup for date: {today}")
     
-    # Get all website folders
-    website_folders = get_all_website_folders_from_s3(s3_client, bucket)
-    
+    # Get all website folders from BOTH S3 and GitHub Pages
+    s3_folders = get_all_website_folders_from_s3(s3_client, bucket)
+
+    # Get gh-pages path
+    gh_pages_path = os.environ.get('GH_PAGES_PATH')
+    github_folders = []
+    if gh_pages_path:
+        github_folders = get_all_website_folders_from_github(gh_pages_path)
+    else:
+        logger.warning("GH_PAGES_PATH not set - cannot check GitHub folders")
+
+    # Create union of both sets to ensure we check all folders
+    all_folders = set(s3_folders + github_folders)
+    website_folders = list(all_folders)
+
+    logger.info(f"Total unique folders to check: {len(website_folders)} (S3: {len(s3_folders)}, GitHub: {len(github_folders)})")
+
     if not website_folders:
-        logger.info("No website folders found")
+        logger.info("No website folders found in either S3 or GitHub Pages")
         return True
     
     # Track cleanup statistics
@@ -350,6 +386,19 @@ def cleanup_expired_websites():
         try:
             stats['total_checked'] += 1
             logger.info(f"Processing website: {folder_name}")
+            
+            # If folder doesn't exist in S3 but exists in GitHub, handle as orphaned
+            if folder_name not in s3_folders:
+                logger.info(f"Folder {folder_name} exists in GitHub but not in S3 - treating as orphaned")
+                # Delete orphaned GitHub folder
+                github_deleted = safe_delete_github_folder(folder_name)
+                if github_deleted:
+                    logger.info(f"Cleaned up orphaned GitHub folder: {folder_name}")
+                    stats['deleted'] += 1
+                else:
+                    logger.error(f"Failed to delete orphaned GitHub folder: {folder_name}")
+                    stats['errors'] += 1
+                continue  # Skip further processing for this folder
             
             # Get website dates
             date_info = get_website_dates_from_s3(s3_client, bucket, folder_name)
@@ -382,7 +431,7 @@ def cleanup_expired_websites():
             
             # Decision logic
             if deletion_date_obj and today >= deletion_date_obj:
-                # Delete the website completely
+                # Delete the website completely from both S3 and GitHub
                 logger.info(f"Deleting expired website: {folder_name} (deletion date: {deletion_date_obj})")
                 
                 s3_deleted = safe_delete_s3_folder(s3_client, bucket, folder_name)
@@ -392,19 +441,9 @@ def cleanup_expired_websites():
                     logger.info(f"Successfully deleted website: {folder_name}")
                     stats['deleted'] += 1
                 else:
-                    logger.error(f"Partial deletion failure for {folder_name}")
+                    logger.error(f"Partial deletion failure for {folder_name} (S3: {s3_deleted}, GitHub: {github_deleted})")
                     stats['errors'] += 1
                     
-            # elif trial_end_date and today > trial_end_date:
-            #     # Suspend the website (regenerate with suspended template)
-            #     # Only suspend if it's actually a trial website
-            #     is_trial = content_data.get('trial_info', {}).get('is_trial', False)
-            #     current_status = content_data.get('status', '')
-                
-            #     if is_trial or current_status == 'trial':
-            #         logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end_date})")
-
-
             elif trial_end_date and today > trial_end_date:
                 # Check if already suspended
                 current_website_status = content_data.get('website_status')
