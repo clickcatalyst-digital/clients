@@ -126,6 +126,8 @@ def safe_delete_s3_folder(s3_client, bucket, folder_name):
 def safe_delete_github_folder(folder_name):
     """Safely delete a website folder from GitHub Pages."""
     try:
+        import subprocess
+        
         # Validate folder name
         if not re.match(r'^[a-zA-Z0-9\-_]+$', folder_name):
             logger.error(f"Invalid GitHub folder name format: {folder_name}")
@@ -150,21 +152,68 @@ def safe_delete_github_folder(folder_name):
         shutil.rmtree(folder_path)
         logger.info(f"Successfully deleted GitHub folder: {folder_name}")
         
-        # Commit the deletion
-        import subprocess
+        # Commit and push the deletion with proper error handling
         try:
+            # Save original directory
+            original_cwd = os.getcwd()
+            
+            # Change to gh-pages directory
             os.chdir(gh_pages_path)
-            subprocess.run(['git', 'config', 'user.name', 'GitHub Actions'], check=True)
-            subprocess.run(['git', 'config', 'user.email', 'actions@github.com'], check=True)
-            subprocess.run(['git', 'add', '-A'], check=True)
-            subprocess.run(['git', 'commit', '-m', f'Delete expired website: {folder_name}'], check=True)
-            subprocess.run(['git', 'push', 'origin', 'gh-pages'], check=True)
-            logger.info(f"Successfully committed deletion of {folder_name}")
+            logger.info(f"Changed to directory: {gh_pages_path}")
+            
+            # Configure git
+            subprocess.run(['git', 'config', 'user.name', 'GitHub Actions'], 
+                         check=True, capture_output=True, text=True)
+            subprocess.run(['git', 'config', 'user.email', 'actions@github.com'], 
+                         check=True, capture_output=True, text=True)
+            logger.info("Git config set successfully")
+            
+            # Add all changes
+            add_result = subprocess.run(['git', 'add', '-A'], 
+                                      check=True, capture_output=True, text=True)
+            logger.info(f"Git add completed: {add_result.stdout}")
+            
+            # Check if there are changes to commit
+            status_result = subprocess.run(['git', 'status', '--porcelain'], 
+                                         capture_output=True, text=True, check=True)
+            
+            if not status_result.stdout.strip():
+                logger.info(f"No changes to commit for {folder_name} deletion")
+                return True
+            
+            logger.info(f"Changes detected: {status_result.stdout}")
+            
+            # Commit changes
+            commit_result = subprocess.run([
+                'git', 'commit', '-m', f'Delete expired website: {folder_name}'
+            ], check=True, capture_output=True, text=True)
+            logger.info(f"Git commit successful: {commit_result.stdout}")
+            
+            # Push changes
+            push_result = subprocess.run([
+                'git', 'push', 'origin', 'gh-pages'
+            ], check=True, capture_output=True, text=True)
+            logger.info(f"Git push successful: {push_result.stdout}")
+            
+            logger.info(f"Successfully committed and pushed deletion of {folder_name}")
+            return True
+            
         except subprocess.CalledProcessError as e:
-            logger.error(f"Git commit/push failed: {e}")
-            # Don't return False here - the deletion succeeded, just the commit failed
-        
-        return True
+            logger.error(f"Git operation failed for {folder_name}")
+            logger.error(f"Command: {e.cmd}")
+            logger.error(f"Return code: {e.returncode}")
+            logger.error(f"Stdout: {e.stdout}")
+            logger.error(f"Stderr: {e.stderr}")
+            return False
+        except Exception as e:
+            logger.error(f"Unexpected error during git operations: {e}")
+            return False
+        finally:
+            # Always restore original directory
+            try:
+                os.chdir(original_cwd)
+            except Exception as restore_error:
+                logger.error(f"Failed to restore original directory: {restore_error}")
         
     except Exception as e:
         logger.error(f"Error deleting GitHub folder {folder_name}: {e}")
