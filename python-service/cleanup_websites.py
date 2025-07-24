@@ -161,47 +161,12 @@ def safe_delete_github_folder(folder_name):
             logger.error("GH_PAGES_PATH environment variable not set")
             return False
         
-        # DEBUG: Check what's actually in the gh-pages checkout
-        logger.info(f"GH_PAGES_PATH: {gh_pages_path}")
-        gh_pages_root = Path(gh_pages_path)
-        logger.info(f"GH pages root exists: {gh_pages_root.exists()}")
-
-        if gh_pages_root.exists():
-            logger.info(f"Contents of {gh_pages_path}:")
-            try:
-                for item in gh_pages_root.iterdir():
-                    logger.info(f"  - {item.name} ({'dir' if item.is_dir() else 'file'})")
-            except Exception as e:
-                logger.error(f"Error listing gh-pages root: {e}")
-
-        clients_dir = gh_pages_root / "clients"
-        logger.info(f"Clients dir exists: {clients_dir.exists()}")
-
-        if clients_dir.exists():
-            logger.info(f"Contents of clients directory:")
-            try:
-                for item in clients_dir.iterdir():
-                    logger.info(f"  - {item.name} ({'dir' if item.is_dir() else 'file'})")
-            except Exception as e:
-                logger.error(f"Error listing clients dir: {e}")
-        
-        # Construct folder path with better logging
+        # Construct folder path
         folder_path = Path(gh_pages_path) / folder_name
-        logger.info(f"Looking for folder: {folder_path}")
-        logger.info(f"Absolute path: {folder_path.absolute()}")
         
-        # Check if clients directory exists first
-        if not clients_dir.exists():
-            logger.warning(f"Clients directory doesn't exist: {clients_dir}")
-            logger.info(f"Creating clients directory...")
-            clients_dir.mkdir(parents=True, exist_ok=True)
-            logger.info(f"GitHub folder {folder_name} doesn't exist (clients dir was missing)")
-            return True
-
         # Check if specific folder exists
         if not folder_path.exists():
             logger.info(f"GitHub folder {folder_name} already deleted or doesn't exist")
-            logger.info(f"Checked path: {folder_path.absolute()}")
             return True
         
         # Safe to delete
@@ -215,19 +180,16 @@ def safe_delete_github_folder(folder_name):
             
             # Change to gh-pages directory
             os.chdir(gh_pages_path)
-            logger.info(f"Changed to directory: {gh_pages_path}")
             
             # Configure git
             subprocess.run(['git', 'config', 'user.name', 'GitHub Actions'], 
                          check=True, capture_output=True, text=True)
             subprocess.run(['git', 'config', 'user.email', 'actions@github.com'], 
                          check=True, capture_output=True, text=True)
-            logger.info("Git config set successfully")
             
             # Add all changes
-            add_result = subprocess.run(['git', 'add', '-A'], 
-                                      check=True, capture_output=True, text=True)
-            logger.info(f"Git add completed: {add_result.stdout}")
+            subprocess.run(['git', 'add', '-A'], 
+                          check=True, capture_output=True, text=True)
             
             # Check if there are changes to commit
             status_result = subprocess.run(['git', 'status', '--porcelain'], 
@@ -237,29 +199,21 @@ def safe_delete_github_folder(folder_name):
                 logger.info(f"No changes to commit for {folder_name} deletion")
                 return True
             
-            logger.info(f"Changes detected: {status_result.stdout}")
-            
             # Commit changes
-            commit_result = subprocess.run([
+            subprocess.run([
                 'git', 'commit', '-m', f'Delete expired website: {folder_name}'
             ], check=True, capture_output=True, text=True)
-            logger.info(f"Git commit successful: {commit_result.stdout}")
             
             # Push changes
-            push_result = subprocess.run([
+            subprocess.run([
                 'git', 'push', 'origin', 'gh-pages'
             ], check=True, capture_output=True, text=True)
-            logger.info(f"Git push successful: {push_result.stdout}")
             
             logger.info(f"Successfully committed and pushed deletion of {folder_name}")
             return True
             
         except subprocess.CalledProcessError as e:
-            logger.error(f"Git operation failed for {folder_name}")
-            logger.error(f"Command: {e.cmd}")
-            logger.error(f"Return code: {e.returncode}")
-            logger.error(f"Stdout: {e.stdout}")
-            logger.error(f"Stderr: {e.stderr}")
+            logger.error(f"Git operation failed for {folder_name}: {e.stderr}")
             return False
         except Exception as e:
             logger.error(f"Unexpected error during git operations: {e}")
@@ -378,22 +332,21 @@ def cleanup_expired_websites():
         'total_checked': 0,
         'suspended': 0,
         'deleted': 0,
-        'errors': 0
+        'errors': 0,
+        'orphaned_cleaned': 0
     }
     
     # Process each website
     for folder_name in website_folders:
         try:
             stats['total_checked'] += 1
-            logger.info(f"Processing website: {folder_name}")
             
             # If folder doesn't exist in S3 but exists in GitHub, handle as orphaned
             if folder_name not in s3_folders:
-                logger.info(f"Folder {folder_name} exists in GitHub but not in S3 - treating as orphaned")
-                # Delete orphaned GitHub folder
+                logger.info(f"Cleaning orphaned GitHub folder: {folder_name}")
                 github_deleted = safe_delete_github_folder(folder_name)
                 if github_deleted:
-                    logger.info(f"Cleaned up orphaned GitHub folder: {folder_name}")
+                    stats['orphaned_cleaned'] += 1
                     stats['deleted'] += 1
                 else:
                     logger.error(f"Failed to delete orphaned GitHub folder: {folder_name}")
@@ -403,9 +356,7 @@ def cleanup_expired_websites():
             # Get website dates
             date_info = get_website_dates_from_s3(s3_client, bucket, folder_name)
             if not date_info:
-                logger.warning(f"Skipping {folder_name} - no date information")
-                # Don't count missing content.json as an error - it's normal for system folders
-                continue
+                continue  # Skip folders without content.json
             
             trial_end = date_info['trial_end']
             content_data = date_info['content_data']
@@ -427,7 +378,7 @@ def cleanup_expired_websites():
                     deletion_date_obj = trial_end_date + timedelta(days=60)
                     
                 except ValueError as e:
-                    logger.warning(f"Invalid trial_end format for {folder_name}: {trial_end} - {e}")
+                    logger.warning(f"Invalid trial_end format for {folder_name}: {trial_end}")
             
             # Decision logic
             if deletion_date_obj and today >= deletion_date_obj:
@@ -450,8 +401,7 @@ def cleanup_expired_websites():
                 current_status = content_data.get('status', '')
                 
                 if current_website_status == 'suspended' or current_status == 'suspended':
-                    logger.info(f"Website {folder_name} already suspended - skipping regeneration")
-                    continue
+                    continue  # Already suspended
                 
                 # Only suspend if it's actually a trial website
                 is_trial = content_data.get('trial_info', {}).get('is_trial', False)
@@ -464,23 +414,17 @@ def cleanup_expired_websites():
                         stats['suspended'] += 1
                     else:
                         stats['errors'] += 1
-                else:
-                    logger.info(f"Website {folder_name} has trial_end but is not a trial - skipping suspension")
-                    
-            else:
-                # Website is still active
-                logger.info(f"Website {folder_name} is still active")
                 
         except Exception as e:
             logger.error(f"Error processing website {folder_name}: {e}")
             stats['errors'] += 1
-            # Continue processing other websites instead of stopping
             continue
     
     # Log final statistics
     logger.info(f"Cleanup completed. Stats: {stats}")
     
     return stats['errors'] == 0
+
 
 if __name__ == '__main__':
     success = cleanup_expired_websites()
