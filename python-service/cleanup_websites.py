@@ -186,7 +186,7 @@ def safe_delete_github_folder(folder_name):
                 logger.error(f"Error listing clients dir: {e}")
         
         # Construct folder path with better logging
-        folder_path = Path(gh_pages_path) / "clients" / folder_name
+        folder_path = Path(gh_pages_path) / folder_name
         logger.info(f"Looking for folder: {folder_path}")
         logger.info(f"Absolute path: {folder_path.absolute()}")
         
