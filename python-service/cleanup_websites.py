@@ -229,6 +229,7 @@ def safe_delete_github_folder(folder_name):
         logger.error(f"Error deleting GitHub folder {folder_name}: {e}")
         return False
 
+
 def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir, trial_end=None):
     """Regenerate a website with suspended template."""
     try:
@@ -260,10 +261,7 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
             ContentType='application/json',
             ContentEncoding='gzip'
         )
-        logger.info(f"Updated S3 content.json.gz with suspended status for {folder_name}")
-
-        # DEBUG: Check what we just saved
-        logger.info(f"DEBUG: Saved content_data with status: {content_data.get('status')} and website_status: {content_data.get('website_status')}")
+        logger.info(f"Updated S3 content.json with suspended status for {folder_name}")
 
         # Generate the website (will use suspended template due to status)
         result = generate_website(
@@ -276,8 +274,6 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
             templates_dir=templates_dir
         )
         
-        logger.info(f"DEBUG: generate_website result: {result}")
-        
         if result['success']:
             logger.info(f"Successfully regenerated suspended website: {folder_name}")
             return True
@@ -289,60 +285,6 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
         logger.error(f"Error regenerating suspended website {folder_name}: {e}")
         return False
 
-# def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir, trial_end=None):
-#     """Regenerate a website with suspended template."""
-#     try:
-#         from website_generator import generate_website
-        
-#         # Add suspension flag to content data
-#         content_data['website_status'] = 'suspended'
-#         content_data['status'] = 'suspended'  # Also update main status
-#         content_data['lastUpdated'] = datetime.now().isoformat()
-
-#         # Add trial_end for template countdown (use parameter first, fallback to content_data)
-#         if trial_end:
-#             content_data['trial_end'] = trial_end
-#         elif 'trial_info' in content_data and 'trial_end' in content_data['trial_info']:
-#             content_data['trial_end'] = content_data['trial_info']['trial_end']
-#         else:
-#             logger.warning(f"No trial_end found for {folder_name} - countdown will not work")
-        
-#         # UPDATE S3 CONTENT.JSON WITH SUSPENDED FLAG
-#         content_key = f"{folder_name}/content.json"
-#         json_string = json.dumps(content_data, indent=2)
-#         json_bytes = json_string.encode('utf-8')
-#         gzipped_bytes = gzip.compress(json_bytes)
-        
-#         s3_client.put_object(
-#             Bucket=bucket,
-#             Key=content_key,
-#             Body=gzipped_bytes,
-#             ContentType='application/json',
-#             ContentEncoding='gzip'
-#         )
-#         logger.info(f"Updated S3 content.json with suspended status for {folder_name}")
-
-#         # Generate the website (will use suspended template due to status)
-#         result = generate_website(
-#             aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-#             aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-#             aws_region=os.environ.get('AWS_REGION'),
-#             bucket=bucket,
-#             folder_name=folder_name,
-#             website_id=content_data.get('websiteId', folder_name),
-#             templates_dir=templates_dir
-#         )
-        
-#         if result['success']:
-#             logger.info(f"Successfully regenerated suspended website: {folder_name}")
-#             return True
-#         else:
-#             logger.error(f"Failed to regenerate suspended website {folder_name}: {result['message']}")
-#             return False
-            
-#     except Exception as e:
-#         logger.error(f"Error regenerating suspended website {folder_name}: {e}")
-#         return False
 
 def cleanup_expired_websites():
     """Main cleanup function that processes all websites."""
