@@ -7,24 +7,20 @@
 
     
     
-    <meta name="description" content="dasasdsad. dfsdsfdsf...">
-    <meta name="author" content="trial-x">
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="profile">
-    <meta property="profile:first_name" content="trial-x">
-    
-    <meta property="og:title" content="trial-x - dasasdsad">
-    <meta property="og:description" content="dfsdsfdsf...">
-    
+    <meta name="description" content="This website trial has expired and is currently suspended.">
+    <meta name="robots" content="noindex, nofollow">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Website Suspended - trial-x">
+    <meta property="og:description" content="This website trial has expired and is currently suspended.">
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="trial-x - dasasdsad">
-    <meta name="twitter:description" content="dfsdsfdsf...">
-    
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:title" content="Website Suspended - trial-x">
+    <meta property="twitter:description" content="This website trial has expired and is currently suspended.">
 
 
     
-    <title>trial-x - dasasdsad</title>
+    <title>Website Suspended - trial-x</title>
 
     
     <link rel="stylesheet" href="styles.css"> <!-- Link to compiled Tailwind CSS -->
@@ -490,77 +486,111 @@
         /* Template-specific overrides can go in their own style blocks or files */
         
     <style>
-        /* Refined styles for resume sections */
-        body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; }
-        h1, h2, h3, h4 { font-weight: 700; color: #111827; } /* Bolder headings */
-        .section-divider { width: 60px; margin-bottom: 1.5rem; } /* Smaller divider */
-
-        .experience-item, .education-item {
-            padding-bottom: 1.5rem; /* pb-6 */
-            margin-bottom: 1.5rem; /* mb-6 */
-            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+        body { 
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        .experience-item:last-child, .education-item:last-child {
-            border-bottom: none;
-            margin-bottom: 0;
-            padding-bottom: 0;
+        
+        .suspended-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 3rem;
+            text-align: center;
+            max-width: 500px;
+            margin: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        .skills-list span {
+        
+        .suspended-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .dashboard-button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.875rem 2rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .dashboard-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+            text-decoration: none;
+            color: white;
+        }
+        
+        .feature-list {
+            text-align: left;
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+            color: #4b5563;
+        }
+        
+        .feature-icon {
+            width: 20px;
+            height: 20px;
+            background: #10b981;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+        
+        .countdown-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
             display: inline-block;
-            background-color: var(--color-primary);
-            background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
-            color: color-mix(in srgb, var(--color-primary) 70%, black);
-            font-size: 0.875rem; /* text-sm */
-            font-weight: 500; /* medium */
-            padding: 0.25rem 0.75rem; /* px-3 py-1 */
-            border-radius: 9999px; /* rounded-full */
-            transition: all 0.2s ease-in-out;
-         }
-        .skills-list span:hover {
-             transform: scale(1.05);
-             background-color: var(--color-primary); 
-             color: var(--color-text-on-primary); 
-             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-         }
-        .certification-item {
-             padding: 0.75rem 0;
-             border-bottom: 1px dashed #d1d5db; /* Dashed border */
         }
-         .certification-item:last-child {
-             border-bottom: none;
-         }
-
-         /* Hero styling */
-        .hero-section h1 { color: var(--color-text-on-gradient); text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
-        .hero-section p { color: var(--color-text-on-gradient); opacity: 0.9; text-shadow: 1px 1px 2px rgba(0,0,0,0.2); }
     </style>
-     
 
 
     </style>
 
     
     
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "trial-x",
-      "url": "#",
-      "description": "dasasdsad",
-      
-      "email": "pujan10sept@gmail.com",
-      
-      "jobTitle": "dasasdsad",
-      
-      
-      
-      
-      
-      
-    }
-    </script>
-
 
 </head>
 <body class="text-base antialiased"> 
@@ -569,84 +599,89 @@
 
     
     
-    <header class="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-200">
-        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <div class="ml-3">
-                        <a href="#" class="text-lg font-bold text-gray-800 hover:text-primary transition-colors">trial-x</a>
-                    </div>
-                </div>
-                <div class="hidden md:flex md:items-center md:space-x-5 lg:space-x-7">
-                    <a href="#about" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">About</a>
-                    
-                    
-                    
-                    <a href="#contact" class="text-sm font-medium text-gray-600 hover:text-primary transition-colors pb-1 border-b-2 border-transparent hover:border-primary">Contact</a>
-                    
-                    
-                </div>
-                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" aria-expanded="false" aria-controls="mobile-menu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary">
-                        <span class="sr-only">Open main menu</span>
-                        <svg class="h-6 w-6"><use href="#icon-menu" /></svg>
-                    </button>
-                </div>
-            </div>
-        </nav>
-         <!-- Mobile menu Container -->
-        <div id="mobile-menu" class="mobile-menu hidden md:hidden absolute top-full inset-x-0 p-2 transition transform origin-top shadow-lg bg-white ring-1 ring-black ring-opacity-5 z-30">
-             <div class="px-2 pt-2 pb-3 space-y-1">
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">About</a>
-                
-                
-                
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 transition-colors">Contact</a>
-                
-                
-             </div>
-        </div>
-    </header>
-
 
     
     <main id="main-content">
         
-    <!-- Hero Section -->
-    <section class="hero-section bg-gradient-primary py-20 md:py-28 px-4 sm:px-6 lg:px-8 text-contrast-gradient fade-in" id="main-content">
-         <div class="max-w-4xl mx-auto text-center">
-              
-             <h1 class="text-4xl sm:text-5xl font-bold tracking-tight mb-2 hero-text-shadow">trial-x</h1>
-             <p class="text-xl sm:text-2xl max-w-2xl mx-auto opacity-90 mb-8 hero-text-shadow">dasasdsad</p>
-             <div class="flex flex-wrap justify-center gap-3 sm:gap-4">
-                 <a href="#contact" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary bg-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-primary focus:ring-white transition-all transform hover:scale-105">
-                     <svg class="h-5 w-5 mr-2"><use href="#icon-mail" /></svg>
-                     Contact Me
-                 </a>
-                 
-                 
-             </div>
-         </div>
-    </section>
+    <div class="suspended-container">
+        <!-- Suspension Icon -->
+        <div class="suspended-icon pulse-animation">
+            <svg width="40" height="40" fill="white" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        </div>
 
-    <!-- About Section -->
-    <section id="about" class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gray-50"> 
-        <div class="max-w-4xl mx-auto reveal">
-            <h2 class="text-2xl sm:text-3xl font-bold text-center text-gray-900 mb-3">About Me</h2>
-            <div class="section-divider"></div>
-            <p class="text-base md:text-lg text-gray-700 leading-relaxed text-center">dfsdsfdsf</p>
-         </div>
-    </section>
+        <!-- Countdown Badge (if trial recently expired) -->
+        <div class="countdown-badge">
+            Trial Expired
+        </div>
 
-    <!-- Work Experience Section -->
-    
+        <!-- Main Heading -->
+        <h1 class="text-2xl font-bold text-gray-900 mb-3">
+            Website Temporarily Suspended
+        </h1>
+        
+        <!-- Subtitle -->
+        <p class="text-gray-600 mb-6 leading-relaxed">
+            The free trial for <strong>trial-x</strong> has ended. 
+            Don't worry - your data is safe and can be reactivated instantly!
+        </p>
 
-    <!-- Education Section -->
-    
+        <!-- Features List -->
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>Instant website reactivation</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>All your content is preserved</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>One-time payment, lifetime hosting</span>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <svg width="12" height="12" fill="white" viewBox="0 0 24 24">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                </div>
+                <span>Custom domain support included</span>
+            </div>
+        </div>
 
-    <!-- Skills & Certifications Section -->
-    
+        <!-- Call to Action -->
+        <a href="https://clickcatalyst-digital.github.io/clients/web-dashboard" 
+           class="dashboard-button"
+           target="_blank"
+           rel="noopener noreferrer">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="margin-right: 0.5rem;">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Reactivate Your Website
+        </a>
 
+        <!-- Fine Print -->
+        <p class="text-xs text-gray-500 mt-6 leading-relaxed">
+            Need help? Contact us at 
+            <a href="mailto:support@clickcatalyst.digital" class="text-blue-600 hover:underline">
+                support@clickcatalyst.digital
+            </a>
+        </p>
+    </div>
 
     </main>
 
