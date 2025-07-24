@@ -1,100 +1,104 @@
 name: Weekly Website Cleanup
 permissions:
-  contents: write    # Needed for checkout and cleanup operations
-  pages: write       # Needed for gh-pages deploy after cleanup
-  id-token: write    # May be needed for security
-
+ contents: write    # Needed for checkout and cleanup operations
+ pages: write       # Needed for gh-pages deploy after cleanup
+ id-token: write    # May be needed for security
 on:
-  schedule:
-    # Run every Saturday at 2 AM UTC
-    - cron: '0 2 * * 6'
-  
-  # Allow manual triggering for testing
-  workflow_dispatch:
-    inputs:
-      dry_run:
-        description: 'Run in dry-run mode (log actions without executing)'
-        required: false
-        default: 'false'
-        type: choice
-        options:
-          - 'true'
-          - 'false'
-
+ schedule:
+   # Run every Saturday at 2 AM UTC
+   - cron: '0 2 * * 6'
+ 
+ # Allow manual triggering for testing
+ workflow_dispatch:
+   inputs:
+     dry_run:
+       description: 'Run in dry-run mode (log actions without executing)'
+       required: false
+       default: 'false'
+       type: choice
+       options:
+         - 'true'
+         - 'false'
 # Prevent multiple cleanup jobs from running simultaneously
 concurrency:
-  group: website-cleanup
-  cancel-in-progress: false
-
+ group: website-cleanup
+ cancel-in-progress: false
 jobs:
-  cleanup-websites:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-          
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          
-      - name: Install Node.js Dependencies
-        run: npm install
-        shell: bash
-        
-      - name: Compile Tailwind CSS
-        run: npx tailwindcss -i ./src/input.css -o ./python-service/templates/styles.css --content "./python-service/templates/**/*.html" --minify
-        shell: bash
-        
-      - name: Install Python dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-        shell: bash
-        
-      - name: Run Website Cleanup
-        id: cleanup
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
-          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
-        run: |
-          echo "🧹 Starting website cleanup..."
-          echo "Dry run mode: $DRY_RUN"
-          echo "S3 Bucket: $S3_BUCKET_NAME"
-          echo "AWS Region: $AWS_REGION"
-          python python-service/cleanup_websites.py
-        shell: bash
-        
-      - name: Deploy Updated Sites to GitHub Pages
-        id: deploy
-        # Only deploy if cleanup made changes (suspended sites were regenerated)
-        if: steps.cleanup.outcome == 'success'
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./clients
-          keep_files: true
-          commit_message: 'Weekly cleanup: suspended expired trials and deleted old websites'
-          
-      - name: Cleanup Summary
-        if: always()
-        run: |
-          echo "=== Weekly Cleanup Summary ==="
-          echo "Cleanup Status: ${{ steps.cleanup.outcome }}"
-          echo "Deploy Status: ${{ steps.deploy.outcome }}"
-          echo "Timestamp: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
-          
-          if [ "${{ steps.cleanup.outcome }}" == "failure" ]; then
-            echo "❌ Cleanup failed - check logs above"
-            exit 1
-          else
-            echo "✅ Cleanup completed successfully"
-          fi
+ cleanup-websites:
+   runs-on: ubuntu-latest
+   steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+       
+     - name: Checkout gh-pages branch for deletion
+       uses: actions/checkout@v3
+       with:
+         ref: gh-pages
+         path: gh-pages-temp
+       
+     - name: Set up Python
+       uses: actions/setup-python@v4
+       with:
+         python-version: '3.9'
+         
+     - name: Set up Node.js
+       uses: actions/setup-node@v3
+       with:
+         node-version: '18'
+         
+     - name: Install Node.js Dependencies
+       run: npm install
+       shell: bash
+       
+     - name: Compile Tailwind CSS
+       run: npx tailwindcss -i ./src/input.css -o ./python-service/templates/styles.css --content "./python-service/templates/**/*.html" --minify
+       shell: bash
+       
+     - name: Install Python dependencies
+       run: |
+         python -m pip install --upgrade pip
+         pip install -r requirements.txt
+       shell: bash
+       
+     - name: Run Website Cleanup
+       id: cleanup
+       env:
+         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+         AWS_REGION: ${{ secrets.AWS_REGION }}
+         S3_BUCKET_NAME: ${{ secrets.S3_BUCKET_NAME }}
+         DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+         GH_PAGES_PATH: ${{ github.workspace }}/gh-pages-temp
+       run: |
+         echo "🧹 Starting website cleanup..."
+         echo "Dry run mode: $DRY_RUN"
+         echo "S3 Bucket: $S3_BUCKET_NAME"
+         echo "AWS Region: $AWS_REGION"
+         python python-service/cleanup_websites.py
+       shell: bash
+       
+     - name: Deploy Updated Sites to GitHub Pages
+       id: deploy
+       # Only deploy if cleanup made changes (suspended sites were regenerated)
+       if: steps.cleanup.outcome == 'success'
+       uses: peaceiris/actions-gh-pages@v3
+       with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
+         publish_dir: ./clients
+         keep_files: true
+         commit_message: 'Weekly cleanup: suspended expired trials and deleted old websites'
+         
+     - name: Cleanup Summary
+       if: always()
+       run: |
+         echo "=== Weekly Cleanup Summary ==="
+         echo "Cleanup Status: ${{ steps.cleanup.outcome }}"
+         echo "Deploy Status: ${{ steps.deploy.outcome }}"
+         echo "Timestamp: $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+         
+         if [ "${{ steps.cleanup.outcome }}" == "failure" ]; then
+           echo "❌ Cleanup failed - check logs above"
+           exit 1
+         else
+           echo "✅ Cleanup completed successfully"
+         fi
