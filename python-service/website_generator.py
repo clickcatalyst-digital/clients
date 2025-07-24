@@ -282,6 +282,23 @@ def render_template_v2(jinja_env, template_data):
                 logger.info(f"Trial expired based on date calculation")
         except (ValueError, TypeError):
             logger.warning(f"Invalid trial_end format: {template_data.get('trial_end')}")
+
+    # Add Colors
+    palette_id = template_data.get("color_palette", "default")
+    selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
+    selected_colors.setdefault('background', '#FFFFFF')
+    selected_colors.setdefault('text', '#333333')
+
+    light_contrast = selected_colors['background']
+    dark_contrast = selected_colors['text']
+
+    selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
+    selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
+    selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
+    selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast)
+
+    template_data["colors"] = selected_colors
+    logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
     
     # Use suspended template if needed
     if website_status == 'suspended':
@@ -324,23 +341,6 @@ def render_template_v2(jinja_env, template_data):
     except Exception as e_load_primary:
         logger.error(f"Failed to load primary template '{primary_template_name}': {e_load_primary}")
         return generate_error_html(f"Error loading primary template: {str(e_load_primary)}")
-
-    # Add Colors
-    palette_id = template_data.get("color_palette", "default")
-    selected_colors = COLOR_SCHEMES.get(palette_id, COLOR_SCHEMES["default"]).copy()
-    selected_colors.setdefault('background', '#FFFFFF')
-    selected_colors.setdefault('text', '#333333')
-
-    light_contrast = selected_colors['background']
-    dark_contrast = selected_colors['text']
-
-    selected_colors['text_on_primary'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
-    selected_colors['text_on_secondary'] = get_contrast_color(selected_colors.get('secondary'), light_contrast, dark_contrast)
-    selected_colors['text_on_gradient'] = get_contrast_color(selected_colors.get('primary'), light_contrast, dark_contrast)
-    selected_colors['text_on_dark'] = get_contrast_color(dark_contrast, light_contrast, dark_contrast)
-
-    template_data["colors"] = selected_colors
-    logger.info(f"Applied color palette: {palette_id} with calculated contrasts")
 
     # Render the loaded template
     try:
