@@ -197,7 +197,7 @@
         </div>
 
         <!-- Countdown Badge -->
-        <div class="countdown-badge">
+        <div class="countdown-badge" id="countdown-badge">
             Trial Expired
         </div>
 
@@ -205,7 +205,7 @@
         <h1>Website Temporarily Suspended</h1>
         
         <!-- Subtitle -->
-        <p class="subtitle">
+        <p class="subtitle" id="subtitle-text">
             The free trial for <strong>trial-x</strong> has ended. 
             Your data is safe and can be reactivated instantly!
         </p>
@@ -257,3 +257,34 @@
             Reactivate Your Website
         </a>
     </div>
+    <!-- Dynamic Countdown Script -->
+    <script>
+        
+        const trialEndDate = new Date('2025-06-19T01:36:57.275622');
+        const deletionDate = new Date(trialEndDate.getTime() + (60 * 24 * 60 * 60 * 1000));
+    
+        function updateCountdown() {
+            const now = new Date();
+            const daysLeft = Math.ceil((deletionDate - now) / (1000 * 60 * 60 * 24));
+            
+            const countdownElement = document.getElementById('countdown-badge');
+            const subtitleElement = document.getElementById('subtitle-text');
+            
+            if (countdownElement && subtitleElement) {
+                if (daysLeft > 0) {
+                    // Show countdown with urgency
+                    countdownElement.textContent = `${daysLeft} Days Left`;
+                    subtitleElement.innerHTML = `The free trial for <strong>trial-x</strong> has ended. <strong>Your data will be permanently deleted in ${daysLeft} days</strong> if not reactivated.`;
+                } else {
+                    // Data already deleted
+                    countdownElement.textContent = 'Data Deleted';
+                    subtitleElement.innerHTML = `The free trial for <strong>trial-x</strong> has ended. <strong>Your data has been permanently deleted.</strong>`;
+                }
+            }
+        }
+    
+        // Update immediately and then daily
+        updateCountdown();
+        setInterval(updateCountdown, 86400000);
+        
+    </script>
