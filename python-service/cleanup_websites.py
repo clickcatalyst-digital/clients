@@ -14,6 +14,7 @@ import boto3
 import shutil
 import re
 import logging
+import gzip
 from pathlib import Path
 from datetime import datetime, timedelta, timedelta
 from website_generator import initialize_s3_client, initialize_jinja_env, extract_content_json, download_from_s3
