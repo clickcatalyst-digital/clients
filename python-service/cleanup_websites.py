@@ -138,14 +138,48 @@ def safe_delete_github_folder(folder_name):
         if not gh_pages_path:
             logger.error("GH_PAGES_PATH environment variable not set")
             return False
-            
+        
+        # DEBUG: Check what's actually in the gh-pages checkout
+        logger.info(f"GH_PAGES_PATH: {gh_pages_path}")
+        gh_pages_root = Path(gh_pages_path)
+        logger.info(f"GH pages root exists: {gh_pages_root.exists()}")
+
+        if gh_pages_root.exists():
+            logger.info(f"Contents of {gh_pages_path}:")
+            try:
+                for item in gh_pages_root.iterdir():
+                    logger.info(f"  - {item.name} ({'dir' if item.is_dir() else 'file'})")
+            except Exception as e:
+                logger.error(f"Error listing gh-pages root: {e}")
+
+        clients_dir = gh_pages_root / "clients"
+        logger.info(f"Clients dir exists: {clients_dir.exists()}")
+
+        if clients_dir.exists():
+            logger.info(f"Contents of clients directory:")
+            try:
+                for item in clients_dir.iterdir():
+                    logger.info(f"  - {item.name} ({'dir' if item.is_dir() else 'file'})")
+            except Exception as e:
+                logger.error(f"Error listing clients dir: {e}")
+        
+        # Construct folder path with better logging
         folder_path = Path(gh_pages_path) / "clients" / folder_name
+        logger.info(f"Looking for folder: {folder_path}")
+        logger.info(f"Absolute path: {folder_path.absolute()}")
         
-        logger.info(f"Looking for GitHub folder at: {folder_path}")
-        
-        # Check if folder exists
+        # Check if clients directory exists first
+        if not clients_dir.exists():
+            logger.warning(f"Clients directory doesn't exist: {clients_dir}")
+            logger.info(f"Creating clients directory...")
+            clients_dir.mkdir(parents=True, exist_ok=True)
+            logger.info(f"GitHub folder {folder_name} doesn't exist (clients dir was missing)")
+            return True
+
+        # Check if specific folder exists
         if not folder_path.exists():
             logger.info(f"GitHub folder {folder_name} already deleted or doesn't exist")
+            logger.info(f"Checked path: {folder_path.absolute()}")
             return True
         
         # Safe to delete
