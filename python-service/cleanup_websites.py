@@ -50,7 +50,7 @@ def get_all_website_folders_from_s3(s3_client, bucket):
 def get_all_website_folders_from_github(gh_pages_path):
     """Get list of all website folders from GitHub Pages."""
     try:
-        clients_dir = Path(gh_pages_path) / "clients"
+        clients_dir = Path(gh_pages_path)
         folders = set()
         
         if not clients_dir.exists():
