@@ -131,27 +131,39 @@ def safe_delete_github_folder(folder_name):
             logger.error(f"Invalid GitHub folder name format: {folder_name}")
             return False
         
-        # Ensure it's in the clients directory
-        folder_path = Path(f"clients/{folder_name}")
-        
-        # Double-check the path is what we expect
-        if not folder_path.parent.name == "clients":
-            logger.error(f"Folder not in clients directory: {folder_path}")
+        # Use gh-pages checkout path from environment
+        gh_pages_path = os.environ.get('GH_PAGES_PATH')
+        if not gh_pages_path:
+            logger.error("GH_PAGES_PATH environment variable not set")
             return False
+            
+        folder_path = Path(gh_pages_path) / "clients" / folder_name
+        
+        logger.info(f"Looking for GitHub folder at: {folder_path}")
         
         # Check if folder exists
         if not folder_path.exists():
             logger.info(f"GitHub folder {folder_name} already deleted or doesn't exist")
             return True
         
-        # Verify it contains expected website files
-        if not (folder_path / "index.html").exists():
-            logger.warning(f"No index.html found in {folder_name} - may not be a website folder")
-            # Continue with deletion anyway
-        
         # Safe to delete
         shutil.rmtree(folder_path)
         logger.info(f"Successfully deleted GitHub folder: {folder_name}")
+        
+        # Commit the deletion
+        import subprocess
+        try:
+            os.chdir(gh_pages_path)
+            subprocess.run(['git', 'config', 'user.name', 'GitHub Actions'], check=True)
+            subprocess.run(['git', 'config', 'user.email', 'actions@github.com'], check=True)
+            subprocess.run(['git', 'add', '-A'], check=True)
+            subprocess.run(['git', 'commit', '-m', f'Delete expired website: {folder_name}'], check=True)
+            subprocess.run(['git', 'push', 'origin', 'gh-pages'], check=True)
+            logger.info(f"Successfully committed deletion of {folder_name}")
+        except subprocess.CalledProcessError as e:
+            logger.error(f"Git commit/push failed: {e}")
+            # Don't return False here - the deletion succeeded, just the commit failed
+        
         return True
         
     except Exception as e:
