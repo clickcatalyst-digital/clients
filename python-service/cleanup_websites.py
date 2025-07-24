@@ -158,7 +158,7 @@ def safe_delete_github_folder(folder_name):
         logger.error(f"Error deleting GitHub folder {folder_name}: {e}")
         return False
 
-def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir):
+def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir, trial_end=None):
     """Regenerate a website with suspended template."""
     try:
         from website_generator import generate_website
@@ -167,6 +167,14 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
         content_data['website_status'] = 'suspended'
         content_data['status'] = 'suspended'  # Also update main status
         content_data['lastUpdated'] = datetime.now().isoformat()
+
+        # Add trial_end for template countdown (use parameter first, fallback to content_data)
+        if trial_end:
+            content_data['trial_end'] = trial_end
+        elif 'trial_info' in content_data and 'trial_end' in content_data['trial_info']:
+            content_data['trial_end'] = content_data['trial_info']['trial_end']
+        else:
+            logger.warning(f"No trial_end found for {folder_name} - countdown will not work")
         
         # UPDATE S3 CONTENT.JSON WITH SUSPENDED FLAG
         content_key = f"{folder_name}/content.json"
@@ -182,10 +190,6 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
             ContentEncoding='gzip'
         )
         logger.info(f"Updated S3 content.json with suspended status for {folder_name}")
-
-        # Add trial dates to content data for template access
-        if trial_end:
-            content_data['trial_end'] = trial_end
 
         # Generate the website (will use suspended template due to status)
         result = generate_website(
@@ -305,7 +309,7 @@ def cleanup_expired_websites():
                 if is_trial or current_status == 'trial':
                     logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end_date})")
                     
-                    success = regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir)
+                    success = regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir, trial_end)
                     if success:
                         stats['suspended'] += 1
                     else:
