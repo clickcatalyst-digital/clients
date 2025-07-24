@@ -248,7 +248,7 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
             logger.warning(f"No trial_end found for {folder_name} - countdown will not work")
         
         # UPDATE S3 CONTENT.JSON WITH SUSPENDED FLAG
-        content_key = f"{folder_name}/content.json.gz"
+        content_key = f"{folder_name}/content.json"
         json_string = json.dumps(content_data, indent=2)
         json_bytes = json_string.encode('utf-8')
         gzipped_bytes = gzip.compress(json_bytes)
