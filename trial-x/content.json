@@ -122,11 +122,11 @@
     "is_trial": true,
     "trial_days": 30,
     "trial_start": "2025-07-24T20:14:41.075Z",
-    "trial_end": "2025-06-20T01:49:49.151802"
+    "trial_end": "2025-06-20T01:53:51.846247"
   },
   "createdAt": "2025-07-24T20:14:43.329Z",
-  "lastUpdated": "2025-07-24T20:20:24.488589",
+  "lastUpdated": "2025-07-24T20:24:32.127753",
   "status": "suspended",
   "website_status": "suspended",
-  "trial_end": "2025-06-20T01:49:49.151802"
+  "trial_end": "2025-06-20T01:53:51.846247"
 }
