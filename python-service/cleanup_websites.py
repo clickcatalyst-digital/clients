@@ -181,8 +181,12 @@ def regenerate_suspended_website(s3_client, bucket, folder_name, content_data, t
             ContentType='application/json',
             ContentEncoding='gzip'
         )
-        logger.info(f"Updated S3 content.json with suspended status for {folder_name}")        
-        
+        logger.info(f"Updated S3 content.json with suspended status for {folder_name}")
+
+        # Add trial dates to content data for template access
+        if trial_end:
+            content_data['trial_end'] = trial_end
+
         # Generate the website (will use suspended template due to status)
         result = generate_website(
             aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
