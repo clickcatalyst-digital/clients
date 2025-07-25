@@ -114,8 +114,8 @@
   "websiteId": "web-mdi7q7aa-cvupmu",
   "githubUsername": "clickcatalyst-digital",
   "folderName": "",
-  "merchantOrderId": "ATTEMPT-1753411428736-47cf044f",
-  "payment_status": "completed",
+  "merchantOrderId": null,
+  "payment_status": null,
   "orderCreatedAt": null,
   "logo_filename": null,
   "logo_filesize": null,
@@ -125,22 +125,14 @@
   "about_image_filesize": null,
   "phone": "",
   "trial_info": {
-    "is_trial": false,
+    "is_trial": true,
     "trial_days": 30,
     "trial_start": "2025-07-25T02:39:11.045Z",
-    "trial_end": "2025-06-20T08:12:19.442913",
-    "converted_to_paid": true,
-    "conversion_date": "2025-07-25T02:44:16.656Z",
-    "original_trial_start": "2025-07-25T02:39:11.045Z",
-    "original_trial_end": "2025-06-20T08:12:19.442913"
+    "trial_end": "2025-05-21T08:17:29.731598"
   },
   "createdAt": "2025-07-25T02:39:12.666Z",
-  "lastUpdated": "2025-07-25T02:44:17.347Z",
-  "status": "paid",
-  "website_status": "active",
-  "trial_end": "2025-06-20T08:12:19.442913",
-  "paidAt": "2025-07-25T02:44:16.656Z",
-  "website_type": "resume",
-  "paid_website": true,
-  "do_not_delete": true
+  "lastUpdated": "2025-07-25T02:48:13.212145",
+  "status": "suspended",
+  "website_status": "suspended",
+  "trial_end": "2025-05-21T08:17:29.731598"
 }
