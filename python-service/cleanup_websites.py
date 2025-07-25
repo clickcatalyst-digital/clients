@@ -389,7 +389,8 @@ def cleanup_expired_websites():
             is_trial = content_data.get('trial_info', {}).get('is_trial', False)
             
             # Decision logic
-            if deletion_date_obj and today >= deletion_date_obj and current_status in ['trial', 'suspended']:
+            if (deletion_date_obj and today >= deletion_date_obj and
+                current_status == 'suspended' and not content_data.get('do_not_delete', False)):
                 # Delete the website completely from both S3 and GitHub
                 logger.info(f"Deleting expired website: {folder_name} (deletion date: {deletion_date_obj})")
                 
@@ -408,7 +409,8 @@ def cleanup_expired_websites():
                 if current_website_status == 'suspended' or current_status == 'suspended':
                     continue  # Already suspended
                 
-                if is_trial or current_status in ['trial', ''] or current_status is None:
+                # Only suspend non-paid trial websites that are past their end date.
+                if current_status != 'paid' and (is_trial or current_status in ['trial', '']):
                     logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end_date})")
         
                     success = regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir, trial_end)
