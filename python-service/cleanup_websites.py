@@ -381,6 +381,12 @@ def cleanup_expired_websites():
                     
                 except ValueError as e:
                     logger.warning(f"Invalid trial_end format for {folder_name}: {trial_end}")
+
+            # Check if already suspended
+            current_website_status = content_data.get('website_status')
+            current_status = content_data.get('status', '')
+            # Only suspend if it's actually a trial website
+            is_trial = content_data.get('trial_info', {}).get('is_trial', False)
             
             # Decision logic
             if deletion_date_obj and today >= deletion_date_obj and current_status in ['trial', 'suspended']:
@@ -398,17 +404,11 @@ def cleanup_expired_websites():
                     stats['errors'] += 1
                     
             elif trial_end_date and today > trial_end_date:
-                # Check if already suspended
-                current_website_status = content_data.get('website_status')
-                current_status = content_data.get('status', '')
                 
                 if current_website_status == 'suspended' or current_status == 'suspended':
                     continue  # Already suspended
                 
-                # Only suspend if it's actually a trial website
-                is_trial = content_data.get('trial_info', {}).get('is_trial', False)
-                
-                if is_trial or current_status == 'trial':
+                if is_trial or current_status in ['trial', ''] or current_status is None:
                     logger.info(f"Suspending expired trial: {folder_name} (trial ended: {trial_end_date})")
         
                     success = regenerate_suspended_website(s3_client, bucket, folder_name, content_data, templates_dir, trial_end)
