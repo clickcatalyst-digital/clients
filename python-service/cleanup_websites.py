@@ -383,7 +383,7 @@ def cleanup_expired_websites():
                     logger.warning(f"Invalid trial_end format for {folder_name}: {trial_end}")
             
             # Decision logic
-            if deletion_date_obj and today >= deletion_date_obj:
+            if deletion_date_obj and today >= deletion_date_obj and current_status in ['trial', 'suspended']:
                 # Delete the website completely from both S3 and GitHub
                 logger.info(f"Deleting expired website: {folder_name} (deletion date: {deletion_date_obj})")
                 
