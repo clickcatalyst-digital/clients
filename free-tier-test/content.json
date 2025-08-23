@@ -125,6 +125,8 @@
     "trial_end": "2025-08-18T21:33:30.460Z"
   },
   "createdAt": "2025-07-19T21:33:32.105Z",
-  "lastUpdated": "2025-07-19T21:33:32.105Z",
-  "status": "trial"
+  "lastUpdated": "2025-08-23T03:00:13.793089",
+  "status": "suspended",
+  "website_status": "suspended",
+  "trial_end": "2025-08-18T21:33:30.460Z"
 }
